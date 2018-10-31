@@ -1,5 +1,5 @@
 package domain.die;
 
-public class Die {
+public abstract class Die {
 
 }
