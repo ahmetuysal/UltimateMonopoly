@@ -1,6 +1,6 @@
 package domain.square;
 
-public class Square {
+public abstract class Square {
 	private String name;
 	private String description;
 	
