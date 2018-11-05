@@ -25,6 +25,14 @@ public class Player {
 		this.cards = new ArrayList<>();
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Player [nickName=" + nickName + "]";
+	}
+
 	/**
 	 * @return The nick name of the player.
 	 */
