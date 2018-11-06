@@ -1,13 +1,13 @@
 package domain;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+import util.Observable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.die.Cup;
 
-public class GameController {
+public class GameController extends Observable {
 
 	private Board board;
 	private Cup cup;
@@ -16,22 +16,11 @@ public class GameController {
 	private Player currentPlayer;
 	private int consecutiveDoubles;
 
-	// contain a support object instead of extending the support class
-	private PropertyChangeSupport pcs;
 
 	public GameController() {
 		board = new Board();
-		pcs = new PropertyChangeSupport(this);
 		cup = new Cup();
 		players = new ArrayList<>();
-	}
-
-	public void addObserver(PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(listener);
-	}
-
-	public void addObserverToProperty(String propertyName, PropertyChangeListener listener) {
-		pcs.addPropertyChangeListener(propertyName, listener);
 	}
 
 	public void playTurn() {
@@ -48,7 +37,7 @@ public class GameController {
 			return;
 		Player old = this.currentPlayer;
 		this.currentPlayer = currentPlayer;
-		pcs.firePropertyChange("currentPlayer", old, currentPlayer);
+		publishPropertyEvent("controller.currentPlayer", old, currentPlayer);
 	}
 
 	public void addPlayer(Player player) {

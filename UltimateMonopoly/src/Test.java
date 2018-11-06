@@ -9,7 +9,7 @@ public class Test {
 		controller.addPlayer(new Player("Ahmet", 0));
 		controller.addPlayer(new Player("Merve", 0));
 		MockConsoleUI ui = new MockConsoleUI();
-		controller.addObserver(ui);
+		controller.addPropertyListener(ui);
 
 		while (true) {
 			controller.playTurn();

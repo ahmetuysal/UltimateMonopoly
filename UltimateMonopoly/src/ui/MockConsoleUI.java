@@ -1,12 +1,12 @@
 package ui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import util.PropertyEvent;
+import util.PropertyListener;
 
-public class MockConsoleUI implements PropertyChangeListener {
+public class MockConsoleUI implements PropertyListener {
 
 	@Override
-	public void propertyChange(PropertyChangeEvent e) {
+	public void onPropertyEvent(PropertyEvent e) {
 		System.out.println("Current Player: " + e.getNewValue());
 	}
 
