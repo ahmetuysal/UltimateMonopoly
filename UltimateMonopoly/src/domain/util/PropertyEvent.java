@@ -1,7 +1,7 @@
 /**
  * 
  */
-package util;
+package domain.util;
 
 import java.awt.AWTEvent;
 

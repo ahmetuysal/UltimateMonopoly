@@ -1,11 +1,10 @@
 package domain;
 
-import util.Observable;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.die.Cup;
+import domain.util.Observable;
 
 public class GameController extends Observable {
 

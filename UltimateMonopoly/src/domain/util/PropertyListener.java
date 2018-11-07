@@ -1,4 +1,4 @@
-package util;
+package domain.util;
 
 public interface PropertyListener {
 

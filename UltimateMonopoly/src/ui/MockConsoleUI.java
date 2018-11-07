@@ -1,7 +1,7 @@
 package ui;
 
-import util.PropertyEvent;
-import util.PropertyListener;
+import domain.util.PropertyEvent;
+import domain.util.PropertyListener;
 
 public class MockConsoleUI implements PropertyListener {
 
