@@ -56,7 +56,7 @@ public abstract class ChanceCard extends Card {
 		}else if("Changing Lanes".equals(n)) {
 			return new ChangingLanesBelow(n, d);
 		}else if("Changing Lanes".equals(n)) {
-			return new ChangingLanesBelow(n, d);
+			return new ChangingLanesAbove(n, d);
 		}
 		return null;
 	}
