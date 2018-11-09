@@ -89,5 +89,9 @@ public class GameController extends Observable {
 		cup.rollDices();
 		return cup;
 	}
+	
+	public List<Player> getPlayerList(){
+		return players;
+	}
 
 }

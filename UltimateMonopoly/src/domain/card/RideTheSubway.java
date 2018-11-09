@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.GameController;
 import domain.Player;
 
 public class RideTheSubway extends ChanceCard{
@@ -10,9 +11,9 @@ public class RideTheSubway extends ChanceCard{
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
+	public void useCard(Player p, String squareName) {
 		// TODO Auto-generated method stub
-		
+		p.getToken().setLocation(GameController.getInstance().getBoard().getSquareLocationFromName("Subway"));
 	}
 
 }

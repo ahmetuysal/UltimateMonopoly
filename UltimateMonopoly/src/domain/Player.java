@@ -114,6 +114,7 @@ public class Player {
 	public void goToJail() {
 		this.inJail = true;
 		this.jailTime = 3;
+		this.token.setLocation(GameController.getInstance().getBoard().getSquareLocationFromName("Jail"));
 	}
 
 	/**
