@@ -12,7 +12,7 @@ public class HolidayBonus extends ChanceCard{
 	@Override
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
-		
+		p.increaseMoney(100);
 	}
 
 }

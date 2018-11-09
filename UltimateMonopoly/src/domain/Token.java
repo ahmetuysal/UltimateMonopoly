@@ -2,23 +2,25 @@ package domain;
 
 import java.awt.image.BufferedImage;
 
+import domain.square.Location;
+
 public class Token {
 	
 	private Player player;
-	private int location;
+	private Location location;
 	private BufferedImage bufferedImage;
 	
-	public Token(Player p, int loc, BufferedImage img) {
+	public Token(Player p, Location loc, BufferedImage img) {
 		this.player = p;
 		this.location = loc;
 		this.bufferedImage = img;
 	}
 	
-	public int getLocation() {
+	public Location getLocation() {
 		return this.location;
 	}
 	
-	public void setLocation(int loc) {
+	public void setLocation(Location loc) {
 		this.location = loc;
 	}
 	public void updateOwner(Player p) {

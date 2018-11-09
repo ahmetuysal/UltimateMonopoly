@@ -13,6 +13,7 @@ public class MakeGeneralRepairsToAllYourProperties extends ChanceCard{
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
 		
+		//there is no easy way to count the number of properties!
 	}
 
 }

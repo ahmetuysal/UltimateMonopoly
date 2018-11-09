@@ -14,10 +14,12 @@ public class Player {
 	private int jailTime;
 	private List<Card> cards;
 	private Token token;
-	
+
 	/**
-	 * @param nickName Nick name of the player.
-	 * @param totalMoney Starting money of the player.
+	 * @param nickName
+	 *            Nick name of the player.
+	 * @param totalMoney
+	 *            Starting money of the player.
 	 */
 	public Player(String nickName, int totalMoney) {
 		this.nickName = nickName;
@@ -28,7 +30,9 @@ public class Player {
 		this.cards = new ArrayList<>();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -110,16 +114,16 @@ public class Player {
 	public void goToJail() {
 		this.inJail = true;
 		this.jailTime = 3;
+		this.token.setLocation(GameController.getInstance().getBoard().getSquareLocationFromName("Jail"));
 	}
-	
+
 	/**
 	 * Called when player uses get out of jail card or rolls double in jail.
 	 */
 	public void getOutOfJail() {
 		this.jailTime = 0;
-		this.inJail = true;
+		this.inJail = false;
 	}
-	
 
 	/**
 	 * @return The list of Cards player has.
@@ -152,7 +156,7 @@ public class Player {
 	public int getJailTime() {
 		return jailTime;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -163,6 +167,12 @@ public class Player {
 		}
 	}
 
+	public Token getToken() {
+		return token;
+	}
+
+	public void setToken(Token t) {
+		this.token = t;
+	}
 
 }
-	

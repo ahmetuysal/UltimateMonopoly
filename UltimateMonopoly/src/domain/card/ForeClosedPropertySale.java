@@ -13,6 +13,7 @@ public class ForeClosedPropertySale extends ChanceCard{
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
 		
+		//how to choose a player and his/her mortgaged property
 	}
 
 }

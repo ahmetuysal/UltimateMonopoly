@@ -2,15 +2,11 @@ package domain.die;
 
 public class RegularDie extends Die {
 
-	private int value;
+	private static final DieValue[] POSSIBLE_VALUES_REGULAR = { DieValue.ONE, DieValue.TWO, DieValue.THREE,
+			DieValue.FOUR, DieValue.FIVE, DieValue.SIX };
 
-	@Override
-	public void roll() {
-		value =(int) (6 * Math.random()) + 1 ;
+	public DieValue getFaceValue() {
+		return POSSIBLE_VALUES_REGULAR[value];
 	}
-	
-	public int getDieValue() {
-		return value;
-	}
-	
+
 }

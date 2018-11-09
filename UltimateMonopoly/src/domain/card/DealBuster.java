@@ -2,9 +2,9 @@ package domain.card;
 
 import domain.Player;
 
-public class ChangingLanes extends ChanceCard{
+public class DealBuster extends CommunityChestCard {
 
-	protected ChangingLanes(String n, String d) {
+	protected DealBuster(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}
@@ -12,7 +12,7 @@ public class ChangingLanes extends ChanceCard{
 	@Override
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

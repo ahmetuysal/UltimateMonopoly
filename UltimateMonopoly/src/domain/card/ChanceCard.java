@@ -1,6 +1,5 @@
 package domain.card;
 
-import domain.Player;
 
 public abstract class ChanceCard extends Card {
 	
@@ -55,9 +54,9 @@ public abstract class ChanceCard extends Card {
 		}else if("Zero Dollars Down!".equals(n)) {
 			return new ZeroDollarsDown(n, d);
 		}else if("Changing Lanes".equals(n)) {
-			return new ChangingLanes(n, d);
+			return new ChangingLanesBelow(n, d);
 		}else if("Changing Lanes".equals(n)) {
-			return new ChangingLanes(n, d);
+			return new ChangingLanesAbove(n, d);
 		}
 		return null;
 	}

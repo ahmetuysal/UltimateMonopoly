@@ -23,5 +23,4 @@ public abstract class Square {
 	public String getDescription() {
 		return description;
 	}	
-	
 }

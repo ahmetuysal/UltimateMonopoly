@@ -14,7 +14,7 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
-	
+
 	private static GameController instance;
 
 	public static synchronized GameController getInstance() {
@@ -31,10 +31,10 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
-		// TODO: fix this 
-		cup.rollDices();
+		// TODO: fix this
+		rollDice();
 		if (currentPlayer.isInJail()) {
-			if(cup.isDouble()) {
+			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
 		}
@@ -43,8 +43,7 @@ public class GameController extends Observable {
 			if (consecutiveDoubles == 3) {
 				currentPlayer.goToJail();
 			}
-		}
-		else {
+		} else {
 			consecutiveDoubles = 0;
 		}
 		if (!cup.isDouble()) {
@@ -71,6 +70,28 @@ public class GameController extends Observable {
 	 */
 	public Board getBoard() {
 		return board;
+	}
+
+	public Cup getCup() {
+		return cup;
+	}
+
+	public Player getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	public void quitGame() {
+		System.exit(0);
+	}
+
+	public Cup rollDice() {
+		cup.clearCup();
+		cup.rollDices();
+		return cup;
+	}
+	
+	public List<Player> getPlayerList(){
+		return players;
 	}
 
 }
