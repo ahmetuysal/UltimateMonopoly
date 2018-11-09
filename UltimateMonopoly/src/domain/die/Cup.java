@@ -1,10 +1,13 @@
 package domain.die;
 
+import java.util.ArrayList;
+
 public class Cup {
 	
 	private RegularDie die1;
 	private RegularDie die2;
 	private SpeedDie speedDie;
+	private ArrayList<DieValue> faceValues;
 	
 	public Cup() {
 		die1 = new RegularDie();
@@ -19,7 +22,6 @@ public class Cup {
 	}
 	
 	public boolean isDouble() {
-		// TODO: implement this logic
 		return false;
 	}
 }
