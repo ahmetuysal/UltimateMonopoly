@@ -5,6 +5,7 @@ import java.util.List;
 
 import domain.die.Cup;
 import domain.util.Observable;
+import domain.util.Observer;
 
 public class GameController extends Observable {
 
@@ -14,6 +15,7 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
+	private Observer observer;
 	
 	private static GameController instance;
 
@@ -32,7 +34,7 @@ public class GameController extends Observable {
 
 	public void playTurn() {
 		// TODO: fix this 
-		cup.rollDices();
+		rollDice();
 		if (currentPlayer.isInJail()) {
 			if(cup.isDouble()) {
 				currentPlayer.getOutOfJail();
@@ -71,6 +73,28 @@ public class GameController extends Observable {
 	 */
 	public Board getBoard() {
 		return board;
+	}
+	
+	public Cup getCup(){
+		return cup;
+	}
+	
+	public Player getCurrentPlayer(){
+		return currentPlayer;
+	}
+	
+	public void quitGame(){
+		System.exit(0);
+	}
+	
+	public void notifyObserver(String key, String event, Object object){
+		observer.update(key, event, object);
+	}
+	
+	public Cup rollDice(){
+		cup.clearCup();
+		cup.rollDices();
+		return cup;
 	}
 
 }

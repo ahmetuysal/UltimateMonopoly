@@ -19,9 +19,27 @@ public class Cup {
 		die1.roll();
 		die2.roll();
 		speedDie.roll();
+		
+		faceValues.add(die1.getFaceValue());
+		faceValues.add(die2.getFaceValue());
+		faceValues.add(speedDie.getFaceValue());
 	}
 	
 	public boolean isDouble() {
 		return false;
 	}
+	
+	public void setFaceValues(ArrayList<DieValue> faceValues){
+		this.faceValues = faceValues;
+	}
+	
+	public ArrayList<DieValue> getFaceResults(){
+		return this.faceValues;
+	}
+	
+	public void clearCup(){
+		faceValues.clear();
+	}
+	
+	
 }
