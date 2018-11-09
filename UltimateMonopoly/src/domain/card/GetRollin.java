@@ -2,6 +2,7 @@ package domain.card;
 
 import domain.GameController;
 import domain.Player;
+import domain.square.Location;
 
 public class GetRollin extends ChanceCard{
 
@@ -12,9 +13,8 @@ public class GetRollin extends ChanceCard{
 
 	@Override
 	public void useCard(Player p, String s) {
-		// TODO Auto-generated method stub
-		int loc = GameController.getInstance().getBoard().getSquareIndexFromName("Roll Three");
-		p.getToken().setLocation(loc);
+		Location location = GameController.getInstance().getBoard().getSquareLocationFromName("Roll Three");
+		p.getToken().setLocation(location);
 	}
 
 }
