@@ -6,7 +6,7 @@ import ui.MockConsoleUI;
 public class Test {
 
 	public static void main(String[] args) {
-		GameController controller = new GameController();
+		GameController controller = GameController.getInstance();
 		controller.addPlayer(new Player("Ahmet", 0));
 		controller.addPlayer(new Player("Merve", 0));
 		MockConsoleUI ui = new MockConsoleUI();

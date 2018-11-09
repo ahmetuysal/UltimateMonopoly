@@ -13,7 +13,7 @@ public class GetOutofTheJailCard extends ChanceCard{
 	@Override
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
-		p.setInJail(false);
+		p.getOutOfJail();
 	}
 
 }

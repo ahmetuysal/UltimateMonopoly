@@ -11,7 +11,9 @@ public class Player {
 	private int totalMoney;
 	private boolean isReverseDirection;
 	private boolean inJail;
+	private int jailTime;
 	private List<Card> cards;
+	private Token token;
 	
 	/**
 	 * @param nickName Nick name of the player.
@@ -22,6 +24,7 @@ public class Player {
 		this.totalMoney = totalMoney;
 		this.isReverseDirection = false;
 		this.inJail = false;
+		this.jailTime = 0;
 		this.cards = new ArrayList<>();
 	}
 
@@ -102,12 +105,21 @@ public class Player {
 	}
 
 	/**
-	 * @param inJail
-	 *            Whether the player is in jail or not.
+	 *
 	 */
-	public void setInJail(boolean inJail) {
-		this.inJail = inJail;
+	public void goToJail() {
+		this.inJail = true;
+		this.jailTime = 3;
 	}
+	
+	/**
+	 * Called when player uses get out of jail card or rolls double in jail.
+	 */
+	public void getOutOfJail() {
+		this.jailTime = 0;
+		this.inJail = true;
+	}
+	
 
 	/**
 	 * @return The list of Cards player has.
@@ -134,4 +146,23 @@ public class Player {
 		return this.cards.remove(card);
 	}
 
+	/**
+	 * @return the jailTime
+	 */
+	public int getJailTime() {
+		return jailTime;
+	}
+	
+	/**
+	 * 
+	 */
+	public void decreaseJailTime() {
+		if (this.jailTime > 0) {
+			this.jailTime--;
+			this.inJail = this.jailTime != 0;
+		}
+	}
+
+
 }
+	
