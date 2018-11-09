@@ -162,7 +162,14 @@ public class Player {
 			this.inJail = this.jailTime != 0;
 		}
 	}
-
+	
+	public Token getToken() {
+		return token;
+	}
+	
+	public void setToken(Token t) {
+		this.token = t;
+	}
 
 }
 	

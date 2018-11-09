@@ -7,12 +7,21 @@ import domain.square.Square;
 
 public class Board {
 	
+	private final int FIRSTLAYER = 56;
+	private final int SECONDLAYER = 40;
+	private final int THIRDLAYER = 24;
+	
 	private List<Square> squares;
 	private List<Token> tokens;
+	private List<Integer> boardSize;
 	
 	public Board() {
 		squares = new ArrayList<>();
 		tokens = new ArrayList<>();
+		boardSize = new ArrayList<Integer>();
+		boardSize.add(FIRSTLAYER);
+		boardSize.add(SECONDLAYER);
+		boardSize.add(THIRDLAYER);
 		addSquares();
 	}
 	
@@ -27,6 +36,10 @@ public class Board {
 	
 	private void addSquares() {
 		
+	}
+	
+	public int getLayerSize(int layer) {
+		return boardSize.get(layer);
 	}
 	
 	/**

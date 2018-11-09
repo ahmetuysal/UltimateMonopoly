@@ -14,8 +14,8 @@ public class TitleDeedSquare extends Square {
 	private TitleDeedSquareColor color;
 	private boolean isOwned;
 	
-	public TitleDeedSquare(String name, String description, int price, int rentValue, TitleDeedSquareColor color){
-		super(name, description);
+	public TitleDeedSquare(String name, String description, int price, int rentValue, TitleDeedSquareColor color, String type){
+		super(name, description, type);
 		this.price = price;
 		this.rentValue = rentValue;
 		this.owner = null;

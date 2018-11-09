@@ -1,6 +1,5 @@
 package domain.card;
 
-import domain.Player;
 
 public abstract class ChanceCard extends Card {
 	
