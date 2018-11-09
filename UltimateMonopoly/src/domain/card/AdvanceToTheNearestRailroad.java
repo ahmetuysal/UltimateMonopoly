@@ -12,14 +12,14 @@ public class AdvanceToTheNearestRailroad extends ChanceCard{
 
 	@Override
 	public void useCard(Player p, String s) {
-		// TODO Auto-generated method stub
+		// TODO BURDA ALLAH LEVEL COUPLING VAR DUZELTIN
 		int loc = p.getToken().getLocation();
 		int size = GameController.getInstance().getBoard().getLayerSize(p.getToken().getCurrentLayer());
 		if(!p.isReverseDirection()) {
 			for(int i = loc; i<size+loc;i++) {
-				if(GameController.getInstance().getBoard().getSquare(i%size).getType() == "Railroad") {
-					p.getToken().setLocation(i);
-				}
+//				if(GameController.getInstance().getBoard().getSquare(i%size).getType() == "Railroad") {
+//					p.getToken().setLocation(i);
+//				}
 			}
 		}else {
 			for(int i=loc;((i+size)%size)==loc+1 ;i--) {
