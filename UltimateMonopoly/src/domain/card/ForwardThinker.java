@@ -12,7 +12,7 @@ public class ForwardThinker extends ChanceCard{
 	@Override
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
-		
+		p.getToken().setLocation(p.getToken().getLocation()+3);
 	}
 
 }

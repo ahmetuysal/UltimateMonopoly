@@ -13,6 +13,7 @@ public class SeeYouInCourt extends ChanceCard{
 	public void useCard(Player p, String s) {
 		// TODO Auto-generated method stub
 		
+		//second player involved, how!!??
 	}
 
 }

@@ -117,7 +117,7 @@ public class Player {
 	 */
 	public void getOutOfJail() {
 		this.jailTime = 0;
-		this.inJail = true;
+		this.inJail = false;
 	}
 	
 
