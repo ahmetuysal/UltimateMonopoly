@@ -37,7 +37,15 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return "Player [nickName=" + nickName + "]";
+		return nickName+" "+totalMoney+" "+isReverseDirection+" "+inJail+" "+jailTime+" "+cardList(); // token will be added later
+	}
+	
+	public String cardList() {
+		String ownedCards = "";
+		for(Card c : cards) {
+			ownedCards += c.getName()+" ";
+		}
+		return ownedCards;
 	}
 
 	/**
