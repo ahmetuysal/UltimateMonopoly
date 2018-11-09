@@ -20,7 +20,7 @@ public class Board {
 	 * 
 	 * @param token Token to add the board.
 	 */
-	private void addToken(Token token) {
+	public void addToken(Token token) {
 		tokens.add(token);
 	}
 	
@@ -34,8 +34,16 @@ public class Board {
 	 * @param location Location(index) of the wanted square on the board.
 	 * @return Square at the given location.
 	 */
-	private Square getSquare(int location) {
+	public Square getSquare(int location) {
 		return squares.get(location);
+	}
+	
+	public int getSquareIndexFromName(String name) {
+		for (int i = 0 ; i < squares.size(); i++) {
+			if (squares.get(i).getName().equals(name))
+				return i;
+		}
+		return -1;
 	}
 
 }
