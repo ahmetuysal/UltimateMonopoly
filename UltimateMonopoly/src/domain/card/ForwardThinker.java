@@ -3,7 +3,7 @@ package domain.card;
 import domain.Player;
 import domain.square.Location;
 
-public class ForwardThinker extends ChanceCard{
+public class ForwardThinker extends ChanceCard {
 
 	protected ForwardThinker(String n, String d) {
 		super(n, d);

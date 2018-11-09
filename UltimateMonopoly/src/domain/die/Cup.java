@@ -1,45 +1,73 @@
 package domain.die;
 
-import java.util.ArrayList;
-
 public class Cup {
-	
+
 	private RegularDie die1;
 	private RegularDie die2;
+	private RegularDie die3; // for roll triple
 	private SpeedDie speedDie;
-	private ArrayList<DieValue> faceValues;
-	
+	private DieValue[] faceValues;
+
 	public Cup() {
 		die1 = new RegularDie();
 		die2 = new RegularDie();
+		die3 = new RegularDie();
 		speedDie = new SpeedDie();
+		faceValues = new DieValue[3];
 	}
-	
+
+	public void rollTwoRegularDices() {
+		die1.roll();
+		die2.roll();
+		speedDie.setFaceValueEmpty();
+		faceValues[0] = die1.getFaceValue();
+		faceValues[1] = die2.getFaceValue();
+		faceValues[2] = speedDie.getFaceValue();
+	}
+
+	public void rollThreeRegularDices() {
+		die1.roll();
+		die2.roll();
+		die3.roll();
+		speedDie.setFaceValueEmpty();
+		faceValues[0] = die1.getFaceValue();
+		faceValues[1] = die2.getFaceValue();
+		faceValues[2] = die3.getFaceValue();
+	}
+
 	public void rollDices() {
 		die1.roll();
 		die2.roll();
 		speedDie.roll();
-		
-		faceValues.add(die1.getFaceValue());
-		faceValues.add(die2.getFaceValue());
-		faceValues.add(speedDie.getFaceValue());
+		faceValues[0] = die1.getFaceValue();
+		faceValues[1] = die2.getFaceValue();
+		faceValues[2] = speedDie.getFaceValue();
 	}
-	
+
 	public boolean isDouble() {
-		return false;
+		return die1.getFaceValue() == die2.getFaceValue() || die1.getFaceValue() == speedDie.getFaceValue()
+				|| die2.getFaceValue() == speedDie.getFaceValue();
 	}
-	
-	public void setFaceValues(ArrayList<DieValue> faceValues){
-		this.faceValues = faceValues;
+
+	public boolean isTriple() {
+		return die1.getFaceValue() == die2.getFaceValue() && die1.getFaceValue() == speedDie.getFaceValue();
 	}
-	
-	public ArrayList<DieValue> getFaceResults(){
+
+	public boolean isMrMonopoly() {
+		return speedDie.getFaceValue() == DieValue.MRMONOPOLY;
+	}
+
+	public boolean isBusIcon() {
+		return speedDie.getFaceValue() == DieValue.BUSICON;
+	}
+
+	public DieValue[] getFaceResults() {
 		return this.faceValues;
 	}
-	
-	public void clearCup(){
-		faceValues.clear();
+
+	public void clearCup() {
+		for (int i = 0; i < faceValues.length; i++)
+			faceValues[i] = DieValue.EMPTY;
 	}
-	
-	
+
 }
