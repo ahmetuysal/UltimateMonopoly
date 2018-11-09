@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Observable {
+public abstract class Observable {
 	
 	private Map<String, List<PropertyListener>> propertyListenersMap;
 	
