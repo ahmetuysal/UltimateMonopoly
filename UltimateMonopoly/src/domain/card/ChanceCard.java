@@ -4,12 +4,12 @@ import domain.Player;
 
 public abstract class ChanceCard extends Card {
 	
-	public ChanceCard(String n, String d) {
+	protected ChanceCard(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Card getCard(String n, String d) {
+	public static ChanceCard getCard(String n, String d) {
 		if(n.equals(null)) return null;
 		
 		if("Get Out of Jail Free!".equals(n)) {
@@ -61,9 +61,4 @@ public abstract class ChanceCard extends Card {
 		}
 		return null;
 	}
-
-	@Override
-	public abstract void useCard(Player p, String s);
-
-	
 }

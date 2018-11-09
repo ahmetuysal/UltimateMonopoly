@@ -4,7 +4,7 @@ import domain.Player;
 
 public class ForwardThinker extends ChanceCard{
 
-	public ForwardThinker(String n, String d) {
+	protected ForwardThinker(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

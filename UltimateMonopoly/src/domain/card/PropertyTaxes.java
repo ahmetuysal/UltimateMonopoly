@@ -4,7 +4,7 @@ import domain.Player;
 
 public class PropertyTaxes extends ChanceCard{
 
-	public PropertyTaxes(String n, String d) {
+	protected PropertyTaxes(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

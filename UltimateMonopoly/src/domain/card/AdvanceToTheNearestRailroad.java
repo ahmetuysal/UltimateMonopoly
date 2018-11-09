@@ -4,7 +4,7 @@ import domain.Player;
 
 public class AdvanceToTheNearestRailroad extends ChanceCard{
 
-	public AdvanceToTheNearestRailroad(String n, String d) {
+	protected AdvanceToTheNearestRailroad(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

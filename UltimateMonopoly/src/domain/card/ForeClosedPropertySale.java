@@ -4,7 +4,7 @@ import domain.Player;
 
 public class ForeClosedPropertySale extends ChanceCard{
 
-	public ForeClosedPropertySale(String n, String d) {
+	protected ForeClosedPropertySale(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

@@ -4,7 +4,7 @@ import domain.Player;
 
 public class SocialMediaFail extends ChanceCard{
 
-	public SocialMediaFail(String n, String d) {
+	protected SocialMediaFail(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

@@ -4,7 +4,7 @@ import domain.Player;
 
 public class JustSayNo extends ChanceCard{
 
-	public JustSayNo(String n, String d) {
+	protected JustSayNo(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

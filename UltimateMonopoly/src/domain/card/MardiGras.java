@@ -4,7 +4,7 @@ import domain.Player;
 
 public class MardiGras extends ChanceCard{
 
-	public MardiGras(String n, String d) {
+	protected MardiGras(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

@@ -4,7 +4,7 @@ import domain.Player;
 
 public class HolidayBonus extends ChanceCard{
 
-	public HolidayBonus(String n, String d) {
+	protected HolidayBonus(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

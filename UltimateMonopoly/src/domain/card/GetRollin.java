@@ -4,7 +4,7 @@ import domain.Player;
 
 public class GetRollin extends ChanceCard{
 
-	public GetRollin(String n, String d) {
+	protected GetRollin(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

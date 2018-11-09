@@ -4,7 +4,7 @@ import domain.Player;
 
 public class ZeroDollarsDown extends ChanceCard{
 
-	public ZeroDollarsDown(String n, String d) {
+	protected ZeroDollarsDown(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

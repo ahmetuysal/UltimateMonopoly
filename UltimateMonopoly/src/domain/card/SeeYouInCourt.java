@@ -4,7 +4,7 @@ import domain.Player;
 
 public class SeeYouInCourt extends ChanceCard{
 
-	public SeeYouInCourt(String n, String d) {
+	protected SeeYouInCourt(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

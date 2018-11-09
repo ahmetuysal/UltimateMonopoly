@@ -4,7 +4,7 @@ import domain.Player;
 
 public class MakeGeneralRepairsToAllYourProperties extends ChanceCard{
 
-	public MakeGeneralRepairsToAllYourProperties(String n, String d) {
+	protected MakeGeneralRepairsToAllYourProperties(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

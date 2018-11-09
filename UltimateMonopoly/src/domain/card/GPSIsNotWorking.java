@@ -4,7 +4,7 @@ import domain.Player;
 
 public class GPSIsNotWorking extends ChanceCard{
 
-	public GPSIsNotWorking(String n, String d) {
+	protected GPSIsNotWorking(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

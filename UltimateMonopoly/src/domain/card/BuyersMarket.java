@@ -4,7 +4,7 @@ import domain.Player;
 
 public class BuyersMarket extends ChanceCard{
 
-	public BuyersMarket(String n, String d) {
+	protected BuyersMarket(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}

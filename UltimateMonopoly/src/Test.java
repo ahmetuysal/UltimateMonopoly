@@ -1,5 +1,6 @@
 import domain.GameController;
 import domain.Player;
+import domain.card.*;
 import ui.MockConsoleUI;
 
 public class Test {
@@ -10,6 +11,7 @@ public class Test {
 		controller.addPlayer(new Player("Merve", 0));
 		MockConsoleUI ui = new MockConsoleUI();
 		controller.addPropertyListener(ui);
+		Card card = ChanceCard.getCard("AdvanceToSaintCharlesPlace", "Hello world");
 
 		while (true) {
 			controller.playTurn();

@@ -4,7 +4,7 @@ import domain.Player;
 
 public class ChangingLanes extends ChanceCard{
 
-	public ChangingLanes(String n, String d) {
+	protected ChangingLanes(String n, String d) {
 		super(n, d);
 		// TODO Auto-generated constructor stub
 	}
