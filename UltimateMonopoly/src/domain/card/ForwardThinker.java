@@ -1,6 +1,7 @@
 package domain.card;
 
 import domain.Player;
+import domain.square.Location;
 
 public class ForwardThinker extends ChanceCard{
 
@@ -11,8 +12,8 @@ public class ForwardThinker extends ChanceCard{
 
 	@Override
 	public void useCard(Player p, String s) {
-		// TODO Auto-generated method stub
-		p.getToken().setLocation(p.getToken().getLocation()+3);
+		Location playerLocation = p.getToken().getLocation();
+		p.getToken().setLocation(new Location(playerLocation.getLayer(), playerLocation.getIndex()));
 	}
 
 }
