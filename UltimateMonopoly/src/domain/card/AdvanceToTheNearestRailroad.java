@@ -23,9 +23,9 @@ public class AdvanceToTheNearestRailroad extends ChanceCard{
 			}
 		}else {
 			for(int i=loc;((i+size)%size)==loc+1 ;i--) {
-				if(GameController.getInstance().getBoard().getSquare((i+size)%size).getType() == "Railroad") {
-					p.getToken().setLocation((i+size)%size);
-				}
+//				if(GameController.getInstance().getBoard().getSquare((i+size)%size).getType() == "Railroad") {
+//					p.getToken().setLocation((i+size)%size);
+//				}
 			}
 		}
 	}
