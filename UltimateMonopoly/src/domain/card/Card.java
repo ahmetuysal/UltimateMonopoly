@@ -7,9 +7,9 @@ public abstract class Card {
 	private String name;
 	private String description;
 	
-	public Card(String n, String d){
-		this.name = n;
-		this.description = d;
+	public Card(String name, String description){
+		this.name = name;
+		this.description = description;
 	}
 	
 	
@@ -38,7 +38,7 @@ public abstract class Card {
 
 
 
-	public abstract void useCard(Player p, String s);
+	public abstract void useCard(Player player, String s);
 
 
 }

@@ -18,6 +18,7 @@ public class Player {
 	private List<Card> cards;
 	private List<OwnableSquare> properties;
 	private Token token;
+	private List<TitleDeedSquare> properties;
 
 	/**
 	 * @param nickName
@@ -178,6 +179,14 @@ public class Player {
 	 */
 	public boolean removeCard(Card card) {
 		return this.cards.remove(card);
+	}
+	
+	public void addProperty(TitleDeedSquare prop){
+		this.properties.add(prop);
+	}
+	
+	public boolean removeProperty(TitleDeedSquare prop){
+		return this.properties.remove(prop);
 	}
 
 	/**

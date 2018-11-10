@@ -5,15 +5,15 @@ import domain.square.Location;
 
 public class ForwardThinker extends ChanceCard {
 
-	protected ForwardThinker(String n, String d) {
-		super(n, d);
+	protected ForwardThinker(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
-		Location playerLocation = p.getToken().getLocation();
-		p.getToken().setLocation(new Location(playerLocation.getLayer(), playerLocation.getIndex()));
+	public void useCard(Player player, String s) {
+		Location playerLocation = player.getToken().getLocation();
+		player.getToken().setLocation(new Location(playerLocation.getLayer(), playerLocation.getIndex()));
 	}
 
 }

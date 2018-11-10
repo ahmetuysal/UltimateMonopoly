@@ -2,7 +2,7 @@ package domain.square;
 
 import domain.Player;
 
-public abstract class Subway extends ActionSquare{
+public class Subway extends ActionSquare{
 
 	public Subway(String name, String description) {
 		super("Subway", "When you land on the SUBWAY space you may travel to any space on any board on"
@@ -22,6 +22,14 @@ public abstract class Subway extends ActionSquare{
 	public void landOn(Player player) {
 		
 		}
+
+
+
+	@Override
+	public void passBy(Player player) {
+		
+		
+	}
 
 	
 }

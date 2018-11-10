@@ -7,8 +7,8 @@ import domain.Player;
 
 public class HappyBirthday extends CommunityChestCard {
 
-	protected HappyBirthday(String n, String d) {
-		super(n, d);
+	protected HappyBirthday(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 

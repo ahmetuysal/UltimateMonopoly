@@ -1,9 +1,21 @@
 package domain.square;
 
-public class YellowCabCo {
+import domain.Player;
 
-	public YellowCabCo() {
+public class YellowCabCo extends Square{
+
+	public YellowCabCo(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	@Override
+	public void landOn(Player player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
 
 }
