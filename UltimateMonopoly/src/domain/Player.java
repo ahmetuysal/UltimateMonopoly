@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Card;
+import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 
 public class Player {
 
@@ -14,6 +16,7 @@ public class Player {
 	private boolean inJail;
 	private int jailTime;
 	private List<Card> cards;
+	private List<OwnableSquare> properties;
 	private Token token;
 	private List<TitleDeedSquare> properties;
 
@@ -40,13 +43,14 @@ public class Player {
 	 */
 	@Override
 	public String toString() {
-		return nickName+" "+totalMoney+" "+isReverseDirection+" "+inJail+" "+jailTime+" "+cardList(); // token will be added later
+		return nickName + " " + totalMoney + " " + isReverseDirection + " " + inJail + " " + jailTime + " "
+				+ cardList(); // token will be added later
 	}
-	
+
 	public String cardList() {
 		String ownedCards = "";
-		for(Card c : cards) {
-			ownedCards += c.getName()+" ";
+		for (Card c : cards) {
+			ownedCards += c.getName() + " ";
 		}
 		return ownedCards;
 	}
@@ -94,6 +98,22 @@ public class Player {
 		}
 		this.totalMoney -= money;
 		return true;
+	}
+
+	/**
+	 * 
+	 * @param player
+	 *            The player who will get the money.
+	 * @param money
+	 *            The amount to pay.
+	 */
+	public void payMoney(Player player, int money) {
+		if (this.getTotalMoney() < money) {
+			this.goBankrupt();
+			return;
+		}
+		this.decreaseMoney(money);
+		player.increaseMoney(money);
 	}
 
 	/**
@@ -192,6 +212,22 @@ public class Player {
 
 	public void setToken(Token t) {
 		this.token = t;
+	}
+
+	public boolean goBankrupt() {
+		// TODO implement this
+		return false;
+	}
+
+	public int getNumTitleDeedsWithColor(TitleDeedSquareColor color) {
+		int result = 0;
+		for (OwnableSquare ownable : this.properties) {
+			if (ownable instanceof TitleDeedSquare) {
+				if (((TitleDeedSquare) ownable).getColor() == color)
+					result++;
+			}
+		}
+		return result;
 	}
 
 }
