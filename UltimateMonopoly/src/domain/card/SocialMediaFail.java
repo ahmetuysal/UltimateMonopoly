@@ -7,20 +7,20 @@ import domain.Player;
 
 public class SocialMediaFail extends ChanceCard{
 
-	protected SocialMediaFail(String n, String d) {
-		super(n, d);
+	protected SocialMediaFail(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
+	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
 		List<Player> playerList = GameController.getInstance().getPlayerList();
 		for(int i=0;i<playerList.size();i++) {
-			Player player = playerList.get(i);
-			p.decreaseMoney((playerList.size()-1)*50);
-			if(!p.equals(player))
-				player.increaseMoney(50);
+			Player otherPlayer = playerList.get(i);
+			player.decreaseMoney((playerList.size()-1)*50);
+			if(!player.equals(otherPlayer))
+				otherPlayer.increaseMoney(50);
 		}
 	}
 
