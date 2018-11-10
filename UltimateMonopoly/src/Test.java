@@ -2,6 +2,7 @@ import domain.GameController;
 import domain.Player;
 import domain.card.*;
 import ui.MockConsoleUI;
+import ui.MonopolyFrame;
 
 public class Test {
 
@@ -12,8 +13,10 @@ public class Test {
 		MockConsoleUI ui = new MockConsoleUI();
 		controller.addPropertyListener(ui);
 		Card card = ChanceCardFactory.getCard("AdvanceToSaintCharlesPlace", "Hello world");
+		
+		MonopolyFrame frame = new MonopolyFrame(controller);
 
-		while (true) {
+		/*while (true) {
 			controller.playTurn();
 			try {
 				Thread.sleep(50);
@@ -22,6 +25,7 @@ public class Test {
 				e.printStackTrace();
 			}
 		}
+		*/
 	}
 
 }

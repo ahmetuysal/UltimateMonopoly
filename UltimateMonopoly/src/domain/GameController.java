@@ -24,7 +24,7 @@ public class GameController extends Observable {
 		return instance;
 	}
 
-	private GameController() {
+	public GameController() {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
