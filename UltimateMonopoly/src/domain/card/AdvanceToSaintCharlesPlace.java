@@ -6,16 +6,16 @@ import domain.square.Location;
 
 public class AdvanceToSaintCharlesPlace extends ChanceCard {
 
-	protected AdvanceToSaintCharlesPlace(String n, String d) {
-		super(n, d);
+	protected AdvanceToSaintCharlesPlace(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String squareName) {
+	public void useCard(Player player, String squareName) {
 		// TODO Auto-generated method stub
 		Location loc = GameController.getInstance().getBoard().getSquareLocationFromName(squareName);
-		p.getToken().setLocation(loc);
+		player.getToken().setLocation(loc);
 	}
 
 }

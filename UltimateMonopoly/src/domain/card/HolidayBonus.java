@@ -4,15 +4,15 @@ import domain.Player;
 
 public class HolidayBonus extends ChanceCard{
 
-	protected HolidayBonus(String n, String d) {
-		super(n, d);
+	protected HolidayBonus(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
+	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		p.increaseMoney(100);
+		player.increaseMoney(100);
 	}
 
 }

@@ -4,16 +4,16 @@ import domain.Player;
 
 public class GetOutofTheJailCard extends ChanceCard{
 
-	protected GetOutofTheJailCard(String n, String d) {
-		super(n, d);
+	protected GetOutofTheJailCard(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 	
 
 	@Override
-	public void useCard(Player p, String s) {
+	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		p.getOutOfJail();
+		player.getOutOfJail();
 	}
 
 }

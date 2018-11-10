@@ -10,23 +10,23 @@ import domain.square.UtilitySquareType;
 
 public class AdvanceToTheNearestRailroad extends ChanceCard {
 
-	protected AdvanceToTheNearestRailroad(String n, String d) {
-		super(n, d);
+	protected AdvanceToTheNearestRailroad(String name, String description) {
+		super(name, description);
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
-		Location playerLocation = p.getToken().getLocation();
+	public void useCard(Player player, String s) {
+		Location playerLocation = player.getToken().getLocation();
 		int layerSize = Board.getLayerSize(playerLocation.getLayer());
 		Board board = GameController.getInstance().getBoard();
-		if (p.isReverseDirection()) {
+		if (player.isReverseDirection()) {
 			for (int i = 0; i < layerSize; i++) {
 				// layerSize is added to avoid getting negative result from remainder
 				Location location = new Location(playerLocation.getLayer(), (playerLocation.getIndex() - i + layerSize) % layerSize);
 				Square sq = board.getSquare(location);
 				 if(sq instanceof UtilitySquare) {
 					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
-						 p.getToken().setLocation(location);
+						 player.getToken().setLocation(location);
 					 }
 				 }
 			}
@@ -36,7 +36,7 @@ public class AdvanceToTheNearestRailroad extends ChanceCard {
 				Square sq = board.getSquare(location);
 				 if(sq instanceof UtilitySquare) {
 					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
-						 p.getToken().setLocation(location);
+						 player.getToken().setLocation(location);
 					 }
 				 }
 			}

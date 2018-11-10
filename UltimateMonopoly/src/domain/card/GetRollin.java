@@ -6,15 +6,15 @@ import domain.square.Location;
 
 public class GetRollin extends ChanceCard{
 
-	protected GetRollin(String n, String d) {
-		super(n, d);
+	protected GetRollin(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String s) {
+	public void useCard(Player player, String s) {
 		Location location = GameController.getInstance().getBoard().getSquareLocationFromName("Roll Three");
-		p.getToken().setLocation(location);
+		player.getToken().setLocation(location);
 	}
 
 }
