@@ -11,11 +11,11 @@ import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 
 public class MonopolyFrame extends JFrame implements ActionListener, PropertyListener {
-	GameController controller;
+
 	//GamePanel gamePanel;
 	
 	public MonopolyFrame(GameController controller){
-		this.controller = controller;
+		GameController.getInstance().addPropertyListener(this);
 		setLayout(null);
 		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -29,9 +29,6 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		
 		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight());
 		getContentPane().add(menuPanel);
-		
-		
-		
 	}
 
 	@Override
