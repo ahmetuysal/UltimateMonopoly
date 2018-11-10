@@ -84,10 +84,17 @@ public class GameController extends Observable {
 		System.exit(0);
 	}
 
-	public Cup rollDice() {
-		cup.clearCup();
-		cup.rollDices();
-		return cup;
+	public void rollDice() {
+		if (currentPlayer.isInJail()) {
+			cup.rollTwoRegularDices();
+		}
+		else {
+			cup.rollDices();
+		}
+	}
+	
+	public void rollTriple() {
+		cup.rollThreeRegularDices();
 	}
 	
 	public List<Player> getPlayerList(){

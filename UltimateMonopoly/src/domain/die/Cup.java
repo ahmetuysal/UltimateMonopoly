@@ -61,7 +61,7 @@ public class Cup {
 		return speedDie.getFaceValue() == DieValue.BUSICON;
 	}
 
-	public DieValue[] getFaceResults() {
+	public DieValue[] getFaceValues() {
 		return this.faceValues;
 	}
 
