@@ -23,13 +23,5 @@ public class Subway extends ActionSquare{
 		
 		}
 
-
-
-	@Override
-	public void passBy(Player player) {
-		
-		
-	}
-
 	
 }

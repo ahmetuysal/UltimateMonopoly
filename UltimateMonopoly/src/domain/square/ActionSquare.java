@@ -9,7 +9,6 @@ public abstract class ActionSquare extends Square {
 
 	public abstract void landOn(Player player);
 
-	public abstract void passBy(Player player);
 	
 }
  	

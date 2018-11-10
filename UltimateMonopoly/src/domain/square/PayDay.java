@@ -3,7 +3,7 @@ package domain.square;
 import domain.GameController;
 import domain.Player;
 
-public class PayDay extends ActionSquare{
+public class PayDay extends ActionSquare implements Passable{
 
 	public PayDay(String name, String description) {
 		super("PayDay", "When a player passes or lands on PAY DAY they collect $300 if they rolled an odd number" + 

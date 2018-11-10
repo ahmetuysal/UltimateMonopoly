@@ -2,7 +2,7 @@ package domain.square;
 
 import domain.Player;
 
-public class Go extends ActionSquare{
+public class Go extends ActionSquare implements Passable{
 
 	public Go(String name, String description) {
 		super("Go", "Collect 200 as you pass");
