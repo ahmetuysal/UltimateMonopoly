@@ -18,7 +18,6 @@ public class Player {
 	private List<Card> cards;
 	private List<OwnableSquare> properties;
 	private Token token;
-	private List<TitleDeedSquare> properties;
 
 	/**
 	 * @param nickName
