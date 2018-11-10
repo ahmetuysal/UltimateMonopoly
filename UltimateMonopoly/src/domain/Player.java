@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Card;
+import domain.square.TitleDeedSquare;
 
 public class Player {
 
@@ -14,6 +15,7 @@ public class Player {
 	private int jailTime;
 	private List<Card> cards;
 	private Token token;
+	private List<TitleDeedSquare> properties;
 
 	/**
 	 * @param nickName
@@ -28,6 +30,7 @@ public class Player {
 		this.inJail = false;
 		this.jailTime = 0;
 		this.cards = new ArrayList<>();
+		this.properties = new ArrayList<>();
 	}
 
 	/*
@@ -156,6 +159,14 @@ public class Player {
 	 */
 	public boolean removeCard(Card card) {
 		return this.cards.remove(card);
+	}
+	
+	public void addProperty(TitleDeedSquare prop){
+		this.properties.add(prop);
+	}
+	
+	public boolean removeProperty(TitleDeedSquare prop){
+		return this.properties.remove(prop);
 	}
 
 	/**
