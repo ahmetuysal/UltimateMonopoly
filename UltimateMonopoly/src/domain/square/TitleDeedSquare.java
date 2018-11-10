@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import domain.Player;
 
-public class TitleDeedSquare extends Square {
+public abstract class TitleDeedSquare extends Square {
 	private int price;
 	private int rentValue;
 	private Player owner;
@@ -110,6 +110,8 @@ public class TitleDeedSquare extends Square {
 	public void setNumSkyscrapers(int numSkyscrapers) {
 		this.numSkyscrapers = numSkyscrapers;
 	}
+
+	
 	
 	
 }

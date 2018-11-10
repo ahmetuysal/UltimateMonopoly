@@ -69,5 +69,14 @@ public class Cup {
 		for (int i = 0; i < faceValues.length; i++)
 			faceValues[i] = DieValue.EMPTY;
 	}
+	
+	public boolean isEven() {
+		if(faceValues[0].equals(0) || faceValues[0].equals(2)|| faceValues[0].equals(4) || 
+				faceValues[0].equals(6)||faceValues[0].equals(0)|| faceValues[0].equals(2)|| faceValues[0].equals(4) || faceValues[0].equals(6)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 
 }

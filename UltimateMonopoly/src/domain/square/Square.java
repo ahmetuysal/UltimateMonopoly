@@ -1,5 +1,7 @@
 package domain.square;
 
+import domain.Player;
+
 public abstract class Square {
 	private String name;
 	private String description;
@@ -23,4 +25,7 @@ public abstract class Square {
 	public String getDescription() {
 		return description;
 	}	
+
+	public abstract void landOn(Player player);
+	
 }
