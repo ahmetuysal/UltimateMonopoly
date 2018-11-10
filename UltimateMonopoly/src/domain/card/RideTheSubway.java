@@ -5,15 +5,15 @@ import domain.Player;
 
 public class RideTheSubway extends ChanceCard{
 
-	protected RideTheSubway(String n, String d) {
-		super(n, d);
+	protected RideTheSubway(String name, String description) {
+		super(name, description);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void useCard(Player p, String squareName) {
+	public void useCard(Player player, String squareName) {
 		// TODO Auto-generated method stub
-		p.getToken().setLocation(GameController.getInstance().getBoard().getSquareLocationFromName("Subway"));
+		player.getToken().setLocation(GameController.getInstance().getBoard().getSquareLocationFromName("Subway"));
 	}
 
 }
