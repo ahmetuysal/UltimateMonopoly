@@ -2,7 +2,7 @@ package domain.square;
 
 import domain.Player;
 
-public class CableCompany extends Square {
+public class CableCompany extends SquareFactory {
 
 	public CableCompany(String name, String description) {
 		super(name, description);

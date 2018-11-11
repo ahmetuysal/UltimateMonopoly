@@ -2,7 +2,7 @@ package domain.square;
 
 import domain.Player;
 
-public abstract class OwnableSquare extends Square {
+public abstract class OwnableSquare extends SquareFactory {
 	
 	private int price;
 	private Player owner;

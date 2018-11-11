@@ -3,6 +3,10 @@ package domain.card;
 public class CardFactory {
 
 	private static CardFactory instance;
+
+	private CardFactory() {
+		
+	}
 	
 	public static synchronized CardFactory getInstance() {
 		if(instance == null)

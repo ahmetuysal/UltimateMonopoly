@@ -2,7 +2,7 @@ package domain.square;
 
 import domain.Player;
 
-public class InternetServiceProvider extends Square{
+public class InternetServiceProvider extends SquareFactory{
 
 	public InternetServiceProvider(String name, String description) {
 		super(name, description);

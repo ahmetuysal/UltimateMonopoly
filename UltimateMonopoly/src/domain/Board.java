@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.square.Location;
-import domain.square.Square;
+import domain.square.SquareFactory;
 
 public class Board {
 
@@ -13,11 +13,11 @@ public class Board {
 	private static final int THIRD_LAYER = 24;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
-	private List<Square>[] squares;
+	private List<SquareFactory>[] squares;
 	private List<Token> tokens;
 
 	public Board() {
-		squares = (ArrayList<Square>[]) new ArrayList[3];
+		squares = (ArrayList<SquareFactory>[]) new ArrayList[3];
 		squares[0] = new ArrayList<>();
 		squares[1] = new ArrayList<>();
 		squares[2] = new ArrayList<>();
@@ -49,7 +49,7 @@ public class Board {
 	 *            Location(index) of the wanted square on the board.
 	 * @return Square at the given location.
 	 */
-	public Square getSquare(Location loc) {
+	public SquareFactory getSquare(Location loc) {
 		return squares[loc.getLayer()].get(loc.getIndex());
 	}
 
