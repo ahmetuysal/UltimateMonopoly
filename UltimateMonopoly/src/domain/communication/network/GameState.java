@@ -1,4 +1,4 @@
-package domain.network;
+package domain.communication.network;
 
 import java.util.ArrayList;
 import java.util.List;
