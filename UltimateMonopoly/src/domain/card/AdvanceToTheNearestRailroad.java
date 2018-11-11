@@ -4,6 +4,7 @@ import domain.Board;
 import domain.GameController;
 import domain.Player;
 import domain.square.Location;
+import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.UtilitySquare;
 import domain.square.UtilitySquareType;

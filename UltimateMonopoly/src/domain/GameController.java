@@ -26,23 +26,37 @@ public class GameController extends Observable {
 		return instance;
 	}
 
-	public GameController() {
+	private GameController() {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
-		
-	}public void initBoard() {
+
+	}
+
+	private void initBoard() {
 		board.addSquares();
 
 	}
-	
-	public void initPlayers() {
-		for(int i=0;i<players.size();i++) {
+
+	private void initPlayers() {
+		for (int i = 0; i < players.size(); i++) {
 			players.get(i).getNickName();
 			players.get(i).setTotalMoney(3200);
 		}
 	}
+	
+	private void initCards() {
+		// TODO
+	}
+	
+	private void initTokens() {
+		// TODO
+	}
 
+	private void initTurnOrder() {
+		// TODO
+	}
+	
 	public void playTurn() {
 		// TODO: fix this
 		rollDice();
@@ -100,17 +114,16 @@ public class GameController extends Observable {
 	public void rollDice() {
 		if (currentPlayer.isInJail()) {
 			cup.rollTwoRegularDices();
-		}
-		else {
+		} else {
 			cup.rollDices();
 		}
 	}
-	
+
 	public void rollTriple() {
 		cup.rollThreeRegularDices();
 	}
-	
-	public List<Player> getPlayerList(){
+
+	public List<Player> getPlayerList() {
 		return players;
 	}
 

@@ -8,7 +8,7 @@ public class CommunicationFacade {
 	private NetworkController networkController;
 	
 	public CommunicationFacade() {
-		gameController = new GameController();
+		gameController = GameController.getInstance();
 		networkController = new NetworkController();
 	}
 	
