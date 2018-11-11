@@ -12,7 +12,7 @@ public class Test {
 		controller.addPlayer(new Player("Merve", 0));
 		MockConsoleUI ui = new MockConsoleUI();
 		controller.addPropertyListener(ui);
-		Card card = ChanceCardFactory.getCard("AdvanceToSaintCharlesPlace", "Hello world");
+		Card card = CardFactory.getCard("Chance Card", "Advance to Saint Charles Place", "Hello world");
 		
 		MonopolyFrame frame = new MonopolyFrame(controller);
 
