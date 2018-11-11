@@ -5,6 +5,8 @@ import java.util.List;
 
 import domain.die.Cup;
 import domain.util.Observable;
+import domain.Player;
+import domain.Board;
 
 public class GameController extends Observable {
 
@@ -28,6 +30,17 @@ public class GameController extends Observable {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
+		
+	}public void initBoard() {
+		board.addSquares();
+
+	}
+	
+	public void initPlayers() {
+		for(int i=0;i<players.size();i++) {
+			players.get(i).getNickName();
+			players.get(i).setTotalMoney(3200);
+		}
 	}
 
 	public void playTurn() {

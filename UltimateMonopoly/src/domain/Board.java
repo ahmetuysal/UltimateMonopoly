@@ -34,7 +34,7 @@ public class Board {
 		tokens.add(token);
 	}
 
-	private void addSquares() {
+	public void addSquares() {
 
 	}
 

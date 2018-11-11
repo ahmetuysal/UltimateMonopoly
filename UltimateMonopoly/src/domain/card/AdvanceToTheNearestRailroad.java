@@ -23,7 +23,7 @@ public class AdvanceToTheNearestRailroad extends ChanceCard {
 			for (int i = 0; i < layerSize; i++) {
 				// layerSize is added to avoid getting negative result from remainder
 				Location location = new Location(playerLocation.getLayer(), (playerLocation.getIndex() - i + layerSize) % layerSize);
-				SquareFactory sq = board.getSquare(location);
+				Square sq = board.getSquare(location);
 				 if(sq instanceof UtilitySquare) {
 					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
 						 player.getToken().setLocation(location);
@@ -33,7 +33,7 @@ public class AdvanceToTheNearestRailroad extends ChanceCard {
 		} else {
 			for (int i = 0; i < layerSize; i++) {
 				Location location = new Location(playerLocation.getLayer(), (playerLocation.getIndex() + i) % layerSize);
-				SquareFactory sq = board.getSquare(location);
+				Square sq = board.getSquare(location);
 				 if(sq instanceof UtilitySquare) {
 					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
 						 player.getToken().setLocation(location);

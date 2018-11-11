@@ -229,4 +229,12 @@ public class Player {
 		return result;
 	}
 
+	
+
+	public void setTotalMoney(int totalMoney) {
+		this.totalMoney = totalMoney;
+		
+	}
+
+	
 }
