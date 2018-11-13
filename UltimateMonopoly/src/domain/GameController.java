@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.die.Cup;
+import domain.square.Square;
+import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 import domain.util.Observable;
 import domain.Player;
 import domain.Board;
@@ -126,5 +129,81 @@ public class GameController extends Observable {
 	public List<Player> getPlayerList() {
 		return players;
 	}
+	
+	public void buyTitleDeed() {
+		Square currentSquare = board.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			if(!((TitleDeedSquare) currentSquare).isOwned()) {
+				currentPlayer.addProperty((TitleDeedSquare) currentSquare);
+				currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice());
+				((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
+				//TODO: ask for any extra implementation is needed??
+			}
+		}
+	}
+	
+	public void buildHouse(int houseNum) {
+		Square currentSquare = board.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			if(houseNum > -1 && (!(houseNum + ((TitleDeedSquare) currentSquare).getNumHouses() < 1 || ((TitleDeedSquare) currentSquare).getNumHouses() + houseNum > 4))) {
+				TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+				int numProperty = color.numProperty(); 
+				if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+					if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+						int housePrice = color.homePriceProperty();
+						if(currentPlayer.getTotalMoney() > houseNum*housePrice) {
+							currentPlayer.decreaseMoney(houseNum*housePrice);
+							((TitleDeedSquare) currentSquare).setNumHouses(houseNum);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	public void buildHotel() {
+		Square currentSquare = board.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+			int numProperty = color.numProperty(); 
+			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					
+					//TODO: condition for house check! //if() {
+					
+						int hotelPrice = color.hotelPriceProperty();
+						if(currentPlayer.getTotalMoney() > hotelPrice) {
+							currentPlayer.decreaseMoney(hotelPrice);
+							((TitleDeedSquare) currentSquare).setNumHotels(1);
+							((TitleDeedSquare) currentSquare).setNumHouses(0);
+						}
+					//}	
+				}
+			}
+		}
+	}
+
+	public void buildSkyscraper() {
+		Square currentSquare = board.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+			int numProperty = color.numProperty(); 
+			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					
+					//TODO: hotel check for every square in that color group!
+					
+					int skyScraperPrice = color.skyScraperPriceProperty();
+					if(currentPlayer.getTotalMoney() > skyScraperPrice) {
+						currentPlayer.decreaseMoney(skyScraperPrice);
+						((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
+						((TitleDeedSquare) currentSquare).setNumHotels(0);
+					}
+				}
+			}
+		}
+	}
+
+
 
 }
