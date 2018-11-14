@@ -228,7 +228,42 @@ public class Player {
 		}
 		return result;
 	}
-
+	
+	public boolean houseCheckForHotelBuilding(TitleDeedSquareColor color) {
+		boolean hotelBuild = false;;
+		for (OwnableSquare ownable : this.properties) {
+			if (ownable instanceof TitleDeedSquare) {
+				if (((TitleDeedSquare) ownable).getColor() == color) {
+					if(((TitleDeedSquare) ownable).getNumHouses() == 4)
+						hotelBuild = true;
+					else {
+						hotelBuild = false;
+						break;
+					}
+				}
+					
+			}
+		}
+		return hotelBuild;
+	}
+	
+	public boolean hotelCheckForSkyscraperBuilding(TitleDeedSquareColor color) {
+		boolean skyscraperBuild = false;;
+		for (OwnableSquare ownable : this.properties) {
+			if (ownable instanceof TitleDeedSquare) {
+				if (((TitleDeedSquare) ownable).getColor() == color) {
+					if(((TitleDeedSquare) ownable).getNumHouses() == 1)
+						skyscraperBuild = true;
+					else {
+						skyscraperBuild = false;
+						break;
+					}
+				}
+					
+			}
+		}
+		return skyscraperBuild;
+	}
 	
 
 	public void setTotalMoney(int totalMoney) {

@@ -168,16 +168,14 @@ public class GameController extends Observable {
 			int numProperty = color.numProperty(); 
 			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
 				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					
-					//TODO: condition for house check! //if() {
-					
+					if(currentPlayer.houseCheckForHotelBuilding(color)) {					
 						int hotelPrice = color.hotelPriceProperty();
 						if(currentPlayer.getTotalMoney() > hotelPrice) {
 							currentPlayer.decreaseMoney(hotelPrice);
 							((TitleDeedSquare) currentSquare).setNumHotels(1);
 							((TitleDeedSquare) currentSquare).setNumHouses(0);
 						}
-					//}	
+					}	
 				}
 			}
 		}
@@ -190,14 +188,13 @@ public class GameController extends Observable {
 			int numProperty = color.numProperty(); 
 			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
 				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					
-					//TODO: hotel check for every square in that color group!
-					
-					int skyScraperPrice = color.skyScraperPriceProperty();
-					if(currentPlayer.getTotalMoney() > skyScraperPrice) {
-						currentPlayer.decreaseMoney(skyScraperPrice);
-						((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
-						((TitleDeedSquare) currentSquare).setNumHotels(0);
+					if(currentPlayer.hotelCheckForSkyscraperBuilding(color)) {				
+						int skyScraperPrice = color.skyScraperPriceProperty();
+						if(currentPlayer.getTotalMoney() > skyScraperPrice) {
+							currentPlayer.decreaseMoney(skyScraperPrice);
+							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
+							((TitleDeedSquare) currentSquare).setNumHotels(0);
+						}
 					}
 				}
 			}
