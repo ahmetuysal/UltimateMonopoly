@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private JButton quitGameButton;
 	private JButton startGameButton;
 	private JButton menuButton;
+	private JButton continueButton;
+	
+	private Choice numOfPlayerPossibleChoices;
+	private int minPlayerNum = 1;
+	private int maxPlayerNum = 6;
 	
 	private int menuPanelWidth;
 	private int menuPanelHeight;
@@ -42,17 +48,15 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.menuPanelHeight = menuPanelHeight;
 		this.setSize(this.menuPanelWidth, this.menuPanelHeight);
 		
-		
-		
 		setBackground(Color.CYAN);
 		
-		initButtons();
+		initialScreen();
 		
 		this.setVisible(true);
 	}
 
-	
-	public void initButtons(){
+	//initial screen of the game that contains new game and quit button
+	public void initialScreen(){
 		//System.out.println("adding buttons");
 		newGameButton();
 		quitGameButton();
@@ -61,10 +65,26 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(quitGameButton);
 	}
 	
+	//when new game is clicked, this screen appears for players to specify their names
+	public void nextScreen(){
+		removeAll();
+		
+		menuButton();
+		continueButton();
+		numOfPlayerPossibleChoices();
+		this.add(menuButton);
+		this.add(continueButton);
+		this.add(numOfPlayerPossibleChoices);
+		
+		repaint();
+		
+		
+	}
+	
 	public void newGameButton(){
 		newGameButton = new JButton("New Game");
 		newGameButton.setBackground(Color.WHITE);
-		newGameButton.setFont(new Font("Sans", Font.BOLD, 25));
+		newGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight/60));
 		
 		int width = menuPanelWidth/10;
 		int height = menuPanelHeight/15;
@@ -81,7 +101,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void quitGameButton(){
 		quitGameButton = new JButton("Quit Game");
 		quitGameButton.setBackground(Color.WHITE);
-		quitGameButton.setFont(new Font("Sans", Font.BOLD, 25));
+		quitGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight/60));
 		
 		int width = menuPanelWidth/10;
 		int height = menuPanelHeight/15;
@@ -97,7 +117,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void startGameButton(){
 		startGameButton = new JButton("Start Game!");
 		startGameButton.setBackground(Color.WHITE);
-		startGameButton.setFont(new Font("Sans", Font.BOLD, 25));
+		startGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight/60));
 		
 		int width = menuPanelWidth/10;
 		int height = menuPanelHeight/15;
@@ -116,18 +136,48 @@ public class MenuPanel extends JPanel implements ActionListener {
 	public void menuButton(){
 		menuButton = new JButton("Menu");
 		menuButton.setBackground(Color.WHITE);
-		startGameButton.setFont(new Font("Sans", Font.BOLD, 20));
+		menuButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight/72));
 		
 		int width = menuPanelWidth/20;
 		int height = menuPanelHeight/30;
-		
-		int x = (menuPanelWidth - width) / 2 - width;
-		int y = (menuPanelHeight - height) / 2 + height;
 		
 		menuButton.setBounds(0, 0, width, height);
 		
 		menuButton.setVisible(true);
 		menuButton.addActionListener(this);
+	}
+
+	public void continueButton(){
+		continueButton = new JButton("Continue");
+		continueButton.setBackground(Color.WHITE);
+		continueButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight/60));
+		
+		int width = menuPanelWidth/10;
+		int height = menuPanelHeight/20;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (menuPanelHeight - height) / 2 + height;
+
+		continueButton.setBounds(x, y, width, height);
+		continueButton.setVisible(true);
+		continueButton.addActionListener(this);
+	}
+
+	public void numOfPlayerPossibleChoices(){
+		numOfPlayerPossibleChoices = new Choice();
+		
+		int width = menuPanelWidth/10;
+		int height = menuPanelHeight/10;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (menuPanelHeight - height) / 2 ;
+		
+		numOfPlayerPossibleChoices.setBounds(x, y, width, height);
+		numOfPlayerPossibleChoices.setSize(width,height);
+		numOfPlayerPossibleChoices.setFont(new Font("Sans",Font.CENTER_BASELINE, menuPanelHeight/60));
+		for(int i = this.minPlayerNum; i<=this.maxPlayerNum; i++){
+			numOfPlayerPossibleChoices.add(""+i);
+		}
 	}
 	
 	@Override
@@ -135,7 +185,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()){
 		case "New Game":
-			////
+			this.nextScreen();
 			break;
 		case "Quit Game":
 			controller.quitGame();
@@ -143,6 +193,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 		case "Start Game!":
 			remove(startGameButton);
 			isPlayersSet = true;
+			break;
+		case "Menu":
+			///fill
 			break;
 		}
 	}

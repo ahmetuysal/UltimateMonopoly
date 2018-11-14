@@ -36,6 +36,7 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		
 		setBackground(Color.GRAY);
 		
+		//System.out.println(dimension);
 	}
 
 	@Override
