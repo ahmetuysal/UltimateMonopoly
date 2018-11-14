@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,8 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 	
 	public MonopolyFrame(GameController controller){
 		GameController.getInstance().addPropertyListener(this);
-		setLayout(null);
+		
+		//setLayout(null);
 		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
@@ -29,6 +31,11 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		
 		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight());
 		getContentPane().add(menuPanel);
+		validate();
+		//menuPanel.repaint();
+		
+		setBackground(Color.GRAY);
+		
 	}
 
 	@Override
