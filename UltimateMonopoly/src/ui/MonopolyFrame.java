@@ -21,7 +21,8 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		//setLayout(null);
 		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		
+		this.setTitle("Ultimate Monopoly");
+
 		pack();
 		setVisible(true);
 		
