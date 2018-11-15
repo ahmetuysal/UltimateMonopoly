@@ -5,6 +5,8 @@ import java.util.List;
 
 import domain.square.Location;
 import domain.square.Square;
+import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 
 public class Board {
 
@@ -63,5 +65,79 @@ public class Board {
 		}
 		return null;
 	}
+	
+	public void buyTitleDeed(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			if(!((TitleDeedSquare) currentSquare).isOwned()) {
+				currentPlayer.addProperty((TitleDeedSquare) currentSquare);
+				currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice());
+				((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
+				//TODO: ask for any extra implementation is needed??
+			}
+		}
+	}
+	
+	public void buildHouse(Player currentPlayer, int houseNum) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			if(houseNum > -1 && (!(houseNum + ((TitleDeedSquare) currentSquare).getNumHouses() < 1 || ((TitleDeedSquare) currentSquare).getNumHouses() + houseNum > 4))) {
+				TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+				int numProperty = color.numProperty(); 
+				if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+					if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+						int housePrice = color.homePriceProperty();
+						if(currentPlayer.getTotalMoney() > houseNum*housePrice) {
+							currentPlayer.decreaseMoney(houseNum*housePrice);
+							((TitleDeedSquare) currentSquare).setNumHouses(houseNum);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
+	public void buildHotel(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+			int numProperty = color.numProperty(); 
+			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					if(currentPlayer.houseCheckForHotelBuilding(color)) {					
+						int hotelPrice = color.hotelPriceProperty();
+						if(currentPlayer.getTotalMoney() > hotelPrice) {
+							currentPlayer.decreaseMoney(hotelPrice);
+							((TitleDeedSquare) currentSquare).setNumHotels(1);
+							((TitleDeedSquare) currentSquare).setNumHouses(0);
+						}
+					}	
+				}
+			}
+		}
+	}
 
+
+	public void buildSkyscraper(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if(currentSquare instanceof TitleDeedSquare) {
+			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+			int numProperty = color.numProperty(); 
+			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					if(currentPlayer.hotelCheckForSkyscraperBuilding(color)) {				
+						int skyScraperPrice = color.skyScraperPriceProperty();
+						if(currentPlayer.getTotalMoney() > skyScraperPrice) {
+							currentPlayer.decreaseMoney(skyScraperPrice);
+							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
+							((TitleDeedSquare) currentSquare).setNumHotels(0);
+						}
+					}
+				}
+			}
+		}
+	}
+	
 }
