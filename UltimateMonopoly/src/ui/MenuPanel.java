@@ -8,8 +8,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -45,7 +49,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private Image backgroundImage;
 	
 	public MenuPanel(int menuPanelWidth, int menuPanelHeight){
-		this.backgroundImage = new ImageIcon("images\\background.jpg").getImage();
+		try {
+			BufferedImage tmp = ImageIO.read(new File("images\\background.jpg"));
+			this.backgroundImage = tmp.getScaledInstance(menuPanelWidth, menuPanelHeight, Image.SCALE_SMOOTH);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		this.usernameInputTextField = new JTextField();
 		this.playernameList = new ArrayList<String>();
 		this.controller = GameController.getInstance();
