@@ -3,7 +3,7 @@ import domain.Player;
 import domain.card.*;
 import ui.MockConsoleUI;
 import ui.MonopolyFrame;
-
+	
 public class Test {
 
 	public static void main(String[] args) {

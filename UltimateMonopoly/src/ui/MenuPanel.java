@@ -4,11 +4,15 @@ import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -38,7 +42,10 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	private boolean isPlayersSet = false;
 	
+	private Image backgroundImage;
+	
 	public MenuPanel(int menuPanelWidth, int menuPanelHeight){
+		this.backgroundImage = new ImageIcon("images\\background.jpg").getImage();
 		this.usernameInputTextField = new JTextField();
 		this.playernameList = new ArrayList<String>();
 		this.controller = GameController.getInstance();
@@ -48,7 +55,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.menuPanelHeight = menuPanelHeight;
 		this.setSize(this.menuPanelWidth, this.menuPanelHeight);
 		
-		setBackground(Color.CYAN);
+		//setBackground(Color.CYAN);
 		
 		initialScreen();
 		
@@ -58,17 +65,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 	//initial screen of the game that contains new game and quit button
 	public void initialScreen(){
 		//System.out.println("adding buttons");
+		removeAll();
 		newGameButton();
 		quitGameButton();
 		
 		this.add(newGameButton);
 		this.add(quitGameButton);
+		
+		repaint();
 	}
 	
 	//when new game is clicked, this screen appears for players to specify their names
 	public void nextScreen(){
 		removeAll();
-		
 		menuButton();
 		continueButton();
 		numOfPlayerPossibleChoices();
@@ -195,8 +204,16 @@ public class MenuPanel extends JPanel implements ActionListener {
 			isPlayersSet = true;
 			break;
 		case "Menu":
-			///fill
+			initialScreen();
 			break;
 		}
 	}
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		// TODO Auto-generated method stub
+		super.paintComponent(g);
+		 g.drawImage(backgroundImage, 0, 0, null);
+	}
+	
 }

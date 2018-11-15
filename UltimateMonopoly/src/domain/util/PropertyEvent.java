@@ -3,23 +3,23 @@
  */
 package domain.util;
 
-import java.awt.AWTEvent;
-
-
-public class PropertyEvent extends AWTEvent {
+public class PropertyEvent {
 	
+	private Object source;
 	private String propertyName;
 	private Object oldValue;
 	private Object newValue;
 	
-	
-	private static final int PROPERTY_EVENT_ID = 1234323432;
-		
+			
 	public PropertyEvent(Object source, String propertyName, Object oldValue, Object newValue) {
-		super(source, PROPERTY_EVENT_ID);
+		this.source = source;
 		this.propertyName = propertyName;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
+	}
+	
+	public Object getSource() {
+		return source;
 	}
 	
 	public String getPropertyName() {
