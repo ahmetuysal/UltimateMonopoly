@@ -363,20 +363,18 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	}
 	
 	private void registerUser(String nickname, String tokenName) {
-		if(controller.registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem())){
-				inputtedPlayerNum++;
-				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
-				usernameInputTextField.setText("");
-				updateTokenImage();
-			}
-			if(inputtedPlayerNum == numOfPlayers){
-				continueButton.setText("Start Game");
-				continueButton.setActionCommand("Start Game");
-				this.remove(usernameInputTextField);
-				this.remove(possibleTokenChoices);
-				this.remove(selectedTokenImage);
-				repaint();
-			}
+		if(controller.registerUser(nickname, tokenName)){
+			inputtedPlayerNum++;
+			possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
+			usernameInputTextField.setText("");
+		}
+		if(inputtedPlayerNum == numOfPlayers){
+			continueButton.setText("Start Game");
+			continueButton.setActionCommand("Start Game");
+			this.remove(usernameInputTextField);
+			this.remove(possibleTokenChoices);
+			repaint();
+		}
 	}
 	
 	private void registerUsers() {
