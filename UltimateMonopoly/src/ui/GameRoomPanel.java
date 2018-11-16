@@ -64,7 +64,30 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 			}
 		}
 		
+		add(getMiddle());
 		repaint();
+	}
+	
+	private JLabel getMiddle() {
+		Image tmp = null;
+		try {
+			String osName = System.getProperty("os.name").toLowerCase();
+	        if(osName.contains("mac")){
+	        	tmp = ImageIO.read(new File("./images/middle.png"));
+	        } else {
+				tmp = ImageIO.read(new File(".\\images\\middle.png"));
+	        }
+			
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		tmp = tmp.getScaledInstance(5 * squareUnitSize, 5 * squareUnitSize, Image.SCALE_SMOOTH);
+		JLabel middle = new JLabel(new ImageIcon(tmp));
+		middle.setBounds(6 * squareUnitSize + boardStartX, 6 * squareUnitSize, 5* squareUnitSize, 5 * squareUnitSize);
+		middle.setVisible(true);
+		return middle;
 	}
 
 	private JLabel getSquare(int layer, int index) {
@@ -86,15 +109,12 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		Image tmp = null;
 		try {
-
-        	
 			String osName = System.getProperty("os.name").toLowerCase();
 	        if(osName.contains("mac")){
 	        	tmp = ImageIO.read(new File("./images/squares/" + layer + "_" + index + ".png"));
 	        } else {
 				tmp = ImageIO.read(new File(".\\images\\squares\\" + layer + "_" + index + ".png"));
-	        }
-			
+	        }	
 			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

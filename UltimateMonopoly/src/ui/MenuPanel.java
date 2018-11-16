@@ -103,10 +103,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(menuButton);
 		this.add(continueButton);
 		this.add(numOfPlayerPossibleChoices);
-		
 		repaint();
-		
-		
 	}
 	
 	public void newGameButton(){
@@ -226,10 +223,18 @@ public class MenuPanel extends JPanel implements ActionListener {
 			initialScreen();
 			break;
 		case "Continue":
-			mainFrame.toGameRoomPanel();
+			numOfPlayers = Integer.parseInt(numOfPlayerPossibleChoices.getSelectedItem());
+			registerUsers();
+			//mainFrame.toGameRoomPanel();
 			break;
 		}
 			
+	}
+	
+	private void registerUsers() {
+		removeAll();
+		
+		repaint();
 	}
 	
 	@Override

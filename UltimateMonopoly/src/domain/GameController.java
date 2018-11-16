@@ -33,7 +33,18 @@ public class GameController extends Observable {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
-
+	}
+	
+	private boolean registerUser(String nickname, String tokenName) {
+		if (Token.isTokenAvailable(tokenName)) {
+			Player player = new Player(nickname);
+			Token token = new Token(player, Board.START_LOCATION, tokenName);
+			player.setToken(token);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	private void initBoard() {
@@ -53,7 +64,7 @@ public class GameController extends Observable {
 	}
 	
 	private void initTokens() {
-		// TODO
+		Token.initializeAvailableTokens();
 	}
 
 	private void initTurnOrder() {

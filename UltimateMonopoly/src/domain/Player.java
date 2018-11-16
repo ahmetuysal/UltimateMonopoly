@@ -19,15 +19,17 @@ public class Player {
 	private List<OwnableSquare> properties;
 	private Token token;
 
+	private static final int START_MONEY = 3200;
+	
 	/**
 	 * @param nickName
 	 *            Nick name of the player.
 	 * @param totalMoney
 	 *            Starting money of the player.
 	 */
-	public Player(String nickName, int totalMoney) {
+	public Player(String nickName) {
 		this.nickName = nickName;
-		this.totalMoney = totalMoney;
+		this.totalMoney = START_MONEY;
 		this.isReverseDirection = false;
 		this.inJail = false;
 		this.jailTime = 0;

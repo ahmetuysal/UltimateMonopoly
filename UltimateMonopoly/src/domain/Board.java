@@ -15,6 +15,8 @@ public class Board {
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
+	public static final Location START_LOCATION = new Location(1, 0);
+	
 	private List<Square>[] squares;
 	private List<Token> tokens;
 
