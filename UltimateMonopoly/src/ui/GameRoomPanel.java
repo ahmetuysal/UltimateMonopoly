@@ -57,8 +57,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		squareUnitSize = frameHeight / 17;
 		boardStartX = (frameWidth - 17 * squareUnitSize) / 2;
 
-		initBoard();
 		initTokens();
+		initBoard();
 		// initButtons();
 
 		addMouseListener(this);
@@ -66,18 +66,26 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		Token token = controller.getBoard().getTokens().get(0);
 		System.out.println(token);
+		
 		token.setLocation(new Location(0, 0));
-		// for (int i = 0; i < 3; i++) {
-		// for (int j = 0; j < BOARD_SIZE[i]; j++) {
-		// try {
-		// Thread.sleep(50);
-		// } catch (InterruptedException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// token.setLocation(new Location(i, j));
-		// }
-		// }
+		
+		new Timer().schedule(new TimerTask() {
+			public void run() {
+				// TODO Auto-generated method stub
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < BOARD_SIZE[i]; j++) {
+						token.setLocation(new Location(i, j));
+						try {
+							Thread.sleep(100);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			}
+		}, 2000);
+		
 
 	}
 
@@ -241,18 +249,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		drawTokens(g);
-	}
-
-	private void drawTokens(Graphics g) {
-		for (UIToken token : UITokens) {
-			g.drawImage(((ImageIcon) token.getIcon()).getImage(), token.getX(), token.getY(), null);
-		}
 	}
 
 }

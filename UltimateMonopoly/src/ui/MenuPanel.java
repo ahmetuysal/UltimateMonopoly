@@ -340,21 +340,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			registerUsers();
 			break;
 		case "registerUser":
-		
-			if(controller.registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem())){
-				inputtedPlayerNum++;
-				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
-				usernameInputTextField.setText("");
-				updateTokenImage();
-			}
-			if(inputtedPlayerNum == numOfPlayers){
-				continueButton.setText("Start Game");
-				continueButton.setActionCommand("Start Game");
-				this.remove(usernameInputTextField);
-				this.remove(possibleTokenChoices);
-				this.remove(selectedTokenImage);
-				repaint();
-			}
+			registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem());
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();
@@ -367,12 +353,14 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			inputtedPlayerNum++;
 			possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
 			usernameInputTextField.setText("");
+			updateTokenImage();
 		}
 		if(inputtedPlayerNum == numOfPlayers){
 			continueButton.setText("Start Game");
 			continueButton.setActionCommand("Start Game");
 			this.remove(usernameInputTextField);
 			this.remove(possibleTokenChoices);
+			this.remove(selectedTokenImage);
 			repaint();
 		}
 	}
