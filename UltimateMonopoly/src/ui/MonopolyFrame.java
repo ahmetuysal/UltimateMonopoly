@@ -38,8 +38,11 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		getContentPane().setSize(dimension);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight());
-		getContentPane().add(menuPanel);
+		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(),getContentPane().getHeight());
+		getContentPane().add(grPanel);
+		
+//		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight());
+//		getContentPane().add(menuPanel);
 		validate();
 		//menuPanel.repaint();
 		
