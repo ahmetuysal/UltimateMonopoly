@@ -8,10 +8,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -25,7 +29,7 @@ import javax.swing.JTextField;
 import domain.GameController;
 import domain.Token;
 
-public class MenuPanel extends JPanel implements ActionListener {
+public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	
 	private MonopolyFrame mainFrame;
 	private GameController controller;
@@ -53,6 +57,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private boolean isPlayersSet = false;
 	
 	private Image backgroundImage;
+	//private Image selectedTokenImage;
+	private JLabel selectedTokenImage;
 	
 	public MenuPanel(int menuPanelWidth, int menuPanelHeight, MonopolyFrame frame){
 		try {
@@ -231,7 +237,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		int height = menuPanelHeight/20;
 		
 		int x = (menuPanelWidth - width) / 2;
-		int y = (menuPanelHeight - height) / 2 + height;
+		int y = (menuPanelHeight - height) / 2 + height/2;
 
 		continueButton.setBounds(x, y, width, height);
 		continueButton.setVisible(true);
@@ -262,7 +268,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		int height = menuPanelHeight/10;
 		
 		int x = (menuPanelWidth - width) / 2;
-		int y = (int) (menuPanelHeight-0.5*height) / 2 ;
+		int y = (int) (menuPanelHeight- height) / 2 ;
 		
     	this.possibleTokenChoices.setBounds(x,y,width, height);	
     	this.possibleTokenChoices.setSize(width, height);
@@ -270,6 +276,29 @@ public class MenuPanel extends JPanel implements ActionListener {
     	for(String tokenname : Token.getAvailableTokens()){
     		this.possibleTokenChoices.add(tokenname);
     	}
+    	
+    	this.possibleTokenChoices.addItemListener(this);
+    	
+    	this.selectedTokenImage = new JLabel();
+    	selectedTokenImage.setBounds((menuPanelWidth - width) / 2 + width/4, y + height/4, width/2, width/2);
+    	try {
+			Image tmp;
+			String osName = System.getProperty("os.name").toLowerCase();
+	        if(osName.contains("mac")){
+	        	tmp = ImageIO.read(new File("./images/tokens/"+possibleTokenChoices.getItem(0)));
+	        } else {
+	        	tmp = ImageIO.read(new File(".\\images\\tokens\\"+possibleTokenChoices.getItem(0)));
+	        }
+			 
+			tmp= tmp.getScaledInstance(selectedTokenImage.getWidth(), selectedTokenImage.getHeight(), Image.SCALE_SMOOTH);
+			this.selectedTokenImage.setIcon(new ImageIcon(tmp));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	this.selectedTokenImage.setVisible(true);
+   
     }
 	
 	public void nameInputField(){
@@ -280,13 +309,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 		int height = menuPanelHeight/35;
 		
 		int x = (menuPanelWidth - width) / 2;
-		int y = (int) ((menuPanelHeight - 5*height) / 2) ;
+		int y = (int) ((menuPanelHeight - 10*height) / 2) ;
 		
 		this.usernameInputTextField.setBounds(x, y, width, height);
 		this.usernameInputTextField.setSize(width, height);
 		this.usernameInputTextField.setFont(new Font("Sans", Font.CENTER_BASELINE, menuPanelHeight/60));
 		this.usernameInputTextField.setVisible(true);
 		
+		//this.usernameInputTextField.getSele
 	}
 	
 	@Override
@@ -315,12 +345,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 				inputtedPlayerNum++;
 				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
 				usernameInputTextField.setText("");
+				updateTokenImage();
 			}
 			if(inputtedPlayerNum == numOfPlayers){
 				continueButton.setText("Start Game");
 				continueButton.setActionCommand("Start Game");
 				this.remove(usernameInputTextField);
 				this.remove(possibleTokenChoices);
+				this.remove(selectedTokenImage);
 				repaint();
 			}
 			break;
@@ -340,7 +372,8 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.add(continueButton);
 		this.add(usernameInputTextField);
 		this.add(this.possibleTokenChoices);
-		
+		this.add(selectedTokenImage);
+		continueButton.setLocation(continueButton.getX(), menuPanelHeight / 2 + 3*continueButton.getHeight()/2);
 		continueButton.setActionCommand("registerUser");
 		
 		repaint();
@@ -353,5 +386,33 @@ public class MenuPanel extends JPanel implements ActionListener {
 		super.paintComponent(g);
 		 g.drawImage(backgroundImage, 0, 0, null);
 	}
+
+
+	@Override
+	public void itemStateChanged(ItemEvent arg0) {
+		// TODO Auto-generated method stub
+		updateTokenImage();
 	
+	}
+	
+	public void updateTokenImage(){
+		String fileName = this.possibleTokenChoices.getSelectedItem();
+		
+		Image tmp = null;
+		try {
+			String osName = System.getProperty("os.name").toLowerCase();
+	        if(osName.contains("mac")){
+	        	tmp = ImageIO.read(new File("./images/tokens/" + fileName));
+	        } else {
+				tmp = ImageIO.read(new File(".\\images\\tokens\\" + fileName));
+	        }
+	        tmp = tmp.getScaledInstance(selectedTokenImage.getWidth(), selectedTokenImage.getHeight(), Image.SCALE_SMOOTH);
+			this.selectedTokenImage.setIcon(new ImageIcon(tmp));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		repaint();
+	}
 }
