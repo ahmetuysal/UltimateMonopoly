@@ -48,7 +48,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	private Image backgroundImage;
 	
-	public MenuPanel(int menuPanelWidth, int menuPanelHeight){
+	public MenuPanel(int menuPanelWidth, int menuPanelHeight, MonopolyFrame frame){
 		try {
 			BufferedImage tmp = ImageIO.read(new File("images\\background.jpg"));
 			this.backgroundImage = tmp.getScaledInstance(menuPanelWidth, menuPanelHeight, Image.SCALE_SMOOTH);
@@ -57,6 +57,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 			e.printStackTrace();
 		}
 
+		this.mainFrame = frame;
 		this.usernameInputTextField = new JTextField();
 		this.playernameList = new ArrayList<String>();
 		this.controller = GameController.getInstance();
@@ -217,7 +218,11 @@ public class MenuPanel extends JPanel implements ActionListener {
 		case "Menu":
 			initialScreen();
 			break;
+		case "Continue":
+			mainFrame.toGameRoomPanel();
+			break;
 		}
+			
 	}
 	
 	@Override

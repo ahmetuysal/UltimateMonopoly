@@ -19,7 +19,7 @@ import domain.util.PropertyListener;
 
 public class MonopolyFrame extends JFrame implements ActionListener, PropertyListener {
 
-	//GamePanel gamePanel;
+	//GameRoomPanel gamePanel;
 	
 	private Image background;
 	
@@ -38,17 +38,23 @@ public class MonopolyFrame extends JFrame implements ActionListener, PropertyLis
 		getContentPane().setSize(dimension);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(),getContentPane().getHeight());
-		getContentPane().add(grPanel);
-		
-//		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight());
-//		getContentPane().add(menuPanel);
+		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight(), this);
+		getContentPane().add(menuPanel);
 		validate();
 		//menuPanel.repaint();
 		
 		setBackground(Color.GRAY);
 		
 		//System.out.println(dimension);
+	}
+	
+	public void toGameRoomPanel(){
+		getContentPane().removeAll();
+		
+		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(),getContentPane().getHeight());
+		getContentPane().add(grPanel);
+		
+		repaint();
 	}
 
 	@Override
