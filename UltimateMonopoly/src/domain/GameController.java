@@ -34,6 +34,7 @@ public class GameController extends Observable {
 		cup = new Cup();
 		players = new ArrayList<>();
 		initTokens();
+		initBoard();
 	}
 	
 	public boolean registerUser(String nickname, String tokenName) {
@@ -54,13 +55,6 @@ public class GameController extends Observable {
 
 	}
 
-	private void initPlayers() {
-		for (int i = 0; i < players.size(); i++) {
-			players.get(i).getNickName();
-			players.get(i).setTotalMoney(3200);
-		}
-	}
-	
 	private void initCards() {
 		// TODO
 	}
