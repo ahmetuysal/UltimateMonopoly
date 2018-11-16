@@ -2,9 +2,9 @@ package domain.square;
 
 import domain.Player;
 
-public class Subway extends ActionSquare{
+public class Subway extends Square{
 
-	public Subway(String name, String description) {
+	public Subway() {
 		super("Subway", "When you land on the SUBWAY space you may travel to any space on any board on"
 				+" your next turn. If the property is unowned, you may purchase it from the bank. Since traveling via"
 				+" Subway is a direct route, you do not collect any salary for passing a PAY CORNER (if you choose to"
@@ -15,8 +15,6 @@ public class Subway extends ActionSquare{
 				+" (no matter what direction you were going previously). ");
 		
 	}
-
-	
 
 	@Override
 	public void landOn(Player player) {

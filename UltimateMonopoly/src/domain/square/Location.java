@@ -33,8 +33,7 @@ public class Location {
 	}
 	
 	public boolean isLocationsEquals(Location loc1, Location loc2) {
-		if(loc1.getIndex() == loc2.getIndex() && loc1.getLayer() == loc2.getLayer()) return true;
-		return false;
+		return loc1.getIndex() == loc2.getIndex() && loc1.getLayer() == loc2.getLayer();
 	}
 
 }

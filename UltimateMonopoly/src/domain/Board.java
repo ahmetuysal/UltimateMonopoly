@@ -5,6 +5,7 @@ import java.util.List;
 
 import domain.square.Location;
 import domain.square.Square;
+import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
 
@@ -39,6 +40,26 @@ public class Board {
 	}
 
 	public void addSquares() {
+		squares[0].add(SquareFactory.getSquare("Squeeze Play"));
+		squares[0].add(SquareFactory.getSquare("The Embarcadero"));
+		squares[0].add(SquareFactory.getSquare("Fisherman's Wharf"));
+		squares[0].add(SquareFactory.getSquare("Telephone Company"));
+		squares[0].add(SquareFactory.getSquare("Community Chest"));
+		squares[0].add(SquareFactory.getSquare("Beacon Street"));
+		squares[0].add(SquareFactory.getSquare("Bonus"));
+		squares[0].add(SquareFactory.getSquare("Boylston Street"));
+		squares[0].add(SquareFactory.getSquare("Newbury Street"));
+		squares[0].add(SquareFactory.getSquare("Transit Station"));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+//		squares[0].add(SquareFactory.getSquare(str));
+
 
 	}
 

@@ -2,11 +2,10 @@ package domain.square;
 
 import domain.Player;
 
-public class GoToJail extends ActionSquare{
+public class GoToJail extends Square{
 
-	public GoToJail(String name, String description) {
-		super(name, description);
-		
+	public GoToJail() {
+		super("Go To Jail", "dcp");
 	}
 
 	@Override
@@ -15,5 +14,4 @@ public class GoToJail extends ActionSquare{
 		
 	}
 
-	
 }

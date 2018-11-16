@@ -4,6 +4,7 @@ import domain.Board;
 import domain.GameController;
 import domain.Player;
 import domain.square.Location;
+import domain.square.RailRoad;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.UtilitySquare;
@@ -23,23 +24,21 @@ public class AdvanceToTheNearestRailroad extends ChanceCard {
 		if (player.isReverseDirection()) {
 			for (int i = 0; i < layerSize; i++) {
 				// layerSize is added to avoid getting negative result from remainder
-				Location location = new Location(playerLocation.getLayer(), (playerLocation.getIndex() - i + layerSize) % layerSize);
+				Location location = new Location(playerLocation.getLayer(),
+						(playerLocation.getIndex() - i + layerSize) % layerSize);
 				Square sq = board.getSquare(location);
-				 if(sq instanceof UtilitySquare) {
-					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
-						 player.getToken().setLocation(location);
-					 }
-				 }
+				if (sq instanceof RailRoad) {
+					player.getToken().setLocation(location);
+				}
 			}
 		} else {
 			for (int i = 0; i < layerSize; i++) {
-				Location location = new Location(playerLocation.getLayer(), (playerLocation.getIndex() + i) % layerSize);
+				Location location = new Location(playerLocation.getLayer(),
+						(playerLocation.getIndex() + i) % layerSize);
 				Square sq = board.getSquare(location);
-				 if(sq instanceof UtilitySquare) {
-					 if (((UtilitySquare)sq).getType() == UtilitySquareType.RAILROAD) {
-						 player.getToken().setLocation(location);
-					 }
-				 }
+				if (sq instanceof RailRoad) {
+					player.getToken().setLocation(location);
+				}
 			}
 		}
 	}

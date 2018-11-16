@@ -2,9 +2,9 @@ package domain.square;
 
 import domain.Player;
 
-public class Bonus extends ActionSquare implements Passable {
+public class Bonus extends Square implements Passable {
 
-	public Bonus(String name, String description) {
+	public Bonus() {
 		super("Bonus", "When a player passes BONUS they collect $250. When a player lands on BONUS they collect"
 				+ " $300.");
 		

@@ -4,8 +4,8 @@ import domain.Player;
 
 public class CableCompany extends Square{
 
-	public CableCompany(String name, String description) {
-		super(name, description);
+	public CableCompany() {
+		super("Cable Company", "dsp");
 		// TODO Auto-generated constructor stub
 	}
 
