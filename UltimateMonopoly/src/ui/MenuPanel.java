@@ -23,14 +23,16 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import domain.GameController;
+import domain.Token;
 
 public class MenuPanel extends JPanel implements ActionListener {
 	
 	private MonopolyFrame mainFrame;
 	private GameController controller;
 	
-	private ArrayList<String> playernameList;
+	//private ArrayList<String> playernameList;
 	private int numOfPlayers;
+	private int inputtedPlayerNum = 0;
 	private JTextField usernameInputTextField;
 	
 	private JButton newGameButton;
@@ -41,6 +43,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private JLabel ultimateMonopolyLogo;
 	
 	private Choice numOfPlayerPossibleChoices;
+	private Choice possibleTokenChoices;
 	private int minPlayerNum = 1;
 	private int maxPlayerNum = 6;
 	
@@ -69,7 +72,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 
 		this.mainFrame = frame;
 		this.usernameInputTextField = new JTextField();
-		this.playernameList = new ArrayList<String>();
+		//this.playernameList = new ArrayList<String>();
 		this.controller = GameController.getInstance();
 	
 		setLayout(null);
@@ -252,6 +255,40 @@ public class MenuPanel extends JPanel implements ActionListener {
 		}
 	}
 	
+    public void possibleTokenChoices(){
+    	this.possibleTokenChoices = new Choice();
+    	
+    	int width = menuPanelWidth/10;
+		int height = menuPanelHeight/10;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (int) (menuPanelHeight-0.5*height) / 2 ;
+		
+    	this.possibleTokenChoices.setBounds(x,y,width, height);	
+    	this.possibleTokenChoices.setSize(width, height);
+    	this.possibleTokenChoices.setFont(new Font("Sans",Font.CENTER_BASELINE, menuPanelHeight/60));
+    	for(String tokenname : Token.getAvailableTokens()){
+    		this.possibleTokenChoices.add(tokenname);
+    	}
+    }
+	
+	public void nameInputField(){
+		this.usernameInputTextField = new JTextField();
+		
+
+		int width = menuPanelWidth/8;
+		int height = menuPanelHeight/35;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (int) ((menuPanelHeight - 5*height) / 2) ;
+		
+		this.usernameInputTextField.setBounds(x, y, width, height);
+		this.usernameInputTextField.setSize(width, height);
+		this.usernameInputTextField.setFont(new Font("Sans", Font.CENTER_BASELINE, menuPanelHeight/60));
+		this.usernameInputTextField.setVisible(true);
+		this.add
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -272,7 +309,23 @@ public class MenuPanel extends JPanel implements ActionListener {
 		case "Continue":
 			numOfPlayers = Integer.parseInt(numOfPlayerPossibleChoices.getSelectedItem());
 			registerUsers();
-			//mainFrame.toGameRoomPanel();
+			break;
+		case "registerUser":
+			if(controller.registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem())){
+				inputtedPlayerNum++;
+				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
+				usernameInputTextField.setText("");
+			}
+			if(inputtedPlayerNum == numOfPlayers){
+				continueButton.setText("Start Game");
+				continueButton.setActionCommand("Start Game");
+				this.remove(usernameInputTextField);
+				this.remove(possibleTokenChoices);
+				repaint();
+			}
+			break;
+		case "Start Game":
+			mainFrame.toGameRoomPanel();
 			break;
 		}
 			
@@ -280,9 +333,19 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	private void registerUsers() {
 		removeAll();
+		nameInputField();
+		possibleTokenChoices();
+		
+		this.add(menuButton);
+		this.add(continueButton);
+		this.add(usernameInputTextField);
+		this.add(this.possibleTokenChoices);
+		
+		continueButton.setActionCommand("registerUser");
 		
 		repaint();
 	}
+
 	
 	@Override
 	protected void paintComponent(Graphics g) {

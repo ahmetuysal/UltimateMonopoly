@@ -36,7 +36,7 @@ public class GameController extends Observable {
 		initTokens();
 	}
 	
-	private boolean registerUser(String nickname, String tokenName) {
+	public boolean registerUser(String nickname, String tokenName) {
 		if (Token.isTokenAvailable(tokenName)) {
 			Player player = new Player(nickname);
 			Token token = new Token(player, Board.START_LOCATION, tokenName);
