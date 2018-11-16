@@ -286,7 +286,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 		this.usernameInputTextField.setSize(width, height);
 		this.usernameInputTextField.setFont(new Font("Sans", Font.CENTER_BASELINE, menuPanelHeight/60));
 		this.usernameInputTextField.setVisible(true);
-		this.add
+		
 	}
 	
 	@Override
