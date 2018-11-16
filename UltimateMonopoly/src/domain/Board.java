@@ -10,9 +10,9 @@ import domain.square.TitleDeedSquareColor;
 
 public class Board {
 
-	private static final int FIRST_LAYER = 56;
+	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
-	private static final int THIRD_LAYER = 24;
+	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
 	private List<Square>[] squares;
