@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -36,6 +38,7 @@ public class MenuPanel extends JPanel implements ActionListener {
 	private JButton startGameButton;
 	private JButton menuButton;
 	private JButton continueButton;
+	private JLabel ultimateMonopolyLogo;
 	
 	private Choice numOfPlayerPossibleChoices;
 	private int minPlayerNum = 1;
@@ -76,9 +79,23 @@ public class MenuPanel extends JPanel implements ActionListener {
 		
 		//setBackground(Color.CYAN);
 		
-		initialScreen();
+		splashScreen();
 		
 		this.setVisible(true);
+	}
+	
+	public void splashScreen() {
+		removeAll();
+		ultimateMonopolyLogo();
+		this.add(ultimateMonopolyLogo);
+		repaint();
+	
+		new Timer().schedule(new TimerTask() {
+			public void run() {
+				// TODO Auto-generated method stub
+				initialScreen();
+			}
+		}, 2000);
 	}
 
 	//initial screen of the game that contains new game and quit button
@@ -87,7 +104,9 @@ public class MenuPanel extends JPanel implements ActionListener {
 		removeAll();
 		newGameButton();
 		quitGameButton();
+		//ultimateMonopolyLogo();
 		
+		//this.add(ultimateMonopolyLogo);
 		this.add(newGameButton);
 		this.add(quitGameButton);
 		
@@ -121,6 +140,34 @@ public class MenuPanel extends JPanel implements ActionListener {
 		newGameButton.setVisible(true);
 		newGameButton.addActionListener(this);
 		
+	}
+	
+	private void ultimateMonopolyLogo() {
+		if (ultimateMonopolyLogo == null) {
+			Image tmp = null;
+			try {
+				String osName = System.getProperty("os.name").toLowerCase();
+		        if(osName.contains("mac")){
+		        	tmp = ImageIO.read(new File("./images/logo.png"));
+		        } else {
+					tmp = ImageIO.read(new File(".\\images\\logo.png"));
+		        }
+				
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			ultimateMonopolyLogo = new JLabel(new ImageIcon(tmp));
+		}
+		int width = menuPanelWidth;
+		int height = menuPanelHeight;
+		
+		int x = 0; //(menuPanelWidth - width) / 2 + width/2;
+		int y = 0; //(menuPanelHeight - height) / 2;
+		
+		ultimateMonopolyLogo.setBounds(x, y, width, height);
+		ultimateMonopolyLogo.setVisible(true);
 	}
 	
 	public void quitGameButton(){

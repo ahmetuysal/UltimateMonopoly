@@ -1,5 +1,6 @@
 import domain.GameController;
 import domain.Player;
+import domain.Token;
 import domain.card.*;
 import ui.MockConsoleUI;
 import ui.MonopolyFrame;
@@ -15,6 +16,8 @@ public class Test {
 		Card card = CardFactory.getCard("Chance Card", "Advance to Saint Charles Place", "Hello world");
 		
 		MonopolyFrame frame = new MonopolyFrame(controller);
+		
+		System.out.println(Token.getAvailableTokens());
 
 		/*while (true) {
 			controller.playTurn();

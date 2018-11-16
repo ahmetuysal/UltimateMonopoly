@@ -33,6 +33,7 @@ public class GameController extends Observable {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
+		initTokens();
 	}
 	
 	private boolean registerUser(String nickname, String tokenName) {
