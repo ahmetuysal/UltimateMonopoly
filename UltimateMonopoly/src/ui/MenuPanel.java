@@ -50,7 +50,14 @@ public class MenuPanel extends JPanel implements ActionListener {
 	
 	public MenuPanel(int menuPanelWidth, int menuPanelHeight, MonopolyFrame frame){
 		try {
-			BufferedImage tmp = ImageIO.read(new File("images\\background.jpg"));
+			BufferedImage tmp;
+			String osName = System.getProperty("os.name").toLowerCase();
+	        if(osName.contains("mac")){
+	        	tmp = ImageIO.read(new File("images/background.jpg"));
+	        } else {
+	        	tmp = ImageIO.read(new File("images\\background.jpg"));
+	        }
+			 
 			this.backgroundImage = tmp.getScaledInstance(menuPanelWidth, menuPanelHeight, Image.SCALE_SMOOTH);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

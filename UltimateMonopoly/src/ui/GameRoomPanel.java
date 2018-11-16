@@ -86,7 +86,16 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		Image tmp = null;
 		try {
-			tmp = ImageIO.read(new File(".\\images\\squares\\" + layer + "_" + index + ".png"));
+
+        	
+			String osName = System.getProperty("os.name").toLowerCase();
+	        if(osName.contains("mac")){
+	        	tmp = ImageIO.read(new File("./images/squares/" + layer + "_" + index + ".png"));
+	        } else {
+				tmp = ImageIO.read(new File(".\\images\\squares\\" + layer + "_" + index + ".png"));
+	        }
+			
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
