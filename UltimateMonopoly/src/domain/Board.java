@@ -163,4 +163,8 @@ public class Board {
 		}
 	}
 	
+	public List<Token> getTokens() {
+		return tokens;
+	}
+	
 }

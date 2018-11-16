@@ -41,6 +41,7 @@ public class GameController extends Observable {
 			Player player = new Player(nickname);
 			Token token = new Token(player, Board.START_LOCATION, tokenName);
 			player.setToken(token);
+			board.addToken(token);
 			return true;
 		}
 		else {

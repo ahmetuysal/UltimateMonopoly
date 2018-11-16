@@ -1,7 +1,9 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -10,7 +12,10 @@ import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -19,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
 
 import domain.GameController;
+import domain.Token;
+import domain.square.Location;
 
 public class GameRoomPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
 
@@ -28,9 +35,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private int frameHeight;
 	private int boardStartX;
 	private int squareUnitSize; // Normal squares are 2unit height 1 unit width
-	private int tokensize;
+	private int tokenSize = 20;
 
-	private List<Image> tokenImages;
+	private List<UIToken> UITokens = new ArrayList<>();
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
@@ -38,6 +45,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
 	public GameRoomPanel(int width, int height) {
+		controller = GameController.getInstance();
 		frameWidth = width;
 		frameHeight = height;
 
@@ -50,10 +58,26 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		boardStartX = (frameWidth - 17 * squareUnitSize) / 2;
 
 		initBoard();
+		initTokens();
 		// initButtons();
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
+
+		Token token = controller.getBoard().getTokens().get(0);
+		System.out.println(token);
+		token.setLocation(new Location(0, 0));
+		// for (int i = 0; i < 3; i++) {
+		// for (int j = 0; j < BOARD_SIZE[i]; j++) {
+		// try {
+		// Thread.sleep(50);
+		// } catch (InterruptedException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// token.setLocation(new Location(i, j));
+		// }
+		// }
 
 	}
 
@@ -63,31 +87,56 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 				add(getSquare(i, j));
 			}
 		}
-		
+
 		add(getMiddle());
 		repaint();
 	}
-	
+
 	private JLabel getMiddle() {
 		Image tmp = null;
 		try {
 			String osName = System.getProperty("os.name").toLowerCase();
-	        if(osName.contains("mac")){
-	        	tmp = ImageIO.read(new File("./images/middle.png"));
-	        } else {
+			if (osName.contains("mac")) {
+				tmp = ImageIO.read(new File("./images/middle.png"));
+			} else {
 				tmp = ImageIO.read(new File(".\\images\\middle.png"));
-	        }
-			
-			
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		tmp = tmp.getScaledInstance(5 * squareUnitSize, 5 * squareUnitSize, Image.SCALE_SMOOTH);
 		JLabel middle = new JLabel(new ImageIcon(tmp));
-		middle.setBounds(6 * squareUnitSize + boardStartX, 6 * squareUnitSize, 5* squareUnitSize, 5 * squareUnitSize);
+		middle.setBounds(6 * squareUnitSize + boardStartX, 6 * squareUnitSize, 5 * squareUnitSize, 5 * squareUnitSize);
 		middle.setVisible(true);
 		return middle;
+	}
+
+	private Point getCoordinate(int layer, int index) {
+		int x, y;
+
+		if (index < 6 + 4 * layer) {
+			x = 11 + 2 * layer - index;
+			y = 11 + 2 * layer;
+		} else if (index < 12 + 8 * layer) {
+			x = 4 - 2 * layer;
+			y = 11 + 2 * layer - (index - (6 + 4 * layer));
+		} else if (index == 12 + 8 * layer) {
+			x = 4 - 2 * layer;
+			y = 10 + 2 * layer - (index - (6 + 4 * layer));
+		} else if (index < 18 + 12 * layer) {
+			x = 5 - 2 * layer + (index - (12 + 8 * layer));
+			y = 4 - 2 * layer;
+		} else if (index == 18 + 12 * layer) {
+			x = 11 + 2 * layer;
+			y = 4 - 2 * layer;
+		} else {
+			x = 11 + 2 * layer;
+			y = 5 - 2 * layer + (index - (18 + 12 * layer));
+		}
+
+		return new Point(boardStartX + x * squareUnitSize, y * squareUnitSize);
 	}
 
 	private JLabel getSquare(int layer, int index) {
@@ -110,12 +159,12 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		Image tmp = null;
 		try {
 			String osName = System.getProperty("os.name").toLowerCase();
-	        if(osName.contains("mac")){
-	        	tmp = ImageIO.read(new File("./images/squares/" + layer + "_" + index + ".png"));
-	        } else {
+			if (osName.contains("mac")) {
+				tmp = ImageIO.read(new File("./images/squares/" + layer + "_" + index + ".png"));
+			} else {
 				tmp = ImageIO.read(new File(".\\images\\squares\\" + layer + "_" + index + ".png"));
-	        }	
-			
+			}
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -123,40 +172,27 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		tmp = tmp.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		JLabel square = new JLabel(new ImageIcon(tmp));
 
-		int x, y;
-		
-		if(index < 6 + 4 * layer ) {
-			x = 11 + 2 * layer - index;
-			y = 11 + 2 * layer;
-		}
-		else if (index < 12 + 8 * layer) {
-			x = 4 - 2 * layer;
-			y = 11 + 2 * layer - (index - (6 + 4 * layer));
-		}
-		else if (index == 12 + 8 * layer) {
-			x = 4 - 2 * layer;
-			y = 10 + 2 * layer - (index - (6 + 4 * layer));
-		}
-		else if (index < 18 + 12 * layer) {
-			x = 5 - 2 * layer + (index - (12 + 8 * layer)); 
-			y = 4 - 2 * layer;
-		}
-		else if (index == 18 + 12 * layer) {
-			x = 11 + 2 * layer;
-			y = 4 - 2 * layer;
-		}
-		else {
-			x = 11 + 2 * layer;
-			y = 5 - 2 * layer + (index - (18 + 12 * layer));
-		}
-		
-		
-//		int x = boardStartX;
-//		int y = 0;
-
-		square.setBounds(boardStartX +  x * squareUnitSize, y * squareUnitSize, width, height);
+		square.setSize(width, height);
+		square.setLocation(getCoordinate(layer, index));
 		square.setVisible(true);
 		return square;
+	}
+
+	private void initTokens() {
+		for (Token token : controller.getBoard().getTokens()) {
+			UIToken uiToken = new UIToken(token, tokenSize);
+			UITokens.add(uiToken);
+			setComponentZOrder(uiToken, 0);
+			add(uiToken);
+			System.out.println(uiToken);
+		}
+		repaint();
+	}
+
+	public void TokenLocationChanged(UIToken token, Location oldLocation, Location newLocation) {
+		// TODO change with animation
+		token.setLocation(getCoordinate(newLocation.getLayer(), newLocation.getIndex()));
+		repaint();
 	}
 
 	@Override
@@ -205,6 +241,18 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		drawTokens(g);
+	}
+
+	private void drawTokens(Graphics g) {
+		for (UIToken token : UITokens) {
+			g.drawImage(((ImageIcon) token.getIcon()).getImage(), token.getX(), token.getY(), null);
+		}
 	}
 
 }

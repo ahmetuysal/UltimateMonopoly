@@ -13,11 +13,6 @@ public class ChangingLanesBelow extends ChanceCard{
 	@Override
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		Location loc = player.getToken().getLocation();
-		if(!(loc.getLayer()==2)) {
-			loc.setIndex(loc.getIndex()-2);
-			player.getToken().setLocation(loc);
-		}
 	}
 
 }

@@ -1,15 +1,13 @@
 package domain;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.imageio.ImageIO;
-
 import domain.square.Location;
+import domain.util.Observable;
 
-public class Token {
+public class Token extends Observable {
 	
 	private Player player;
 	private Location location;
@@ -56,7 +54,9 @@ public class Token {
 	}
 	
 	public void setLocation(Location loc) {
+		Location oldValue = this.location;
 		this.location = loc;
+		publishPropertyEvent("location", oldValue, this.location);
 	}
 	
 	public Player getPlayer() {

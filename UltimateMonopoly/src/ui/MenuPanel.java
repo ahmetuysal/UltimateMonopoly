@@ -1,6 +1,5 @@
 package ui;
 
-import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
 import java.awt.Font;
@@ -341,6 +340,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			registerUsers();
 			break;
 		case "registerUser":
+		
 			if(controller.registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem())){
 				inputtedPlayerNum++;
 				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
@@ -360,7 +360,23 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			mainFrame.toGameRoomPanel();
 			break;
 		}
-			
+	}
+	
+	private void registerUser(String nickname, String tokenName) {
+		if(controller.registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem())){
+				inputtedPlayerNum++;
+				possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
+				usernameInputTextField.setText("");
+				updateTokenImage();
+			}
+			if(inputtedPlayerNum == numOfPlayers){
+				continueButton.setText("Start Game");
+				continueButton.setActionCommand("Start Game");
+				this.remove(usernameInputTextField);
+				this.remove(possibleTokenChoices);
+				this.remove(selectedTokenImage);
+				repaint();
+			}
 	}
 	
 	private void registerUsers() {

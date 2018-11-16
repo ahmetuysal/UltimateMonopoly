@@ -2,6 +2,7 @@ import domain.GameController;
 import domain.Player;
 import domain.Token;
 import domain.card.*;
+import domain.square.Location;
 import ui.MockConsoleUI;
 import ui.MonopolyFrame;
 	
@@ -17,8 +18,10 @@ public class Test {
 		
 		MonopolyFrame frame = new MonopolyFrame(controller);
 		
+		
+		
 		System.out.println(Token.getAvailableTokens());
-
+		
 		/*while (true) {
 			controller.playTurn();
 			try {
