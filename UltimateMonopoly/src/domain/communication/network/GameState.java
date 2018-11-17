@@ -13,6 +13,7 @@ public class GameState {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
+	private int clientIndex = 0;// arbitrary
 	
 	public GameState(){
 		currentPlayerIndex = 0;
@@ -58,6 +59,16 @@ public class GameState {
 	public void setConsecutiveDoubles(int consecutiveDoubles) {
 		this.consecutiveDoubles = consecutiveDoubles;
 	}
+
+	public int getClientIndex() {
+		return clientIndex;
+	}
+
+	public void setClientIndex(int clientIndex) {
+		this.clientIndex = clientIndex;
+	}
+	
+	
 	
 	
 }
