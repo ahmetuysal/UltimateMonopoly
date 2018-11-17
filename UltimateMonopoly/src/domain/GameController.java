@@ -5,6 +5,8 @@ import java.util.List;
 
 import domain.die.Cup;
 import domain.die.DieValue;
+import domain.square.Location;
+import domain.square.Square;
 import domain.util.Observable;
 import domain.Player;
 import domain.Board;
@@ -90,14 +92,14 @@ public class GameController extends Observable {
 			setCurrentPlayer(currentPlayerIndex);
 		}
 		else if (cup.isMrMonopoly()) {
-			movePlayer(currentPlayer, cup.getTotal());
+			board.movePlayer(currentPlayer, cup.getTotal());
 			// TODO go to first unowned square
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
 		}
 		else if (cup.isBusIcon()) {
-			movePlayer(currentPlayer, cup.getTotal());
+			board.movePlayer(currentPlayer, cup.getTotal());
 			// TODO go to first chance or community square
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
@@ -119,7 +121,7 @@ public class GameController extends Observable {
 				setCurrentPlayer(currentPlayerIndex);
 			}
 			else {
-				movePlayer(currentPlayer, cup.getTotal());
+				board.movePlayer(currentPlayer, cup.getTotal());
 			}
 		}
 		else {
@@ -129,13 +131,7 @@ public class GameController extends Observable {
 		}
 	}
 	
-	private void movePlayer (Player player, int distance) {
-		// TODO call passBy on passable objects 
-		for(int i = 0; i < distance - 1; i++) {
-			
-		}
-		// TODO call landOn on final location
-	}
+	
 
 	private void setCurrentPlayer(int index) {
 		Player currentPlayer = players.get(index);

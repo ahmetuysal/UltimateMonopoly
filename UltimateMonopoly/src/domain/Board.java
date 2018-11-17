@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.square.Location;
+import domain.square.Passable;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
@@ -264,6 +265,26 @@ public class Board {
 	
 	public List<Token> getTokens() {
 		return tokens;
+	}
+	
+	public void movePlayer (Player player, int distance) {
+		Token token = player.getToken();
+		int dx = player.isReverseDirection()? -1 : 1;
+		int numSquaresInLayer = 0;
+		for(int i = 0; i < distance - 1; i++) {
+			Location oldLoc = token.getLocation();
+			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			Square sq = getSquare(token.getLocation());
+			if (sq instanceof Passable) {
+				((Passable) sq).passBy(player);
+			}
+		}
+		Location oldLoc = token.getLocation();
+		numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+		token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+		Square sq = getSquare(token.getLocation());
+		sq.landOn(player);
 	}
 	
 }
