@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
@@ -13,7 +14,8 @@ public class ForwardThinker extends ChanceCard {
 	@Override
 	public void useCard(Player player, String s) {
 		Location playerLocation = player.getToken().getLocation();
-		player.getToken().setLocation(new Location(playerLocation.getLayer(), playerLocation.getIndex()));
+		int layerSize = GameController.getInstance().getBoard().getLayerSize(playerLocation.getLayer());
+		player.getToken().setLocation(new Location(playerLocation.getLayer(), (playerLocation.getIndex()+3)%layerSize));
 	}
 
 }

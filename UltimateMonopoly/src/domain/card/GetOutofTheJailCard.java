@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.GameController;
 import domain.Player;
 
 public class GetOutofTheJailCard extends ChanceCard{
@@ -7,6 +8,7 @@ public class GetOutofTheJailCard extends ChanceCard{
 	protected GetOutofTheJailCard(String name, String description) {
 		super(name, description);
 		// TODO Auto-generated constructor stub
+		GameController.getInstance().getCurrentPlayer().addCard(this);
 	}
 	
 

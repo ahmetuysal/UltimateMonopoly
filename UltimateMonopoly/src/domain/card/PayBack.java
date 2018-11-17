@@ -13,6 +13,7 @@ public class PayBack extends ChanceCard{
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
 		player.goToJail();
+		//TODO: rent collection will be blocked and pool will collect all the money!
 	}
 
 }

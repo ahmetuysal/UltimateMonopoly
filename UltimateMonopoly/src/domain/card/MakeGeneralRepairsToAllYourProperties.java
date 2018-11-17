@@ -1,6 +1,9 @@
 package domain.card;
 
 import domain.Player;
+import domain.square.OwnableSquare;
+import domain.square.TitleDeedSquare;
+import domain.square.UtilitySquare;
 
 public class MakeGeneralRepairsToAllYourProperties extends ChanceCard{
 
@@ -12,8 +15,21 @@ public class MakeGeneralRepairsToAllYourProperties extends ChanceCard{
 	@Override
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		
-		//there is no easy way to count the number of properties!
+		int totalMoney = 0;
+		for(OwnableSquare ownable : player.getProperties()) {
+			//TODO: add money calculation for cab stand and transit stations
+			if(ownable instanceof TitleDeedSquare) {
+				int numHouse = ((TitleDeedSquare) ownable).getNumHouses();
+				int numHotel =((TitleDeedSquare) ownable).getNumHotels();
+				int numSkyScraper = ((TitleDeedSquare) ownable).getNumSkyscrapers();
+				totalMoney += 25*numHouse + 100*numHotel+100*numSkyScraper;
+			}else if(ownable instanceof UtilitySquare) {
+				//if(((UtilitySquare) ownable).getType())) {
+					
+				//}
+			}
+		}
+		//TODO: decrease money from player!
 	}
 
 }

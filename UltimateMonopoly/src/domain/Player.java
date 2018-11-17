@@ -272,6 +272,9 @@ public class Player {
 		this.totalMoney = totalMoney;
 		
 	}
-
+	
+	public List<OwnableSquare> getProperties() {
+		return properties;
+	}
 	
 }
