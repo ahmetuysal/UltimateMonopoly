@@ -137,19 +137,19 @@ public class GameController extends Observable {
 		return players;
 	}
 	
-	public void buyTitleDeed(Player currentPlayer) {
+	public void buyTitleDeed() {
 		board.buyTitleDeed(currentPlayer);
 	}
 	
-	public void buildHouse(Player currentPlayer, int houseNum) {
+	public void buildHouse(int houseNum) {
 		board.buildHouse(currentPlayer, houseNum);
 	}
 	
-	public void buildHotel(Player currentPlayer) {
+	public void buildHotel() {
 		board.buildHotel(currentPlayer);
 	}
 
-	public void buildSkyscraper(Player currentPlayer) {
+	public void buildSkyscraper() {
 		board.buildSkyscraper(currentPlayer);
 	}
 }

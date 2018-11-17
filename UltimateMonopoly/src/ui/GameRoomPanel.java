@@ -35,9 +35,13 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private int frameHeight;
 	private int boardStartX;
 	private int squareUnitSize; // Normal squares are 2unit height 1 unit width
-	private int tokenSize = 20;
+	private int tokenSize;
+	private int boardLength;
 
 	private List<UIToken> UITokens = new ArrayList<>();
+	
+	private PlayButtonPanel playButtons;
+	
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
@@ -55,8 +59,17 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		setLayout(null);
 
 		squareUnitSize = frameHeight / 17;
-		boardStartX = (frameWidth - 17 * squareUnitSize) / 2;
-
+		boardStartX = squareUnitSize/10;
+		tokenSize = squareUnitSize/2;
+		
+		int pbpWidth = frameWidth - 17*squareUnitSize - boardStartX;
+		int pbpHeight = frameHeight / 8;
+		playButtons = new PlayButtonPanel(pbpWidth, pbpHeight,this);
+		playButtons.setBounds(frameWidth - pbpWidth, frameHeight - pbpHeight , pbpWidth, pbpHeight);
+		playButtons.setVisible(true);
+		playButtons.setBackground(this.getBackground());
+		add(playButtons);
+		
 		initTokens();
 		initBoard();
 		// initButtons();
