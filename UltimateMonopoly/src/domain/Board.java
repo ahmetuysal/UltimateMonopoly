@@ -194,9 +194,11 @@ public class Board {
 		if(currentSquare instanceof TitleDeedSquare) {
 			if(!((TitleDeedSquare) currentSquare).isOwned()) {
 				currentPlayer.addProperty((TitleDeedSquare) currentSquare);
-				currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice());
-				((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
-				//TODO: ask for any extra implementation is needed??
+				if(currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice())) {
+					((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
+					//TODO: ask for any extra implementation is needed??		
+				}
+				//TODO: if cannot buy, show some message!
 			}
 		}
 	}
@@ -210,10 +212,10 @@ public class Board {
 				if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
 					if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
 						int housePrice = color.homePriceProperty();
-						if(currentPlayer.getTotalMoney() > houseNum*housePrice) {
-							currentPlayer.decreaseMoney(houseNum*housePrice);
+						if(currentPlayer.decreaseMoney(houseNum*housePrice)) {
 							((TitleDeedSquare) currentSquare).setNumHouses(houseNum);
 						}
+						//TODO: if cannot build, show some message!
 					}
 				}
 			}
@@ -231,11 +233,11 @@ public class Board {
 				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
 					if(currentPlayer.houseCheckForHotelBuilding(color)) {					
 						int hotelPrice = color.hotelPriceProperty();
-						if(currentPlayer.getTotalMoney() > hotelPrice) {
-							currentPlayer.decreaseMoney(hotelPrice);
+						if(currentPlayer.decreaseMoney(hotelPrice)) {
 							((TitleDeedSquare) currentSquare).setNumHotels(1);
 							((TitleDeedSquare) currentSquare).setNumHouses(0);
 						}
+						//TODO: if cannot build, show some message!					
 					}	
 				}
 			}
@@ -252,11 +254,11 @@ public class Board {
 				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
 					if(currentPlayer.hotelCheckForSkyscraperBuilding(color)) {				
 						int skyScraperPrice = color.skyScraperPriceProperty();
-						if(currentPlayer.getTotalMoney() > skyScraperPrice) {
-							currentPlayer.decreaseMoney(skyScraperPrice);
+						if(currentPlayer.decreaseMoney(skyScraperPrice)) {
 							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
-							((TitleDeedSquare) currentSquare).setNumHotels(0);
+							((TitleDeedSquare) currentSquare).setNumHotels(0);		
 						}
+						//TODO: if cannot build, show some message!
 					}
 				}
 			}
