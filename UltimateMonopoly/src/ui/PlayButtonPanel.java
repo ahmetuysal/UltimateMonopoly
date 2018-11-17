@@ -20,7 +20,7 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 	private int panelHeight;
 	
 	private GameController controller;
-	
+		
 	public PlayButtonPanel(int width, int height, GameRoomPanel grpanel){
 		this.controller = GameController.getInstance();
 		this.panelHeight = height;
@@ -28,8 +28,18 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		
 		setSize(width, height);
 		setLayout(null);
-		
+		initDies();
 		initButtons();
+	}
+	
+	private void initDies() {
+		// UIDie.initializeDieIcons();
+		UIDie die1 = new UIDie();
+		controller.addPropertyListener("die1", die1);
+		UIDie die2 = new UIDie();
+		controller.addPropertyListener("die2", die2);
+		UIDie die3 = new UIDie();
+		controller.addPropertyListener("die3", die3);
 	}
 	
 	private void initButtons(){

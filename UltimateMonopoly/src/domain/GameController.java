@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.die.Cup;
-import domain.square.Square;
-import domain.square.TitleDeedSquare;
-import domain.square.TitleDeedSquareColor;
+import domain.die.DieValue;
 import domain.util.Observable;
 import domain.Player;
 import domain.Board;
@@ -19,6 +17,12 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
+	
+	// DieValues for updating UI (Using Observer Pattern)
+	private DieValue die1Value; 
+	private DieValue die2Value;
+	private DieValue die3Value;
+	
 	private boolean withNetwork;
 
 	private static GameController instance;
@@ -64,8 +68,9 @@ public class GameController extends Observable {
 		Token.initializeAvailableTokens();
 	}
 
-	private void initTurnOrder() {
+	public void initTurnOrder() {
 		// TODO
+		currentPlayer = players.get(0);
 	}
 	
 	public void playTurn() {
@@ -75,19 +80,61 @@ public class GameController extends Observable {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
+			currentPlayer.decreaseJailTime();
 		}
-		if (cup.isDouble()) {
-			consecutiveDoubles++;
-			if (consecutiveDoubles == 3) {
-				currentPlayer.goToJail();
-			}
-		} else {
+		// We need to call isTriple first
+		// (isDouble return true even if triple)
+		if (currentPlayer.isInJail()) {
 			consecutiveDoubles = 0;
-		}
-		if (!cup.isDouble()) {
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
 		}
+		else if (cup.isMrMonopoly()) {
+			movePlayer(currentPlayer, cup.getTotal());
+			// TODO go to first unowned square
+			consecutiveDoubles = 0;
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+		}
+		else if (cup.isBusIcon()) {
+			movePlayer(currentPlayer, cup.getTotal());
+			// TODO go to first chance or community square
+			consecutiveDoubles = 0;
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+		}
+		else if (cup.isTriple()) {
+			// TODO move user to wherever he wants 
+			// do not move again
+			consecutiveDoubles = 0;
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+		}
+		else if (cup.isDouble()) {
+			consecutiveDoubles++;
+			if (consecutiveDoubles == 3) {
+				currentPlayer.goToJail();
+				consecutiveDoubles = 0;
+				this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+				setCurrentPlayer(currentPlayerIndex);
+			}
+			else {
+				movePlayer(currentPlayer, cup.getTotal());
+			}
+		}
+		else {
+			consecutiveDoubles = 0;
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+		}
+	}
+	
+	private void movePlayer (Player player, int distance) {
+		// TODO call passBy on passable objects 
+		for(int i = 0; i < distance - 1; i++) {
+			
+		}
+		// TODO call landOn on final location
 	}
 
 	private void setCurrentPlayer(int index) {
@@ -128,10 +175,26 @@ public class GameController extends Observable {
 		} else {
 			cup.rollDices();
 		}
+
+		DieValue[] newValues = cup.getFaceValues();
+		publishPropertyEvent("die1", die1Value, newValues[0]);
+		die1Value = newValues[0];
+		publishPropertyEvent("die2", die2Value, newValues[1]);
+		die2Value = newValues[1];
+		publishPropertyEvent("die3", die3Value, newValues[2]);
+		die3Value = newValues[2];
 	}
 
 	public void rollTriple() {
 		cup.rollThreeRegularDices();
+		
+		DieValue[] newValues = cup.getFaceValues();
+		publishPropertyEvent("die1", die1Value, newValues[0]);
+		die1Value = newValues[0];
+		publishPropertyEvent("die2", die2Value, newValues[1]);
+		die2Value = newValues[1];
+		publishPropertyEvent("die3", die3Value, newValues[2]);
+		die3Value = newValues[2];
 	}
 
 	public List<Player> getPlayerList() {

@@ -42,7 +42,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	
 	private PlayButtonPanel playButtons;
 	
-
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
@@ -205,7 +204,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 			UITokens.add(uiToken);
 			setComponentZOrder(uiToken, 0);
 			add(uiToken);
-			System.out.println(uiToken);
+			TokenLocationChanged(uiToken, null, new Location(1, 0));
 		}
 		repaint();
 	}
