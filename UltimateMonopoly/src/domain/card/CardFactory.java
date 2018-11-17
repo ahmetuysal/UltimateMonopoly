@@ -89,6 +89,80 @@ public class CardFactory {
 			}else if("The Insider's Edge".equals(name)) {
 				return new TheInsidersEdge(name, "");
 			}
+		}else if(type == "Roll Three Card") {
+			if("123".equals(name)) {
+				return new RollThreeCards("123","",1,2,3);
+			}
+			else if("124".equals(name)) {
+				return new RollThreeCards("124","",1,2,4);
+			}
+			else if("125".equals(name)) {
+				return new RollThreeCards("125","",1,2,5);				
+			}
+			else if("126".equals(name)) {
+				return new RollThreeCards("126","",1,2,6);
+			}
+			else if("134".equals(name)) {
+				return new RollThreeCards("134","",1,3,4);
+			}
+			else if("135".equals(name)) {
+				return new RollThreeCards("135","",1,3,5);
+			}
+			else if("136".equals(name)) {
+				return new RollThreeCards("136","",1,3,6);
+			}
+			else if("145".equals(name)) {
+				return new RollThreeCards("145","",1,4,5);
+			}
+			else if("146".equals(name)) {
+				return new RollThreeCards("146","",1,4,6);
+			}
+			else if("156".equals(name)) {
+				return new RollThreeCards("156","",1,5,6);
+			}
+			else if("234".equals(name)) {
+				return new RollThreeCards("234","",2,3,4);
+			}
+			else if("245".equals(name)) {
+				return new RollThreeCards("245","",2,4,5);
+			}
+			else if("246".equals(name)) {
+				return new RollThreeCards("246","",2,4,6);
+			}
+			else if("256".equals(name)) {
+				return new RollThreeCards("256","",2,5,6);
+			}
+			else if("345".equals(name)) {
+				return new RollThreeCards("345","",3,4,5);
+			}
+			else if("346".equals(name)) {
+				return new RollThreeCards("346","",3,4,6);
+			}
+			else if("356".equals(name)) {
+				return new RollThreeCards("356","",3,5,6);
+			}
+			else if("456".equals(name)) {
+				return new RollThreeCards("456","",4,5,6);
+			}
+			else if("246".equals(name)) {
+				return new RollThreeCards("246","",2,4,6);
+			}
+			else if("256".equals(name)) {
+				return new RollThreeCards("256","",2,5,6);
+			}
+			else if("345".equals(name)) {
+				return new RollThreeCards("345","",3,4,5);
+			}
+			else if("346".equals(name)) {
+				return new RollThreeCards("346","",3,4,6);	
+			}
+			else if("356".equals(name)) {
+				return new RollThreeCards("356","",3,5,6);
+			}
+			else if("456".equals(name)) {
+				return new RollThreeCards("456","",4,5,6);
+			}
+			
 		}
 		return null;
 	}

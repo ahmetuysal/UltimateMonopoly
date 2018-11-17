@@ -1,5 +1,6 @@
 package domain.card;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import domain.Player;
@@ -10,10 +11,14 @@ public abstract class Card {
 	private String description;
 	private List<Card> chanceCardList;
 	private List<Card> communityChestCardList;
+	private List<Card> rollThreeCardList;
 	
 	public Card(String name, String description){
 		this.name = name;
 		this.description = description;
+		chanceCardList = new ArrayList<Card>();
+		communityChestCardList = new ArrayList<Card>();
+		rollThreeCardList = new ArrayList<Card>();
 	}
 	
 	public void addChanceCards() {
@@ -55,6 +60,33 @@ public abstract class Card {
 		communityChestCardList.add(CardFactory.getCard("Community Chest Card", "Tornado Hits!"));
 		communityChestCardList.add(CardFactory.getCard("Community Chest Card", "Share in their Good Fortune"));
 		communityChestCardList.add(CardFactory.getCard("Community Chest Card", "The Insider's Edge"));
+	}
+	
+	public void addRollThreeCards() {
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "123"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "124"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "125"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "126"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "134"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "135"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "136"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "145"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "146"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "156"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "234"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "245"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "246"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "256"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "345"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "346"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "356"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "456"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "246"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "256"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "345"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "346"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "356"));
+		rollThreeCardList.add(CardFactory.getCard("Roll Three Card", "456"));
 	}
 	
 	public String getName() {
