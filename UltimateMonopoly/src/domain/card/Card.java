@@ -1,11 +1,12 @@
 package domain.card;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.Player;
 
-public abstract class Card {
+public abstract class Card implements Serializable{
 
 	private String name;
 	private String description;

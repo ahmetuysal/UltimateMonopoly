@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
 
-public class Player {
+public class Player implements Serializable{
 
 	private String nickName;
 	private int totalMoney;

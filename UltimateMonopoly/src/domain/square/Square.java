@@ -1,8 +1,10 @@
 package domain.square;
 
+import java.io.Serializable;
+
 import domain.Player;
 
-public abstract class Square {
+public abstract class Square implements Serializable{
 	
 	private String name;
 	private String description;
