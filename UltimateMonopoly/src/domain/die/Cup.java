@@ -78,5 +78,12 @@ public class Cup {
 			return false;
 		}
 	}
+	
+	public int getTotal() {
+		int value = die1.getFaceValue().getValue() + die2.getFaceValue().getValue();
+		if (speedDie.getFaceValue() != DieValue.BUSICON && speedDie.getFaceValue() != DieValue.MRMONOPOLY)
+			value += speedDie.getFaceValue().getValue();
+		return value;
+	}
 
 }
