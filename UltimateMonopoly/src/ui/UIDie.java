@@ -16,14 +16,15 @@ public class UIDie extends JLabel implements PropertyListener {
 
 	private DieValue dieValue;
 	private static ImageIcon[] ICONS;
-	private static final int DIE_SIZE = 50;
+	private static int DIE_SIZE = 50;
 	
-	public static void initializeDieIcons() {
+	public static void initializeDieIcons(int size) {
+		DIE_SIZE = size;
 		if (ICONS != null)
 			return;
-		
+		ICONS = new ImageIcon[9];
 		Image tmp = null;
-		for (int i = 0; i < 8; i++) {
+		for (int i = 1; i < 9; i++) {
 			try {
 				String osName = System.getProperty("os.name").toLowerCase();
 		        if(osName.contains("mac")){
@@ -45,7 +46,7 @@ public class UIDie extends JLabel implements PropertyListener {
 		super();
 		this.setSize(DIE_SIZE, DIE_SIZE);
 		// TODO Auto-generated constructor stub
-		
+		this.setIcon(ICONS[0]);
 	}
 
 	@Override

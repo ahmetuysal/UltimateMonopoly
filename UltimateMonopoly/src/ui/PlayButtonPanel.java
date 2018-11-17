@@ -33,13 +33,33 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 	}
 	
 	private void initDies() {
-		// UIDie.initializeDieIcons();
+		int width = panelWidth / 10;
+		int height = width;
+		
+	    UIDie.initializeDieIcons(width);
 		UIDie die1 = new UIDie();
 		controller.addPropertyListener("die1", die1);
 		UIDie die2 = new UIDie();
 		controller.addPropertyListener("die2", die2);
 		UIDie die3 = new UIDie();
 		controller.addPropertyListener("die3", die3);
+		
+		int diff = width / 4;
+		int initx = panelWidth / 3 + 3 * panelWidth / 20;
+		int inity = panelHeight/6;
+
+		
+		die1.setBounds(initx, inity, width, height);
+		die2.setBounds(initx + diff + width, inity, width, height);
+		die3.setBounds(initx + 2*(diff + width), inity, width, height);
+		
+		die1.setVisible(true);
+		die2.setVisible(true);
+		die3.setVisible(true);
+		
+		add(die1);
+		add(die2);
+		add(die3);
 	}
 	
 	private void initButtons(){
@@ -50,7 +70,7 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		int width = panelWidth / 5;
 		int height = panelHeight / 6;
 		
-		int initx = (panelWidth - width) / 2;
+		int initx = 3 * panelWidth / 20;
 		int inity = panelHeight / 8 ;
 		
 		int diff = panelHeight / 8 + height;
