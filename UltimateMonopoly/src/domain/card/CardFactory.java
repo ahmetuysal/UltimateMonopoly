@@ -144,24 +144,6 @@ public class CardFactory {
 			else if("456".equals(name)) {
 				return new RollThreeCards("456","",4,5,6);
 			}
-			else if("246".equals(name)) {
-				return new RollThreeCards("246","",2,4,6);
-			}
-			else if("256".equals(name)) {
-				return new RollThreeCards("256","",2,5,6);
-			}
-			else if("345".equals(name)) {
-				return new RollThreeCards("345","",3,4,5);
-			}
-			else if("346".equals(name)) {
-				return new RollThreeCards("346","",3,4,6);	
-			}
-			else if("356".equals(name)) {
-				return new RollThreeCards("356","",3,5,6);
-			}
-			else if("456".equals(name)) {
-				return new RollThreeCards("456","",4,5,6);
-			}
 			
 		}
 		return null;
