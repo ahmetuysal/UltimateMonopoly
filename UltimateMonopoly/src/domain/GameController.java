@@ -157,6 +157,10 @@ public class GameController extends Observable {
 		return cup;
 	}
 
+	public void setCup(Cup cup) {
+		this.cup = cup;
+	}
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
