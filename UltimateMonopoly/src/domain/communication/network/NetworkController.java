@@ -10,25 +10,17 @@ public class NetworkController {
 		currentGameState = new GameState();
 	}
 	
-	public void sendGameState(File gameStateFile) {
-		
-	}
-	
-	public void receiveGameState(GameState gameState) {
-		
-	}
-	
-	public GameState parseFileToGameState(File file) {
-		GameState gameState = new GameState();
-		return gameState;
-	}
-	
-	public File parseGameStateToFile(GameState gameState) {
-		File file = new File("path"); //path will be added
-		return file;
-	}
-	
 	public boolean isConnected() {
 		return true; //arbitrary
 	}
+
+	public GameState getCurrentGameState() {
+		return currentGameState;
+	}
+
+	public void setCurrentGameState(GameState currentGameState) {
+		this.currentGameState = currentGameState;
+	}
+	
+	
 }
