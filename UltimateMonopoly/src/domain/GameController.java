@@ -19,6 +19,7 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
+	private boolean withNetwork;
 
 	private static GameController instance;
 
@@ -152,4 +153,42 @@ public class GameController extends Observable {
 	public void buildSkyscraper() {
 		board.buildSkyscraper(currentPlayer);
 	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
+	}
+
+	public int getCurrentPlayerIndex() {
+		return currentPlayerIndex;
+	}
+
+	public void setCurrentPlayerIndex(int currentPlayerIndex) {
+		this.currentPlayerIndex = currentPlayerIndex;
+	}
+
+	public int getConsecutiveDoubles() {
+		return consecutiveDoubles;
+	}
+
+	public void setConsecutiveDoubles(int consecutiveDoubles) {
+		this.consecutiveDoubles = consecutiveDoubles;
+	}
+
+	public boolean isWithNetwork() {
+		return withNetwork;
+	}
+
+	public void setWithNetwork(boolean withNetwork) {
+		this.withNetwork = withNetwork;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+	
+	
 }
