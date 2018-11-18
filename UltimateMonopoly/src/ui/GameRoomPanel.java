@@ -1,6 +1,10 @@
 package ui;
 
 import java.awt.Color;
+
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -19,6 +23,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.LayoutStyle;
@@ -38,6 +43,12 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private int tokenSize;
 	private int boardLength;
 
+	private TransparentButton rollThreeCard;
+	private TransparentButton chanceCard;
+	private TransparentButton communityChestCard;
+	
+	private UICard cardImage;
+	
 	private List<UIToken> UITokens = new ArrayList<>();
 	
 	private PlayButtonPanel playButtons;
@@ -70,6 +81,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		add(playButtons);
 		
 		initTokens();
+		cardImage();
+		initCardButtons();
 		initBoard();
 		controller.initTurnOrder();
 		// initButtons();
@@ -79,26 +92,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		Token token = controller.getBoard().getTokens().get(0);
 		System.out.println(token);
-		
-//		token.setLocation(new Location(0, 0));
-//		
-//		new Timer().schedule(new TimerTask() {
-//			public void run() {
-//				// TODO Auto-generated method stub
-//				for (int i = 0; i < 3; i++) {
-//					for (int j = 0; j < BOARD_SIZE[i]; j++) {
-//						token.setLocation(new Location(i, j));
-//						try {
-//							Thread.sleep(100);
-//						} catch (InterruptedException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//					}
-//				}
-//			}
-//		}, 2000);
-		
 
 	}
 
@@ -108,9 +101,51 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 				add(getSquare(i, j));
 			}
 		}
-
+		
 		add(getMiddle());
 		repaint();
+	}
+	
+	private void cardImage(){
+		int width = squareUnitSize;
+		int height = 29*width / 17;
+		cardImage = new UICard(width, height);
+		controller.addPropertyListener("drawChanceCard", cardImage);
+		controller.addPropertyListener("drawCommunityChestCard", cardImage);
+		controller.addPropertyListener("drawRollThreeCard", cardImage);
+	}
+	
+	private void initCardButtons(){
+		rollThreeCard = new TransparentButton();
+		chanceCard = new TransparentButton();
+		communityChestCard = new TransparentButton();
+		
+		controller.addPropertyListener("drawRollThreeCard", rollThreeCard);
+		controller.addPropertyListener("drawChanceCard", chanceCard);
+		controller.addPropertyListener("communityChestCard", communityChestCard);
+		
+		int width = 2*squareUnitSize;
+		int height = 5*squareUnitSize/4;
+		
+		rollThreeCard.setBounds( 8*squareUnitSize - squareUnitSize / 3 , 9*squareUnitSize + 11*squareUnitSize / 24, width, height);
+		rollThreeCard.addActionListener(this);
+		//rollThreeCard.setVisible(true);
+		rollThreeCard.setActionCommand("RollThreeCard");
+		
+		communityChestCard.setBounds( 6*squareUnitSize + 2*squareUnitSize / 5 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		//communityChestCard.setVisible(true);
+		communityChestCard.addActionListener(this);
+		communityChestCard.setActionCommand("CommunityChestCard");
+		
+		chanceCard.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		//chanceCard.setVisible(true);
+		chanceCard.addActionListener(this);
+		chanceCard.setActionCommand("ChanceCard");
+		
+		
+		this.add(rollThreeCard);
+		this.add(communityChestCard);
+		this.add(chanceCard);
 	}
 
 	private JLabel getMiddle() {
@@ -261,7 +296,17 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		switch(e.getActionCommand()){
+		case "RollThreeCard":
+			System.out.println("roll three mi dedi biri");
+			break;
+		case "ChanceCard":
+			System.out.println("You lucky you");
+			break;
+		case "CommunityChestCard":
+			System.out.println("Ne zaman yiyoruz?");
+			break;
+		}
 	}
 
 }
