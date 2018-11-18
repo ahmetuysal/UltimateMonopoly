@@ -8,8 +8,9 @@ import domain.card.Card;
 import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
+import domain.util.Observable;
 
-public class Player implements Serializable{
+public class Player extends Observable implements Serializable{
 
 	private String nickName;
 	private int totalMoney;
@@ -76,7 +77,9 @@ public class Player implements Serializable{
 	 * 
 	 */
 	public void increaseMoney(int money) {
+		int oldVal = this.totalMoney;
 		this.totalMoney += totalMoney;
+		publishPropertyEvent("money", oldVal, this.totalMoney);
 	}
 
 	/**
@@ -89,7 +92,10 @@ public class Player implements Serializable{
 		if (this.totalMoney < money) {
 			return false;
 		}
+		int oldVal = this.totalMoney;
 		this.totalMoney -= money;
+		publishPropertyEvent("money", oldVal, this.totalMoney);
+
 		return true;
 	}
 
