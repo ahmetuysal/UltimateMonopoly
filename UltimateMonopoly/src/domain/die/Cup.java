@@ -15,7 +15,13 @@ public class Cup implements Serializable{
 		die2 = new RegularDie();
 		die3 = new RegularDie();
 		speedDie = new SpeedDie();
+		die1.roll();
+		die2.roll();
+		die3.roll();
 		faceValues = new DieValue[3];
+		faceValues[0] = die1.getFaceValue();
+		faceValues[1] = die2.getFaceValue();
+		faceValues[2] = die3.getFaceValue();
 	}
 
 	public void rollTwoRegularDices() {
