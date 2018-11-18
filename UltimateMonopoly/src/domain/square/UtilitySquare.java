@@ -23,6 +23,8 @@ public class UtilitySquare extends OwnableSquare {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 
 }

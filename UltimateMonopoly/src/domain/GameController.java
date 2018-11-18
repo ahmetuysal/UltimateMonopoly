@@ -9,6 +9,7 @@ import domain.die.Cup;
 import domain.die.DieValue;
 import domain.square.OwnableSquare;
 import domain.square.Square;
+import domain.square.TitleDeedSquare;
 import domain.util.Observable;
 import domain.Player;
 import domain.card.Card;
@@ -70,8 +71,11 @@ public class GameController extends Observable {
 	public void buyProperty() {
 		Square sq = board.getSquare(currentPlayer.getToken().getLocation());
 		if (sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
-			// TODO Buy 
+			if(((OwnableSquare) sq).buyProperty(currentPlayer)) {
+				currentPlayer.addProperty((OwnableSquare) sq);
+			}
 		}
+		publishPropertyEvent("currentLocationBuyable", currentLocationBuyable, false);
 	}
 	
 	public void setCurrentLocationBuyable(boolean isBuyable) {

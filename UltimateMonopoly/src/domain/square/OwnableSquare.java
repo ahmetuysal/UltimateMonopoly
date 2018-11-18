@@ -41,9 +41,27 @@ public abstract class OwnableSquare extends Square {
 	 * @param owner the owner to set
 	 */
 	public void setOwner(Player owner) {
-		if(owner == null)
-			isOwned = false;
+		isOwned = owner != null;
 		this.owner = owner;
+		
+	}
+	
+	public boolean buyProperty(Player owner) {
+		if(isOwned) {
+			System.out.println("Property " + this.getName() + " is already owned");
+			return false;
+		}
+		
+		if(owner.getTotalMoney() < this.price) {
+			System.out.println("Player " + owner.getNickName() + " does not have enough money");
+			return false;
+		}
+		else {
+			owner.decreaseMoney(this.price);
+			this.setOwner(owner);
+			return true;
+		}
+		
 	}
 
 }

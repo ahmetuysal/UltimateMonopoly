@@ -174,11 +174,11 @@ public class Player implements Serializable{
 		return this.cards.remove(card);
 	}
 	
-	public void addProperty(TitleDeedSquare prop){
+	public void addProperty(OwnableSquare prop){
 		this.properties.add(prop);
 	}
 	
-	public boolean removeProperty(TitleDeedSquare prop){
+	public boolean removeProperty(OwnableSquare prop){
 		return this.properties.remove(prop);
 	}
 
