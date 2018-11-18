@@ -8,10 +8,13 @@ import domain.square.CommunityChest;
 import domain.square.Location;
 import domain.square.OwnableSquare;
 import domain.square.Passable;
+import domain.square.RailRoad;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
+import domain.square.UtilitySquare;
+import domain.square.UtilitySquareType;
 
 public class Board {
 
@@ -19,10 +22,10 @@ public class Board {
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
-	
+
 	private List<Square>[] squares;
 	private List<Token> tokens;
-	
+
 	public static Location getStartLocation() {
 		return new Location(1, 0);
 	}
@@ -70,7 +73,7 @@ public class Board {
 		squares[0].add(SquareFactory.getSquare("Transit Station"));
 		squares[0].add(SquareFactory.getSquare("Reverse Direction"));
 		squares[0].add(SquareFactory.getSquare("Lombard Street"));
-		
+
 		squares[1].add(SquareFactory.getSquare("Go"));
 		squares[1].add(SquareFactory.getSquare("Meditteranian Avenue"));
 		squares[1].add(SquareFactory.getSquare("Community Chest"));
@@ -109,7 +112,7 @@ public class Board {
 		squares[1].add(SquareFactory.getSquare("Short Line"));
 		squares[1].add(SquareFactory.getSquare("Chance"));
 		squares[1].add(SquareFactory.getSquare("Boardwalk"));
-		
+
 		squares[2].add(SquareFactory.getSquare("Subway"));
 		squares[2].add(SquareFactory.getSquare("Lake Street"));
 		squares[2].add(SquareFactory.getSquare("Community Chest"));
@@ -193,95 +196,94 @@ public class Board {
 		}
 		return null;
 	}
-	
+
 	public void buyTitleDeed(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
-		if(currentSquare instanceof TitleDeedSquare) {
-			if(!((TitleDeedSquare) currentSquare).isOwned()) {
+		if (currentSquare instanceof TitleDeedSquare) {
+			if (!((TitleDeedSquare) currentSquare).isOwned()) {
 				currentPlayer.addProperty((TitleDeedSquare) currentSquare);
-				if(currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice())) {
+				if (currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice())) {
 					((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
-					//TODO: ask for any extra implementation is needed??		
+					// TODO: ask for any extra implementation is needed??
 				}
-				//TODO: if cannot buy, show some message!
+				// TODO: if cannot buy, show some message!
 			}
 		}
 	}
-	
+
 	public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
-		if(currentSquare instanceof TitleDeedSquare) {
-			if(houseNum > -1 && (!(houseNum + ((TitleDeedSquare) currentSquare).getNumHouses() < 1 || ((TitleDeedSquare) currentSquare).getNumHouses() + houseNum > 4))) {
+		if (currentSquare instanceof TitleDeedSquare) {
+			if (houseNum > -1 && (!(houseNum + ((TitleDeedSquare) currentSquare).getNumHouses() < 1
+					|| ((TitleDeedSquare) currentSquare).getNumHouses() + houseNum > 4))) {
 				TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-				int numProperty = color.numProperty(); 
-				if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-					if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+				int numProperty = color.numProperty();
+				if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+					if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
 						int housePrice = color.homePriceProperty();
-						if(currentPlayer.decreaseMoney(houseNum*housePrice)) {
+						if (currentPlayer.decreaseMoney(houseNum * housePrice)) {
 							((TitleDeedSquare) currentSquare).setNumHouses(houseNum);
 						}
-						//TODO: if cannot build, show some message!
+						// TODO: if cannot build, show some message!
 					}
 				}
 			}
 		}
 	}
-	
-	
-	
+
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
-		if(currentSquare instanceof TitleDeedSquare) {
+		if (currentSquare instanceof TitleDeedSquare) {
 			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-			int numProperty = color.numProperty(); 
-			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					if(currentPlayer.houseCheckForHotelBuilding(color)) {					
+			int numProperty = color.numProperty();
+			if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					if (currentPlayer.houseCheckForHotelBuilding(color)) {
 						int hotelPrice = color.hotelPriceProperty();
-						if(currentPlayer.decreaseMoney(hotelPrice)) {
+						if (currentPlayer.decreaseMoney(hotelPrice)) {
 							((TitleDeedSquare) currentSquare).setNumHotels(1);
 							((TitleDeedSquare) currentSquare).setNumHouses(0);
 						}
-						//TODO: if cannot build, show some message!					
-					}	
-				}
-			}
-		}
-	}
-
-
-	public void buildSkyscraper(Player currentPlayer) {
-		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
-		if(currentSquare instanceof TitleDeedSquare) {
-			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-			int numProperty = color.numProperty(); 
-			if(numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-				if(numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					if(currentPlayer.hotelCheckForSkyscraperBuilding(color)) {				
-						int skyScraperPrice = color.skyScraperPriceProperty();
-						if(currentPlayer.decreaseMoney(skyScraperPrice)) {
-							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
-							((TitleDeedSquare) currentSquare).setNumHotels(0);		
-						}
-						//TODO: if cannot build, show some message!
+						// TODO: if cannot build, show some message!
 					}
 				}
 			}
 		}
 	}
-	
+
+	public void buildSkyscraper(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
+			int numProperty = color.numProperty();
+			if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
+				if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
+					if (currentPlayer.hotelCheckForSkyscraperBuilding(color)) {
+						int skyScraperPrice = color.skyScraperPriceProperty();
+						if (currentPlayer.decreaseMoney(skyScraperPrice)) {
+							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
+							((TitleDeedSquare) currentSquare).setNumHotels(0);
+						}
+						// TODO: if cannot build, show some message!
+					}
+				}
+			}
+		}
+	}
+
 	public List<Token> getTokens() {
 		return tokens;
 	}
-	
-	public void movePlayer (Player player, int distance) {
+
+	public void movePlayer(Player player, int distance) {
 		Token token = player.getToken();
-		int dx = player.isReverseDirection()? -1 : 1;
+		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
-		for(int i = 0; i < distance - 1; i++) {
+		for (int i = 0; i < distance - 1; i++) {
 			Location oldLoc = token.getLocation();
 			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
-			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			token.setLocation(
+					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 			Square sq = getSquare(token.getLocation());
 			if (sq instanceof Passable) {
 				((Passable) sq).passBy(player);
@@ -289,76 +291,100 @@ public class Board {
 		}
 		Location oldLoc = token.getLocation();
 		numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
-		token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+		token.setLocation(
+				new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
-		
+
 		System.out.println("Token: " + token.toString());
 
 	}
-	
+
 	public void moveToNextOwnedProperty(Player player) {
 		Token token = player.getToken();
-		int dx = player.isReverseDirection()? -1 : 1;
+		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
-		while(true) {
+		while (true) {
 			Location oldLoc = token.getLocation();
 			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
-			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			token.setLocation(
+					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 			Square sq = getSquare(token.getLocation());
-			if(sq instanceof OwnableSquare && ((OwnableSquare) sq).isOwned()) {
+			if (sq instanceof OwnableSquare && ((OwnableSquare) sq).isOwned()) {
 				sq.landOn(player);
 				break;
 			}
-			
+
 			else if (sq instanceof Passable) {
 				((Passable) sq).passBy(player);
-			}		
+			}
 		}
 	}
-	
-	
+
 	public void moveToNextUnownedProperty(Player player) {
 		Token token = player.getToken();
-		int dx = player.isReverseDirection()? -1 : 1;
+		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
-		while(true) {
+		while (true) {
 			Location oldLoc = token.getLocation();
 			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
-			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
-			
+			token.setLocation(
+					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+
 			Square sq = getSquare(token.getLocation());
-			if(sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
+			if (sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
 				sq.landOn(player);
 				break;
 			}
-			
+
 			else if (sq instanceof Passable) {
 				((Passable) sq).passBy(player);
-			}		
+			}
 		}
 	}
-	
+
 	public void moveToNextChanceOrCommunityChestSquare(Player player) {
 		Token token = player.getToken();
-		int dx = player.isReverseDirection()? -1 : 1;
+		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
-		while(true) {
+		while (true) {
 			Location oldLoc = token.getLocation();
 			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
-			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
-			
+			token.setLocation(
+					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+
 			Square sq = getSquare(token.getLocation());
-			if(sq instanceof Chance || sq instanceof CommunityChest) {
+			if (sq instanceof Chance || sq instanceof CommunityChest) {
 				sq.landOn(player);
 				break;
 			}
-			
+
 			else if (sq instanceof Passable) {
 				((Passable) sq).passBy(player);
-			}		
+			}
 		}
 	}
-	
-	
+
+	public void moveToTransportationSquare(Player player) {
+		Token token = player.getToken();
+		int dx = player.isReverseDirection() ? -1 : 1;
+		int numSquaresInLayer = 0;
+		while (true) {
+			Location oldLoc = token.getLocation();
+			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+			token.setLocation(
+					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+
+			Square sq = getSquare(token.getLocation());
+			if (sq instanceof RailRoad || (sq instanceof UtilitySquare && ((UtilitySquare)sq).getType() == UtilitySquareType.CAB_COMPANY)) {
+				sq.landOn(player);
+				break;
+			}
+
+			else if (sq instanceof Passable) {
+				((Passable) sq).passBy(player);
+			}
+		}
+	}
+
 }

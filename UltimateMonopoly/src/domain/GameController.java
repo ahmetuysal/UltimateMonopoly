@@ -24,6 +24,7 @@ public class GameController extends Observable {
 	private List<Card> chanceCardList;
 	private List<Card> communityChestCardList;
 	private List<Card> rollThreeCardList;
+	private int poolMoney;
 	
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
@@ -50,6 +51,14 @@ public class GameController extends Observable {
 		initCards();
 	}
 	
+	public int getPoolMoney() {
+		return poolMoney;
+	}
+	
+	public void increasePoolMoney(int amount) {
+		poolMoney += amount;
+	}
+	
 	public boolean registerUser(String nickname, String tokenName) {
 		if (Token.isTokenAvailable(tokenName)) {
 			Player player = new Player(nickname);
@@ -66,9 +75,7 @@ public class GameController extends Observable {
 
 	private void initBoard() {
 		board.addSquares();
-
 	}
-
 	
 	private void initTokens() {
 		Token.initializeAvailableTokens();
@@ -136,8 +143,6 @@ public class GameController extends Observable {
 			setCurrentPlayer(currentPlayerIndex);
 		}
 	}
-	
-	
 
 	private void setCurrentPlayer(int index) {
 		Player currentPlayer = players.get(index);
@@ -194,7 +199,7 @@ public class GameController extends Observable {
 		die3Value = newValues[2];
 	}
 
-	public void rollTriple() {
+	public void rollThree() {
 		cup.rollThreeRegularDices();		
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
@@ -265,40 +270,41 @@ public class GameController extends Observable {
 		chanceCardList = new ArrayList<Card>();
 		communityChestCardList = new ArrayList<Card>();
 		rollThreeCardList = new ArrayList<Card>();
-		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
-		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
-		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
-		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
+		
+//		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
+//		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
+//		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
+//		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
+//		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
 		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
 		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
-		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
-		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
-		chanceCardList.add(CardFactory.getCard("See You In Court!"));
-		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
-		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
-		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
-		chanceCardList.add(CardFactory.getCard("Property Taxes"));
-		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
-		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
-		chanceCardList.add(CardFactory.getCard("Pay Back!"));
-		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
-		chanceCardList.add(CardFactory.getCard("GPS is not working"));
-		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
+//		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
+//		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
+//		chanceCardList.add(CardFactory.getCard("See You In Court!"));
+//		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
+//		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
+//		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
+//		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+//		chanceCardList.add(CardFactory.getCard("Property Taxes"));
+//		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
+//		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
+//		chanceCardList.add(CardFactory.getCard("Pay Back!"));
+//		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
+//		chanceCardList.add(CardFactory.getCard("GPS is not working"));
+//		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
+//		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
+//		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
 		
-		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
-		communityChestCardList.add(CardFactory.getCard("Game Night!"));
+//		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
+//		communityChestCardList.add(CardFactory.getCard("Game Night!"));
 		communityChestCardList.add(CardFactory.getCard("A Moving Experience"));
-		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
-		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
-		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
-		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
+//		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
+//		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
+//		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
+//		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
 		communityChestCardList.add(CardFactory.getCard("Pay Hospital Bills"));
-		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
-		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
+//		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
+//		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
 		communityChestCardList.add(CardFactory.getCard("The Insider's Edge"));
 		
 		rollThreeCardList.add(CardFactory.getCard("123"));
