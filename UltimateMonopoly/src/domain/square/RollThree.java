@@ -12,8 +12,7 @@ public class RollThree extends Square {
 
 	@Override
 	public void landOn(Player player) {
-		// TODO Auto-generated method stub
-		
+		GameController.getInstance().promptDrawRollThreeCard();		
 	}
 
 }

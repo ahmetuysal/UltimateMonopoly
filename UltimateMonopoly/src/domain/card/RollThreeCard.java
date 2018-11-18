@@ -2,6 +2,7 @@ package domain.card;
 
 import java.util.Arrays;
 
+import domain.GameController;
 import domain.Player;
 
 public class RollThreeCard extends Card {
@@ -24,8 +25,27 @@ public class RollThreeCard extends Card {
 
 	@Override
 	public void useCard(Player player, String s) {
-		// TODO Auto-generated method stub
-
+		int matched = 0;
+		
+		for (int i = 0 ; i < 3 ; i++) {
+			if(cardValuesAsInteger[i] == Character.getNumericValue(s.charAt(i)))
+				matched++;
+		}
+		
+		if (matched == 1) {
+			player.increaseMoney(50);
+		}
+		else if (matched == 2) {
+			player.increaseMoney(200);
+		}
+		else if (matched == 3) {
+			if (player.equals(GameController.getInstance().getCurrentPlayer()))
+				player.increaseMoney(1500);
+			else 
+				player.increaseMoney(1000);
+		}
+		
+		player.removeCard(this);
 	}
 
 }

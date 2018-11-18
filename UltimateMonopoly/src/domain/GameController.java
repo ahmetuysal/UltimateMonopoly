@@ -1,9 +1,12 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import domain.die.Cup;
 import domain.die.DieValue;
@@ -58,8 +61,69 @@ public class GameController extends Observable {
 		initCards();
 	}
 	
+	public void playRollThree() {
+		HashMap<Player, RollThreeCard> playerCards = new HashMap<>();
+		for (Player player: players) {
+			if (currentPlayer.equals(player)) 
+				continue;
+			RollThreeCard card = askPlayerWhichRollThreeCardToPlay(player);
+			
+			if (card == null)
+				continue;
+			
+			playerCards.put(player, card);
+		}
+		
+		rollThree();
+		DieValue[] values = cup.getFaceValues();
+		int[] intVals = new int[values.length];
+		for (int i = 0 ; i < values.length ; i++) {
+			intVals[i] = values[i].getValue();
+		}
+		
+		Arrays.sort(intVals);
+		String results = "";
+
+		for (int i = 0 ; i < values.length; i++) {
+			results += intVals[0];
+		}
+		
+		for(Player player : playerCards.keySet()) {
+			playerCards.get(player).useCard(player, results);
+		}
+		
+	}
+	
+	private RollThreeCard askPlayerWhichRollThreeCardToPlay(Player player) {
+		
+		
+		List<RollThreeCard> rollThreeCards = new ArrayList<>();
+		for (Card card: player.getCards()) {
+			if (card instanceof RollThreeCard)
+				rollThreeCards.add((domain.card.RollThreeCard) card);
+		}
+		
+		if (rollThreeCards.isEmpty())
+			return null;
+		
+		System.out.println("Roll Three Cards for player " + player.getNickName() + ":");
+		
+		for (int i = 1 ; i <= rollThreeCards.size(); i++)
+			System.out.println(i + ": " + rollThreeCards.get(i - 1).toString());
+		
+		System.out.println("Please enter the index of RollThreeCard you want to play (-1 if you don't want to):" );
+		Scanner sc = new Scanner(System.in);
+		int index = sc.nextInt();
+		sc.close();
+		if (index < 1 || index > rollThreeCards.size())
+			return null;
+		
+		return rollThreeCards.get(index - 1);
+		
+	}
+	
 	public void passTurn() {
-		if (playerSentToJailForDouble || !cup.isDouble()) {
+		if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();

@@ -204,19 +204,6 @@ public class Board {
 		return null;
 	}
 
-	public void buyTitleDeed(Player currentPlayer) {
-		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
-		if (currentSquare instanceof TitleDeedSquare) {
-			if (!((TitleDeedSquare) currentSquare).isOwned()) {
-				currentPlayer.addProperty((TitleDeedSquare) currentSquare);
-				if (currentPlayer.decreaseMoney(((TitleDeedSquare) currentSquare).getPrice())) {
-					((TitleDeedSquare) currentSquare).setOwner(currentPlayer);
-					// TODO: ask for any extra implementation is needed??
-				}
-				// TODO: if cannot buy, show some message!
-			}
-		}
-	}
 
 	public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
