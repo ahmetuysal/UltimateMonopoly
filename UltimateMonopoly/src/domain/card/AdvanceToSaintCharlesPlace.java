@@ -14,7 +14,7 @@ public class AdvanceToSaintCharlesPlace extends ChanceCard {
 	@Override
 	public void useCard(Player player, String squareName) {
 		// TODO Auto-generated method stub
-		Location loc = GameController.getInstance().getBoard().getSquareLocationFromName(this.getName());
+		Location loc = GameController.getInstance().getBoard().getSquareLocationFromName("St.Charles Place");
 		player.getToken().setLocation(loc);
 	}
 
