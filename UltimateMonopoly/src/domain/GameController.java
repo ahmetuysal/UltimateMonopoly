@@ -1,16 +1,19 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import domain.die.Cup;
 import domain.die.DieValue;
-import domain.square.Location;
-import domain.square.Square;
 import domain.util.Observable;
 import domain.Player;
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.ChanceCard;
+import domain.card.CommunityChestCard;
+import domain.card.RollThreeCard;
 import domain.Board;
 
 public class GameController extends Observable {
@@ -21,9 +24,9 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
-	private List<Card> chanceCardList;
-	private List<Card> communityChestCardList;
-	private List<Card> rollThreeCardList;
+	private LinkedList<Card> chanceCardList;
+	private LinkedList<Card> communityChestCardList;
+	private LinkedList<Card> rollThreeCardList;
 	private int poolMoney;
 	
 	// DieValues for updating UI (Using Observer Pattern)
@@ -49,6 +52,50 @@ public class GameController extends Observable {
 		initTokens();
 		initBoard();
 		initCards();
+	}
+	
+	public void buyProperty() {
+		
+	}
+	
+	public void promptDrawChanceCard() {
+		publishPropertyEvent("drawChanceCard", false, true);
+	}
+	
+	public void promptDrawCommunityChestCard() {
+		publishPropertyEvent("drawCommunityChestCard", false, true);
+	}
+	
+	public void promptDrawRollThreeCard() {
+		publishPropertyEvent("drawRollThreeCard", false, true);
+	}
+	
+	public void drawChanceCard() {
+		Card card = chanceCardList.removeFirst();
+		publishPropertyEvent("cardNameChance", null, card.getName());
+		// assumed it will be used instanly for now
+		// will change it for ownable cards
+		card.useCard(currentPlayer, "");
+		chanceCardList.addLast(card);
+		publishPropertyEvent("drawChanceCard", true, false);
+	}
+	
+	public void drawCommunityChestCard() {
+		Card card = communityChestCardList.removeFirst();
+		publishPropertyEvent("cardNameCommunityChest", null, card.getName());
+		// assumed it will be used instanly for now
+		// will change it for ownable cards
+		card.useCard(currentPlayer, "");
+		communityChestCardList.addLast(card);
+		publishPropertyEvent("drawCommunityChestCard", true, false);
+	}
+	
+	public void drawRollThreeCard() {
+		Card card = rollThreeCardList.removeFirst();
+		publishPropertyEvent("cardNameRollThree", null, card.getName());
+		currentPlayer.addCard(card);
+		rollThreeCardList.addLast(card);
+		publishPropertyEvent("drawRollThreeCard", true, false);
 	}
 	
 	public int getPoolMoney() {
@@ -153,6 +200,7 @@ public class GameController extends Observable {
 		publishPropertyEvent("controller.currentPlayer", old, currentPlayer);
 	}
 
+	
 	/**
 	 * @return the board
 	 */
@@ -267,9 +315,10 @@ public class GameController extends Observable {
 	}
 
 	private void initCards() {
-		chanceCardList = new ArrayList<Card>();
-		communityChestCardList = new ArrayList<Card>();
-		rollThreeCardList = new ArrayList<Card>();
+		// We used LL because we will do lots of removeFirst & addLast
+		chanceCardList = new LinkedList<Card>();
+		communityChestCardList = new LinkedList<Card>();
+		rollThreeCardList = new LinkedList<Card>();
 		
 //		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
 //		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
@@ -332,6 +381,9 @@ public class GameController extends Observable {
 		rollThreeCardList.add(CardFactory.getCard("356"));
 		rollThreeCardList.add(CardFactory.getCard("456"));
 		
+		Collections.shuffle(chanceCardList);
+		Collections.shuffle(communityChestCardList);
+		Collections.shuffle(rollThreeCardList);
 	}
 	
 	
