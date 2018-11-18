@@ -28,7 +28,7 @@ public class CardFactory {
 				return new AdvanceToTheNearestRailroad(name, "");
 			}else if("Make General Repairs to all your properties.".equals(name)) {
 				return new MakeGeneralRepairsToAllYourProperties(name, "");
-			}else if("Advance to Saint Charles Place".equals(name)) {
+			}else if("Advance to the Saint Charles Place".equals(name)) {
 				return new AdvanceToSaintCharlesPlace(name, "");
 			}else if("Holiday Bonus!".equals(name)) {
 				return new HolidayBonus(name, "");
@@ -89,58 +89,58 @@ public class CardFactory {
 				return new TheInsidersEdge(name, "");
 			}
 			else if("123".equals(name)) {
-				return new RollThreeCards("123","",1,2,3);
+				return new RollThreeCard("123","",1,2,3);
 			}
 			else if("124".equals(name)) {
-				return new RollThreeCards("124","",1,2,4);
+				return new RollThreeCard("124","",1,2,4);
 			}
 			else if("125".equals(name)) {
-				return new RollThreeCards("125","",1,2,5);				
+				return new RollThreeCard("125","",1,2,5);				
 			}
 			else if("126".equals(name)) {
-				return new RollThreeCards("126","",1,2,6);
+				return new RollThreeCard("126","",1,2,6);
 			}
 			else if("134".equals(name)) {
-				return new RollThreeCards("134","",1,3,4);
+				return new RollThreeCard("134","",1,3,4);
 			}
 			else if("135".equals(name)) {
-				return new RollThreeCards("135","",1,3,5);
+				return new RollThreeCard("135","",1,3,5);
 			}
 			else if("136".equals(name)) {
-				return new RollThreeCards("136","",1,3,6);
+				return new RollThreeCard("136","",1,3,6);
 			}
 			else if("145".equals(name)) {
-				return new RollThreeCards("145","",1,4,5);
+				return new RollThreeCard("145","",1,4,5);
 			}
 			else if("146".equals(name)) {
-				return new RollThreeCards("146","",1,4,6);
+				return new RollThreeCard("146","",1,4,6);
 			}
 			else if("156".equals(name)) {
-				return new RollThreeCards("156","",1,5,6);
+				return new RollThreeCard("156","",1,5,6);
 			}
 			else if("234".equals(name)) {
-				return new RollThreeCards("234","",2,3,4);
+				return new RollThreeCard("234","",2,3,4);
 			}
 			else if("245".equals(name)) {
-				return new RollThreeCards("245","",2,4,5);
+				return new RollThreeCard("245","",2,4,5);
 			}
 			else if("246".equals(name)) {
-				return new RollThreeCards("246","",2,4,6);
+				return new RollThreeCard("246","",2,4,6);
 			}
 			else if("256".equals(name)) {
-				return new RollThreeCards("256","",2,5,6);
+				return new RollThreeCard("256","",2,5,6);
 			}
 			else if("345".equals(name)) {
-				return new RollThreeCards("345","",3,4,5);
+				return new RollThreeCard("345","",3,4,5);
 			}
 			else if("346".equals(name)) {
-				return new RollThreeCards("346","",3,4,6);
+				return new RollThreeCard("346","",3,4,6);
 			}
 			else if("356".equals(name)) {
-				return new RollThreeCards("356","",3,5,6);
+				return new RollThreeCard("356","",3,5,6);
 			}
 			else if("456".equals(name)) {
-				return new RollThreeCards("456","",4,5,6);
+				return new RollThreeCard("456","",4,5,6);
 			}
 			else {
 				return null;

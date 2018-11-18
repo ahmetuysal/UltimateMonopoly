@@ -156,9 +156,9 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	}
 
 	private void networkButton() {
-		networkButton = new JButton("Play with Network");
+		networkButton = new JButton("Online");
 		networkButton.setBackground(Color.WHITE);
-		networkButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 70));
+		networkButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 50));
 		networkButton.setBackground(Color.GREEN);
 		
 		int width = menuPanelWidth / 8;
@@ -375,13 +375,13 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Network":
 			remove(numOfPlayerPossibleChoices);
-			if(networkButton.getText().equals("Play with Network")){
-				networkButton.setText("Play without Network");
+			if(networkButton.getText().equals("Online")){
+				networkButton.setText("Offline");
 				networkButton.setBackground(Color.GRAY);
 				minPlayerNum = 2;
 				maxPlayerNum = 6;
 			}else{
-				networkButton.setText("Play with Network");
+				networkButton.setText("Online");
 				networkButton.setBackground(Color.GREEN);
 				minPlayerNum = 1;
 				maxPlayerNum = 4;

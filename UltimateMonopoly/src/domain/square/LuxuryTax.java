@@ -5,7 +5,7 @@ import domain.Player;
 public class LuxuryTax extends Square {
 
 	public LuxuryTax() {
-		super("Luxurt Tax", "dsc");
+		super("Luxury Tax", "dsc");
 		// TODO Auto-generated constructor stub
 	}
 

@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 import domain.Player;
 
-public class RollThreeCards extends Card {
+public class RollThreeCard extends Card {
 
 	private int[] cardValuesAsInteger;
 
-	public RollThreeCards(String name, String description, int firstValue, int secondValue, int thirdValue) {
+	public RollThreeCard(String name, String description, int firstValue, int secondValue, int thirdValue) {
 		super(name, description);
 		// TODO Auto-generated constructor stub
 		cardValuesAsInteger = new int[3];

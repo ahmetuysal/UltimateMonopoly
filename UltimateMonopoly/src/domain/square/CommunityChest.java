@@ -1,5 +1,6 @@
 package domain.square;
 
+import domain.GameController;
 import domain.Player;
 
 public class CommunityChest extends Square{
@@ -10,7 +11,8 @@ public class CommunityChest extends Square{
 
 	@Override
 	public void landOn(Player player) {
-		
+		System.out.println("ASDHADSHFHD ben merve");
+		GameController.getInstance().promptDrawCommunityChestCard();
 	}
 
 }

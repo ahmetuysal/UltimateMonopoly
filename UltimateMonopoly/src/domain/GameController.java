@@ -1,16 +1,19 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import domain.die.Cup;
 import domain.die.DieValue;
-import domain.square.Location;
-import domain.square.Square;
 import domain.util.Observable;
 import domain.Player;
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.ChanceCard;
+import domain.card.CommunityChestCard;
+import domain.card.RollThreeCard;
 import domain.Board;
 
 public class GameController extends Observable {
@@ -21,9 +24,10 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
-	private List<Card> chanceCardList;
-	private List<Card> communityChestCardList;
-	private List<Card> rollThreeCardList;
+	private LinkedList<Card> chanceCardList;
+	private LinkedList<Card> communityChestCardList;
+	private LinkedList<Card> rollThreeCardList;
+	private int poolMoney;
 	
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
@@ -46,8 +50,62 @@ public class GameController extends Observable {
 		cup = new Cup();
 		players = new ArrayList<>();
 		initTokens();
-		initBoard();
 		initCards();
+		System.out.println(chanceCardList);
+		System.out.println(communityChestCardList);
+		System.out.println(rollThreeCardList);
+	}
+	
+	public void buyProperty() {
+		
+	}
+	
+	public void promptDrawChanceCard() {
+		publishPropertyEvent("drawChanceCard", false, true);
+	}
+	
+	public void promptDrawCommunityChestCard() {
+		publishPropertyEvent("drawCommunityChestCard", false, true);
+	}
+	
+	public void promptDrawRollThreeCard() {
+		publishPropertyEvent("drawRollThreeCard", false, true);
+	}
+	
+	public void drawChanceCard() {
+		Card card = chanceCardList.removeFirst();
+		publishPropertyEvent("cardNameChance", null, card.getName());
+		// assumed it will be used instanly for now
+		// will change it for ownable cards
+		card.useCard(currentPlayer, "");
+		chanceCardList.addLast(card);
+		publishPropertyEvent("drawChanceCard", true, false);
+	}
+	
+	public void drawCommunityChestCard() {
+		Card card = communityChestCardList.removeFirst();
+		publishPropertyEvent("cardNameCommunityChest", null, card.getName());
+		// assumed it will be used instanly for now
+		// will change it for ownable cards
+		card.useCard(currentPlayer, "");
+		communityChestCardList.addLast(card);
+		publishPropertyEvent("drawCommunityChestCard", true, false);
+	}
+	
+	public void drawRollThreeCard() {
+		Card card = rollThreeCardList.removeFirst();
+		publishPropertyEvent("cardNameRollThree", null, card.getName());
+		currentPlayer.addCard(card);
+		rollThreeCardList.addLast(card);
+		publishPropertyEvent("drawRollThreeCard", true, false);
+	}
+	
+	public int getPoolMoney() {
+		return poolMoney;
+	}
+	
+	public void increasePoolMoney(int amount) {
+		poolMoney += amount;
 	}
 	
 	public boolean registerUser(String nickname, String tokenName) {
@@ -62,11 +120,6 @@ public class GameController extends Observable {
 		else {
 			return false;
 		}
-	}
-
-	private void initBoard() {
-		board.addSquares();
-
 	}
 
 	
@@ -136,8 +189,6 @@ public class GameController extends Observable {
 			setCurrentPlayer(currentPlayerIndex);
 		}
 	}
-	
-	
 
 	private void setCurrentPlayer(int index) {
 		Player currentPlayer = players.get(index);
@@ -148,6 +199,7 @@ public class GameController extends Observable {
 		publishPropertyEvent("controller.currentPlayer", old, currentPlayer);
 	}
 
+	
 	/**
 	 * @return the board
 	 */
@@ -194,7 +246,7 @@ public class GameController extends Observable {
 		die3Value = newValues[2];
 	}
 
-	public void rollTriple() {
+	public void rollThree() {
 		cup.rollThreeRegularDices();		
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
@@ -262,43 +314,45 @@ public class GameController extends Observable {
 	}
 
 	private void initCards() {
-		chanceCardList = new ArrayList<Card>();
-		communityChestCardList = new ArrayList<Card>();
-		rollThreeCardList = new ArrayList<Card>();
-		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
-		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
-		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
-		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
+		// We used LL because we will do lots of removeFirst & addLast
+		chanceCardList = new LinkedList<Card>();
+		communityChestCardList = new LinkedList<Card>();
+		rollThreeCardList = new LinkedList<Card>();
+		
+//		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
+//		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
+//		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
+//		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
+//		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
 		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
 		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
-		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
-		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
-		chanceCardList.add(CardFactory.getCard("See You In Court!"));
-		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
-		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
-		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
-		chanceCardList.add(CardFactory.getCard("Property Taxes"));
-		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
-		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
-		chanceCardList.add(CardFactory.getCard("Pay Back!"));
-		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
-		chanceCardList.add(CardFactory.getCard("GPS is not working"));
-		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
+//		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
+//		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
+//		chanceCardList.add(CardFactory.getCard("See You In Court!"));
+//		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
+//		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
+//		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
+//		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+//		chanceCardList.add(CardFactory.getCard("Property Taxes"));
+//		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
+//		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
+//		chanceCardList.add(CardFactory.getCard("Pay Back!"));
+//		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
+//		chanceCardList.add(CardFactory.getCard("GPS is not working"));
+//		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
+//		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
+//		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
 		
-		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
-		communityChestCardList.add(CardFactory.getCard("Game Night!"));
+//		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
+//		communityChestCardList.add(CardFactory.getCard("Game Night!"));
 		communityChestCardList.add(CardFactory.getCard("A Moving Experience"));
-		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
-		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
-		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
-		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
+//		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
+//		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
+//		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
+//		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
 		communityChestCardList.add(CardFactory.getCard("Pay Hospital Bills"));
-		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
-		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
+//		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
+//		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
 		communityChestCardList.add(CardFactory.getCard("The Insider's Edge"));
 		
 		rollThreeCardList.add(CardFactory.getCard("123"));
@@ -326,6 +380,9 @@ public class GameController extends Observable {
 		rollThreeCardList.add(CardFactory.getCard("356"));
 		rollThreeCardList.add(CardFactory.getCard("456"));
 		
+		Collections.shuffle(chanceCardList);
+		Collections.shuffle(communityChestCardList);
+		Collections.shuffle(rollThreeCardList);
 	}
 	
 	
