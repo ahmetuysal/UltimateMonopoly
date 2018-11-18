@@ -59,7 +59,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		squareUnitSize = frameHeight / 17;
 		boardStartX = squareUnitSize/10;
-		tokenSize = squareUnitSize/2;
+		tokenSize = squareUnitSize;
 		
 		int pbpWidth = frameWidth - 17*squareUnitSize - boardStartX;
 		int pbpHeight = frameHeight / 8;
