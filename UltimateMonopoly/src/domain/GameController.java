@@ -9,6 +9,7 @@ import domain.square.Location;
 import domain.square.Square;
 import domain.util.Observable;
 import domain.Player;
+import domain.card.Card;
 import domain.Board;
 
 public class GameController extends Observable {
@@ -19,6 +20,7 @@ public class GameController extends Observable {
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
+	private Card card;
 	
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
@@ -42,6 +44,7 @@ public class GameController extends Observable {
 		players = new ArrayList<>();
 		initTokens();
 		initBoard();
+		initCards();
 	}
 	
 	public boolean registerUser(String nickname, String tokenName) {
@@ -63,7 +66,9 @@ public class GameController extends Observable {
 	}
 
 	private void initCards() {
-		// TODO
+		card.addChanceCards();
+		card.addCommunityChestCards();
+		card.addRollThreeCards();
 	}
 	
 	private void initTokens() {
