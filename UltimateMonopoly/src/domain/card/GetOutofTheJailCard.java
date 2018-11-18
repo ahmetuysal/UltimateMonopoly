@@ -8,7 +8,6 @@ public class GetOutofTheJailCard extends ChanceCard{
 	protected GetOutofTheJailCard(String name, String description) {
 		super(name, description);
 		// TODO Auto-generated constructor stub
-		GameController.getInstance().getCurrentPlayer().addCard(this);
 	}
 	
 

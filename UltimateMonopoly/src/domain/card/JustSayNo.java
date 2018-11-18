@@ -8,7 +8,6 @@ public class JustSayNo extends ChanceCard{
 	protected JustSayNo(String name, String description) {
 		super(name, description);
 		// TODO Auto-generated constructor stub
-		GameController.getInstance().getCurrentPlayer().addCard(this);
 	}
 
 	@Override

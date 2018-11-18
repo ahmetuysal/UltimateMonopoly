@@ -16,11 +16,13 @@ public class Board {
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
-
-	public static final Location START_LOCATION = new Location(1, 0);
 	
 	private List<Square>[] squares;
 	private List<Token> tokens;
+	
+	public static Location getStartLocation() {
+		return new Location(1, 0);
+	}
 
 	public Board() {
 		squares = (ArrayList<Square>[]) new ArrayList[3];
@@ -271,6 +273,7 @@ public class Board {
 	
 	public void movePlayer (Player player, int distance) {
 		Token token = player.getToken();
+		System.out.println("Token: " + token.toString());
 		int dx = player.isReverseDirection()? -1 : 1;
 		int numSquaresInLayer = 0;
 		for(int i = 0; i < distance - 1; i++) {

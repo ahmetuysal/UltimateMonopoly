@@ -17,7 +17,7 @@ public class SquareFactory {
 	}
 
 	public static Square getSquare(String name) {
-		if (name.equals(null))
+		if (name == null)
 			return null;
 
 		switch (name) {

@@ -71,6 +71,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		
 		initTokens();
 		initBoard();
+		controller.initTurnOrder();
 		// initButtons();
 
 		addMouseListener(this);
@@ -79,24 +80,24 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		Token token = controller.getBoard().getTokens().get(0);
 		System.out.println(token);
 		
-		token.setLocation(new Location(0, 0));
-		
-		new Timer().schedule(new TimerTask() {
-			public void run() {
-				// TODO Auto-generated method stub
-				for (int i = 0; i < 3; i++) {
-					for (int j = 0; j < BOARD_SIZE[i]; j++) {
-						token.setLocation(new Location(i, j));
-						try {
-							Thread.sleep(100);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				}
-			}
-		}, 2000);
+//		token.setLocation(new Location(0, 0));
+//		
+//		new Timer().schedule(new TimerTask() {
+//			public void run() {
+//				// TODO Auto-generated method stub
+//				for (int i = 0; i < 3; i++) {
+//					for (int j = 0; j < BOARD_SIZE[i]; j++) {
+//						token.setLocation(new Location(i, j));
+//						try {
+//							Thread.sleep(100);
+//						} catch (InterruptedException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//					}
+//				}
+//			}
+//		}, 2000);
 		
 
 	}

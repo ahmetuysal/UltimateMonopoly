@@ -14,10 +14,10 @@ public class CardFactory {
 		return instance;
 	}
 	
-	public static Card getCard(String type, String name) {
-		if(name.equals(null)) return null;
+	public static Card getCard(String name) {
+		if(name == null) 
+			return null;
 		
-		if(type == "Chance Card") {	
 			if("Get Out of Jail Free!".equals(name)) {
 				return new GetOutofTheJailCard(name, "");
 			}else if("Advance to the Pay Corner".equals(name)) {
@@ -65,8 +65,7 @@ public class CardFactory {
 			}else if("Changing Lanes Above".equals(name)) {
 				return new ChangingLanesAbove(name, "");
 			}
-		}else if(type == "Community Chest Card") {
-			if("Happy Birthday!".equals(name)) {
+			else if("Happy Birthday!".equals(name)) {
 				return new HappyBirthday(name, "");
 			}else if("Game Night!".equals(name)) {
 				return new GameNight(name, "");
@@ -89,8 +88,7 @@ public class CardFactory {
 			}else if("The Insider's Edge".equals(name)) {
 				return new TheInsidersEdge(name, "");
 			}
-		}else if(type == "Roll Three Card") {
-			if("123".equals(name)) {
+			else if("123".equals(name)) {
 				return new RollThreeCards("123","",1,2,3);
 			}
 			else if("124".equals(name)) {
@@ -144,8 +142,8 @@ public class CardFactory {
 			else if("456".equals(name)) {
 				return new RollThreeCards("456","",4,5,6);
 			}
-			
-		}
-		return null;
+			else {
+				return null;
+			}
 	}
 }
