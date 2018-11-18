@@ -48,4 +48,14 @@ public class RollThreeCard extends Card {
 		player.removeCard(this);
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "RollThreeCard [cardValuesAsInteger=" + Arrays.toString(cardValuesAsInteger) + "]";
+	}
+	
+	
+
 }

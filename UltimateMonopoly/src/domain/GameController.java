@@ -92,6 +92,7 @@ public class GameController extends Observable {
 			playerCards.get(player).useCard(player, results);
 		}
 		
+		System.out.println(results);
 	}
 	
 	private RollThreeCard askPlayerWhichRollThreeCardToPlay(Player player) {
@@ -219,6 +220,7 @@ public class GameController extends Observable {
 		// TODO
 		currentPlayerIndex = 0;
 		currentPlayer = players.get(currentPlayerIndex);
+		playRollThree();
 	}
 	
 	public void initRollThreeCards() {
