@@ -1,12 +1,13 @@
 package domain.communication.network;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.Player;
 import domain.die.Cup;
 
-public class GameState {
+public class GameState implements Serializable {
 
 	private List<Player> players = new ArrayList<Player>();
 	private Cup cup;
@@ -14,6 +15,8 @@ public class GameState {
 	private Player currentPlayer;
 	private int consecutiveDoubles;
 	private int clientIndex = 0;// arbitrary
+	private String content;
+	private String type;
 	
 	public GameState(){
 		currentPlayerIndex = 0;
@@ -22,6 +25,22 @@ public class GameState {
 
 	public List<Player> getPlayers() {
 		return players;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void setPlayers(List<Player> players) {
@@ -66,6 +85,11 @@ public class GameState {
 
 	public void setClientIndex(int clientIndex) {
 		this.clientIndex = clientIndex;
+	}
+	
+	// For debugging purposes
+	public String toString() {
+		return cup.getFaceValues()[0].getValue() + " " + cup.getFaceValues()[1].getValue() + " " + cup.getFaceValues()[2].getValue();
 	}
 	
 	

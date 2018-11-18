@@ -1,56 +1,56 @@
 package domain.communication.network;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
+import domain.die.Cup;
 
 public class NetworkController {
 
-	static Connection connection = null; 
-	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-	private GameState currentGameState;
+	private static NetworkController uniqueInstance;
 
-	public NetworkController(){
-		connectToGameServer();
-		periodicallyUpdateGameState();
-	}
-	
-	private static void connectToGameServer() {
-		connection = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
-		connection.Connect();
-	}
+	private GameState playerGameState;
 
-	/**
-	 * updates game state periodically
-	 */
-	public static void periodicallyUpdateGameState() {
-
-		final Runnable updatePeriodically = new Runnable() {
-			public void run() {
-				ClientHost ch = ClientHost.getInstance();
-				connection.updateGameState(ch.getPlayerGameState());
-				System.out.println("Client received:");
-				System.out.println(ch.getPlayerGameState());
-
-			}
-		};
-
-		final ScheduledFuture<?> checkHandle = scheduler.scheduleAtFixedRate(updatePeriodically, 1, 4, SECONDS);
+	private NetworkController() {
+		playerGameState = new GameState();
+		playerGameState.setClientIndex(0);
+		playerGameState.setCurrentPlayerIndex(1);
+		playerGameState.setCup(new Cup());
 
 	}
 
-	public boolean isConnected() {
-		return true; //arbitrary
+	public static synchronized NetworkController getInstance() {
+		if(uniqueInstance == null) {
+			uniqueInstance = new NetworkController();
+		}
+		return uniqueInstance;
 	}
 
-	public GameState getCurrentGameState() {
-		return currentGameState;
+	public GameState getPlayerGameState() {
+		return playerGameState;
 	}
 
-	public void setCurrentGameState(GameState currentGameState) {
-		this.currentGameState = currentGameState;
-	}
+	public void setPlayerGameState(GameState newGameState) {
 
+		//if(!newGameState.getContent().equals(playerGameState.getContent())) {
+			//playerGameState.setContent(newGameState.getContent()+"aa");
+			//playerGameState.setCurrentPlayerIndex(newGameState.getCurrentPlayerIndex());
+			//playerGameState.setConsecutiveDoubles(newGameState.getConsecutiveDoubles());
+			//playerGameState.setCurrentPlayer(newGameState.getCurrentPlayer());
+		if(newGameState != null && newGameState.getCup()!=null) {
+			playerGameState.setCup(newGameState.getCup());
+		}
+			//TODO: other changes will be added later, currently just cup is synchronized
+		
+		
+		
+		
+			//playerGameState.setPlayers(newGameState.getPlayers());
+			System.out.println("Client has changed its playerGameState");
+			
+		//}
+		
+		
+		
+
+	}
 
 }
+

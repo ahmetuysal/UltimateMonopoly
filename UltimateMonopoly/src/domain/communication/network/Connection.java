@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class Connection {
 	
-	public static final String DEFAULT_SERVER_ADDRESS = "localhost";
-    public static final int DEFAULT_SERVER_PORT = 4467;
+	public static final String DEFAULT_SERVER_ADDRESS = "172.20.120.62";
+    public static final int DEFAULT_SERVER_PORT = 4477;
     
     private Socket socket;
     protected String serverAddress;
@@ -44,11 +44,11 @@ public class Connection {
            } catch (IOException e) {
                e.printStackTrace();
            }
-           System.out.println("Successfully connected to " + serverAddress + "on command and data port" + serverPort);
+           System.out.println("Successfully connected to " + serverAddress + " on command and data port " + serverPort);
        }
        catch (IOException e)
        {
-           System.err.println("Error: no server has been found on " + serverAddress + " " + serverPort);
+           System.err.println("Error: no server has been found on " + serverAddress + "/" + serverPort);
        }
    }
    
@@ -63,10 +63,6 @@ public class Connection {
 	   GameState incomingGameState = null;
        try {
     	   
-    	   System.out.println(outgoingGameState.getClientIndex() +" "+outgoingGameState.getCurrentPlayerIndex());
-           System.out.println("Ben sunu gonderiyorum:");
-           System.out.println(outgoingGameState);
-           System.out.println("Ben sunu gonderdim");
     	   os.writeObject(outgoingGameState);
            os.flush();
            os.reset();
@@ -78,7 +74,6 @@ public class Connection {
                e.printStackTrace();
            }
            incomingGameState = ((GameState) object);
-           System.out.println("Incoming: "+incomingGameState.getClientIndex() +" "+incomingGameState.getCurrentPlayerIndex());
            
 
        } catch (IOException e) {
@@ -90,10 +85,9 @@ public class Connection {
    }
    
    public static void setPlayerGameState(GameState newGameState) {
-		ClientHost.getInstance().setPlayerGameState(newGameState);
-		System.out.println("Player has changed its playerGameState");
+		NetworkController.getInstance().setPlayerGameState(newGameState);
+		//System.out.println("Player has changed its playerGameState");
 	}
-   
    
    /**
     * Disconnects the socket and closes the buffers
