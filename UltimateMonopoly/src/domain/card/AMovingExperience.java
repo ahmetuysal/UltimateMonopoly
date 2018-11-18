@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.GameController;
 import domain.Player;
 
 public class AMovingExperience extends CommunityChestCard {
@@ -11,8 +12,7 @@ public class AMovingExperience extends CommunityChestCard {
 
 	@Override
 	public void useCard(Player player, String s) {
-		// TODO Auto-generated method stub
-
+		GameController.getInstance().getBoard().moveToTransportationSquare(player);
 	}
 
 }

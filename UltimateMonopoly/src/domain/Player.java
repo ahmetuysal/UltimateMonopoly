@@ -242,7 +242,7 @@ public class Player implements Serializable{
 	}
 	
 	public boolean hotelCheckForSkyscraperBuilding(TitleDeedSquareColor color) {
-		boolean skyscraperBuild = false;;
+		boolean skyscraperBuild = false;
 		for (OwnableSquare ownable : this.properties) {
 			if (ownable instanceof TitleDeedSquare) {
 				if (((TitleDeedSquare) ownable).getColor() == color) {

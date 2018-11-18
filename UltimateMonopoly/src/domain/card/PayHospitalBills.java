@@ -1,5 +1,6 @@
 package domain.card;
 
+import domain.GameController;
 import domain.Player;
 
 public class PayHospitalBills extends CommunityChestCard {
@@ -11,8 +12,8 @@ public class PayHospitalBills extends CommunityChestCard {
 
 	@Override
 	public void useCard(Player player, String s) {
-		// TODO Auto-generated method stub
-
+		player.decreaseMoney(100);
+		GameController.getInstance().increasePoolMoney(100);
 	}
 
 }
