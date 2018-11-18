@@ -1,5 +1,6 @@
 package domain.square;
 
+import domain.GameController;
 import domain.Player;
 
 public class RollThree extends Square {
@@ -12,7 +13,7 @@ public class RollThree extends Square {
 	@Override
 	public void landOn(Player player) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }

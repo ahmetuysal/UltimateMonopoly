@@ -151,9 +151,18 @@ public class GameController extends Observable {
 	}
 
 	public void initTurnOrder() {
+		initRollThreeCards();
 		// TODO
 		currentPlayerIndex = 0;
 		currentPlayer = players.get(currentPlayerIndex);
+	}
+	
+	public void initRollThreeCards() {
+		for(int i=0;i<players.size();i++) {
+			Card card = rollThreeCardList.removeFirst();
+			players.get(i).addCard(card);
+			rollThreeCardList.addLast(card);
+		}
 	}
 	
 	public void playTurn() {

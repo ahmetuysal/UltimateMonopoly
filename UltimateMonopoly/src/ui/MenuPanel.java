@@ -371,7 +371,6 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();
-			controller.initTurnOrder();
 			break;
 		case "Network":
 			remove(numOfPlayerPossibleChoices);
