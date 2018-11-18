@@ -47,9 +47,10 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private TransparentButton chanceCard;
 	private TransparentButton communityChestCard;
 	
-	private UICard cardImage;
-	private JButton playCardButton;
-	private JButton keepCardButton;
+//	private UICard cardImage;
+//	private JButton playCardButton;
+//	private JButton keepCardButton;
+	private CardPanel cardPanel;
 	
 	private List<UIToken> UITokens = new ArrayList<>();
 	
@@ -82,12 +83,22 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		playButtons.setBackground(this.getBackground());
 		add(playButtons);
 		
+		int cpWidth = 5*squareUnitSize;
+		int cpHeight = cpWidth;
+		cardPanel = new CardPanel(cpWidth, cpHeight, this);
+		cardPanel.setBounds(6*squareUnitSize,6*squareUnitSize, cpWidth, cpHeight);
+		cardPanel.setVisible(false);
+		cardPanel.setBackground(this.getBackground());
+		add(cardPanel);
+		
+		
 		initTokens();
-		cardImageandButtons();
+		//cardImageandButtons();
 		initCardButtons();
 		initBoard();
 		controller.initTurnOrder();
 		// initButtons();
+
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
@@ -108,7 +119,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		repaint();
 	}
 	
-	private void cardImageandButtons(){
+	/*private void cardImageandButtons(){
 		int width = 5*squareUnitSize;
 		int height = 17*width / 29;
 		cardImage = new UICard(width, height);
@@ -122,11 +133,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		cardImage.setBounds(x,y,width,height);
 		cardImage.setBorder(new LineBorder(Color.BLUE, 5));
 		add(cardImage);
-		
 	
 		
-		
-	}
+	}*/
 	
 	private void initCardButtons(){
 		rollThreeCard = new TransparentButton();

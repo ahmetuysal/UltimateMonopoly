@@ -17,16 +17,20 @@ import domain.util.PropertyListener;
 public class UICard extends JLabel implements PropertyListener{
 	private int width;
 	private int height;
+	private String cardName;
+	private CardPanel panel;
 	
-	public UICard(int width, int height){
+	public UICard(int width, int height, CardPanel panel){
+		this.panel = panel;
 		this.width = width;
 		this.height = height;
-		setVisible(false);
+		setVisible(true);
 	}
 	
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
+		cardName = (String) e.getNewValue();
 		String imagePath = "./images/";
 		String fileName = ((String) e.getNewValue()).replaceAll("[^a-zA-Z0-9]", "");
 		
@@ -54,17 +58,10 @@ public class UICard extends JLabel implements PropertyListener{
 		}
 		tmp = tmp.getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		this.setIcon(new ImageIcon(tmp));
-		this.setVisible(true);
 		
-		new Timer().schedule(new TimerTask(){
-
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				UICard.this.setVisible(false);
-			}
-			
-		}, 3000);
+		panel.setVisible(true);
+		panel.repaint();
+		
 	}
 
 }

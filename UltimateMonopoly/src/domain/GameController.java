@@ -384,6 +384,11 @@ public class GameController extends Observable {
 		Collections.shuffle(communityChestCardList);
 		Collections.shuffle(rollThreeCardList);
 	}
+
+	public void playCard() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
