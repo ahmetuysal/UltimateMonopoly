@@ -54,6 +54,7 @@ public class GameController extends Observable {
 		if (Token.isTokenAvailable(tokenName)) {
 			Player player = new Player(nickname);
 			Token token = new Token(player, Board.getStartLocation(), tokenName);
+			players.add(player);
 			player.setToken(token);
 			board.addToken(token);
 			return true;
@@ -68,72 +69,6 @@ public class GameController extends Observable {
 
 	}
 
-	private void initCards() {
-		chanceCardList = new ArrayList<Card>();
-		communityChestCardList = new ArrayList<Card>();
-		rollThreeCardList = new ArrayList<Card>();
-		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
-		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
-		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
-		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
-		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
-		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
-		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
-		chanceCardList.add(CardFactory.getCard("See You In Court!"));
-		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
-		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
-		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
-		chanceCardList.add(CardFactory.getCard("Property Taxes"));
-		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
-		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
-		chanceCardList.add(CardFactory.getCard("Pay Back!"));
-		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
-		chanceCardList.add(CardFactory.getCard("GPS is not working"));
-		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
-		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
-		
-		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
-		communityChestCardList.add(CardFactory.getCard("Game Night!"));
-		communityChestCardList.add(CardFactory.getCard("A Moving Experience"));
-		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
-		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
-		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
-		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
-		communityChestCardList.add(CardFactory.getCard("Pay Hospital Bills"));
-		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
-		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
-		communityChestCardList.add(CardFactory.getCard("The Insider's Edge"));
-		
-		rollThreeCardList.add(CardFactory.getCard("123"));
-		rollThreeCardList.add(CardFactory.getCard("124"));
-		rollThreeCardList.add(CardFactory.getCard("125"));
-		rollThreeCardList.add(CardFactory.getCard("126"));
-		rollThreeCardList.add(CardFactory.getCard("134"));
-		rollThreeCardList.add(CardFactory.getCard("135"));
-		rollThreeCardList.add(CardFactory.getCard("136"));
-		rollThreeCardList.add(CardFactory.getCard("145"));
-		rollThreeCardList.add(CardFactory.getCard("146"));
-		rollThreeCardList.add(CardFactory.getCard("156"));
-		rollThreeCardList.add(CardFactory.getCard("234"));
-		rollThreeCardList.add(CardFactory.getCard("245"));
-		rollThreeCardList.add(CardFactory.getCard("246"));
-		rollThreeCardList.add(CardFactory.getCard("256"));
-		rollThreeCardList.add(CardFactory.getCard("345"));
-		rollThreeCardList.add(CardFactory.getCard("346"));
-		rollThreeCardList.add(CardFactory.getCard("356"));
-		rollThreeCardList.add(CardFactory.getCard("456"));
-		rollThreeCardList.add(CardFactory.getCard("246"));
-		rollThreeCardList.add(CardFactory.getCard("256"));
-		rollThreeCardList.add(CardFactory.getCard("345"));
-		rollThreeCardList.add(CardFactory.getCard("346"));
-		rollThreeCardList.add(CardFactory.getCard("356"));
-		rollThreeCardList.add(CardFactory.getCard("456"));
-		
-	}
 	
 	private void initTokens() {
 		Token.initializeAvailableTokens();
@@ -141,11 +76,13 @@ public class GameController extends Observable {
 
 	public void initTurnOrder() {
 		// TODO
-		currentPlayer = players.get(0);
+		currentPlayerIndex = 0;
+		currentPlayer = players.get(currentPlayerIndex);
 	}
 	
 	public void playTurn() {
 		// TODO: fix this
+		System.out.println(currentPlayer.getNickName());
 		rollDice();
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
@@ -209,10 +146,6 @@ public class GameController extends Observable {
 		Player old = this.currentPlayer;
 		this.currentPlayer = currentPlayer;
 		publishPropertyEvent("controller.currentPlayer", old, currentPlayer);
-	}
-
-	public void addPlayer(Player player) {
-		players.add(player);
 	}
 
 	/**
@@ -320,6 +253,73 @@ public class GameController extends Observable {
 
 	public void setCurrentPlayer(Player currentPlayer) {
 		this.currentPlayer = currentPlayer;
+	}
+
+	private void initCards() {
+		chanceCardList = new ArrayList<Card>();
+		communityChestCardList = new ArrayList<Card>();
+		rollThreeCardList = new ArrayList<Card>();
+		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
+		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
+		chanceCardList.add(CardFactory.getCard("Advance to the Nearest Railroad"));
+		chanceCardList.add(CardFactory.getCard("Make General Repairs to all your properties."));
+		chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
+		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
+		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
+		chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
+		chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
+		chanceCardList.add(CardFactory.getCard("See You In Court!"));
+		chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
+		chanceCardList.add(CardFactory.getCard("Get Rollin'"));
+		chanceCardList.add(CardFactory.getCard("Forward Thinker"));
+		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+		chanceCardList.add(CardFactory.getCard("Property Taxes"));
+		chanceCardList.add(CardFactory.getCard("Ride the Subway"));
+		chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
+		chanceCardList.add(CardFactory.getCard("Pay Back!"));
+		chanceCardList.add(CardFactory.getCard("MARDI GRAS!"));
+		chanceCardList.add(CardFactory.getCard("GPS is not working"));
+		chanceCardList.add(CardFactory.getCard("Zero Dollars Down!"));
+		chanceCardList.add(CardFactory.getCard("Changing Lanes Below"));
+		chanceCardList.add(CardFactory.getCard("Changing Lanes Above"));
+		
+		communityChestCardList.add(CardFactory.getCard("Happy Birthday!"));
+		communityChestCardList.add(CardFactory.getCard("Game Night!"));
+		communityChestCardList.add(CardFactory.getCard("A Moving Experience"));
+		communityChestCardList.add(CardFactory.getCard("HOUSE CONDEMNED"));
+		communityChestCardList.add(CardFactory.getCard("Elected District Attorney"));
+		communityChestCardList.add(CardFactory.getCard("Deal Buster"));
+		communityChestCardList.add(CardFactory.getCard("Be Kind, Rewind"));
+		communityChestCardList.add(CardFactory.getCard("Pay Hospital Bills"));
+		communityChestCardList.add(CardFactory.getCard("Tornado Hits!"));
+		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
+		communityChestCardList.add(CardFactory.getCard("The Insider's Edge"));
+		
+		rollThreeCardList.add(CardFactory.getCard("123"));
+		rollThreeCardList.add(CardFactory.getCard("124"));
+		rollThreeCardList.add(CardFactory.getCard("125"));
+		rollThreeCardList.add(CardFactory.getCard("126"));
+		rollThreeCardList.add(CardFactory.getCard("134"));
+		rollThreeCardList.add(CardFactory.getCard("135"));
+		rollThreeCardList.add(CardFactory.getCard("136"));
+		rollThreeCardList.add(CardFactory.getCard("145"));
+		rollThreeCardList.add(CardFactory.getCard("146"));
+		rollThreeCardList.add(CardFactory.getCard("156"));
+		rollThreeCardList.add(CardFactory.getCard("234"));
+		rollThreeCardList.add(CardFactory.getCard("245"));
+		rollThreeCardList.add(CardFactory.getCard("246"));
+		rollThreeCardList.add(CardFactory.getCard("256"));
+		rollThreeCardList.add(CardFactory.getCard("345"));
+		rollThreeCardList.add(CardFactory.getCard("346"));
+		rollThreeCardList.add(CardFactory.getCard("356"));
+		rollThreeCardList.add(CardFactory.getCard("456"));
+		rollThreeCardList.add(CardFactory.getCard("246"));
+		rollThreeCardList.add(CardFactory.getCard("256"));
+		rollThreeCardList.add(CardFactory.getCard("345"));
+		rollThreeCardList.add(CardFactory.getCard("346"));
+		rollThreeCardList.add(CardFactory.getCard("356"));
+		rollThreeCardList.add(CardFactory.getCard("456"));
+		
 	}
 	
 	
