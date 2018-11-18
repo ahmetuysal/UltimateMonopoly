@@ -3,7 +3,10 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.square.Chance;
+import domain.square.CommunityChest;
 import domain.square.Location;
+import domain.square.OwnableSquare;
 import domain.square.Passable;
 import domain.square.Square;
 import domain.square.SquareFactory;
@@ -293,5 +296,69 @@ public class Board {
 		System.out.println("Token: " + token.toString());
 
 	}
+	
+	public void moveToNextOwnedProperty(Player player) {
+		Token token = player.getToken();
+		int dx = player.isReverseDirection()? -1 : 1;
+		int numSquaresInLayer = 0;
+		while(true) {
+			Location oldLoc = token.getLocation();
+			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			Square sq = getSquare(token.getLocation());
+			if(sq instanceof OwnableSquare && ((OwnableSquare) sq).isOwned()) {
+				sq.landOn(player);
+				break;
+			}
+			
+			else if (sq instanceof Passable) {
+				((Passable) sq).passBy(player);
+			}		
+		}
+	}
+	
+	
+	public void moveToNextUnownedProperty(Player player) {
+		Token token = player.getToken();
+		int dx = player.isReverseDirection()? -1 : 1;
+		int numSquaresInLayer = 0;
+		while(true) {
+			Location oldLoc = token.getLocation();
+			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			
+			Square sq = getSquare(token.getLocation());
+			if(sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
+				sq.landOn(player);
+				break;
+			}
+			
+			else if (sq instanceof Passable) {
+				((Passable) sq).passBy(player);
+			}		
+		}
+	}
+	
+	public void moveToNextChanceOrCommunityChestSquare(Player player) {
+		Token token = player.getToken();
+		int dx = player.isReverseDirection()? -1 : 1;
+		int numSquaresInLayer = 0;
+		while(true) {
+			Location oldLoc = token.getLocation();
+			numSquaresInLayer = Board.getLayerSize(oldLoc.getLayer());
+			token.setLocation(new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
+			
+			Square sq = getSquare(token.getLocation());
+			if(sq instanceof Chance || sq instanceof CommunityChest) {
+				sq.landOn(player);
+				break;
+			}
+			
+			else if (sq instanceof Passable) {
+				((Passable) sq).passBy(player);
+			}		
+		}
+	}
+	
 	
 }

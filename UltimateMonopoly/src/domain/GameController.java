@@ -99,14 +99,15 @@ public class GameController extends Observable {
 		}
 		else if (cup.isMrMonopoly()) {
 			board.movePlayer(currentPlayer, cup.getTotal());
-			// TODO go to first unowned square
+			// TODO check if all properties are owned.
+			board.moveToNextUnownedProperty(currentPlayer);
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
 		}
 		else if (cup.isBusIcon()) {
 			board.movePlayer(currentPlayer, cup.getTotal());
-			// TODO go to first chance or community square
+			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
