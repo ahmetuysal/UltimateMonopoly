@@ -7,6 +7,8 @@ import java.util.List;
 
 import domain.die.Cup;
 import domain.die.DieValue;
+import domain.square.OwnableSquare;
+import domain.square.Square;
 import domain.util.Observable;
 import domain.Player;
 import domain.card.Card;
@@ -35,6 +37,8 @@ public class GameController extends Observable {
 	private DieValue die3Value;
 	
 	private boolean withNetwork;
+	private boolean playerSentToJailForDouble;
+	private boolean currentLocationBuyable;
 
 	private static GameController instance;
 
@@ -51,13 +55,29 @@ public class GameController extends Observable {
 		players = new ArrayList<>();
 		initTokens();
 		initCards();
-		System.out.println(chanceCardList);
-		System.out.println(communityChestCardList);
-		System.out.println(rollThreeCardList);
+	}
+	
+	public void passTurn() {
+		if (playerSentToJailForDouble || !cup.isDouble()) {
+			playerSentToJailForDouble = false;
+			consecutiveDoubles = 0;
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+			publishPropertyEvent("isTurnFinished", false, true);
+		}
 	}
 	
 	public void buyProperty() {
-		
+		Square sq = board.getSquare(currentPlayer.getToken().getLocation());
+		if (sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
+			// TODO Buy 
+		}
+	}
+	
+	public void setCurrentLocationBuyable(boolean isBuyable) {
+		System.out.println("Is buyable: " + isBuyable);
+		publishPropertyEvent("currentLocationBuyable", currentLocationBuyable, isBuyable);
+		currentLocationBuyable = isBuyable;
 	}
 	
 	public void promptDrawChanceCard() {
@@ -122,7 +142,6 @@ public class GameController extends Observable {
 		}
 	}
 
-	
 	private void initTokens() {
 		Token.initializeAvailableTokens();
 	}
@@ -141,53 +160,49 @@ public class GameController extends Observable {
 			}
 			currentPlayer.decreaseJailTime();
 		}
-		// We need to call isTriple first
-		// (isDouble return true even if triple)
+		
 		if (currentPlayer.isInJail()) {
-			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
+			publishPropertyEvent("isTurnFinished", true, false);
+			return;
 		}
 		else if (cup.isMrMonopoly()) {
 			board.movePlayer(currentPlayer, cup.getTotal());
 			// TODO check if all properties are owned.
 			board.moveToNextUnownedProperty(currentPlayer);
-			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
 		}
 		else if (cup.isBusIcon()) {
 			board.movePlayer(currentPlayer, cup.getTotal());
 			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
-			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
 		}
 		else if (cup.isTriple()) {
 			// TODO move user to wherever he wants 
 			// do not move again
-			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
+			publishPropertyEvent("isTurnFinished", true, false);
+			return;
 		}
 		else if (cup.isDouble()) {
 			consecutiveDoubles++;
 			if (consecutiveDoubles == 3) {
 				currentPlayer.goToJail();
-				consecutiveDoubles = 0;
-				this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-				setCurrentPlayer(currentPlayerIndex);
+				playerSentToJailForDouble = true;
+				publishPropertyEvent("isTurnFinished", true, false);
+				return;
 			}
 			else {
 				board.movePlayer(currentPlayer, cup.getTotal());
+				return;
 			}
 		}
 		else {
 			board.movePlayer(currentPlayer, cup.getTotal());
-			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
+			publishPropertyEvent("isTurnFinished", true, false);
+			return;
 		}
+		
+		if (!cup.isDouble()) {
+			publishPropertyEvent("isTurnFinished", true, false);
+		}
+		
 	}
 
 	private void setCurrentPlayer(int index) {
@@ -199,7 +214,6 @@ public class GameController extends Observable {
 		publishPropertyEvent("controller.currentPlayer", old, currentPlayer);
 	}
 
-	
 	/**
 	 * @return the board
 	 */
@@ -259,10 +273,6 @@ public class GameController extends Observable {
 
 	public List<Player> getPlayerList() {
 		return players;
-	}
-	
-	public void buyTitleDeed() {
-		board.buyTitleDeed(currentPlayer);
 	}
 	
 	public void buildHouse(int houseNum) {
@@ -389,6 +399,5 @@ public class GameController extends Observable {
 		// TODO Auto-generated method stub
 		
 	}
-	
 	
 }

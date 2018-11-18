@@ -12,9 +12,9 @@ import domain.GameController;
 
 public class PlayButtonPanel extends JPanel implements ActionListener {
 
-	private JButton rollDiceButton;
-	private JButton buyButton;
-	private JButton passTurnButton;
+	private ObserverButton rollDiceButton;
+	private ObserverButton buyButton;
+	private ObserverButton passTurnButton;
 	
 	private int panelWidth;
 	private int panelHeight;
@@ -63,9 +63,14 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 	}
 	
 	private void initButtons(){
-		rollDiceButton = new JButton("Roll Dice");
-		buyButton = new JButton("Buy");
-		passTurnButton = new JButton("Pass Turn");
+		rollDiceButton = new ObserverButton("Roll Dice", false);
+		buyButton = new ObserverButton("Buy", true);
+		passTurnButton = new ObserverButton("Pass Turn",  true);
+		
+		controller.addPropertyListener("isTurnFinished", rollDiceButton);
+		controller.addPropertyListener("isTurnFinished", passTurnButton);
+		controller.addPropertyListener("isTurnFinished", buyButton);
+		controller.addPropertyListener("currentLocationBuyable", buyButton);
 		
 		int width = panelWidth / 5;
 		int height = panelHeight / 6;
@@ -89,8 +94,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton.setBackground(Color.WHITE);
 		buyButton.setBackground(Color.WHITE);
 		passTurnButton.setBackground(Color.WHITE);
+
 		
-		
+		buyButton.setEnabled(false);
+		passTurnButton.setEnabled(false);
 		
 		rollDiceButton.setVisible(true);
 		buyButton.setVisible(true);
@@ -115,12 +122,11 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 			controller.playTurn();
 			break;
 		case "Pass Turn":
-			System.out.println("passss");
-			//TODO: controller.passTurn();
+			controller.passTurn();
 			break;
 		case "Buy":
 			System.out.println("buy that");
-			controller.buyTitleDeed();
+			controller.buyProperty();
 			break;
 		}
 	}

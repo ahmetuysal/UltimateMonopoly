@@ -53,8 +53,7 @@ public class Cup implements Serializable{
 	}
 
 	public boolean isDouble() {
-		return die1.getFaceValue() == die2.getFaceValue() || die1.getFaceValue() == speedDie.getFaceValue()
-				|| die2.getFaceValue() == speedDie.getFaceValue();
+		return die1.getFaceValue() == die2.getFaceValue();
 	}
 
 	public boolean isTriple() {
