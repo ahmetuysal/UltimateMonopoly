@@ -220,7 +220,6 @@ public class GameController extends Observable {
 		// TODO
 		currentPlayerIndex = 0;
 		currentPlayer = players.get(currentPlayerIndex);
-		playRollThree();
 	}
 	
 	public void initRollThreeCards() {
