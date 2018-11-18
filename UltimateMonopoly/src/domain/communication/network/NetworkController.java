@@ -1,34 +1,56 @@
 package domain.communication.network;
 
-import java.io.File;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 
 public class NetworkController {
 
+	static Connection connection = null; 
+	private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	private GameState currentGameState;
-	
+
 	public NetworkController(){
-		currentGameState = new GameState();
+		connectToGameServer();
+		periodicallyUpdateGameState();
 	}
 	
-	public void sendGameState(File gameStateFile) {
-		
+	private static void connectToGameServer() {
+		connection = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
+		connection.Connect();
 	}
-	
-	public void receiveGameState(GameState gameState) {
-		
+
+	/**
+	 * updates game state periodically
+	 */
+	public static void periodicallyUpdateGameState() {
+
+		final Runnable updatePeriodically = new Runnable() {
+			public void run() {
+				ClientHost ch = ClientHost.getInstance();
+				connection.updateGameState(ch.getPlayerGameState());
+				System.out.println("Client received:");
+				System.out.println(ch.getPlayerGameState());
+
+			}
+		};
+
+		final ScheduledFuture<?> checkHandle = scheduler.scheduleAtFixedRate(updatePeriodically, 1, 4, SECONDS);
+
 	}
-	
-	public GameState parseFileToGameState(File file) {
-		GameState gameState = new GameState();
-		return gameState;
-	}
-	
-	public File parseGameStateToFile(GameState gameState) {
-		File file = new File("path"); //path will be added
-		return file;
-	}
-	
+
 	public boolean isConnected() {
 		return true; //arbitrary
 	}
+
+	public GameState getCurrentGameState() {
+		return currentGameState;
+	}
+
+	public void setCurrentGameState(GameState currentGameState) {
+		this.currentGameState = currentGameState;
+	}
+
+
 }

@@ -1,13 +1,14 @@
 package domain;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import domain.square.Location;
 import domain.util.Observable;
 
-public class Token extends Observable {
+public class Token extends Observable implements Serializable{
 	
 	private Player player;
 	private Location location;

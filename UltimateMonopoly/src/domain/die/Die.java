@@ -1,6 +1,8 @@
 package domain.die;
 
-public abstract class Die {
+import java.io.Serializable;
+
+public abstract class Die implements Serializable{
 
 	protected int value;
 

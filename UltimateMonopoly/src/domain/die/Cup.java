@@ -1,6 +1,8 @@
 package domain.die;
 
-public class Cup {
+import java.io.Serializable;
+
+public class Cup implements Serializable{
 
 	private RegularDie die1;
 	private RegularDie die2;
