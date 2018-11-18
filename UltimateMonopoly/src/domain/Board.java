@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import domain.square.Chance;
@@ -48,7 +49,7 @@ public class Board {
 		tokens.add(token);
 	}
 
-	public void addSquares() {
+	private void addSquares() {
 		squares[0].add(SquareFactory.getSquare("Squeeze Play"));
 		squares[0].add(SquareFactory.getSquare("The Embarcadero"));
 		squares[0].add(SquareFactory.getSquare("Fisherman's Wharf"));
@@ -85,7 +86,7 @@ public class Board {
 		squares[1].add(SquareFactory.getSquare("Vermont Avenue"));
 		squares[1].add(SquareFactory.getSquare("Connecticut Avenue"));
 		squares[1].add(SquareFactory.getSquare("Jail"));
-		squares[1].add(SquareFactory.getSquare("St.James Place"));
+		squares[1].add(SquareFactory.getSquare("St.Charles Place"));
 		squares[1].add(SquareFactory.getSquare("Electric Company"));
 		squares[1].add(SquareFactory.getSquare("States Avenue"));
 		squares[1].add(SquareFactory.getSquare("Virginia Avenue"));
@@ -111,6 +112,8 @@ public class Board {
 		squares[1].add(SquareFactory.getSquare("Pennsylvania Avenue"));
 		squares[1].add(SquareFactory.getSquare("Short Line"));
 		squares[1].add(SquareFactory.getSquare("Chance"));
+		squares[1].add(SquareFactory.getSquare("Park Place"));
+		squares[1].add(SquareFactory.getSquare("Luxury Tax"));
 		squares[1].add(SquareFactory.getSquare("Boardwalk"));
 
 		squares[2].add(SquareFactory.getSquare("Subway"));
@@ -164,11 +167,13 @@ public class Board {
 		squares[2].add(SquareFactory.getSquare("Bus Ticket"));
 		squares[2].add(SquareFactory.getSquare("Sewage System"));
 		squares[2].add(SquareFactory.getSquare("Ute Cab Co."));
-		squares[2].add(SquareFactory.getSquare("Birtday Gift"));
+		squares[2].add(SquareFactory.getSquare("Birthday Gift"));
 		squares[2].add(SquareFactory.getSquare("Mulholland Drive"));
 		squares[2].add(SquareFactory.getSquare("Ventura Boulevard"));
 		squares[2].add(SquareFactory.getSquare("Chance"));
 		squares[2].add(SquareFactory.getSquare("Rodeo Drive"));
+		
+		System.out.println(Arrays.toString(squares));
 	}
 
 	public static int getLayerSize(int layer) {
@@ -187,8 +192,10 @@ public class Board {
 	}
 
 	public Location getSquareLocationFromName(String name) {
+		System.out.println(name);
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].size(); j++) {
+				System.out.println(i + " " + j);
 				if (squares[i].get(j).getName().equals(name)) {
 					return new Location(i, j);
 				}

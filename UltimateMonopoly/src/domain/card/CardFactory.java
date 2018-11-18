@@ -28,7 +28,7 @@ public class CardFactory {
 				return new AdvanceToTheNearestRailroad(name, "");
 			}else if("Make General Repairs to all your properties.".equals(name)) {
 				return new MakeGeneralRepairsToAllYourProperties(name, "");
-			}else if("Advance to Saint Charles Place".equals(name)) {
+			}else if("Advance to the Saint Charles Place".equals(name)) {
 				return new AdvanceToSaintCharlesPlace(name, "");
 			}else if("Holiday Bonus!".equals(name)) {
 				return new HolidayBonus(name, "");

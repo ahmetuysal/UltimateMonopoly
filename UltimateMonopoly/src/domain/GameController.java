@@ -50,8 +50,10 @@ public class GameController extends Observable {
 		cup = new Cup();
 		players = new ArrayList<>();
 		initTokens();
-		initBoard();
 		initCards();
+		System.out.println(chanceCardList);
+		System.out.println(communityChestCardList);
+		System.out.println(rollThreeCardList);
 	}
 	
 	public void buyProperty() {
@@ -120,9 +122,6 @@ public class GameController extends Observable {
 		}
 	}
 
-	private void initBoard() {
-		board.addSquares();
-	}
 	
 	private void initTokens() {
 		Token.initializeAvailableTokens();

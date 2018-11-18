@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,7 +27,9 @@ public class UICard extends JLabel implements PropertyListener{
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
-		String imagePath = "images/";
+		String imagePath = "./images/";
+		String fileName = ((String) e.getNewValue()).replaceAll("[^a-zA-Z0-9]", "");
+		
 		if(e.getPropertyName().equals("cardNameChance")){
 			imagePath += "chanceCards/";
 		}else if(e.getPropertyName().equals("cardNameCommunityChest")){
@@ -35,11 +38,12 @@ public class UICard extends JLabel implements PropertyListener{
 			imagePath += "rollThreeCards/";
 		}
 		
-		imagePath += (String) e.getNewValue() + ".png";
+		imagePath += fileName + ".png";
 		
 		if(System.getProperty("os.name").contains("Windows")){
-			imagePath.replaceAll("/", "\\");
+			imagePath.replaceAll("\\/", "\\\\");
 		}
+		System.out.println(imagePath);
 		
 		Image tmp = null;
 		try {

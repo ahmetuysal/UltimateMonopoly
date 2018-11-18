@@ -110,19 +110,19 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		int width = squareUnitSize;
 		int height = 29*width / 17;
 		cardImage = new UICard(width, height);
-		controller.addPropertyListener("drawChanceCard", cardImage);
-		controller.addPropertyListener("drawCommunityChestCard", cardImage);
-		controller.addPropertyListener("drawRollThreeCard", cardImage);
+		controller.addPropertyListener("cardNameChance", cardImage);
+		controller.addPropertyListener("cardNameCommunityChest", cardImage);
+		controller.addPropertyListener("drawNameRollThree", cardImage);
 	}
 	
 	private void initCardButtons(){
 		rollThreeCard = new TransparentButton();
 		chanceCard = new TransparentButton();
 		communityChestCard = new TransparentButton();
-		
+
 		controller.addPropertyListener("drawRollThreeCard", rollThreeCard);
 		controller.addPropertyListener("drawChanceCard", chanceCard);
-		controller.addPropertyListener("communityChestCard", communityChestCard);
+		controller.addPropertyListener("drawCommunityChestCard", communityChestCard);
 		
 		int width = 2*squareUnitSize;
 		int height = 5*squareUnitSize/4;
@@ -298,13 +298,13 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()){
 		case "RollThreeCard":
-			System.out.println("roll three mi dedi biri");
+			controller.drawRollThreeCard();
 			break;
 		case "ChanceCard":
-			System.out.println("You lucky you");
+			controller.drawChanceCard();
 			break;
 		case "CommunityChestCard":
-			System.out.println("Ne zaman yiyoruz?");
+			controller.drawCommunityChestCard();
 			break;
 		}
 	}
