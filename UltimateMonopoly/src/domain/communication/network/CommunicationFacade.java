@@ -1,8 +1,10 @@
 package domain.communication.network;
 
 import domain.GameController;
+import domain.util.PropertyEvent;
+import domain.util.PropertyListener;
 
-public class CommunicationFacade {
+public class CommunicationFacade implements PropertyListener{
 
 	private GameController gameController;
 	private NetworkController networkController;
@@ -10,6 +12,7 @@ public class CommunicationFacade {
 	public CommunicationFacade() {
 		gameController = GameController.getInstance();
 		networkController = new NetworkController();
+		gameController.addPropertyListener(this);
 	}
 	
 	public void updateGameController(GameState gameState) {
@@ -33,7 +36,10 @@ public class CommunicationFacade {
 	public void updateNetworkController(GameState gameState) {
 		networkController.setCurrentGameState(gameState);
 	}
-	
-	
-	
+
+	@Override
+	public void onPropertyEvent(PropertyEvent e) {
+
+	}
+
 }

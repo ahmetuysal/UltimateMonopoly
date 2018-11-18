@@ -67,6 +67,15 @@ public class Token extends Observable implements Serializable{
 	public String getTokenImageName() {
 		return this.tokenImageName;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Token [player=" + player.getNickName() + ", location=" + location + ", tokenImageName=" + tokenImageName + "]";
+	}
 	
+
 }
 

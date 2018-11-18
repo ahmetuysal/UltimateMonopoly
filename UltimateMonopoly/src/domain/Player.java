@@ -38,23 +38,14 @@ public class Player implements Serializable{
 		this.properties = new ArrayList<>();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return nickName + " " + totalMoney + " " + isReverseDirection + " " + inJail + " " + jailTime + " "
-				+ cardList(); // token will be added later
-	}
-
-	public String cardList() {
-		String ownedCards = "";
-		for (Card c : cards) {
-			ownedCards += c.getName() + " ";
-		}
-		return ownedCards;
+		return "Player [nickName=" + nickName + ", totalMoney=" + totalMoney + ", isReverseDirection="
+				+ isReverseDirection + ", inJail=" + inJail + ", jailTime=" + jailTime + ", cards=" + cards
+				+ ", properties=" + properties + ", token=" + token + "]";
 	}
 
 	/**

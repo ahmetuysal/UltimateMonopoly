@@ -28,4 +28,12 @@ public class Location {
 		return loc1.getIndex() == loc2.getIndex() && loc1.getLayer() == loc2.getLayer();
 	}
 
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Location [layer=" + layer + ", index=" + index + "]";
+	}
 }

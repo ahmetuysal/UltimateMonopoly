@@ -131,6 +131,7 @@ public class GameController extends Observable {
 			}
 		}
 		else {
+			board.movePlayer(currentPlayer, cup.getTotal());
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
@@ -188,8 +189,7 @@ public class GameController extends Observable {
 	}
 
 	public void rollTriple() {
-		cup.rollThreeRegularDices();
-		
+		cup.rollThreeRegularDices();		
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
