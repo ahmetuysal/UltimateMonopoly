@@ -81,8 +81,6 @@ public class GameController extends Observable {
 	}
 	
 	public void playTurn() {
-		// TODO: fix this
-		System.out.println(currentPlayer.getNickName());
 		rollDice();
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
@@ -163,6 +161,13 @@ public class GameController extends Observable {
 
 	public void setCup(Cup cup) {
 		this.cup = cup;
+		DieValue[] newValues = cup.getFaceValues();
+		publishPropertyEvent("die1", die1Value, newValues[0]);
+		die1Value = newValues[0];
+		publishPropertyEvent("die2", die2Value, newValues[1]);
+		die2Value = newValues[1];
+		publishPropertyEvent("die3", die3Value, newValues[2]);
+		die3Value = newValues[2];
 	}
 
 	public Player getCurrentPlayer() {
