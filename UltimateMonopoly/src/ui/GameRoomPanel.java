@@ -48,6 +48,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private TransparentButton communityChestCard;
 	
 	private UICard cardImage;
+	private JButton playCardButton;
+	private JButton keepCardButton;
 	
 	private List<UIToken> UITokens = new ArrayList<>();
 	
@@ -81,7 +83,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		add(playButtons);
 		
 		initTokens();
-		cardImage();
+		cardImageandButtons();
 		initCardButtons();
 		initBoard();
 		controller.initTurnOrder();
@@ -106,20 +108,31 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		repaint();
 	}
 	
-	private void cardImage(){
-		int width = squareUnitSize;
-		int height = 29*width / 17;
+	private void cardImageandButtons(){
+		int width = 5*squareUnitSize;
+		int height = 17*width / 29;
 		cardImage = new UICard(width, height);
 		controller.addPropertyListener("cardNameChance", cardImage);
 		controller.addPropertyListener("cardNameCommunityChest", cardImage);
-		controller.addPropertyListener("drawNameRollThree", cardImage);
+		controller.addPropertyListener("cardNameRollThree", cardImage);
+		
+		int x = 6*squareUnitSize + boardStartX;
+		int y = 6*squareUnitSize;
+		
+		cardImage.setBounds(x,y,width,height);
+		cardImage.setBorder(new LineBorder(Color.BLUE, 5));
+		add(cardImage);
+		
+	
+		
+		
 	}
 	
 	private void initCardButtons(){
 		rollThreeCard = new TransparentButton();
 		chanceCard = new TransparentButton();
 		communityChestCard = new TransparentButton();
-
+		
 		controller.addPropertyListener("drawRollThreeCard", rollThreeCard);
 		controller.addPropertyListener("drawChanceCard", chanceCard);
 		controller.addPropertyListener("drawCommunityChestCard", communityChestCard);
