@@ -55,6 +55,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 	private List<UIToken> UITokens = new ArrayList<>();
 	
 	private PlayButtonPanel playButtons;
+	private PlayerPanel playerPanel;
 	
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
@@ -92,6 +93,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		add(cardPanel);
 		
 		
+		
 		initTokens();
 		//cardImageandButtons();
 		initCardButtons();
@@ -99,12 +101,22 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		controller.initTurnOrder();
 		// initButtons();
 
+		int pWidth = pbpWidth;
+		int pHeight = frameHeight - pbpHeight;
+		
+		playerPanel = new PlayerPanel(pWidth, pHeight);
+		playerPanel.setBounds(frameWidth - pWidth, squareUnitSize, pWidth, pHeight);
+		playerPanel.setVisible(true);
+		playerPanel.setBackground(this.getBackground());
+		add(playerPanel);
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
 
 		Token token = controller.getBoard().getTokens().get(0);
 		System.out.println(token);
+		
+		
 
 	}
 
