@@ -78,7 +78,7 @@ public class Player extends Observable implements Serializable{
 	 */
 	public void increaseMoney(int money) {
 		int oldVal = this.totalMoney;
-		this.totalMoney += totalMoney;
+		this.totalMoney += money;
 		publishPropertyEvent("money", oldVal, this.totalMoney);
 	}
 
