@@ -7,7 +7,7 @@ public class Test {
 	public static void main(String[] args) {
 		
 		GameController controller = GameController.getInstance();
-		CommunicationFacade facade = new CommunicationFacade();
+		//CommunicationFacade facade = new CommunicationFacade();
 		MonopolyFrame frame = new MonopolyFrame(controller);
 
 	}
