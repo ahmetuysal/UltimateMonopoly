@@ -32,8 +32,6 @@ public class CardFactory {
 				return new AdvanceToSaintCharlesPlace(name, "");
 			}else if("Holiday Bonus!".equals(name)) {
 				return new HolidayBonus(name, "");
-			}else if("Just Say 'NO'!".equals(name)) {
-				return new JustSayNo(name, "");
 			}else if("Buyer's Market!".equals(name)) {
 				return new BuyersMarket(name, "");
 			}else if("See You In Court!".equals(name)) {
@@ -73,18 +71,12 @@ public class CardFactory {
 				return new AMovingExperience(name, "");
 			}else if("HOUSE CONDEMNED".equals(name)) {
 				return new HouseCondemned(name, "");
-			}else if("Elected District Attorney".equals(name)) {
-				return new ElectedDistrictAttorney(name, "");
-			}else if("Deal Buster".equals(name)) {
-				return new DealBuster(name, "");
 			}else if("Be Kind, Rewind".equals(name)) {
 				return new BeKindRewind(name, "");
 			}else if("Pay Hospital Bills".equals(name)) {
 				return new PayHospitalBills(name, "");
 			}else if("Tornado Hits!".equals(name)) {
 				return new TornadoHits(name, "");
-			}else if("Share in their Good Fortune".equals(name)) {
-				return new ShareInTheirGoodFortune(name, "");
 			}else if("The Insider's Edge".equals(name)) {
 				return new TheInsidersEdge(name, "");
 			}
