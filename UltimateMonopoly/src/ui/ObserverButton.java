@@ -1,7 +1,5 @@
 package ui;
 
-import javax.swing.Action;
-import javax.swing.Icon;
 import javax.swing.JButton;
 
 import domain.util.PropertyEvent;

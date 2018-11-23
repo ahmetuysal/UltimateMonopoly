@@ -4,11 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class Connection {
 	
-	public static final String DEFAULT_SERVER_ADDRESS = "172.20.120.62";
+	public static final String DEFAULT_SERVER_ADDRESS = "172.20.173.187";
     public static final int DEFAULT_SERVER_PORT = 4477;
     
     private Socket socket;

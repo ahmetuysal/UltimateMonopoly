@@ -1,6 +1,5 @@
 package domain.card;
 
-import domain.GameController;
 import domain.Player;
 
 public class GetOutofTheJailCard extends ChanceCard{

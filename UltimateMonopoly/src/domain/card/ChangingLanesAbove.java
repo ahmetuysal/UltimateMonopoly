@@ -1,7 +1,6 @@
 package domain.card;
 
 import domain.Player;
-import domain.square.Location;
 
 public class ChangingLanesAbove extends ChanceCard {
 

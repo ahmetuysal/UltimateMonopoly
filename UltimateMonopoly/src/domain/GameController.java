@@ -8,19 +8,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import domain.card.Card;
+import domain.card.CardFactory;
+import domain.card.RollThreeCard;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.square.OwnableSquare;
 import domain.square.Square;
-import domain.square.TitleDeedSquare;
 import domain.util.Observable;
-import domain.Player;
-import domain.card.Card;
-import domain.card.CardFactory;
-import domain.card.ChanceCard;
-import domain.card.CommunityChestCard;
-import domain.card.RollThreeCard;
-import domain.Board;
 
 public class GameController extends Observable {
 

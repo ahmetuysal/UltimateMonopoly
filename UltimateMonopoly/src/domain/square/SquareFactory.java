@@ -1,7 +1,5 @@
 package domain.square;
 
-import domain.square.TitleDeedSquare;
-
 public class SquareFactory {
 
 	private static SquareFactory instance;

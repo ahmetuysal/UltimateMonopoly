@@ -6,9 +6,6 @@ import domain.Player;
 import domain.square.Location;
 import domain.square.RailRoad;
 import domain.square.Square;
-import domain.square.SquareFactory;
-import domain.square.UtilitySquare;
-import domain.square.UtilitySquareType;
 
 public class AdvanceToTheNearestRailroad extends ChanceCard {
 

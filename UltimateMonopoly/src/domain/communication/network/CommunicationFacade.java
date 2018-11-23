@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 import domain.GameController;
-import domain.die.DieValue;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 
