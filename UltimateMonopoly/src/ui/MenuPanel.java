@@ -362,15 +362,17 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		
 		
 		savedGamesList.setSize(width, height);
+		JScrollPane scrollPane = new JScrollPane(savedGamesList);
+		scrollPane.setBounds(x, y ,width, height);
 		
 		menuButton();
 		removeAll();
 		
-		JScrollPane scrollPane = new JScrollPane(savedGamesList);
-		scrollPane.setBounds(x, y ,width, height);
+		
 		add(scrollPane);
 		add(menuButton);
 		
+		scrollPane.validate();
 		repaint();
 	}
 
