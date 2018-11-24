@@ -1,9 +1,12 @@
 package domain.util;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -60,6 +63,28 @@ public class GameStateJSONConverter {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public List<String> getSavedStateNames(){
+		String path = DIRECTORY;
+		if(System.getProperty("os.name").contains("Windows")){
+			path = path.replaceAll("\\/", "\\\\");
+		}
+		
+		File folder = new File(path);
+		File[] files = folder.listFiles();
+		//If this pathname does not denote a directory, then listFiles() returns null. 
+		
+		List<String> gameStateNames = new ArrayList<>();
+		
+		for (File file : files) {
+		    if (file.isFile()) {
+		    	String fileName = file.getName();
+		    	gameStateNames.add(fileName.substring(0, fileName.lastIndexOf('.')));
+		    }
+		}
+		
+		return gameStateNames;
 	}
 
 }

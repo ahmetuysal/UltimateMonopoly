@@ -17,6 +17,7 @@ public class Test {
 		
 		System.out.println(jsonConverter.readGameStateFromJson("deneme"));
 		System.out.println("Hello");
+		System.out.println(jsonConverter.getSavedStateNames());
 	}
 
 }
