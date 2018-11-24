@@ -11,6 +11,7 @@ import java.util.Scanner;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.RollThreeCard;
+import domain.communication.network.GameState;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.square.OwnableSquare;
@@ -195,7 +196,7 @@ public class GameController extends Observable {
 	public boolean registerUser(String nickname, String tokenName) {
 		if (Token.isTokenAvailable(tokenName)) {
 			Player player = new Player(nickname);
-			Token token = new Token(player, Board.getStartLocation(), tokenName);
+			Token token = new Token(Board.getStartLocation(), tokenName);
 			players.add(player);
 			player.setToken(token);
 			board.addToken(token);
@@ -473,4 +474,42 @@ public class GameController extends Observable {
 		
 	}
 	
+	public GameState toGameState() {
+		GameState state = new GameState();
+		state.setBoard(board);
+		state.setCup(cup);
+		state.setPlayers(players);
+		state.setCurrentPlayerIndex(currentPlayerIndex);
+		state.setCurrentPlayer(currentPlayer);
+		state.setConsecutiveDoubles(consecutiveDoubles);
+		state.setChanceCardList(chanceCardList);
+		state.setCommunityChestCardList(communityChestCardList);
+		state.setRollThreeCardList(rollThreeCardList);
+		state.setPoolMoney(poolMoney);
+		
+		state.setDie1Value(die1Value);
+		state.setDie2Value(die2Value);
+		state.setDie3Value(die3Value);
+		
+		state.setWithNetwork(withNetwork);
+		state.setPlayerSentToJailForDouble(playerSentToJailForDouble);
+		state.setCurrentLocationBuyable(currentLocationBuyable);
+		
+		// TODO clientIndex, content, type with mgunay15
+		return state;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GameController [board=" + board + ", cup=" + cup + ", players=" + players + ", currentPlayerIndex="
+				+ currentPlayerIndex + ", currentPlayer=" + currentPlayer + ", consecutiveDoubles=" + consecutiveDoubles
+				+ ", chanceCardList=" + chanceCardList + ", communityChestCardList=" + communityChestCardList
+				+ ", rollThreeCardList=" + rollThreeCardList + ", poolMoney=" + poolMoney + ", die1Value=" + die1Value
+				+ ", die2Value=" + die2Value + ", die3Value=" + die3Value + ", withNetwork=" + withNetwork
+				+ ", playerSentToJailForDouble=" + playerSentToJailForDouble + ", currentLocationBuyable="
+				+ currentLocationBuyable + "]";
+	}
 }

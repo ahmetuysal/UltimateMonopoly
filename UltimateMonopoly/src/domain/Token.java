@@ -10,7 +10,6 @@ import domain.util.Observable;
 
 public class Token extends Observable implements Serializable{
 	
-	private Player player;
 	private Location location;
 	private String tokenImageName;
 	private static List<String> availableTokenNames;
@@ -43,8 +42,7 @@ public class Token extends Observable implements Serializable{
 		return availableTokenNames;
 	}
 	
-	public Token(Player p, Location loc, String tokenImageName) {
-		this.player = p;
+	public Token(Location loc, String tokenImageName) {
 		this.location = loc;
 		this.tokenImageName = tokenImageName;
 		availableTokenNames.remove(tokenImageName);
@@ -60,9 +58,6 @@ public class Token extends Observable implements Serializable{
 		publishPropertyEvent("location", oldValue, this.location);
 	}
 	
-	public Player getPlayer() {
-		return this.player;
-	}
 	
 	public String getTokenImageName() {
 		return this.tokenImageName;
@@ -73,7 +68,7 @@ public class Token extends Observable implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Token [player=" + player.getNickName() + ", location=" + location + ", tokenImageName=" + tokenImageName + "]";
+		return "Token [location=" + location + ", tokenImageName=" + tokenImageName + "]";
 	}
 	
 
