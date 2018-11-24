@@ -12,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,11 +20,15 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import domain.GameController;
 import domain.Token;
+import domain.util.GameStateJSONConverter;
 
 public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
@@ -36,12 +41,14 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private JTextField usernameInputTextField;
 
 	private JButton newGameButton;
+	private JButton loadGameButton;
 	private JButton quitGameButton;
-	private JButton startGameButton;
 	private JButton menuButton;
 	private JButton continueButton;
 	private JButton networkButton;
 
+	private JList savedGamesList;
+	
 	private JLabel ultimateMonopolyLogo;
 
 	private Choice numOfPlayerPossibleChoices;
@@ -110,11 +117,13 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		// System.out.println("adding buttons");
 		removeAll();
 		newGameButton();
+		loadGameButton();
 		quitGameButton();
 		// ultimateMonopolyLogo();
 
 		// this.add(ultimateMonopolyLogo);
 		this.add(newGameButton);
+		this.add(loadGameButton);
 		this.add(quitGameButton);
 
 		repaint();
@@ -135,7 +144,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		repaint();
 	}
 
-	public void newGameButton() {
+	private void newGameButton() {
 		newGameButton = new JButton("New Game");
 		newGameButton.setBackground(Color.WHITE);
 		newGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
@@ -143,13 +152,29 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 - width;
+		int x = (menuPanelWidth - width) / 2 - 2 * width;
 		int y = (menuPanelHeight - height) / 2;
 
 		newGameButton.setBounds(x, y, width, height);
 		newGameButton.setVisible(true);
 		newGameButton.addActionListener(this);
 
+	}
+	
+	private void loadGameButton() {
+		loadGameButton = new JButton("Load Game");
+		loadGameButton.setBackground(Color.WHITE);
+		loadGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
+		
+		int width = menuPanelWidth / 10;
+		int height = menuPanelHeight / 15;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (menuPanelHeight - height) / 2;
+		
+		loadGameButton.setBounds(x, y, width, height);
+		loadGameButton.setVisible(true);
+		loadGameButton.addActionListener(this);	
 	}
 
 	private void networkButton() {
@@ -197,7 +222,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		ultimateMonopolyLogo.setVisible(true);
 	}
 
-	public void quitGameButton() {
+	private void quitGameButton() {
 		quitGameButton = new JButton("Quit Game");
 		quitGameButton.setBackground(Color.WHITE);
 		quitGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
@@ -205,31 +230,12 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 + width / 2;
+		int x = (menuPanelWidth - width) / 2 + 2 * width;
 		int y = (menuPanelHeight - height) / 2;
 
 		quitGameButton.setBounds(x, y, width, height);
 		quitGameButton.setVisible(true);
 		quitGameButton.addActionListener(this);
-	}
-
-	public void startGameButton() {
-		startGameButton = new JButton("Start Game!");
-		startGameButton.setBackground(Color.WHITE);
-		startGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
-
-		int width = menuPanelWidth / 10;
-		int height = menuPanelHeight / 15;
-
-		int x = (menuPanelWidth - width) / 2 - width;
-		int y = (menuPanelHeight - height) / 2 + height;
-
-		// startGameButton.setActionCommand("numOfPlayers");
-
-		newGameButton.setBounds(x, y, width, height);
-		newGameButton.setVisible(true);
-		newGameButton.addActionListener(this);
-
 	}
 
 	public void menuButton() {
@@ -336,10 +342,41 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 		// this.usernameInputTextField.getSele
 	}
+	
+	private void loadGame() {
+		GameStateJSONConverter jsonConverter = GameStateJSONConverter.getInstance();
+		List<String> savedGames = jsonConverter.getSavedStateNames();
+		if (savedGames.isEmpty()) {
+			JOptionPane.showMessageDialog(mainFrame, "You don't have any saved games.", "Load Game", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		
+		savedGamesList = new JList(savedGames.toArray());
+		savedGamesList.setSelectedIndex(0);
+		savedGamesList.setFont(new Font("Courier New", Font.PLAIN, menuPanelHeight / 60));
+		
+		int width = menuPanelWidth / 3;
+		int height = menuPanelHeight / 3;
+		int x = (menuPanelWidth - width) / 2;
+		int y = (menuPanelHeight - height) / 2;
+		
+		
+		savedGamesList.setSize(width, height);
+		
+		menuButton();
+		removeAll();
+		
+		JScrollPane scrollPane = new JScrollPane(savedGamesList);
+		scrollPane.setBounds(x, y ,width, height);
+		add(scrollPane);
+		add(menuButton);
+		
+		repaint();
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stubS
 		switch (e.getActionCommand()) {
 		case "New Game":
 			this.nextScreen();
@@ -348,8 +385,10 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			controller.quitGame();
 			break;
 		case "Start Game!":
-			remove(startGameButton);
 			isPlayersSet = true;
+			break;
+		case "Load Game":
+			loadGame();
 			break;
 		case "Menu":
 			initialScreen();

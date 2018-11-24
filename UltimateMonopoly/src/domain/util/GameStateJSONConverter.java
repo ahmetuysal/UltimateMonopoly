@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +81,9 @@ public class GameStateJSONConverter {
 		for (File file : files) {
 		    if (file.isFile()) {
 		    	String fileName = file.getName();
-		    	gameStateNames.add(fileName.substring(0, fileName.lastIndexOf('.')));
+		    	fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+		    	fileName = String.format("%1$-40s", fileName) + new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(file.lastModified());
+		    	gameStateNames.add(fileName);
 		    }
 		}
 		
