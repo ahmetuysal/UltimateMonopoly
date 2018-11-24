@@ -62,7 +62,6 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private boolean isPlayersSet = false;
 
 	private Image backgroundImage;
-	// private Image selectedTokenImage;
 	private JLabel selectedTokenImage;
 
 	public MenuPanel(int menuPanelWidth, int menuPanelHeight, MonopolyFrame frame) {
@@ -113,7 +112,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	}
 
 	// initial screen of the game that contains new game and quit button
-	public void initialScreen() {
+	private void initialScreen() {
 		// System.out.println("adding buttons");
 		removeAll();
 		newGameButton();
@@ -131,7 +130,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 	// when new game is clicked, this screen appears for players to specify
 	// their names
-	public void nextScreen() {
+	private void nextScreen() {
 		removeAll();
 		menuButton();
 		continueButton();
@@ -152,8 +151,8 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 - 2 * width;
-		int y = (menuPanelHeight - height) / 2;
+		int x = (menuPanelWidth - width) / 2 ;
+		int y = (menuPanelHeight - height) / 2 - 3 * height / 2;
 
 		newGameButton.setBounds(x, y, width, height);
 		newGameButton.setVisible(true);
@@ -169,8 +168,8 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 		
-		int x = (menuPanelWidth - width) / 2;
-		int y = (menuPanelHeight - height) / 2;
+		int x = (menuPanelWidth - width)/ 2;
+		int y = (menuPanelHeight - height) / 2 ;
 		
 		loadGameButton.setBounds(x, y, width, height);
 		loadGameButton.setVisible(true);
@@ -230,8 +229,8 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 + 2 * width;
-		int y = (menuPanelHeight - height) / 2;
+		int x = (menuPanelWidth - width) / 2 ;
+		int y = (menuPanelHeight - height) / 2 + 3 * height / 2;
 
 		quitGameButton.setBounds(x, y, width, height);
 		quitGameButton.setVisible(true);
