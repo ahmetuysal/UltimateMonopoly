@@ -28,6 +28,7 @@ public class GameState implements Serializable {
 	private DieValue die2Value;
 	private DieValue die3Value;
 	
+	private boolean isPaused;
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
@@ -274,6 +275,20 @@ public class GameState implements Serializable {
 				+ ", playerSentToJailForDouble=" + playerSentToJailForDouble + ", currentLocationBuyable="
 				+ currentLocationBuyable + ", clientIndex=" + clientIndex + ", content=" + content + ", type=" + type
 				+ "]";
+	}
+
+	/**
+	 * @return the isPaused
+	 */
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 	
 }

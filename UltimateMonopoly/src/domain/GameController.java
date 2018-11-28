@@ -36,6 +36,7 @@ public class GameController extends Observable {
 	private DieValue die2Value;
 	private DieValue die3Value;
 	
+	private boolean isPaused;
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
@@ -55,6 +56,26 @@ public class GameController extends Observable {
 		players = new ArrayList<>();
 		initTokens();
 		initCards();
+	}
+	
+	public void initializeWithGameState(GameState state) {
+		this.board = state.getBoard();
+		this.cup = state.getCup();
+		this.players = state.getPlayers();
+		this.currentPlayerIndex = state.getCurrentPlayerIndex();
+		this.currentPlayer = state.getCurrentPlayer();
+		this.consecutiveDoubles = state.getConsecutiveDoubles();
+		this.chanceCardList = state.getChanceCardList();
+		this.communityChestCardList = state.getCommunityChestCardList();
+		this.rollThreeCardList = state.getRollThreeCardList();
+		this.poolMoney = state.getPoolMoney();
+		this.die1Value = state.getDie1Value();
+		this.die2Value = state.getDie2Value();
+		this.die3Value = state.getDie3Value();
+		this.isPaused = state.isPaused();
+		this.withNetwork = state.isWithNetwork();
+		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
+		this.currentLocationBuyable = state.isCurrentLocationBuyable();
 	}
 	
 	public void playRollThree() {
@@ -491,6 +512,7 @@ public class GameController extends Observable {
 		state.setDie2Value(die2Value);
 		state.setDie3Value(die3Value);
 		
+		state.setPaused(isPaused);
 		state.setWithNetwork(withNetwork);
 		state.setPlayerSentToJailForDouble(playerSentToJailForDouble);
 		state.setCurrentLocationBuyable(currentLocationBuyable);
@@ -511,5 +533,19 @@ public class GameController extends Observable {
 				+ ", die2Value=" + die2Value + ", die3Value=" + die3Value + ", withNetwork=" + withNetwork
 				+ ", playerSentToJailForDouble=" + playerSentToJailForDouble + ", currentLocationBuyable="
 				+ currentLocationBuyable + "]";
+	}
+
+	/**
+	 * @return the isPaused
+	 */
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
 	}
 }
