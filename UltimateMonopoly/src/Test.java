@@ -12,15 +12,15 @@ public class Test {
 		MonopolyFrame frame = new MonopolyFrame(controller);
 
 		
-//		GameStateJSONConverter jsonConverter = GameStateJSONConverter.getInstance();
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme01");
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme02");
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme03");
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme04");
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme05");
-//		jsonConverter.writeGameStateToJsonFile(controller.toGameState(), "deneme06");
-//		System.out.println(jsonConverter.readGameStateFromJson("deneme"));
-//		System.out.println(jsonConverter.getSavedStateNames());
+		GameStateJSONConverter jsonConverter = GameStateJSONConverter.getInstance();
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme01");
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme02");
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme03");
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme04");
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme05");
+		jsonConverter.writeGameStateToJSONFile(controller.toGameState(), "deneme06");
+		System.out.println(jsonConverter.readGameStateFromJSONFile("deneme"));
+		System.out.println(jsonConverter.getSavedStateNames());
 	}
 
 }
