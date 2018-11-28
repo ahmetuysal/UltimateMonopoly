@@ -5,7 +5,7 @@ import java.util.Arrays;
 import domain.GameController;
 import domain.Player;
 
-public class RollThreeCard extends Card {
+public class RollThreeCard extends OwnableCard {
 
 	private int[] cardValuesAsInteger;
 

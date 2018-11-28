@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class PropertyTaxes extends ChanceCard{
+public class PropertyTaxes extends Card {
 
 	protected PropertyTaxes(String name, String description) {
 		super(name, description);

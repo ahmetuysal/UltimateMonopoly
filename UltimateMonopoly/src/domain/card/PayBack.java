@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class PayBack extends ChanceCard{
+public class PayBack extends Card {
 
 	protected PayBack(String name, String description) {
 		super(name, description);

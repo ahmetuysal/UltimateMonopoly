@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class GPSIsNotWorking extends ChanceCard{
+public class GPSIsNotWorking extends Card {
 
 	protected GPSIsNotWorking(String name, String description) {
 		super(name, description);

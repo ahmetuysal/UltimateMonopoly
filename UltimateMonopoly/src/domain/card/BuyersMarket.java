@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class BuyersMarket extends ChanceCard{
+public class BuyersMarket extends Card{
 
 	protected BuyersMarket(String name, String description) {
 		super(name, description);

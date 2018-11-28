@@ -4,7 +4,7 @@ import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
-public class GetRollin extends ChanceCard{
+public class GetRollin extends Card {
 
 	protected GetRollin(String name, String description) {
 		super(name, description);

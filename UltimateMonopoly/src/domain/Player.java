@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.card.Card;
+import domain.card.OwnableCard;
 import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
@@ -17,7 +18,7 @@ public class Player extends Observable implements Serializable{
 	private boolean isReverseDirection;
 	private boolean inJail;
 	private int jailTime;
-	private List<Card> cards;
+	private List<OwnableCard> cards;
 	private List<OwnableSquare> properties;
 	private Token token;
 
@@ -158,7 +159,7 @@ public class Player extends Observable implements Serializable{
 	/**
 	 * @return The list of Cards player has.
 	 */
-	public List<Card> getCards() {
+	public List<OwnableCard> getCards() {
 		return cards;
 	}
 
@@ -166,7 +167,7 @@ public class Player extends Observable implements Serializable{
 	 * @param card
 	 *            The card to be added to player's list of cards.
 	 */
-	public void addCard(Card card) {
+	public void addCard(OwnableCard card) {
 		this.cards.add(card);
 	}
 
@@ -176,7 +177,7 @@ public class Player extends Observable implements Serializable{
 	 * @return <tt>true</tt> if card is removed from player's list of cards,
 	 *         <tt>false</tt> if card was not in the list.
 	 */
-	public boolean removeCard(Card card) {
+	public boolean removeCard(OwnableCard card) {
 		return this.cards.remove(card);
 	}
 	

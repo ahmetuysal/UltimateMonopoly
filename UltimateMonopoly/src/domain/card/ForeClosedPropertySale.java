@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class ForeClosedPropertySale extends ChanceCard{
+public class ForeClosedPropertySale extends Card {
 
 	protected ForeClosedPropertySale(String name, String description) {
 		super(name, description);
@@ -12,8 +12,8 @@ public class ForeClosedPropertySale extends ChanceCard{
 	@Override
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		
-		//how to choose a player and his/her mortgaged property
+
+		// how to choose a player and his/her mortgaged property
 	}
 
 }

@@ -3,7 +3,7 @@ package domain.card;
 import domain.GameController;
 import domain.Player;
 
-public class RideTheSubway extends ChanceCard{
+public class RideTheSubway extends Card {
 
 	protected RideTheSubway(String name, String description) {
 		super(name, description);

@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class BeKindRewind extends CommunityChestCard {
+public class BeKindRewind extends Card {
 
 	protected BeKindRewind(String name, String description) {
 		super(name, description);

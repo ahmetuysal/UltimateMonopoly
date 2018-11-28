@@ -4,7 +4,7 @@ import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
-public class ForwardThinker extends ChanceCard {
+public class ForwardThinker extends Card {
 
 	protected ForwardThinker(String name, String description) {
 		super(name, description);
@@ -15,7 +15,8 @@ public class ForwardThinker extends ChanceCard {
 	public void useCard(Player player, String s) {
 		Location playerLocation = player.getToken().getLocation();
 		int layerSize = GameController.getInstance().getBoard().getLayerSize(playerLocation.getLayer());
-		player.getToken().setLocation(new Location(playerLocation.getLayer(), (playerLocation.getIndex()+3)%layerSize));
+		player.getToken()
+				.setLocation(new Location(playerLocation.getLayer(), (playerLocation.getIndex() + 3) % layerSize));
 	}
 
 }

@@ -3,7 +3,7 @@ package domain.card;
 import domain.GameController;
 import domain.Player;
 
-public class TheInsidersEdge extends CommunityChestCard {
+public class TheInsidersEdge extends Card {
 
 	protected TheInsidersEdge(String name, String description) {
 		super(name, description);

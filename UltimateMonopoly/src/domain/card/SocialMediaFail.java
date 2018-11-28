@@ -5,7 +5,7 @@ import java.util.List;
 import domain.GameController;
 import domain.Player;
 
-public class SocialMediaFail extends ChanceCard{
+public class SocialMediaFail extends Card {
 
 	protected SocialMediaFail(String name, String description) {
 		super(name, description);

@@ -6,7 +6,7 @@ import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
-public class MardiGras extends ChanceCard{
+public class MardiGras extends Card {
 
 	protected MardiGras(String name, String description) {
 		super(name, description);

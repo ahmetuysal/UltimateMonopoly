@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class TornadoHits extends CommunityChestCard {
+public class TornadoHits extends Card {
 
 	protected TornadoHits(String name, String description) {
 		super(name, description);

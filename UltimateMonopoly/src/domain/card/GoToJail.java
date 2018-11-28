@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class GoToJail extends ChanceCard{
+public class GoToJail extends Card {
 
 	protected GoToJail(String name, String description) {
 		super(name, description);

@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 import domain.card.Card;
 import domain.card.CardFactory;
+import domain.card.OwnableCard;
 import domain.card.RollThreeCard;
 import domain.die.Cup;
 import domain.die.DieValue;
@@ -179,7 +180,7 @@ public class GameController extends Observable {
 	public void drawRollThreeCard() {
 		Card card = rollThreeCardList.removeFirst();
 		publishPropertyEvent("cardNameRollThree", null, card.getName());
-		currentPlayer.addCard(card);
+		currentPlayer.addCard((OwnableCard) card);
 		rollThreeCardList.addLast(card);
 		publishPropertyEvent("drawRollThreeCard", true, false);
 	}
@@ -220,7 +221,7 @@ public class GameController extends Observable {
 	public void initRollThreeCards() {
 		for(int i=0;i<players.size();i++) {
 			Card card = rollThreeCardList.removeFirst();
-			players.get(i).addCard(card);
+			players.get(i).addCard((OwnableCard) card);
 			rollThreeCardList.addLast(card);
 		}
 	}

@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public class GameNight extends CommunityChestCard {
+public class GameNight extends Card {
 
 	protected GameNight(String name, String description) {
 		super(name, description);

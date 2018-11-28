@@ -3,7 +3,7 @@ package domain.card;
 import domain.GameController;
 import domain.Player;
 
-public class AMovingExperience extends CommunityChestCard {
+public class AMovingExperience extends Card {
 
 	protected AMovingExperience(String name, String description) {
 		super(name, description);

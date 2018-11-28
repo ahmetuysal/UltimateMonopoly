@@ -4,7 +4,7 @@ import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
-public class AdvanceToSaintCharlesPlace extends ChanceCard {
+public class AdvanceToSaintCharlesPlace extends Card {
 
 	protected AdvanceToSaintCharlesPlace(String name, String description) {
 		super(name, description);

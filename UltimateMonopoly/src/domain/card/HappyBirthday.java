@@ -5,7 +5,7 @@ import java.util.List;
 import domain.GameController;
 import domain.Player;
 
-public class HappyBirthday extends CommunityChestCard {
+public class HappyBirthday extends Card {
 
 	protected HappyBirthday(String name, String description) {
 		super(name, description);

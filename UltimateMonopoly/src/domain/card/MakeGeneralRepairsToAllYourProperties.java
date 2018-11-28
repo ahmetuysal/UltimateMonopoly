@@ -5,7 +5,7 @@ import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.UtilitySquare;
 
-public class MakeGeneralRepairsToAllYourProperties extends ChanceCard{
+public class MakeGeneralRepairsToAllYourProperties extends Card {
 
 	protected MakeGeneralRepairsToAllYourProperties(String name, String description) {
 		super(name, description);

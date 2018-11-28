@@ -3,7 +3,7 @@ package domain.card;
 import domain.GameController;
 import domain.Player;
 
-public class PayHospitalBills extends CommunityChestCard {
+public class PayHospitalBills extends Card {
 
 	protected PayHospitalBills(String name, String description) {
 		super(name, description);

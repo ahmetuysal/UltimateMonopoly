@@ -5,7 +5,7 @@ import domain.GameController;
 import domain.Player;
 import domain.square.Location;
 
-public class AdvanceToThePayCorner extends ChanceCard {
+public class AdvanceToThePayCorner extends Card {
 
 	protected AdvanceToThePayCorner(String name, String description) {
 		super(name, description);

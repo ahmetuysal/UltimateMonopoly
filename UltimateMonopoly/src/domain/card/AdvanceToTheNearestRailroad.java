@@ -7,7 +7,7 @@ import domain.square.Location;
 import domain.square.RailRoad;
 import domain.square.Square;
 
-public class AdvanceToTheNearestRailroad extends ChanceCard {
+public class AdvanceToTheNearestRailroad extends Card {
 
 	protected AdvanceToTheNearestRailroad(String name, String description) {
 		super(name, description);
