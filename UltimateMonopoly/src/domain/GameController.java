@@ -29,7 +29,6 @@ public class GameController extends Observable {
 	private LinkedList<Card> communityChestCardList;
 	private LinkedList<Card> rollThreeCardList;
 	private int poolMoney;
-	
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
 	private DieValue die2Value;
@@ -38,6 +37,7 @@ public class GameController extends Observable {
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
+	private boolean isPaused;
 
 	private static GameController instance;
 
@@ -297,7 +297,17 @@ public class GameController extends Observable {
 	public Cup getCup() {
 		return cup;
 	}
-
+	
+	public void setPause(boolean pause) {
+		publishPropertyEvent("isPaused", true, pause);
+		this.isPaused = pause;
+	}
+	
+	public void setResume(boolean resume) {
+		publishPropertyEvent("isPaused", true, resume);
+		this.isPaused = resume;
+	}
+	
 	public void setCup(Cup cup) {
 		this.cup = cup;
 		DieValue[] newValues = cup.getFaceValues();

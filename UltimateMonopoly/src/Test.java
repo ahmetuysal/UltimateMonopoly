@@ -9,7 +9,7 @@ public class Test {
 		GameController controller = GameController.getInstance();
 		//CommunicationFacade facade = new CommunicationFacade();
 		MonopolyFrame frame = new MonopolyFrame(controller);
-
+		
 	}
 
 }

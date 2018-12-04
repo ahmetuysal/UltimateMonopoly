@@ -42,6 +42,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 //	private JButton keepCardButton;
 	private CardPanel cardPanel;
 	
+	private ObserverButton pauseButton;
+	private ObserverButton resumeButton;
+	
 	private List<UIToken> UITokens = new ArrayList<>();
 	
 	private PlayButtonPanel playButtons;
@@ -73,6 +76,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		playButtons.setVisible(true);
 		playButtons.setBackground(this.getBackground());
 		add(playButtons);
+		
+		pauseButton();
+		resumePanel();
 		
 		int cpWidth = 5*squareUnitSize;
 		int cpHeight = cpWidth;
@@ -172,6 +178,31 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		this.add(chanceCard);
 	}
 
+	private void pauseButton() {
+		int pbtWidth = frameWidth - 30*squareUnitSize - boardStartX;
+		int pbtHeight = frameHeight / 32;
+		pauseButton = new ObserverButton("Pause Game", true);
+		controller.addPropertyListener("isPaused", pauseButton);
+		pauseButton.setBounds(frameWidth - pbtWidth, boardStartX, pbtWidth- boardStartX, pbtHeight);
+		pauseButton.setVisible(true);
+		pauseButton.setBackground(Color.WHITE);
+		pauseButton.addActionListener(this);
+		add(pauseButton);
+	}
+	
+	private void resumePanel() {
+		
+		
+		int rbWidth = frameWidth - 30*squareUnitSize - boardStartX;
+		int rbHeight = frameHeight / 32;		
+		resumeButton = new ObserverButton("Resume Game", true);
+		resumeButton.setBounds(frameWidth/2 - rbWidth, frameHeight/2-rbHeight, rbWidth- boardStartX, rbHeight);
+		resumeButton.setVisible(false);
+		resumeButton.setBackground(Color.WHITE);
+		resumeButton.addActionListener(this);
+		add(resumeButton);
+	}
+	
 	private JLabel getMiddle() {
 		Image tmp = null;
 		try {
@@ -329,6 +360,18 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 			break;
 		case "CommunityChestCard":
 			controller.drawCommunityChestCard();
+			break;
+		case "Pause Game":
+			controller.setPause(true);
+			pauseButton.setEnabled(false);
+			resumeButton.setVisible(true);
+			System.out.println("Game is paused");
+			break;
+		case "Resume Game":
+			controller.setResume(false);
+			pauseButton.setEnabled(true);
+			resumeButton.setVisible(false);
+			System.out.println("Game is resumed");
 			break;
 		}
 	}

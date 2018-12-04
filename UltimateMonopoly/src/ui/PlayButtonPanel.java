@@ -70,7 +70,14 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		controller.addPropertyListener("isTurnFinished", passTurnButton);
 		controller.addPropertyListener("isTurnFinished", buyButton);
 		controller.addPropertyListener("currentLocationBuyable", buyButton);
+		controller.addPropertyListener("isPaused", rollDiceButton);
+		controller.addPropertyListener("isPaused", passTurnButton);
+		controller.addPropertyListener("isPaused", buyButton);
+		controller.addPropertyListener("isResumed", rollDiceButton);
+		controller.addPropertyListener("isResumed", passTurnButton);
+		controller.addPropertyListener("isResumed", buyButton);
 		
+
 		int width = panelWidth / 5;
 		int height = panelHeight / 6;
 		
@@ -93,7 +100,6 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton.setBackground(Color.WHITE);
 		buyButton.setBackground(Color.WHITE);
 		passTurnButton.setBackground(Color.WHITE);
-
 		
 		buyButton.setEnabled(false);
 		passTurnButton.setEnabled(false);
@@ -109,7 +115,6 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		add(rollDiceButton);
 		add(buyButton);
 		add(passTurnButton);
-		
 	}
 	
 	@Override
