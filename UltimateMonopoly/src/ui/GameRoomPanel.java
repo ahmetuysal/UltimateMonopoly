@@ -107,12 +107,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
-
-		Token token = controller.getBoard().getTokens().get(0);
-		System.out.println(token);
-		
-		
-
 	}
 
 	private void initBoard() {

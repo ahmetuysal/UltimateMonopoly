@@ -425,7 +425,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Select Game":
 			controller.loadGame(((String)savedGamesList.getSelectedValue()).split(" ")[0]);
-			System.out.println(controller.getPlayers());
+			mainFrame.toGameRoomPanel();
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();

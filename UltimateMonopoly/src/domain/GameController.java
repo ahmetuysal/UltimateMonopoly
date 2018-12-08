@@ -248,7 +248,7 @@ public class GameController extends Observable {
 		initRollThreeCards();
 		// TODO
 		currentPlayerIndex = 0;
-		currentPlayer = players.get(currentPlayerIndex);
+		currentPlayer = players.isEmpty()? null : players.get(currentPlayerIndex);
 	}
 	
 	public void initRollThreeCards() {
