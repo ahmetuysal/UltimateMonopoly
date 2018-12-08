@@ -30,7 +30,7 @@ public class GameStateJSONConverter {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void writeGameStateToJSONFile(GameState state, String fileName) {
+	public boolean writeGameStateToJSONFile(GameState state, String fileName) {
 		String path = DIRECTORY + fileName + ".json";
 		if(System.getProperty("os.name").contains("Windows")){
 			path = path.replaceAll("\\/", "\\\\");
@@ -42,8 +42,13 @@ public class GameStateJSONConverter {
 		    
 		    writer.flush();
 		    writer.close();
+		    
+		    return true;
 		} catch (IOException e) {
 			e.printStackTrace();
+			File file = new File(path);
+			file.delete();
+			return false;
 		}        
 	}
 		

@@ -40,7 +40,6 @@ public class GameController extends Observable {
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
-	private boolean isPaused;
 
 	private static GameController instance;
 
@@ -117,6 +116,12 @@ public class GameController extends Observable {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
 		initializeWithGameState(savedState);
+	}
+	
+	public boolean saveGame(String gameName) {
+		GameState stateToSave = this.toGameState();
+		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
+		return converter.writeGameStateToJSONFile(stateToSave, gameName);
 	}
 	
 	private RollThreeCard askPlayerWhichRollThreeCardToPlay(Player player) {
@@ -328,13 +333,8 @@ public class GameController extends Observable {
 	}
 	
 	public void setPause(boolean pause) {
-		publishPropertyEvent("isPaused", true, pause);
+		publishPropertyEvent("isPaused", isPaused, pause);
 		this.isPaused = pause;
-	}
-	
-	public void setResume(boolean resume) {
-		publishPropertyEvent("isPaused", true, resume);
-		this.isPaused = resume;
 	}
 	
 	public void setCup(Cup cup) {

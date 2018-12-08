@@ -48,7 +48,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private JButton networkButton;
 	private JButton selectGameButton;
 
-	private JList savedGamesList;
+	private JList<String> savedGamesList;
 	
 	private JLabel ultimateMonopolyLogo;
 

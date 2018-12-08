@@ -12,55 +12,37 @@ import domain.GameController;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 
-public class MonopolyFrame extends JFrame implements ActionListener, PropertyListener {
+public class MonopolyFrame extends JFrame {
 
-	//GameRoomPanel gamePanel;
-	
-	private Image background;
-	
-	
-	public MonopolyFrame(GameController controller){
-		GameController.getInstance().addPropertyListener(this);		
-		//setLayout(null);
-		
+	public MonopolyFrame() {
+
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle("Ultimate Monopoly");
 
 		pack();
 		setVisible(true);
-		
-		Dimension dimension = new Dimension(this.getWidth(),this.getHeight());
+
+		Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
 		getContentPane().setSize(dimension);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
 		
-		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(),getContentPane().getHeight(), this);
+		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
 		getContentPane().add(menuPanel);
 		validate();
-		//menuPanel.repaint();
-		
+		// menuPanel.repaint();
+
 		setBackground(Color.GRAY);
-		
-		//System.out.println(dimension);
 	}
-	
-	public void toGameRoomPanel(){
+
+	public void toGameRoomPanel() {
 		getContentPane().removeAll();
-		
-		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(),getContentPane().getHeight());
+		PausedPanel pausedPanel = new PausedPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
+		GameController.getInstance().addPropertyListener("isPaused", pausedPanel);
+		getContentPane().add(pausedPanel);
+		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(), getContentPane().getHeight());
 		getContentPane().add(grPanel);
-		
 		repaint();
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPropertyEvent(PropertyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
 }
