@@ -16,6 +16,7 @@ import domain.die.Cup;
 import domain.die.DieValue;
 import domain.square.OwnableSquare;
 import domain.square.Square;
+import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 
 public class GameController extends Observable {
@@ -110,6 +111,12 @@ public class GameController extends Observable {
 		}
 		
 		System.out.println(results);
+	}
+	
+	public void loadGame(String gameName) {
+		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
+		GameState savedState = converter.readGameStateFromJSONFile(gameName);
+		initializeWithGameState(savedState);
 	}
 	
 	private RollThreeCard askPlayerWhichRollThreeCardToPlay(Player player) {

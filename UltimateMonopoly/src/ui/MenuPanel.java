@@ -46,6 +46,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private JButton menuButton;
 	private JButton continueButton;
 	private JButton networkButton;
+	private JButton selectGameButton;
 
 	private JList savedGamesList;
 	
@@ -174,6 +175,20 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		loadGameButton.setBounds(x, y, width, height);
 		loadGameButton.setVisible(true);
 		loadGameButton.addActionListener(this);	
+	}
+	
+	private void selectGameButton(int y) {
+		selectGameButton = new JButton("Select Game");
+		selectGameButton.setBackground(Color.WHITE);
+		selectGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
+		int width = menuPanelWidth / 10;
+		int height = menuPanelHeight / 15;
+		int x = (menuPanelWidth - width)/ 2;	
+		
+		selectGameButton.setBounds(x, y, width, height);
+		selectGameButton.setVisible(true);
+		selectGameButton.addActionListener(this);;
+
 	}
 
 	private void networkButton() {
@@ -365,11 +380,13 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		scrollPane.setBounds(x, y ,width, height);
 		
 		menuButton();
+		selectGameButton(y + height * 11 / 10);
 		removeAll();
 		
 		
 		add(scrollPane);
 		add(menuButton);
+		add(selectGameButton);
 		
 		scrollPane.validate();
 		repaint();
@@ -405,6 +422,10 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "registerUser":
 			registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem());
+			break;
+		case "Select Game":
+			controller.loadGame(((String)savedGamesList.getSelectedValue()).split(" ")[0]);
+			System.out.println(controller.getPlayers());
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();
