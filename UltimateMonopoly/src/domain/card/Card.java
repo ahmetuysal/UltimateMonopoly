@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import domain.Player;
 
-public abstract class Card implements Serializable{
+public class Card implements Serializable{
 
 	private String name;
 	private String description;
@@ -37,7 +37,8 @@ public abstract class Card implements Serializable{
 
 
 
-	public abstract void useCard(Player player, String s);
+	public void useCard(Player player, String s) {
+	}
 
 
 }

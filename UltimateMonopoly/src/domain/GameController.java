@@ -12,10 +12,12 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.OwnableCard;
 import domain.card.RollThreeCard;
+import domain.communication.network.GameState;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.square.OwnableSquare;
 import domain.square.Square;
+import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 
 public class GameController extends Observable {
@@ -30,12 +32,12 @@ public class GameController extends Observable {
 	private LinkedList<Card> communityChestCardList;
 	private LinkedList<Card> rollThreeCardList;
 	private int poolMoney;
-	
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
 	private DieValue die2Value;
 	private DieValue die3Value;
 	
+	private boolean isPaused;
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
@@ -55,6 +57,26 @@ public class GameController extends Observable {
 		players = new ArrayList<>();
 		initTokens();
 		initCards();
+	}
+	
+	public void initializeWithGameState(GameState state) {
+		this.board = state.getBoard();
+		this.cup = state.getCup();
+		this.players = state.getPlayers();
+		this.currentPlayerIndex = state.getCurrentPlayerIndex();
+		this.currentPlayer = state.getCurrentPlayer();
+		this.consecutiveDoubles = state.getConsecutiveDoubles();
+		this.chanceCardList = state.getChanceCardList();
+		this.communityChestCardList = state.getCommunityChestCardList();
+		this.rollThreeCardList = state.getRollThreeCardList();
+		this.poolMoney = state.getPoolMoney();
+		this.die1Value = state.getDie1Value();
+		this.die2Value = state.getDie2Value();
+		this.die3Value = state.getDie3Value();
+		this.isPaused = state.isPaused();
+		this.withNetwork = state.isWithNetwork();
+		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
+		this.currentLocationBuyable = state.isCurrentLocationBuyable();
 	}
 	
 	public void playRollThree() {
@@ -89,6 +111,18 @@ public class GameController extends Observable {
 		}
 		
 		System.out.println(results);
+	}
+	
+	public void loadGame(String gameName) {
+		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
+		GameState savedState = converter.readGameStateFromJSONFile(gameName);
+		initializeWithGameState(savedState);
+	}
+	
+	public boolean saveGame(String gameName) {
+		GameState stateToSave = this.toGameState();
+		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
+		return converter.writeGameStateToJSONFile(stateToSave, gameName);
 	}
 	
 	private RollThreeCard askPlayerWhichRollThreeCardToPlay(Player player) {
@@ -196,7 +230,7 @@ public class GameController extends Observable {
 	public boolean registerUser(String nickname, String tokenName) {
 		if (Token.isTokenAvailable(tokenName)) {
 			Player player = new Player(nickname);
-			Token token = new Token(player, Board.getStartLocation(), tokenName);
+			Token token = new Token(Board.getStartLocation(), tokenName);
 			players.add(player);
 			player.setToken(token);
 			board.addToken(token);
@@ -215,7 +249,7 @@ public class GameController extends Observable {
 		initRollThreeCards();
 		// TODO
 		currentPlayerIndex = 0;
-		currentPlayer = players.get(currentPlayerIndex);
+		currentPlayer = players.isEmpty()? null : players.get(currentPlayerIndex);
 	}
 	
 	public void initRollThreeCards() {
@@ -298,7 +332,12 @@ public class GameController extends Observable {
 	public Cup getCup() {
 		return cup;
 	}
-
+	
+	public void setPause(boolean pause) {
+		publishPropertyEvent("isPaused", isPaused, pause);
+		this.isPaused = pause;
+	}
+	
 	public void setCup(Cup cup) {
 		this.cup = cup;
 		DieValue[] newValues = cup.getFaceValues();
@@ -474,4 +513,57 @@ public class GameController extends Observable {
 		
 	}
 	
+	public GameState toGameState() {
+		GameState state = new GameState();
+		state.setBoard(board);
+		state.setCup(cup);
+		state.setPlayers(players);
+		state.setCurrentPlayerIndex(currentPlayerIndex);
+		state.setCurrentPlayer(currentPlayer);
+		state.setConsecutiveDoubles(consecutiveDoubles);
+		state.setChanceCardList(chanceCardList);
+		state.setCommunityChestCardList(communityChestCardList);
+		state.setRollThreeCardList(rollThreeCardList);
+		state.setPoolMoney(poolMoney);
+		
+		state.setDie1Value(die1Value);
+		state.setDie2Value(die2Value);
+		state.setDie3Value(die3Value);
+		
+		state.setPaused(isPaused);
+		state.setWithNetwork(withNetwork);
+		state.setPlayerSentToJailForDouble(playerSentToJailForDouble);
+		state.setCurrentLocationBuyable(currentLocationBuyable);
+		
+		// TODO clientIndex, content, type with mgunay15
+		return state;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "GameController [board=" + board + ", cup=" + cup + ", players=" + players + ", currentPlayerIndex="
+				+ currentPlayerIndex + ", currentPlayer=" + currentPlayer + ", consecutiveDoubles=" + consecutiveDoubles
+				+ ", chanceCardList=" + chanceCardList + ", communityChestCardList=" + communityChestCardList
+				+ ", rollThreeCardList=" + rollThreeCardList + ", poolMoney=" + poolMoney + ", die1Value=" + die1Value
+				+ ", die2Value=" + die2Value + ", die3Value=" + die3Value + ", withNetwork=" + withNetwork
+				+ ", playerSentToJailForDouble=" + playerSentToJailForDouble + ", currentLocationBuyable="
+				+ currentLocationBuyable + "]";
+	}
+
+	/**
+	 * @return the isPaused
+	 */
+	public boolean isPaused() {
+		return isPaused;
+	}
+
+	/**
+	 * @param isPaused the isPaused to set
+	 */
+	public void setPaused(boolean isPaused) {
+		this.isPaused = isPaused;
+	}
 }

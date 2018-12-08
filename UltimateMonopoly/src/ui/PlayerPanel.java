@@ -36,7 +36,7 @@ public class PlayerPanel extends JPanel {
 		int y = 0;
 		int width = panelWidth - 2*x;
 		List<Player> players = controller.getPlayerList();
-		int height = panelHeight / players.size();
+		int height = players.isEmpty()? panelHeight : panelHeight / players.size();
 		
 		if(height > panelHeight / 10){
 			height = panelHeight / 20;

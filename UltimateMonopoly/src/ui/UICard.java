@@ -42,7 +42,7 @@ public class UICard extends JLabel implements PropertyListener{
 		imagePath += fileName + ".png";
 		
 		if(System.getProperty("os.name").contains("Windows")){
-			imagePath.replaceAll("\\/", "\\\\");
+			imagePath = imagePath.replaceAll("\\/", "\\\\");
 		}
 		System.out.println(imagePath);
 		

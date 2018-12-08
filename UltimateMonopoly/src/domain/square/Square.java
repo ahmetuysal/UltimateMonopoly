@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import domain.Player;
 
-public abstract class Square implements Serializable{
+public class Square implements Serializable{
 	
 	private String name;
 	private String description;
@@ -25,12 +25,14 @@ public abstract class Square implements Serializable{
 		this.description = description;
 	}
 	
+	
 	public Square(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
 	}
 	
-	public abstract void landOn(Player player);
+	public void landOn(Player player) {
+	}
 	
 }

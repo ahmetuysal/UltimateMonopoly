@@ -93,7 +93,6 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton.setBackground(Color.WHITE);
 		buyButton.setBackground(Color.WHITE);
 		passTurnButton.setBackground(Color.WHITE);
-
 		
 		buyButton.setEnabled(false);
 		passTurnButton.setEnabled(false);
@@ -109,7 +108,6 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		add(rollDiceButton);
 		add(buyButton);
 		add(passTurnButton);
-		
 	}
 	
 	@Override

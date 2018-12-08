@@ -15,6 +15,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -41,6 +42,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 //	private JButton playCardButton;
 //	private JButton keepCardButton;
 	private CardPanel cardPanel;
+	
+	private JButton pauseButton;
 	
 	private List<UIToken> UITokens = new ArrayList<>();
 	
@@ -74,6 +77,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		playButtons.setBackground(this.getBackground());
 		add(playButtons);
 		
+		pauseButton();
+		
 		int cpWidth = 5*squareUnitSize;
 		int cpHeight = cpWidth;
 		cardPanel = new CardPanel(cpWidth, cpHeight, this);
@@ -102,12 +107,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 
 		addMouseListener(this);
 		addMouseMotionListener(this);
-
-		Token token = controller.getBoard().getTokens().get(0);
-		System.out.println(token);
-		
-		
-
 	}
 
 	private void initBoard() {
@@ -172,6 +171,17 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		this.add(chanceCard);
 	}
 
+	private void pauseButton() {
+		int pbtWidth = frameWidth - 30*squareUnitSize - boardStartX;
+		int pbtHeight = frameHeight / 32;
+		pauseButton = new ObserverButton("Pause Game", true);
+		pauseButton.setBounds(frameWidth - pbtWidth, boardStartX, pbtWidth- boardStartX, pbtHeight);
+		pauseButton.setVisible(true);
+		pauseButton.setBackground(Color.WHITE);
+		pauseButton.addActionListener(this);
+		add(pauseButton);
+	}
+	
 	private JLabel getMiddle() {
 		Image tmp = null;
 		try {
@@ -329,6 +339,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 			break;
 		case "CommunityChestCard":
 			controller.drawCommunityChestCard();
+			break;
+		case "Pause Game":
+			controller.setPause(true);
 			break;
 		}
 	}
