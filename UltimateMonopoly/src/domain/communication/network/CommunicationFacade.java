@@ -7,6 +7,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 import domain.GameController;
+import domain.gamestate.GameState;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 

@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import domain.gamestate.GameState;
+
 public class Connection {
 	
 	public static final String DEFAULT_SERVER_ADDRESS = "172.20.173.187";

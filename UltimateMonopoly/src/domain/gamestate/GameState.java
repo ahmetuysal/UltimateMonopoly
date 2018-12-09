@@ -1,4 +1,4 @@
-package domain.communication.network;
+package domain.gamestate;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,14 +8,17 @@ import java.util.List;
 import domain.Board;
 import domain.Player;
 import domain.card.Card;
+import domain.card.OwnableCard;
 import domain.die.Cup;
 import domain.die.DieValue;
+import domain.square.OwnableSquare;
+import domain.square.Square;
 
 public class GameState implements Serializable {
 
 	private Board board;
 	private Cup cup;
-	private List<Player> players;
+	private List<GameStatePlayer> players;
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
@@ -199,6 +202,62 @@ public class GameState implements Serializable {
 	}
 
 	public List<Player> getPlayers() {
+		List<Player> players = new ArrayList<>();
+		for (GameStatePlayer gsPlayer : this.players) {
+			Player player = new Player(gsPlayer.getNickName());
+			player.setTotalMoney(gsPlayer.getTotalMoney());
+			player.setReverseDirection(gsPlayer.isReverseDirection());
+			player.setToken(gsPlayer.getToken());
+			player.setJailTime(gsPlayer.getJailTime());
+			player.setInJail(gsPlayer.isInJail());
+			players.add(player);
+		}
+		
+		List<Square>[] squares = board.getSquares();
+		
+		for (int i = 0; i < squares.length; i++) {
+			List<Square> layer = squares[i];
+			for (Square sq : layer) {
+				if (sq instanceof OwnableSquare) {
+					for (Player player : players) {
+						if (player.equals(((OwnableSquare) sq).getOwner())) {
+							player.addProperty((OwnableSquare) sq);
+						}
+					}
+				}
+			}
+		}
+		
+		for (Card card : chanceCardList) {
+			if (card instanceof OwnableCard) {
+				for (Player player : players) {
+					if (player.equals(((OwnableCard) card).getOwner())) {
+						player.addCard((OwnableCard) card);
+					}
+				}
+			}
+		}
+		
+		for (Card card : communityChestCardList) {
+			if (card instanceof OwnableCard) {
+				for (Player player : players) {
+					if (player.equals(((OwnableCard) card).getOwner())) {
+						player.addCard((OwnableCard) card);
+					}
+				}
+			}
+		}
+		
+		for (Card card : rollThreeCardList) {
+			if (card instanceof OwnableCard) {
+				for (Player player : players) {
+					if (player.equals(((OwnableCard) card).getOwner())) {
+						player.addCard((OwnableCard) card);
+					}
+				}
+			}
+		}
+		
 		return players;
 	}
 
@@ -219,7 +278,11 @@ public class GameState implements Serializable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		this.players = players;
+		List<GameStatePlayer> gsPlayers = new ArrayList<>();
+		for (Player player : players) {
+			gsPlayers.add(new GameStatePlayer(player));
+		}
+		this.players = gsPlayers;
 	}
 
 	public Cup getCup() {

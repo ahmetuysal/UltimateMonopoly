@@ -1,6 +1,7 @@
 package domain.communication.network;
 
 import domain.die.Cup;
+import domain.gamestate.GameState;
 
 public class NetworkController {
 

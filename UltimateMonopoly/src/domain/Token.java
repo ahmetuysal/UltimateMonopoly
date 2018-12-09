@@ -70,6 +70,38 @@ public class Token extends Observable implements Serializable{
 	public String toString() {
 		return "Token [location=" + location + ", tokenImageName=" + tokenImageName + "]";
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Token)) {
+			return false;
+		}
+		Token other = (Token) obj;
+		if (location == null) {
+			if (other.location != null) {
+				return false;
+			}
+		} else if (!location.equals(other.location)) {
+			return false;
+		}
+		if (tokenImageName == null) {
+			if (other.tokenImageName != null) {
+				return false;
+			}
+		} else if (!tokenImageName.equals(other.tokenImageName)) {
+			return false;
+		}
+		return true;
+	}
 	
 
 }

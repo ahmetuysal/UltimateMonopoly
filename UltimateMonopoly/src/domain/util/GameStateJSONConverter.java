@@ -12,7 +12,7 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import domain.communication.network.GameState; 
+import domain.gamestate.GameState; 
 
 public class GameStateJSONConverter {
 

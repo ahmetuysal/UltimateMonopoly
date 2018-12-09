@@ -6,6 +6,7 @@ import java.util.List;
 
 import domain.card.Card;
 import domain.card.OwnableCard;
+import domain.gamestate.GameStatePlayer;
 import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
@@ -272,8 +273,77 @@ public class Player extends Observable implements Serializable{
 		
 	}
 	
+	public void setInJail(boolean inJail) {
+		this.inJail = inJail;
+	}
+
+	public void setJailTime(int jailTime) {
+		this.jailTime = jailTime;
+	}
+
 	public List<OwnableSquare> getProperties() {
 		return properties;
 	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Player || obj instanceof GameStatePlayer) )
+			return false;
+		if (obj instanceof Player) {
+			Player other = (Player) obj;
+			if (inJail != other.inJail)
+				return false;
+			if (isReverseDirection != other.isReverseDirection)
+				return false;
+			if (jailTime != other.jailTime)
+				return false;
+			if (nickName == null) {
+				if (other.nickName != null)
+					return false;
+			} else if (!nickName.equals(other.nickName))
+				return false;
+			if (token == null) {
+				if (other.token != null)
+					return false;
+			} else if (!token.equals(other.token))
+				return false;
+			if (totalMoney != other.totalMoney)
+				return false;
+		}
+		if (obj instanceof GameStatePlayer) {
+			GameStatePlayer other = (GameStatePlayer) obj;
+			if (inJail != other.isInJail())
+				return false;
+			if (isReverseDirection != other.isReverseDirection())
+				return false;
+			if (jailTime != other.getJailTime())
+				return false;
+			if (nickName == null) {
+				if (other.getNickName() != null)
+					return false;
+			} else if (!nickName.equals(other.getNickName()))
+				return false;
+			if (token == null) {
+				if (other.getToken() != null)
+					return false;
+			} else if (!token.equals(other.getToken()))
+				return false;
+			if (totalMoney != other.getTotalMoney())
+				return false;
+		}
+		return true;
+	}
+	
+	
+	
+	
 	
 }
