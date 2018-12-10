@@ -6,30 +6,27 @@ import java.util.List;
 
 import domain.card.Card;
 import domain.card.OwnableCard;
-import domain.gamestate.GameStatePlayer;
 import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
 import domain.util.Observable;
 
-public class Player extends Observable implements Serializable{
+public class Player extends Observable implements Serializable {
 
 	private String nickName;
 	private int totalMoney;
 	private boolean isReverseDirection;
 	private boolean inJail;
 	private int jailTime;
-	private List<OwnableCard> cards;
-	private List<OwnableSquare> properties;
+	private transient List<OwnableCard> cards;
+	private transient List<OwnableSquare> properties;
 	private Token token;
 
 	private static final int START_MONEY = 3200;
-	
+
 	/**
-	 * @param nickName
-	 *            Nick name of the player.
-	 * @param totalMoney
-	 *            Starting money of the player.
+	 * @param nickName   Nick name of the player.
+	 * @param totalMoney Starting money of the player.
 	 */
 	public Player(String nickName) {
 		this.nickName = nickName;
@@ -41,7 +38,9 @@ public class Player extends Observable implements Serializable{
 		this.properties = new ArrayList<>();
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -59,8 +58,7 @@ public class Player extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param nickName
-	 *            The nick name of the player to set.
+	 * @param nickName The nick name of the player to set.
 	 */
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
@@ -74,8 +72,7 @@ public class Player extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param money
-	 *            The amount to be added to player's total money.
+	 * @param money The amount to be added to player's total money.
 	 * 
 	 */
 	public void increaseMoney(int money) {
@@ -85,8 +82,7 @@ public class Player extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param money
-	 *            The amount to decrease from player's total money.
+	 * @param money The amount to decrease from player's total money.
 	 * @return <tt>true</tt> if player is capable of paying and has paid to money,
 	 *         <tt>false</tt> otherwise.
 	 */
@@ -103,10 +99,8 @@ public class Player extends Observable implements Serializable{
 
 	/**
 	 * 
-	 * @param player
-	 *            The player who will get the money.
-	 * @param money
-	 *            The amount to pay.
+	 * @param player The player who will get the money.
+	 * @param money  The amount to pay.
 	 */
 	public void payMoney(Player player, int money) {
 		if (this.getTotalMoney() < money) {
@@ -126,8 +120,8 @@ public class Player extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param isReverseDirection
-	 *            Whether the player is moving in reverse direction or not.
+	 * @param isReverseDirection Whether the player is moving in reverse direction
+	 *                           or not.
 	 */
 	public void setReverseDirection(boolean isReverseDirection) {
 		this.isReverseDirection = isReverseDirection;
@@ -165,28 +159,34 @@ public class Player extends Observable implements Serializable{
 	}
 
 	/**
-	 * @param card
-	 *            The card to be added to player's list of cards.
+	 * @param card The card to be added to player's list of cards.
 	 */
 	public void addCard(OwnableCard card) {
+		if (this.cards == null)
+			cards = new ArrayList<>();
 		this.cards.add(card);
 	}
 
 	/**
-	 * @param card
-	 *            The card to be removed from player's list of cards.
+	 * @param card The card to be removed from player's list of cards.
 	 * @return <tt>true</tt> if card is removed from player's list of cards,
 	 *         <tt>false</tt> if card was not in the list.
 	 */
 	public boolean removeCard(OwnableCard card) {
+		if (this.cards == null)
+			cards = new ArrayList<>();
 		return this.cards.remove(card);
 	}
-	
-	public void addProperty(OwnableSquare prop){
+
+	public void addProperty(OwnableSquare prop) {
+		if (this.properties == null)
+			properties = new ArrayList<>();
 		this.properties.add(prop);
 	}
-	
-	public boolean removeProperty(OwnableSquare prop){
+
+	public boolean removeProperty(OwnableSquare prop) {
+		if (this.properties == null)
+			properties = new ArrayList<>();
 		return this.properties.remove(prop);
 	}
 
@@ -230,49 +230,49 @@ public class Player extends Observable implements Serializable{
 		}
 		return result;
 	}
-	
+
 	public boolean houseCheckForHotelBuilding(TitleDeedSquareColor color) {
-		boolean hotelBuild = false;;
+		boolean hotelBuild = false;
+		;
 		for (OwnableSquare ownable : this.properties) {
 			if (ownable instanceof TitleDeedSquare) {
 				if (((TitleDeedSquare) ownable).getColor() == color) {
-					if(((TitleDeedSquare) ownable).getNumHouses() == 4)
+					if (((TitleDeedSquare) ownable).getNumHouses() == 4)
 						hotelBuild = true;
 					else {
 						hotelBuild = false;
 						break;
 					}
 				}
-					
+
 			}
 		}
 		return hotelBuild;
 	}
-	
+
 	public boolean hotelCheckForSkyscraperBuilding(TitleDeedSquareColor color) {
 		boolean skyscraperBuild = false;
 		for (OwnableSquare ownable : this.properties) {
 			if (ownable instanceof TitleDeedSquare) {
 				if (((TitleDeedSquare) ownable).getColor() == color) {
-					if(((TitleDeedSquare) ownable).getNumHouses() == 1)
+					if (((TitleDeedSquare) ownable).getNumHouses() == 1)
 						skyscraperBuild = true;
 					else {
 						skyscraperBuild = false;
 						break;
 					}
 				}
-					
+
 			}
 		}
 		return skyscraperBuild;
 	}
-	
 
 	public void setTotalMoney(int totalMoney) {
 		this.totalMoney = totalMoney;
-		
+
 	}
-	
+
 	public void setInJail(boolean inJail) {
 		this.inJail = inJail;
 	}
@@ -285,8 +285,9 @@ public class Player extends Observable implements Serializable{
 		return properties;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -295,55 +296,29 @@ public class Player extends Observable implements Serializable{
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof Player || obj instanceof GameStatePlayer) )
+		if (!(obj instanceof Player))
 			return false;
-		if (obj instanceof Player) {
-			Player other = (Player) obj;
-			if (inJail != other.inJail)
+		Player other = (Player) obj;
+		if (inJail != other.inJail)
+			return false;
+		if (isReverseDirection != other.isReverseDirection)
+			return false;
+		if (jailTime != other.jailTime)
+			return false;
+		if (nickName == null) {
+			if (other.nickName != null)
 				return false;
-			if (isReverseDirection != other.isReverseDirection)
+		} else if (!nickName.equals(other.nickName))
+			return false;
+		if (token == null) {
+			if (other.token != null)
 				return false;
-			if (jailTime != other.jailTime)
-				return false;
-			if (nickName == null) {
-				if (other.nickName != null)
-					return false;
-			} else if (!nickName.equals(other.nickName))
-				return false;
-			if (token == null) {
-				if (other.token != null)
-					return false;
-			} else if (!token.equals(other.token))
-				return false;
-			if (totalMoney != other.totalMoney)
-				return false;
-		}
-		if (obj instanceof GameStatePlayer) {
-			GameStatePlayer other = (GameStatePlayer) obj;
-			if (inJail != other.isInJail())
-				return false;
-			if (isReverseDirection != other.isReverseDirection())
-				return false;
-			if (jailTime != other.getJailTime())
-				return false;
-			if (nickName == null) {
-				if (other.getNickName() != null)
-					return false;
-			} else if (!nickName.equals(other.getNickName()))
-				return false;
-			if (token == null) {
-				if (other.getToken() != null)
-					return false;
-			} else if (!token.equals(other.getToken()))
-				return false;
-			if (totalMoney != other.getTotalMoney())
-				return false;
-		}
+		} else if (!token.equals(other.token))
+			return false;
+		if (totalMoney != other.totalMoney)
+			return false;
+
 		return true;
 	}
-	
-	
-	
-	
-	
+
 }

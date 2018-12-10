@@ -2,7 +2,7 @@ package domain.card;
 
 import domain.Player;
 
-public abstract class OwnableCard extends Card {
+public class OwnableCard extends Card {
 	
 	private Player owner;
 	private boolean isOwned;

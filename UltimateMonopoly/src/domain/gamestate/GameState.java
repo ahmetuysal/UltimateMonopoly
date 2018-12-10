@@ -18,29 +18,30 @@ public class GameState implements Serializable {
 
 	private Board board;
 	private Cup cup;
-	private List<GameStatePlayer> players;
+	private List<Player> players;
 	private int currentPlayerIndex;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
 	private LinkedList<Card> chanceCardList;
 	private LinkedList<Card> communityChestCardList;
-	private LinkedList<Card> rollThreeCardList;
+	private LinkedList<OwnableCard> rollThreeCardList;
 	private int poolMoney;
-	
-	private DieValue die1Value; 
+
+	private DieValue die1Value;
 	private DieValue die2Value;
 	private DieValue die3Value;
-	
+
 	private boolean isPaused;
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
 	
+	private transient boolean isOwnedItemsInit = false;
+
 	private int clientIndex = 0;// arbitrary
 	private String content;
 	private String type;
-	
-	
+
 	/**
 	 * @return the board
 	 */
@@ -86,14 +87,14 @@ public class GameState implements Serializable {
 	/**
 	 * @return the rollThreeCardList
 	 */
-	public LinkedList<Card> getRollThreeCardList() {
+	public LinkedList<OwnableCard> getRollThreeCardList() {
 		return rollThreeCardList;
 	}
 
 	/**
 	 * @param rollThreeCardList the rollThreeCardList to set
 	 */
-	public void setRollThreeCardList(LinkedList<Card> rollThreeCardList) {
+	public void setRollThreeCardList(LinkedList<OwnableCard> rollThreeCardList) {
 		this.rollThreeCardList = rollThreeCardList;
 	}
 
@@ -194,27 +195,23 @@ public class GameState implements Serializable {
 	public void setCurrentLocationBuyable(boolean currentLocationBuyable) {
 		this.currentLocationBuyable = currentLocationBuyable;
 	}
-	
-	public GameState(){
+
+	public GameState() {
 		currentPlayerIndex = 0;
 		consecutiveDoubles = 0;
 		players = new ArrayList<>();
 	}
 
 	public List<Player> getPlayers() {
-		List<Player> players = new ArrayList<>();
-		for (GameStatePlayer gsPlayer : this.players) {
-			Player player = new Player(gsPlayer.getNickName());
-			player.setTotalMoney(gsPlayer.getTotalMoney());
-			player.setReverseDirection(gsPlayer.isReverseDirection());
-			player.setToken(gsPlayer.getToken());
-			player.setJailTime(gsPlayer.getJailTime());
-			player.setInJail(gsPlayer.isInJail());
-			players.add(player);
+		if (!isOwnedItemsInit) {
+			assignOwnedItemsToPlayer();		
+			isOwnedItemsInit = true;
 		}
-		
+		return players;
+	}
+
+	private void assignOwnedItemsToPlayer() {
 		List<Square>[] squares = board.getSquares();
-		
 		for (int i = 0; i < squares.length; i++) {
 			List<Square> layer = squares[i];
 			for (Square sq : layer) {
@@ -227,7 +224,7 @@ public class GameState implements Serializable {
 				}
 			}
 		}
-		
+
 		for (Card card : chanceCardList) {
 			if (card instanceof OwnableCard) {
 				for (Player player : players) {
@@ -237,7 +234,7 @@ public class GameState implements Serializable {
 				}
 			}
 		}
-		
+
 		for (Card card : communityChestCardList) {
 			if (card instanceof OwnableCard) {
 				for (Player player : players) {
@@ -247,19 +244,16 @@ public class GameState implements Serializable {
 				}
 			}
 		}
-		
-		for (Card card : rollThreeCardList) {
-			if (card instanceof OwnableCard) {
-				for (Player player : players) {
-					if (player.equals(((OwnableCard) card).getOwner())) {
-						player.addCard((OwnableCard) card);
-					}
+
+		for (OwnableCard card : rollThreeCardList) {
+			for (Player player : players) {
+				if (player.equals((card).getOwner())) {
+					player.addCard(card);
 				}
 			}
 		}
-		
-		return players;
 	}
+
 
 	public String getType() {
 		return type;
@@ -278,11 +272,7 @@ public class GameState implements Serializable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		List<GameStatePlayer> gsPlayers = new ArrayList<>();
-		for (Player player : players) {
-			gsPlayers.add(new GameStatePlayer(player));
-		}
-		this.players = gsPlayers;
+		this.players = players;
 	}
 
 	public Cup getCup() {
@@ -325,7 +315,9 @@ public class GameState implements Serializable {
 		this.clientIndex = clientIndex;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -353,5 +345,5 @@ public class GameState implements Serializable {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
-	
+
 }

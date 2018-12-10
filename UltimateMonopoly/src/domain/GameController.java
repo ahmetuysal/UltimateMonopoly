@@ -30,7 +30,7 @@ public class GameController extends Observable {
 	private int consecutiveDoubles;
 	private LinkedList<Card> chanceCardList;
 	private LinkedList<Card> communityChestCardList;
-	private LinkedList<Card> rollThreeCardList;
+	private LinkedList<OwnableCard> rollThreeCardList;
 	private int poolMoney;
 	// DieValues for updating UI (Using Observer Pattern)
 	private DieValue die1Value; 
@@ -212,7 +212,7 @@ public class GameController extends Observable {
 	}
 	
 	public void drawRollThreeCard() {
-		Card card = rollThreeCardList.removeFirst();
+		OwnableCard card = rollThreeCardList.removeFirst();
 		publishPropertyEvent("cardNameRollThree", null, card.getName());
 		currentPlayer.addCard((OwnableCard) card);
 		rollThreeCardList.addLast(card);
@@ -254,7 +254,7 @@ public class GameController extends Observable {
 	
 	public void initRollThreeCards() {
 		for(int i=0;i<players.size();i++) {
-			Card card = rollThreeCardList.removeFirst();
+			OwnableCard card = rollThreeCardList.removeFirst();
 			players.get(i).addCard((OwnableCard) card);
 			rollThreeCardList.addLast(card);
 		}
@@ -440,7 +440,7 @@ public class GameController extends Observable {
 		// We used LL because we will do lots of removeFirst & addLast
 		chanceCardList = new LinkedList<Card>();
 		communityChestCardList = new LinkedList<Card>();
-		rollThreeCardList = new LinkedList<Card>();
+		rollThreeCardList = new LinkedList<OwnableCard>();
 		
 //		chanceCardList.add(CardFactory.getCard("Advance to the Pay Corner"));
 //		chanceCardList.add(CardFactory.getCard("Go To Jail!"));
@@ -478,30 +478,30 @@ public class GameController extends Observable {
 //		communityChestCardList.add(CardFactory.getCard("Share in their Good Fortune"));
 		communityChestCardList.add(CardFactory.getCard("The Insider's Edge"));
 		
-		rollThreeCardList.add(CardFactory.getCard("123"));
-		rollThreeCardList.add(CardFactory.getCard("124"));
-		rollThreeCardList.add(CardFactory.getCard("125"));
-		rollThreeCardList.add(CardFactory.getCard("126"));
-		rollThreeCardList.add(CardFactory.getCard("134"));
-		rollThreeCardList.add(CardFactory.getCard("135"));
-		rollThreeCardList.add(CardFactory.getCard("136"));
-		rollThreeCardList.add(CardFactory.getCard("145"));
-		rollThreeCardList.add(CardFactory.getCard("146"));
-		rollThreeCardList.add(CardFactory.getCard("156"));
-		rollThreeCardList.add(CardFactory.getCard("234"));
-		rollThreeCardList.add(CardFactory.getCard("245"));
-		rollThreeCardList.add(CardFactory.getCard("246"));
-		rollThreeCardList.add(CardFactory.getCard("256"));
-		rollThreeCardList.add(CardFactory.getCard("345"));
-		rollThreeCardList.add(CardFactory.getCard("346"));
-		rollThreeCardList.add(CardFactory.getCard("356"));
-		rollThreeCardList.add(CardFactory.getCard("456"));
-		rollThreeCardList.add(CardFactory.getCard("246"));
-		rollThreeCardList.add(CardFactory.getCard("256"));
-		rollThreeCardList.add(CardFactory.getCard("345"));
-		rollThreeCardList.add(CardFactory.getCard("346"));
-		rollThreeCardList.add(CardFactory.getCard("356"));
-		rollThreeCardList.add(CardFactory.getCard("456"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("123"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("124"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("125"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("126"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("134"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("135"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("136"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("145"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("146"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("156"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("234"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("245"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("246"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("256"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("345"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("346"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("356"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("456"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("246"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("256"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("345"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("346"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("356"));
+		rollThreeCardList.add((OwnableCard) CardFactory.getCard("456"));
 		
 		Collections.shuffle(chanceCardList);
 		Collections.shuffle(communityChestCardList);

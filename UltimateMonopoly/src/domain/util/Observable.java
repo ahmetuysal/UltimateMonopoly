@@ -7,18 +7,19 @@ import java.util.Map;
 
 public abstract class Observable {
 	
-	private Map<String, List<PropertyListener>> propertyListenersMap;
+	private transient Map<String, List<PropertyListener>> propertyListenersMap;
 	
 	public Observable() {
-		propertyListenersMap = new HashMap<String, List<PropertyListener>>();
-		propertyListenersMap.put("all", new ArrayList<PropertyListener>());
+		initPropertyListeners();
 	}
 	
 	public void addPropertyListener(PropertyListener listener) {
+		initPropertyListeners();
 		propertyListenersMap.get("all").add(listener);
 	}
 	
 	public void addPropertyListener(String propertyName, PropertyListener listener) {
+		initPropertyListeners();
 		if (propertyListenersMap.containsKey(propertyName)) {
 			propertyListenersMap.get(propertyName).add(listener);
 		}
@@ -28,8 +29,16 @@ public abstract class Observable {
 			propertyListenersMap.put(propertyName, list);
 		}
 	}
+
+	private void initPropertyListeners() {
+		if(propertyListenersMap == null) {
+			propertyListenersMap = new HashMap<String, List<PropertyListener>>();
+			propertyListenersMap.put("all", new ArrayList<PropertyListener>());
+		}
+	}
 	
 	public void publishPropertyEvent(String propertyName, Object oldValue, Object newValue) {
+		initPropertyListeners();
 		PropertyEvent pEvent = new PropertyEvent(this, propertyName, oldValue, newValue);
 		for (PropertyListener listener : propertyListenersMap.get("all")) {
 			listener.onPropertyEvent(pEvent);

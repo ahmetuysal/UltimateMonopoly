@@ -27,7 +27,7 @@ public class MonopolyFrame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		
-		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
+		MenuPanel menuPanel = new MenuPanel(1200, 800, this);
 		getContentPane().add(menuPanel);
 		validate();
 		// menuPanel.repaint();
