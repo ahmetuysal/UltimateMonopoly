@@ -21,13 +21,21 @@ public class MonopolyFrame extends JFrame {
 
 		pack();
 		setVisible(true);
+		
+		String osname = System.getProperty("os.name").toLowerCase();
 
-		Dimension dimension = new Dimension(this.getWidth(), this.getHeight());
-		getContentPane().setSize(dimension);
+		if (osname.contains("mac os")) {
+			getContentPane().setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
+		} else {
+			Dimension dimension = new Dimension(getWidth(), getHeight());
+			System.out.println("width: "+getWidth()+" height: "+getHeight());
+			getContentPane().setSize(dimension);
+		}
+
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		
-		MenuPanel menuPanel = new MenuPanel(1200, 800, this);
+		MenuPanel menuPanel = new MenuPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
 		getContentPane().add(menuPanel);
 		validate();
 		// menuPanel.repaint();
