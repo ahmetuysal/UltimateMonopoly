@@ -25,7 +25,7 @@ public class GameController extends Observable {
 	private Board board;
 	private Cup cup;
 	private List<Player> players;
-	private int currentPlayerIndex;
+	private int currentPlayerIndex = -1;
 	private Player currentPlayer;
 	private int consecutiveDoubles;
 	private LinkedList<Card> chanceCardList;
@@ -58,6 +58,7 @@ public class GameController extends Observable {
 		initTokens();
 		initCards();
 	}
+	
 	
 	public void initializeWithGameState(GameState state) {
 		this.board = state.getBoard();
@@ -113,6 +114,15 @@ public class GameController extends Observable {
 		System.out.println(results);
 	}
 	
+	/**
+	 * 
+	 * @param gameName
+	 * 
+	 * @requires gameName is not null
+	 * @modifies this
+	 * @effects initializes all fields of this
+	 * 
+	 */
 	public void loadGame(String gameName) {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
@@ -227,9 +237,28 @@ public class GameController extends Observable {
 		poolMoney += amount;
 	}
 	
-	public boolean registerUser(String nickname, String tokenName) {
-		if (Token.isTokenAvailable(tokenName)) {
-			Player player = new Player(nickname);
+	/**
+	 * 
+	 * @param nickname
+	 * @param tokenName
+	 * 
+	 * @requires nickName is not null, tokenName is one of the image names of tokens
+	 * @modifies this, Token
+	 * @effects if the nickName and tokenName are available, a new player with nickName is created and added to the players list.
+	 * token with tokenName is created and tokenName is removed from the availableTokenNames list of Token class.
+	 * 
+	 * @return <tt>true</tt> if new player with nickName as its name and tokenName as its token is created,
+	 *         <tt>false</tt> otherwise.
+	 */
+	public boolean registerUser(String nickName, String tokenName) {
+		if (Token.isTokenAvailable(tokenName) && !nickName.equals("")) {
+			for(int i=0; i<players.size(); i++) {
+				if(players.get(i).getNickName().equals(nickName)) {
+					return false;
+				}
+			}
+			
+			Player player = new Player(nickName);
 			Token token = new Token(Board.getStartLocation(), tokenName);
 			players.add(player);
 			player.setToken(token);
@@ -364,6 +393,8 @@ public class GameController extends Observable {
 			cup.rollDices();
 		}
 
+		System.out.println("Rolled dice in controller.");
+		System.out.println(this.propertyListenersMap.toString());
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
@@ -513,6 +544,12 @@ public class GameController extends Observable {
 		
 	}
 	
+	/**
+	 * @requires nothing
+	 * @modifies nothing
+	 * @effects nothing
+	 * @return GameState with current values of the game
+	 */
 	public GameState toGameState() {
 		GameState state = new GameState();
 		state.setBoard(board);

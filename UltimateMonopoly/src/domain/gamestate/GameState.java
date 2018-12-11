@@ -346,4 +346,24 @@ public class GameState implements Serializable {
 		this.isPaused = isPaused;
 	}
 
+	public boolean repOK() {
+		if(board == null)
+			return false;
+		if(cup == null)
+			return false;
+		if(consecutiveDoubles > 3)
+			return false;
+		if(players == null || players.size() < 2)
+			return false;
+		if(chanceCardList == null || chanceCardList.size() != 2)
+			return false;
+		if(communityChestCardList == null || communityChestCardList.size() != 3)
+			return false;
+		if(rollThreeCardList == null || rollThreeCardList.size() != 24)
+			return false;
+		if(poolMoney < 0)
+			return false;
+		return true;
+		
+	}
 }
