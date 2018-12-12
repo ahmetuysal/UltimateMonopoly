@@ -1,5 +1,7 @@
 package domain.square;
 
+import java.util.List;
+
 import domain.Player;
 
 public class TitleDeedSquare extends OwnableSquare {
@@ -95,15 +97,113 @@ public class TitleDeedSquare extends OwnableSquare {
 			// TODO: Prompt user to buy the property on the UI.
 		}
 	}
-	
-	
-	
+
+	public boolean buyHouse() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.housePriceProperty()) {
+			System.out.println("You don't have enough money to build a house!");
+			return false;
+		}
+		if (!this.ownerHasMajorityOwnership()) {
+			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
+			return false;
+		}
+		if (this.numHouses == 4 || this.numHotels > 0 || this.numSkyscrapers > 0) {
+			System.out.println("You can't build more than 4 houses on the same property!");
+			return false;
+		}
+
+		this.owner.decreaseMoney(color.housePriceProperty());
+		this.numHouses++;
+		return true;
+	}
+
+	/**
+	 * 
+	 * @requires this has an owner.
+	 * @modifies this, owner
+	 * @effects If user has enough money and this satisfies the conditions of buying
+	 *          a hotel (owner has majority ownership, has 4 houses, does not have a
+	 *          hotel or skyscraper), a hotel is built on this property and number
+	 *          of houses is set to zero. Player's money is decreased to pay the
+	 *          price of the hotel.
+	 * 
+	 * @return <tt>true</tt> if a hotel is bought, <tt>false</tt> otherwise.
+	 */
+	public boolean buyHotel() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.numHouses != 4) {
+			System.out.println("You can't build an hotel without building 4 houses!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.hotelPriceProperty()) {
+			System.out.println("You don't have enough money to build a hotel!");
+			return false;
+		}
+		if (!this.ownerHasMajorityOwnership()) {
+			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
+			return false;
+		}
+		if (this.numHotels == 1 || this.numSkyscrapers > 0) {
+			System.out.println("You can't build more than one hotel on the same property!");
+			return false;
+		}
+
+		this.owner.decreaseMoney(color.hotelPriceProperty());
+		this.numHouses = 0;
+		this.numHotels++;
+		return true;
+	}
+
+	public boolean buySkyScraper() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.skyScraperPriceProperty()) {
+			System.out.println("You don't have enough money to build a skyscraper!");
+			return false;
+		}
+		if (this.numHotels != 1) {
+			System.out.println("You can't build an skyscraper without building a hotel!");
+			return false;
+		}
+		if (this.ownerHasMonopoly()) {
+			List<TitleDeedSquare> ownerPropertiesWithSameColor = owner.getTitleDeedsWithColor(this.color);
+			for (TitleDeedSquare property : ownerPropertiesWithSameColor) {
+				if (property.getNumHotels() == 0 && property.getNumSkyscrapers() == 0) {
+					System.out.println(
+							"You need to have a monopoly and hotels/skyscrapers in all property to buy a skyscraper!");
+					return false;
+				}
+			}
+
+		} else {
+			System.out.println("You need to have a monopoly to buy a skyscraper!");
+			return false;
+		}
+		if (this.numSkyscrapers == 1) {
+			System.out.println("You have already built a skyscraper. You can't build more!");
+			return false;
+		}
+
+		this.owner.decreaseMoney(this.color.skyScraperPriceProperty());
+		this.numHotels = 0;
+		this.numSkyscrapers++;
+		return true;
+	}
+
 	// Private helper methods
 
 	private int calculateRent() {
 		if (!this.isOwned())
 			return 0;
-
 		if (this.numHouses != 0)
 			return this.rentWithHouses[this.numHouses - 1];
 		else if (this.numHotels != 0)
@@ -111,12 +211,30 @@ public class TitleDeedSquare extends OwnableSquare {
 		else if (this.numSkyscrapers != 0)
 			return this.rentWithSkyscrapers;
 		else {
-			int numOwnedFromColor = this.getOwner().getNumTitleDeedsWithColor(this.color);
-			if (numOwnedFromColor == this.color.numProperty())
+			if (ownerHasMonopoly())
 				return 3 * rentValue;
+			else if (ownerHasMajorityOwnership())
+				return 2 * rentValue;
 			else
 				return rentValue;
 		}
+	}
+
+	private boolean ownerHasMajorityOwnership() {
+		if (!this.isOwned)
+			return false;
+		int numOwnedFromColor = this.getOwner().getNumTitleDeedsWithColor(this.color);
+		if (this.color.numProperty() == 2) {
+			return numOwnedFromColor == 2;
+		}
+		return numOwnedFromColor >= this.color.numProperty() - 1;
+	}
+
+	private boolean ownerHasMonopoly() {
+		if (!this.isOwned)
+			return false;
+		int numOwnedFromColor = this.getOwner().getNumTitleDeedsWithColor(this.color);
+		return numOwnedFromColor == this.color.numProperty();
 	}
 
 }

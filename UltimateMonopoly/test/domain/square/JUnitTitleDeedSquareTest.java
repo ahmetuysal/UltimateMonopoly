@@ -1,0 +1,47 @@
+/**
+ * 
+ */
+package domain.square;
+
+import org.junit.jupiter.api.Test;
+
+/**
+ * @author ahmetuysal
+ *
+ */
+public class JUnitTitleDeedSquareTest {
+
+	
+	////////////////////////////////////// Black-Box Tests //////////////////////////////////////
+
+	@Test
+	void testBuyHotel() {
+		TitleDeedSquare boardWalk = new TitleDeedSquare("Boardwalk", "dsc", 400, 50, 200, 600, 1400, 1700, 2000, 3000,
+				TitleDeedSquareColor.DARK_BLUE);
+		
+	}
+	
+	
+	@Test
+	void landOnTest() {
+		
+	}
+	
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
+	
+	
+	
+	
+	////////////////////////////////////// Glass-Box Tests //////////////////////////////////////
+
+	
+	
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////
+
+}

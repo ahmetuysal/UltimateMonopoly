@@ -219,16 +219,20 @@ public class Player extends Observable implements Serializable {
 		// TODO implement this
 		return false;
 	}
-
-	public int getNumTitleDeedsWithColor(TitleDeedSquareColor color) {
-		int result = 0;
+	
+	public List<TitleDeedSquare> getTitleDeedsWithColor(TitleDeedSquareColor color) {
+		List<TitleDeedSquare> result = new ArrayList<>();
 		for (OwnableSquare ownable : this.properties) {
 			if (ownable instanceof TitleDeedSquare) {
 				if (((TitleDeedSquare) ownable).getColor() == color)
-					result++;
+					result.add((TitleDeedSquare) ownable);
 			}
 		}
 		return result;
+	}
+
+	public int getNumTitleDeedsWithColor(TitleDeedSquareColor color) {
+		return getTitleDeedsWithColor(color).size();
 	}
 
 	public boolean houseCheckForHotelBuilding(TitleDeedSquareColor color) {

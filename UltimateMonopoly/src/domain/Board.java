@@ -208,60 +208,21 @@ public class Board {
 	public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
-			if (houseNum > -1 && (!(houseNum + ((TitleDeedSquare) currentSquare).getNumHouses() < 1
-					|| ((TitleDeedSquare) currentSquare).getNumHouses() + houseNum > 4))) {
-				TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-				int numProperty = color.numProperty();
-				if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-					if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-						int housePrice = color.homePriceProperty();
-						if (currentPlayer.decreaseMoney(houseNum * housePrice)) {
-							((TitleDeedSquare) currentSquare).setNumHouses(houseNum);
-						}
-						// TODO: if cannot build, show some message!
-					}
-				}
-			}
+			((TitleDeedSquare) currentSquare).buyHouse();
 		}
 	}
 
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
-			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-			int numProperty = color.numProperty();
-			if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-				if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					if (currentPlayer.houseCheckForHotelBuilding(color)) {
-						int hotelPrice = color.hotelPriceProperty();
-						if (currentPlayer.decreaseMoney(hotelPrice)) {
-							((TitleDeedSquare) currentSquare).setNumHotels(1);
-							((TitleDeedSquare) currentSquare).setNumHouses(0);
-						}
-						// TODO: if cannot build, show some message!
-					}
-				}
-			}
+				((TitleDeedSquare) currentSquare).buyHotel();
 		}
 	}
 
 	public void buildSkyscraper(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
-			TitleDeedSquareColor color = ((TitleDeedSquare) currentSquare).getColor();
-			int numProperty = color.numProperty();
-			if (numProperty > 2 && currentPlayer.equals(((TitleDeedSquare) currentSquare).getOwner())) {
-				if (numProperty == ((TitleDeedSquare) currentSquare).getOwner().getNumTitleDeedsWithColor(color)) {
-					if (currentPlayer.hotelCheckForSkyscraperBuilding(color)) {
-						int skyScraperPrice = color.skyScraperPriceProperty();
-						if (currentPlayer.decreaseMoney(skyScraperPrice)) {
-							((TitleDeedSquare) currentSquare).setNumSkyscrapers(1);
-							((TitleDeedSquare) currentSquare).setNumHotels(0);
-						}
-						// TODO: if cannot build, show some message!
-					}
-				}
-			}
+			((TitleDeedSquare) currentSquare).buySkyScraper();
 		}
 	}
 

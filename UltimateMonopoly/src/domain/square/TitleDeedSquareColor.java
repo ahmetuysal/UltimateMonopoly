@@ -25,7 +25,7 @@ public enum TitleDeedSquareColor {
 		return numProperty;
 	}
 
-	public int homePriceProperty() {
+	public int housePriceProperty() {
 		return houseCostProperty;
 	}
 
