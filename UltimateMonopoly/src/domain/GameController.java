@@ -176,9 +176,7 @@ public class GameController extends Observable {
 	public void buyProperty() {
 		Square sq = board.getSquare(currentPlayer.getToken().getLocation());
 		if (sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
-			if(((OwnableSquare) sq).buyProperty(currentPlayer)) {
-				currentPlayer.addProperty((OwnableSquare) sq);
-			}
+			((OwnableSquare) sq).buyProperty(currentPlayer);
 		}
 		publishPropertyEvent("currentLocationBuyable", currentLocationBuyable, false);
 	}
