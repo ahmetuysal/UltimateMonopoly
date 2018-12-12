@@ -12,8 +12,10 @@ import domain.GameController;
 import domain.Token;
 import domain.gamestate.GameState;
 
-
-
+/**
+ * @author mervekarakas
+ *
+ */
 class JUnitGameControllerTest {
 
 
