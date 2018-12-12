@@ -59,6 +59,7 @@ public abstract class OwnableSquare extends Square {
 		else {
 			owner.decreaseMoney(this.price);
 			this.setOwner(owner);
+			owner.addProperty(this);
 			return true;
 		}
 		
