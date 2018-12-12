@@ -68,7 +68,7 @@ public class Cup implements Serializable{
 	}
 
 	public boolean isMrMonopoly() {
-		return speedDie.getFaceValue() == DieValue.MRMONOPOLY;
+		return speedDie.getFaceValue() == DieValue.MRMONOPOLY; 
 	}
 
 	public boolean isBusIcon() {
@@ -109,6 +109,29 @@ public class Cup implements Serializable{
 		if (speedDie.getFaceValue() != DieValue.BUSICON && speedDie.getFaceValue() != DieValue.MRMONOPOLY)
 			value += speedDie.getFaceValue().getValue();
 		return value;
+	}
+	
+	public boolean repOK() {
+		if(die1 == null)
+			return false;
+		if(die2 == null)
+			return false;
+		if(die3 == null)
+			return false;
+		if(speedDie == null)
+			return false;
+		if(faceValues == null)
+			return false;
+		if(die1.getFaceValue().getValue() < 1 || die1.getFaceValue().getValue() > 6)
+			return false;
+		if(die2.getFaceValue().getValue() < 1 || die2.getFaceValue().getValue() > 6)
+			return false;
+		if(die3.getFaceValue().getValue() < 1 || die3.getFaceValue().getValue() > 6)
+			return false;
+		if((speedDie.getFaceValue().getValue() < 0 || speedDie.getFaceValue().getValue() > 3) && speedDie.getFaceValue() != DieValue.MRMONOPOLY && speedDie.getFaceValue() != DieValue.BUSICON)
+			return false;
+		return true;
+		
 	}
 
 }
