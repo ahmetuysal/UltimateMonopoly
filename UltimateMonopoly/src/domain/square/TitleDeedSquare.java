@@ -97,6 +97,73 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 	
 	
+	public boolean buyHouse() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.housePriceProperty()) {
+			System.out.println("You don't have enough money to build a house!");
+			return false;
+		}
+		if (this.numHouses == 4 || this.numHotels > 0 || this.numSkyscrapers > 0) {
+			System.out.println("You can't build more than 4 houses on the same property!");
+			return false;
+		}
+		
+		this.owner.decreaseMoney(color.housePriceProperty());
+		this.numHouses++;
+		return true;
+	}
+	
+	public boolean buyHotel() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.numHouses != 4 && this.numHotels == 0) {
+			System.out.println("You can't build an hotel without building 4 houses!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.hotelPriceProperty()) {
+			System.out.println("You don't have enough money to build a hotel!");
+			return false;
+		}
+		if (this.numHotels == 4 || this.numSkyscrapers > 0) {
+			System.out.println("You can't build more than 4 hotels on the same property!");
+			return false;
+		}
+		
+		this.owner.decreaseMoney(color.hotelPriceProperty());
+		this.numHouses = 0;
+		this.numHotels++;
+		return true;
+	}
+	
+	public boolean buySkyScraper() {
+		if (!this.isOwned()) {
+			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if (this.owner.getTotalMoney() < this.color.skyScraperPriceProperty()) {
+			System.out.println("You don't have enough money to build a skyscraper!");
+			return false;
+		}
+		if (this.numHotels!= 4) {
+			System.out.println("You can't build an skyscraper without building 4 hotels!");
+			return false;
+		}
+		if (this.numSkyscrapers == 1) {
+			System.out.println("You already built a skyscraper. You can't build more!");
+			return false;
+		}
+		
+		this.owner.decreaseMoney(this.color.skyScraperPriceProperty());
+		this.numHotels = 0;
+		this.numSkyscrapers++;
+		return true;
+	}
+	
 	
 	// Private helper methods
 

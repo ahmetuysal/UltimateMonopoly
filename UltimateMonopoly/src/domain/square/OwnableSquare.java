@@ -4,9 +4,9 @@ import domain.Player;
 
 public abstract class OwnableSquare extends Square {
 	
-	private int price;
-	private Player owner;
-	private boolean isOwned;
+	protected int price;
+	protected Player owner;
+	protected boolean isOwned;
 
 	
 	public OwnableSquare(String name, String description, int price) {
