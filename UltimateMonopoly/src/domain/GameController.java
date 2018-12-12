@@ -394,7 +394,6 @@ public class GameController extends Observable {
 		}
 
 		System.out.println("Rolled dice in controller.");
-		System.out.println(this.propertyListenersMap.toString());
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
