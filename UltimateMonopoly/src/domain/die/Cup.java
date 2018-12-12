@@ -32,7 +32,14 @@ public class Cup implements Serializable{
 		faceValues[1] = die2.getFaceValue();
 		faceValues[2] = speedDie.getFaceValue();
 	}
-
+	/**
+	 * 
+	 * @requires regular dice and speed die are not null
+	 * @modifies this, regular dice and speed die
+	 * @effects sets the face value of speed die to empty and rolls 3 regular dice and fills the faceValues array with the 
+	 * face values of 3 regular dice.
+	 * 
+	 */
 	public void rollThreeRegularDices() {
 		die1.roll();
 		die2.roll();
@@ -71,7 +78,11 @@ public class Cup implements Serializable{
 	public DieValue[] getFaceValues() {
 		return this.faceValues;
 	}
-
+	/**
+	 * 
+	 * @modifies this
+	 * @effects sets the elements of faceValues array to empty
+	 */
 	public void clearCup() {
 		for (int i = 0; i < faceValues.length; i++)
 			faceValues[i] = DieValue.EMPTY;
@@ -85,7 +96,14 @@ public class Cup implements Serializable{
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @requires two regular dice and a speedDie is rolled
+	 * @modifies this, Token
+	 * @effects nothing
+	 * 
+	 * @return the total value of the cup which determines the movement amount of the token
+	 */
 	public int getTotal() {
 		int value = die1.getFaceValue().getValue() + die2.getFaceValue().getValue();
 		if (speedDie.getFaceValue() != DieValue.BUSICON && speedDie.getFaceValue() != DieValue.MRMONOPOLY)
