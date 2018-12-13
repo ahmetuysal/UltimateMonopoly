@@ -190,6 +190,19 @@ public class Board {
 	public Square getSquare(Location loc) {
 		return squares[loc.getLayer()].get(loc.getIndex());
 	}
+	/**
+	 * 
+	 * @param name
+	 * 
+	 * @requires name is not null
+	 * @modifies nothing
+	 * @effects if the nickName and tokenName are available, a new player with nickName is created and added to the players list.
+	 * token with tokenName is created and tokenName is removed from the availableTokenNames list of Token class.
+	 * 
+	 * @return Location of the square if there is a square named @param name,
+	 *         null otherwise
+	 *         
+	 */
 
 	public Location getSquareLocationFromName(String name) {
 		System.out.println(name);
@@ -254,6 +267,7 @@ public class Board {
 		System.out.println("Token: " + token.toString());
 
 	}
+	
 
 	public void moveToNextOwnedProperty(Player player) {
 		Token token = player.getToken();
@@ -277,6 +291,16 @@ public class Board {
 		}
 		
 	}
+	/**
+	 * 
+	 * @param player
+	 * 
+	 * @requires player is not null 
+	 * @modifies this, Token , Player
+	 * @effects player's token is moved to the next unowned property according to its 
+	 * current location
+	 * @return nothing
+	 */
 
 	public void moveToNextUnownedProperty(Player player) {
 		Token token = player.getToken();
@@ -300,7 +324,16 @@ public class Board {
 			}
 		}
 	}
-
+	/**
+	 * 
+	 * @param player
+	 * 
+	 * @requires player is not null 
+	 * @modifies this, Token , Player
+	 * @effects player's token is moved to the next Chance or CommunityChest Square according to its 
+	 * current location
+	 * @return nothing
+	 */
 	public void moveToNextChanceOrCommunityChestSquare(Player player) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;

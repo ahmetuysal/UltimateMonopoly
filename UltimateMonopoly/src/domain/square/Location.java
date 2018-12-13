@@ -36,4 +36,24 @@ public class Location {
 	public String toString() {
 		return "Location [layer=" + layer + ", index=" + index + "]";
 	}
+
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Location other = (Location) obj;
+		if (index != other.index)
+			return false;
+		if (layer != other.layer)
+			return false;
+		return true;
+	}
+	
 }
