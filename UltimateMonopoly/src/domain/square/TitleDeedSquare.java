@@ -98,6 +98,18 @@ public class TitleDeedSquare extends OwnableSquare {
 		}
 	}
 
+	/**
+	 * 
+	 * @requires this has an owner.
+	 * @modifies this, owner
+	 * @effects If owner has enough money and this satisfies the conditions of
+	 *          buying a house (owner has majority ownership, this does not have a
+	 *          hotel or skyscraper, has houses less than 4), a house is built on
+	 *          this property and number of houses is increased. Player's money is
+	 *          decreased to pay the price of the house.
+	 * 
+	 * @return <tt>true</tt> if a house is bought, <tt>false</tt> otherwise.
+	 */
 	public boolean buyHouse() {
 		if (!this.isOwned()) {
 			System.out.println("Can't build a house on an unowned property!");
@@ -125,11 +137,11 @@ public class TitleDeedSquare extends OwnableSquare {
 	 * 
 	 * @requires this has an owner.
 	 * @modifies this, owner
-	 * @effects If user has enough money and this satisfies the conditions of buying
-	 *          a hotel (owner has majority ownership, has 4 houses, does not have a
-	 *          hotel or skyscraper), a hotel is built on this property and number
-	 *          of houses is set to zero. Player's money is decreased to pay the
-	 *          price of the hotel.
+	 * @effects If owner has enough money and this satisfies the conditions of
+	 *          buying a hotel (owner has majority ownership, has 4 houses, does not
+	 *          have a hotel or skyscraper), a hotel is built on this property and
+	 *          number of houses is set to zero. Player's money is decreased to pay
+	 *          the price of the hotel.
 	 * 
 	 * @return <tt>true</tt> if a hotel is bought, <tt>false</tt> otherwise.
 	 */
