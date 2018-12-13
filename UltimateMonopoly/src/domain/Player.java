@@ -74,6 +74,8 @@ public class Player extends Observable implements Serializable {
 	/**
 	 * @param money The amount to be added to player's total money.
 	 * 
+	 * @modifies this
+	 * @effects changes the money amount of this
 	 */
 	public void increaseMoney(int money) {
 		int oldVal = this.totalMoney;
@@ -83,6 +85,10 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * @param money The amount to decrease from player's total money.
+	 *
+	 * @modifies this
+	 * @effects if this has enough money, this' money amount is decreased.
+	 * 
 	 * @return <tt>true</tt> if player is capable of paying and has paid to money,
 	 *         <tt>false</tt> otherwise.
 	 */
@@ -135,6 +141,12 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
+	 * 
+	 * @requires player and player's attached token are not null
+	 * @modifies this, Token
+	 * @effects if player and player's token are not null, token's position, so that player, is set to the Jail position.
+	 * player's jail time counter is set to the three. boolean field of player, inJail, for checking player is in jail or not 
+	 * is set to true. 
 	 *
 	 */
 	public void goToJail() {
@@ -160,6 +172,11 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * @param card The card to be added to player's list of cards.
+	 * 
+	 * @requires an OwnableCard type of card which is not null
+	 * @modifies this
+	 * @effects if this' cards are null, addCard creates a new list. addCard adds card to this list.
+	 * 
 	 */
 	public void addCard(OwnableCard card) {
 		if (this.cards == null)
