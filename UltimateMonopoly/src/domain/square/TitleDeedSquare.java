@@ -248,5 +248,27 @@ public class TitleDeedSquare extends OwnableSquare {
 		int numOwnedFromColor = this.getOwner().getNumTitleDeedsWithColor(this.color);
 		return numOwnedFromColor == this.color.numProperty();
 	}
+	
+	@Override
+	public boolean repOK() {
+		if (!super.repOK())
+			return false;
+		if (rentValue < 0)
+			return false;
+		for (int rentWithHouse : this.rentWithHouses)
+			if (rentWithHouse < 0)
+				return false;
+		if (rentWithHotel < 0)
+			return false;
+		if (rentWithSkyscrapers < 0)
+			return false;
+		if (numHouses < 0 || numHouses > 4)
+			return false;
+		if (numHotels < 0 || numHotels > 1)
+			return false;
+		if (numSkyscrapers < 0 || numSkyscrapers > 1)
+			return false;
+		return true;
+	}
 
 }

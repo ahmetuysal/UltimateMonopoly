@@ -65,4 +65,10 @@ public abstract class OwnableSquare extends Square {
 		
 	}
 
+	public boolean repOK() {
+		if (price < 0)
+			return false;
+		return true;
+	}
+	
 }
