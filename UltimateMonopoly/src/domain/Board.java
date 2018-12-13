@@ -196,9 +196,10 @@ public class Board {
 	 * 
 	 * @requires name is not null 
 	 * @modifies nothing
-	 * @effects nothing
+	 * @effects if a square with  name exists returns the location of the square,
+	 *         null otherwise.
 	 * 
-	 * @return if a square with @param name exists returns the location of the square,
+	 * @return if a square with  name exists returns the location of the square,
 	 *         null otherwise.
 	 */
 

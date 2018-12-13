@@ -7,9 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.ValueSource;
+
 
 public class JUnitBoardTest {
 	/**
@@ -21,6 +19,7 @@ public class JUnitBoardTest {
 	void refreshAvailableTokens() {
 		Token.initializeAvailableTokens();
 	}
+	/////////////////////////black-box testing//////////////////////////////
 	
 	@Test
 	void testMoveToNextUnownedProperty() {
@@ -33,15 +32,31 @@ public class JUnitBoardTest {
 		Location newLoc = player1.getToken().getLocation();
 		assertEquals(newLoc, testBoard.getSquareLocationFromName("Meditteranian Avenue"));
 	}
+	@Test
+	void testMoveToNextChanceOrCommunityChestSquare() {
+		Player player1 = new Player("p1");
+		player1.setToken(new Token(new Location(0, 0), "Barrow.png"));
+		Board testBoard = new Board();
+		Location oldLoc = testBoard.getSquareLocationFromName("Go");
+		player1.getToken().setLocation(oldLoc);
+		testBoard.moveToNextUnownedProperty(player1);
+		Location newLoc = player1.getToken().getLocation();
+		Location checkLoc= new Location(1,1);
+		assertEquals(newLoc,checkLoc );
+	}
 	
-
-	// void testgetSquareLocationFromName(String name) {
-	// Board b = new Board();
-	// Square s1 = new Go();
-	//
-
-	// assertEquals(s1, b.getSquareLocationFromName("Go"));
-
-	// }
-
+	@Test
+	void testgetSquareLocationFromValidName() {
+	 Board b = new Board();	
+	 Location goLoc= new Location(1,0);
+	 assertEquals(goLoc, b.getSquareLocationFromName("Go"));
+	}
+	
+	@Test
+	void testgetSquareLocationFromInvalidName() {
+	 Board b = new Board();	
+	assertEquals(null, b.getSquareLocationFromName("Umay square"));
+	}
+	
+	//////////////////end of Black-box///////////////////////////////////////
 }
