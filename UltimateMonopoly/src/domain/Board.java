@@ -194,14 +194,12 @@ public class Board {
 	 * 
 	 * @param name
 	 * 
-	 * @requires name is not null
+	 * @requires name is not null 
 	 * @modifies nothing
-	 * @effects if the nickName and tokenName are available, a new player with nickName is created and added to the players list.
-	 * token with tokenName is created and tokenName is removed from the availableTokenNames list of Token class.
+	 * @effects nothing
 	 * 
-	 * @return Location of the square if there is a square named @param name,
-	 *         null otherwise
-	 *         
+	 * @return if a square with @param name exists returns the location of the square,
+	 *         null otherwise.
 	 */
 
 	public Location getSquareLocationFromName(String name) {
