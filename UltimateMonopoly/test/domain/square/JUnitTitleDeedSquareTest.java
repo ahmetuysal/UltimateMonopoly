@@ -18,8 +18,6 @@ import domain.Player;
 public class JUnitTitleDeedSquareTest {
 
 	
-	////////////////////////////////////// Black-Box Tests //////////////////////////////////////
-
 	@Test
 	void testBuyHouse() {
 		Player owner = new Player("Merve");
@@ -42,6 +40,7 @@ public class JUnitTitleDeedSquareTest {
 		int playerMoneyAfter = owner.getTotalMoney();
 		assertEquals(playerMoneyBefore, playerMoneyAfter + 4 *boardWalk.getColor().housePriceProperty());
 		assertEquals(boardWalk.getNumHouses(), 4);
+		assertTrue(boardWalk.repOK());
 	}
 	
 	
@@ -68,6 +67,7 @@ public class JUnitTitleDeedSquareTest {
 		int playerMoneyAfter = owner.getTotalMoney();
 		assertEquals(playerMoneyBefore, playerMoneyAfter +  pacificAvenue.getColor().hotelPriceProperty());
 		assertEquals(pacificAvenue.getNumHotels(), 1);
+		assertTrue(pacificAvenue.repOK());
 	}
 	
 	@Test
@@ -121,23 +121,8 @@ public class JUnitTitleDeedSquareTest {
 		pacificAvenue.landOn(rentPayer);
 		assertEquals(2275, owner.getTotalMoney() - ownerInitialMoney);
 		assertEquals(-2275, rentPayer.getTotalMoney() - rentPayerInitialMoney);
+		assertTrue(pacificAvenue.repOK());
+
 	}
-	
-	
-	
-	
-	/////////////////////////////////////////////////////////////////////////////////////////////
-
-	
-	
-	
-	
-	////////////////////////////////////// Glass-Box Tests //////////////////////////////////////
-
-	
-	
-	
-	
-	/////////////////////////////////////////////////////////////////////////////////////////////
 
 }
