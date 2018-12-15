@@ -34,24 +34,7 @@ public class JUnitBoardTest {
 		Location newLoc = player1.getToken().getLocation();
 		assertEquals(newLoc, testBoard.getSquareLocationFromName("Meditteranian Avenue"));
 	}
-	/*@Test
-	void testMoveToNextOwnedProperty() {
-		Player player1 = new Player("p1");
-		player1.setToken(new Token(new Location(0, 0), "Barrow.png"));
-		Board testBoard = new Board();
-		Location oldLoc = testBoard.getSquareLocationFromName("Go");
-		player1.getToken().setLocation(oldLoc);
-		Player owner = new Player("Umay");
-		TitleDeedSquare boardWalk = new TitleDeedSquare("Boardwalk", "dsc", 400, 50, 200, 600, 1400, 1700, 2000, 3000,
-				TitleDeedSquareColor.DARK_BLUE);
-		
-		boardWalk.buyProperty(owner);
-		testBoard.moveToNextOwnedProperty(player1);
-		Location newLoc = player1.getToken().getLocation();
-		assertEquals(newLoc, testBoard.getSquareLocationFromName("Boardwalk"));
-		
-	}
-	*/
+	
 	@Test
 	void testMoveToNextChanceOrCommunityChestSquare() {
 		Player player1 = new Player("p1");
@@ -80,13 +63,13 @@ public class JUnitBoardTest {
 	
 	//////////////////end of Black-box///////////////////////////////////////
 	
-	/*@Test
-	void repOKTestGetSquareLocationFromName() {
+	@Test
+	void repOKTestaddTokens() {
 		Board b = new Board();	
-		b.getSquareLocationFromName("Go");
+		b.addToken(new Token(new Location(0, 0), "Barrow.png"));
 		assertTrue(b.repOK());
 	}
-*/
+
 	@Test
 	void repOKTestMoveToNextChanceOrCommunityChestSquare() {
 		Player player1 = new Player("p1");
