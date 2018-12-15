@@ -26,7 +26,6 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * @param nickName   Nick name of the player.
-	 * @param totalMoney Starting money of the player.
 	 */
 	public Player(String nickName) {
 		this.nickName = nickName;

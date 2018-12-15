@@ -116,7 +116,7 @@ public class GameController extends Observable {
 	
 	/**
 	 * 
-	 * @param gameName
+	 * @param gameName The name of the game you want to load without the extension (.json).
 	 * 
 	 * @requires gameName is not null
 	 * @modifies this
@@ -237,8 +237,8 @@ public class GameController extends Observable {
 	
 	/**
 	 * 
-	 * @param nickname
-	 * @param tokenName
+	 * @param nickname Nick name of the player.
+	 * @param tokenName Name of the token. 
 	 * 
 	 * @requires nickName is not null, tokenName is one of the image names of tokens
 	 * @modifies this, Token
