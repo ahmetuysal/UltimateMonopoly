@@ -34,7 +34,7 @@ public class Cup implements Serializable{
 	}
 	/**
 	 * 
-	 * @requires regular dice and speed die are not null
+	 * @requires regular dice and speed die are not null and the face value of regular dices are between 1 and 6
 	 * @modifies this, regular dice and speed die
 	 * @effects sets the face value of speed die to empty and rolls 3 regular dice and fills the faceValues array with the 
 	 * face values of 3 regular dice.
@@ -98,10 +98,7 @@ public class Cup implements Serializable{
 	}
 	/**
 	 * 
-	 * @requires two regular dice and a speedDie is rolled
-	 * @modifies this, Token
-	 * @effects nothing
-	 * 
+	 * @requires two regular dice and a speedDie and their face values are not null
 	 * @return the total value of the cup which determines the movement amount of the token
 	 */
 	public int getTotal() {
