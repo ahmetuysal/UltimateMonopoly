@@ -392,9 +392,9 @@ public class Board {
 	}
 	
 	public boolean repOK() {
-		if(squares.equals(null))
+		if(squares.equals(null) || squares.length<0)
 			return false;
-		if(tokens.equals(null))
+		if(tokens.equals(null)|| tokens.size()<0)
 			return false;
 		return true;
 		

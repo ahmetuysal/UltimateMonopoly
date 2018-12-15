@@ -1,9 +1,11 @@
 package domain;
 
 import domain.Player;
+import domain.die.Cup;
 import domain.square.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,7 +34,7 @@ public class JUnitBoardTest {
 		Location newLoc = player1.getToken().getLocation();
 		assertEquals(newLoc, testBoard.getSquareLocationFromName("Meditteranian Avenue"));
 	}
-	@Test
+	/*@Test
 	void testMoveToNextOwnedProperty() {
 		Player player1 = new Player("p1");
 		player1.setToken(new Token(new Location(0, 0), "Barrow.png"));
@@ -49,6 +51,7 @@ public class JUnitBoardTest {
 		assertEquals(newLoc, testBoard.getSquareLocationFromName("Boardwalk"));
 		
 	}
+	*/
 	@Test
 	void testMoveToNextChanceOrCommunityChestSquare() {
 		Player player1 = new Player("p1");
@@ -56,9 +59,9 @@ public class JUnitBoardTest {
 		Board testBoard = new Board();
 		Location oldLoc = testBoard.getSquareLocationFromName("Go");
 		player1.getToken().setLocation(oldLoc);
-		testBoard.moveToNextUnownedProperty(player1);
+		testBoard.moveToNextChanceOrCommunityChestSquare(player1);
 		Location newLoc = player1.getToken().getLocation();
-		Location checkLoc= new Location(1,1);
+		Location checkLoc= new Location(1,2);
 		assertEquals(newLoc,checkLoc);
 	}
 	
@@ -76,4 +79,34 @@ public class JUnitBoardTest {
 	}
 	
 	//////////////////end of Black-box///////////////////////////////////////
+	
+	/*@Test
+	void repOKTestGetSquareLocationFromName() {
+		Board b = new Board();	
+		b.getSquareLocationFromName("Go");
+		assertTrue(b.repOK());
+	}
+*/
+	@Test
+	void repOKTestMoveToNextChanceOrCommunityChestSquare() {
+		Player player1 = new Player("p1");
+		player1.setToken(new Token(new Location(0, 0), "Barrow.png"));
+		Board testBoard = new Board();
+		Location oldLoc = testBoard.getSquareLocationFromName("Go");
+		player1.getToken().setLocation(oldLoc);
+		testBoard.moveToNextChanceOrCommunityChestSquare(player1);
+		assertTrue(testBoard.repOK());
+	}
+	
+	@Test
+	void repOKMoveToNextUnownedProperty() {
+		Player player1 = new Player("p1");
+		player1.setToken(new Token(new Location(0, 0), "Barrow.png"));
+		Board testBoard = new Board();
+		Location oldLoc = testBoard.getSquareLocationFromName("Go");
+		player1.getToken().setLocation(oldLoc);
+		testBoard.moveToNextUnownedProperty(player1);
+		assertTrue(testBoard.repOK());
+	}
+	
 }
