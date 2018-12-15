@@ -386,5 +386,18 @@ public class Board {
 		return squares;
 	}
 
+	@Override
+	public String toString() {
+		return "Board [squares=" + Arrays.toString(squares) + ", tokens=" + tokens + "]";
+	}
+	
+	public boolean repOK() {
+		if(squares.equals(null))
+			return false;
+		if(tokens.equals(null))
+			return false;
+		return true;
+		
+	}
 
 }
