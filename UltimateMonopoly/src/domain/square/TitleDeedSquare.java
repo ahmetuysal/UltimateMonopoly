@@ -4,6 +4,13 @@ import java.util.List;
 
 import domain.Player;
 
+
+/**
+ * Deneme iki ьз.
+ * 
+ * @author Team Pennybags
+ *
+ */
 public class TitleDeedSquare extends OwnableSquare {
 
 	private int rentValue;
@@ -86,22 +93,30 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 
 	/**
+	 *  TODO naaber ba
+	 * 
+	 * @requires nothing
+	 * @modifies owner, playerLanded
+	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not
+	 *          the owner, playerLanded pays rent to the owner.
 	 * 
 	 */
 	@Override
 	public void landOn(Player player) {
 		if (this.isOwned()) {
-			int rentAmount = this.calculateRent();
-			player.payMoney(this.getOwner(), rentAmount);
-		} else {
-			// TODO: Prompt user to buy the property on the UI.
+			if (!this.owner.equals(player)) {
+				int rentAmount = this.calculateRent();
+				player.payMoney(this.getOwner(), rentAmount);
+			}
 		}
 	}
 
 	/**
+	 * Increases the number of houses of <b><tt>this</tt></b> if
+	 * <b><tt>this</tt></b> and owner satisfies required conditions.
 	 * 
-	 * @requires this has an owner.
-	 * @modifies this, owner
+	 * @requires <b><tt>this</tt></b> has an owner.
+	 * @modifies <b><tt>this</tt></b>, owner
 	 * @effects If owner has enough money and this satisfies the conditions of
 	 *          buying a house (owner has majority ownership, this does not have a
 	 *          hotel or skyscraper, has houses less than 4), a house is built on
@@ -134,9 +149,11 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 
 	/**
+	 * Increases the number of hotels of <b><tt>this</tt></b> if
+	 * <b><tt>this</tt></b> and owner satisfies required conditions.
 	 * 
-	 * @requires this has an owner.
-	 * @modifies this, owner
+	 * @requires <b><tt>this</tt></b> has an owner.
+	 * @modifies <b><tt>this</tt></b>, owner
 	 * @effects If owner has enough money and this satisfies the conditions of
 	 *          buying a hotel (owner has majority ownership, has 4 houses, does not
 	 *          have a hotel or skyscraper), a hotel is built on this property and
@@ -248,7 +265,7 @@ public class TitleDeedSquare extends OwnableSquare {
 		int numOwnedFromColor = this.getOwner().getNumTitleDeedsWithColor(this.color);
 		return numOwnedFromColor == this.color.numProperty();
 	}
-	
+
 	@Override
 	public boolean repOK() {
 		if (!super.repOK())

@@ -19,7 +19,12 @@ import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
-
+/**
+ * 
+ * 
+ * 
+ * @author Team Pennybags
+ */
 public class GameController extends Observable {
 
 	private Board board;
@@ -241,7 +246,7 @@ public class GameController extends Observable {
 	 * Registers a new player with the given nick name and token name if arguments
 	 * are unique and valid.
 	 * 
-	 * @param nickname
+	 * @param nickName
 	 *            Nick name of the player.
 	 * @param tokenName
 	 *            Name of the token.
@@ -598,5 +603,25 @@ public class GameController extends Observable {
 
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
+	}
+	
+	public boolean repOK() {
+		if(board == null)
+			return false;
+		if(cup == null)
+			return false;
+		if(consecutiveDoubles > 3)
+			return false;
+		if(players == null || players.size() < 2)
+			return false;
+		if(chanceCardList == null || chanceCardList.size() != 2)
+			return false;
+		if(communityChestCardList == null || communityChestCardList.size() != 3)
+			return false;
+		if(rollThreeCardList == null || rollThreeCardList.size() != 24)
+			return false;
+		if(poolMoney < 0)
+			return false;
+		return true;
 	}
 }
