@@ -78,7 +78,8 @@ public class JUnitTitleDeedSquareTest {
 		TitleDeedSquare pacificAvenue = new TitleDeedSquare("Pacific Avenue", "dsc", 300, 26, 130, 390, 900, 1100, 1275, 2275,
 				TitleDeedSquareColor.GREEN);
 		pacificAvenue.buyProperty(owner);
-		
+		assertTrue(pacificAvenue.repOK());
+
 		int rentPayerInitialMoney = rentPayer.getTotalMoney();
 		int ownerInitialMoney = owner.getTotalMoney();
 		// owner lands on its own property
@@ -111,9 +112,11 @@ public class JUnitTitleDeedSquareTest {
 		pacificAvenue.landOn(rentPayer);
 		assertEquals(78, owner.getTotalMoney() - ownerInitialMoney);
 		assertEquals(-78, rentPayer.getTotalMoney() - rentPayerInitialMoney);
+		assertTrue(pacificAvenue.repOK());
 		
 		pacificAvenue.setNumSkyscrapers(1);
-		
+		assertTrue(pacificAvenue.repOK());
+
 		// update players' money
 		rentPayerInitialMoney = rentPayer.getTotalMoney();
 		ownerInitialMoney = owner.getTotalMoney();

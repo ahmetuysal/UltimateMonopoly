@@ -26,7 +26,6 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * @param nickName   Nick name of the player.
-	 * @param totalMoney Starting money of the player.
 	 */
 	public Player(String nickName) {
 		this.nickName = nickName;
@@ -37,7 +36,7 @@ public class Player extends Observable implements Serializable {
 		this.cards = new ArrayList<>();
 		this.properties = new ArrayList<>();
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -144,9 +143,8 @@ public class Player extends Observable implements Serializable {
 	 * 
 	 * @requires player and player's attached token are not null
 	 * @modifies this, Token
-	 * @effects if player and player's token are not null, token's position, so that player, is set to the Jail position.
-	 * player's jail time counter is set to the three. boolean field of player, inJail, for checking player is in jail or not 
-	 * is set to true. 
+	 * @effects token's position, so that player, is set to the Jail position. player's jail time counter 
+	 * is set to the three. boolean field of player, inJail, for checking player is in jail or not is set to true. 
 	 *
 	 */
 	public void goToJail() {
@@ -247,46 +245,9 @@ public class Player extends Observable implements Serializable {
 		}
 		return result;
 	}
-
+	
 	public int getNumTitleDeedsWithColor(TitleDeedSquareColor color) {
 		return getTitleDeedsWithColor(color).size();
-	}
-
-	public boolean houseCheckForHotelBuilding(TitleDeedSquareColor color) {
-		boolean hotelBuild = false;
-		;
-		for (OwnableSquare ownable : this.properties) {
-			if (ownable instanceof TitleDeedSquare) {
-				if (((TitleDeedSquare) ownable).getColor() == color) {
-					if (((TitleDeedSquare) ownable).getNumHouses() == 4)
-						hotelBuild = true;
-					else {
-						hotelBuild = false;
-						break;
-					}
-				}
-
-			}
-		}
-		return hotelBuild;
-	}
-
-	public boolean hotelCheckForSkyscraperBuilding(TitleDeedSquareColor color) {
-		boolean skyscraperBuild = false;
-		for (OwnableSquare ownable : this.properties) {
-			if (ownable instanceof TitleDeedSquare) {
-				if (((TitleDeedSquare) ownable).getColor() == color) {
-					if (((TitleDeedSquare) ownable).getNumHouses() == 1)
-						skyscraperBuild = true;
-					else {
-						skyscraperBuild = false;
-						break;
-					}
-				}
-
-			}
-		}
-		return skyscraperBuild;
 	}
 
 	public void setTotalMoney(int totalMoney) {
@@ -304,6 +265,14 @@ public class Player extends Observable implements Serializable {
 
 	public List<OwnableSquare> getProperties() {
 		return properties;
+	}
+	
+	public boolean repOK() {
+		if (nickName == null)
+			return false;
+		if (totalMoney < 0)
+			return false;
+		return true;
 	}
 
 	/*

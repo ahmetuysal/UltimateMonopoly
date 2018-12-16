@@ -181,14 +181,12 @@ public class Board {
 	}
 
 	/**
-	 * @param layer
-	 *            layer of the wanted square, 0 is the outermost layer.
 	 * @param location
-	 *            Location(index) of the wanted square on the board.
+	 *            Location of the wanted square on the board.
 	 * @return Square at the given location.
 	 */
-	public Square getSquare(Location loc) {
-		return squares[loc.getLayer()].get(loc.getIndex());
+	public Square getSquare(Location location) {
+		return squares[location.getLayer()].get(location.getIndex());
 	}
 	/**
 	 * 

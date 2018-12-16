@@ -32,6 +32,10 @@ public class Square implements Serializable{
 		this.description = description;
 	}
 	
+	/**
+	 * 
+	 * @param player Player who lands on this square.
+	 */
 	public void landOn(Player player) {
 	}
 	

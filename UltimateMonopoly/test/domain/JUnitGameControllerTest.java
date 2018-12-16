@@ -41,13 +41,18 @@ class JUnitGameControllerTest {
 	}
 
 	@ParameterizedTest
-	@CsvSource({ ",", "Attila, Boot", "Ahmet, ahmos.png" })
+	@CsvSource({"Attila, Boot", "Ahmet, ahmos.png" })
 	void testRegisterUserWithInvalidInputs(String nickName, String tokenName) {
 		assertFalse(GameController.getInstance().registerUser(nickName, tokenName));
 	}
 	// End of Black-Box Testing
 
 	// Glass-Box Testing
+	@Test
+	void testEmptyUserValidTokenInput() {
+		assertFalse(GameController.getInstance().registerUser("", "Boot.png"));
+	}
+	
 	@Test
 	void testTokenListChange() {
 		int oldSize = Token.getAvailableTokens().size();
