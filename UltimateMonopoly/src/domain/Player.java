@@ -11,9 +11,10 @@ import domain.square.TitleDeedSquareColor;
 import domain.util.Observable;
 
 /**
- * @overview Class that represents the real world players in the game. Contains
- *           Player's needed information and properties. Responsible for money
- *           transactions of player.
+ * Class that represents the real world players in the game.
+ * 
+ * @overview Contains Player's needed information and properties. Responsible
+ *           for money transactions of player.
  * 
  * @author Team Pennybags
  */
@@ -80,13 +81,13 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * Increase this' totalMoney as the given amount money.
+	 * Increase <b><tt>this</tt></b>' totalMoney as the given amount money.
 	 * 
 	 * 
 	 * @param money
 	 *            The amount to be added to player's total money.
 	 * 
-	 * @modifies this
+	 * @modifies <b><tt>this</tt></b>
 	 * @effects changes the money amount of this
 	 */
 	public void increaseMoney(int money) {
@@ -96,14 +97,14 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * Decrease this' totalMoney as the given amount money if this' totalMoney is
+	 * Decrease <b><tt>this</tt></b>' totalMoney as the given amount money if <b><tt>this</tt></b>' totalMoney is
 	 * enough.
 	 * 
 	 * @param money
 	 *            The amount to decrease from player's total money.
 	 *
-	 * @modifies this
-	 * @effects if this has enough money, this' money amount is decreased.
+	 * @modifies <b><tt>this</tt></b>
+	 * @effects if <b><tt>this</tt></b> has enough money, <b><tt>this</tt></b>' money amount is decreased.
 	 * 
 	 * @return <tt>true</tt> if player is capable of paying and has paid to money,
 	 *         <tt>false</tt> otherwise.
@@ -163,7 +164,7 @@ public class Player extends Observable implements Serializable {
 	 * token.
 	 * 
 	 * @requires player and player's attached token are not null
-	 * @modifies this, Token
+	 * @modifies <b><tt>this</tt></b>, Token
 	 * @effects token's position, so that player, is set to the Jail position.
 	 *          player's jail time counter is set to the three. boolean field of
 	 *          player, inJail, for checking player is in jail or not is set to
@@ -203,7 +204,7 @@ public class Player extends Observable implements Serializable {
 	 *            The card to be added to player's list of cards.
 	 * 
 	 * @requires an OwnableCard type of card which is not null
-	 * @modifies this
+	 * @modifies <b><tt>this</tt></b>
 	 * @effects if this' cards are null, addCard creates a new list. addCard adds
 	 *          card to this list.
 	 * 

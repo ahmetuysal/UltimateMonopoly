@@ -17,10 +17,13 @@ import domain.square.UtilitySquare;
 import domain.square.UtilitySquareType;
 
 /**
- * This class is used for adding squares, adding tokens, getting squares from their names
- *  moving player to another square,building hotel,house and skyscrapper.
+ * Class that represents the real world board in the game.
  * 
- * @author Pennybags
+ * @overview This class is used for adding squares, adding tokens, getting
+ *           squares from their names moving player to another square,building
+ *           hotels, houses and skyscrapers.
+ * 
+ * @author Team Pennybags
  *
  */
 
@@ -30,7 +33,7 @@ public class Board {
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
-	
+
 	private List<Square>[] squares;
 	private List<Token> tokens;
 
@@ -48,7 +51,6 @@ public class Board {
 	}
 
 	/**
-	 * 
 	 * @param token
 	 *            Token to add the board.
 	 */
@@ -179,7 +181,7 @@ public class Board {
 		squares[2].add(SquareFactory.getSquare("Ventura Boulevard"));
 		squares[2].add(SquareFactory.getSquare("Chance"));
 		squares[2].add(SquareFactory.getSquare("Rodeo Drive"));
-		
+
 		System.out.println(Arrays.toString(squares));
 	}
 
@@ -195,17 +197,19 @@ public class Board {
 	public Square getSquare(Location location) {
 		return squares[location.getLayer()].get(location.getIndex());
 	}
+
 	/**
 	 * 
 	 * @param name
+	 *            Name of the square.
 	 * 
-	 * @requires name is not null 
+	 * @requires name is not null
 	 * @modifies nothing
-	 * @effects if a square with  name exists returns the location of the square,
-	 *         null otherwise.
+	 * @effects if a square with name exists returns the location of the square,
+	 *          null otherwise.
 	 * 
-	 * @return if a square with  name exists returns the location of the square,
-	 *         null otherwise.
+	 * @return if a square with name exists returns the location of the square, null
+	 *         otherwise.
 	 */
 
 	public Location getSquareLocationFromName(String name) {
@@ -221,7 +225,6 @@ public class Board {
 		return null;
 	}
 
-
 	public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
@@ -232,7 +235,7 @@ public class Board {
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
-				((TitleDeedSquare) currentSquare).buyHotel();
+			((TitleDeedSquare) currentSquare).buyHotel();
 		}
 	}
 
@@ -270,7 +273,6 @@ public class Board {
 		System.out.println("Token: " + token.toString());
 
 	}
-	
 
 	public void moveToNextOwnedProperty(Player player) {
 		Token token = player.getToken();
@@ -291,17 +293,18 @@ public class Board {
 				((Passable) sq).passBy(player);
 			}
 		}
-		
+
 	}
+
 	/**
 	 * 
 	 * @param player
+	 *            Player that will be moved to next unowned property.
 	 * 
-	 * @requires player is not null 
-	 * @modifies this, Token , Player
-	 * @effects player's token is moved to the next unowned property according to its 
-	 * current location
-	 * @return nothing
+	 * @requires player is not null
+	 * @modifies <b><tt>this</tt></b>, Token , Player
+	 * @effects player's token is moved to the next unowned property according to
+	 *          its current location
 	 */
 
 	public void moveToNextUnownedProperty(Player player) {
@@ -325,15 +328,16 @@ public class Board {
 			}
 		}
 	}
+
 	/**
 	 * 
 	 * @param player
-	 * 
-	 * @requires player is not null 
-	 * @modifies this, Token , Player
-	 * @effects player's token is moved to the next Chance or CommunityChest Square according to its 
-	 * current location
-	 * @return nothing
+	 *            Player that will be moved to next chance or community chest
+	 *            square.
+	 * @requires player is not null
+	 * @modifies <b><tt>this</tt></b>, Token , Player
+	 * @effects player's token is moved to the next Chance or CommunityChest Square
+	 *          according to its current location
 	 */
 	public void moveToNextChanceOrCommunityChestSquare(Player player) {
 		Token token = player.getToken();
@@ -368,7 +372,8 @@ public class Board {
 					new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 
 			Square sq = getSquare(token.getLocation());
-			if (sq instanceof RailRoad || (sq instanceof UtilitySquare && ((UtilitySquare)sq).getType() == UtilitySquareType.CAB_COMPANY)) {
+			if (sq instanceof RailRoad || (sq instanceof UtilitySquare
+					&& ((UtilitySquare) sq).getType() == UtilitySquareType.CAB_COMPANY)) {
 				sq.landOn(player);
 				break;
 			}
@@ -378,7 +383,7 @@ public class Board {
 			}
 		}
 	}
-	
+
 	/**
 	 * @return the squares
 	 */
@@ -390,14 +395,14 @@ public class Board {
 	public String toString() {
 		return "Board [squares=" + Arrays.toString(squares) + ", tokens=" + tokens + "]";
 	}
-	
+
 	public boolean repOK() {
-		if(squares.equals(null) || squares.length<0)
+		if (squares.equals(null) || squares.length < 0)
 			return false;
-		if(tokens.equals(null)|| tokens.size()<0)
+		if (tokens.equals(null) || tokens.size() < 0)
 			return false;
 		return true;
-		
+
 	}
 
 }
