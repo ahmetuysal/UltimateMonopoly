@@ -84,7 +84,7 @@ public class JUnitPlayerTest {
 		int oldNum = player.getCards().size();
 
 		player.setCards(null);
-		assertEquals(player.getCards(), null);
+
 		player.addCard(card);
 
 		assertNotEquals(player.getCards(), null);
