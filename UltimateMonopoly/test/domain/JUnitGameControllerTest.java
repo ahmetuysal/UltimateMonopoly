@@ -93,6 +93,7 @@ class JUnitGameControllerTest {
 		assertEquals(GameController.getInstance().getPlayers().get(2).getNickName(), "meltem");
 		assertEquals(GameController.getInstance().getPlayers().get(0).getToken().getTokenImageName(), "Dog.png");
 		assertNotEquals(GameController.getInstance().getPlayers().get(1).getTotalMoney(), 3200);
+		assertTrue(GameController.getInstance().repOK());
 	}
 
 }
