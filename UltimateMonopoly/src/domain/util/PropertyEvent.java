@@ -11,6 +11,15 @@ public class PropertyEvent {
 	private Object newValue;
 	
 			
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PropertyEvent [propertyName=" + propertyName + ", oldValue=" + oldValue
+				+ ", newValue=" + newValue + " source=" + source + "]";
+	}
+
 	public PropertyEvent(Object source, String propertyName, Object oldValue, Object newValue) {
 		this.source = source;
 		this.propertyName = propertyName;

@@ -260,7 +260,6 @@ public class Board {
 				new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
-		GameController.getInstance().setCurrentLocationBuyable(sq instanceof OwnableSquare && !((OwnableSquare)sq).isOwned());
 		System.out.println("Token: " + token.toString());
 
 	}
@@ -278,7 +277,6 @@ public class Board {
 			Square sq = getSquare(token.getLocation());
 			if (sq instanceof OwnableSquare && ((OwnableSquare) sq).isOwned()) {
 				sq.landOn(player);
-				GameController.getInstance().setCurrentLocationBuyable(false);
 				break;
 			}
 
@@ -312,7 +310,6 @@ public class Board {
 			Square sq = getSquare(token.getLocation());
 			if (sq instanceof OwnableSquare && !((OwnableSquare) sq).isOwned()) {
 				sq.landOn(player);
-				GameController.getInstance().setCurrentLocationBuyable(true);
 				break;
 			}
 
@@ -344,7 +341,6 @@ public class Board {
 			Square sq = getSquare(token.getLocation());
 			if (sq instanceof Chance || sq instanceof CommunityChest) {
 				sq.landOn(player);
-				GameController.getInstance().setCurrentLocationBuyable(false);
 				break;
 			}
 
@@ -367,7 +363,6 @@ public class Board {
 			Square sq = getSquare(token.getLocation());
 			if (sq instanceof RailRoad || (sq instanceof UtilitySquare && ((UtilitySquare)sq).getType() == UtilitySquareType.CAB_COMPANY)) {
 				sq.landOn(player);
-				GameController.getInstance().setCurrentLocationBuyable(!((OwnableSquare) sq).isOwned());
 				break;
 			}
 

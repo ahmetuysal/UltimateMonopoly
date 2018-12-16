@@ -11,7 +11,7 @@ public class Chance extends Square{
 
 	@Override
 	public void landOn(Player player) {
-		// TODO Auto-generated method stub
+		super.landOn(player);
 		GameController.getInstance().promptDrawChanceCard();
 	}
 

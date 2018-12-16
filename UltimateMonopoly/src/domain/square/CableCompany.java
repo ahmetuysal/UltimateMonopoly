@@ -11,8 +11,8 @@ public class CableCompany extends Square{
 
 	@Override
 	public void landOn(Player player) {
-		// TODO Auto-generated method stub
-		
+		super.landOn(player);
+		// TODO implement square specific logic
 	}
 
 }

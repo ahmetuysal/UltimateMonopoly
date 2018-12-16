@@ -20,7 +20,8 @@ import domain.square.Square;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 /**
- * 
+ * Class responsible for delegation of responsibilities to domain classes. 
+ * Created using Controller pattern
  * 
  * 
  * @author Team Pennybags
@@ -56,6 +57,7 @@ public class GameController extends Observable {
 		return instance;
 	}
 
+
 	private GameController() {
 		board = new Board();
 		cup = new Cup();
@@ -63,6 +65,7 @@ public class GameController extends Observable {
 		initTokens();
 		initCards();
 	}
+
 
 	public void initializeWithGameState(GameState state) {
 		this.board = state.getBoard();

@@ -3,7 +3,7 @@ package domain.square;
 import domain.Player;
 
 public class UtilitySquare extends OwnableSquare {
-	
+
 	private UtilitySquareType type;
 
 	public UtilitySquare(String name, String description, int price, UtilitySquareType type) {
@@ -20,10 +20,9 @@ public class UtilitySquare extends OwnableSquare {
 
 	@Override
 	public void landOn(Player player) {
-		// TODO Auto-generated method stub
-		
+		super.landOn(player);
+		// TODO implement square specific logic	}
 	}
-	
 	
 
 

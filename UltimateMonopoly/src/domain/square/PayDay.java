@@ -25,6 +25,7 @@ public class PayDay extends Square implements Passable{
 
 	@Override
 	public void landOn(Player player) {
+		super.landOn(player);
 		if(GameController.getInstance().getCup().isEven()) {
 			player.increaseMoney(400);
 		}else {

@@ -1,5 +1,6 @@
 package domain.square;
 
+import domain.GameController;
 import domain.Player;
 
 public abstract class OwnableSquare extends Square {
@@ -69,6 +70,20 @@ public abstract class OwnableSquare extends Square {
 		if (price < 0)
 			return false;
 		return true;
+	}
+	
+	@Override
+	public void landOn(Player player) {
+		GameController.getInstance().setCurrentLocationBuyable(this.isOwned && player.getTotalMoney() >= this.price);
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OwnableSquare [price=" + price + ", owner=" + owner + ", isOwned=" + isOwned + ", name=" + name
+				+ ", description=" + description + "]";
 	}
 	
 }
