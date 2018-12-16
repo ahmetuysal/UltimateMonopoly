@@ -19,12 +19,13 @@ import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
+
 /**
- * @overview Class that controls main flow of the game. Takes requests from UI part 
- * of the game and delegates responsibilities to corresponding classes, communicates 
- * with other classes of domain.
- * Created using Controller Pattern of GRASP Patterns.
- * Plays a crucial role for Model-View separation.
+ * @overview Class that controls main flow of the game. Takes requests from UI
+ *           part of the game and delegates responsibilities to corresponding
+ *           classes, communicates with other classes of domain. Created using
+ *           Controller Pattern of GRASP Patterns. Plays a crucial role for
+ *           Model-View separation.
  * 
  * @author Team Pennybags
  */
@@ -59,7 +60,6 @@ public class GameController extends Observable {
 		return instance;
 	}
 
-
 	private GameController() {
 		board = new Board();
 		cup = new Cup();
@@ -67,7 +67,6 @@ public class GameController extends Observable {
 		initTokens();
 		initCards();
 	}
-
 
 	public void initializeWithGameState(GameState state) {
 		this.board = state.getBoard();
@@ -127,9 +126,8 @@ public class GameController extends Observable {
 	 * Takes the gameState that is stored in a json file with the gameName, and
 	 * loads it to <b><tt>this</tt></b>.
 	 * 
-	 * @param gameName
-	 *            The name of the game you want to load without the extension
-	 *            (.json).
+	 * @param gameName The name of the game you want to load without the extension
+	 *                 (.json).
 	 * 
 	 * @requires gameName is not null
 	 * @modifies <b><tt>this</tt></b>
@@ -251,10 +249,8 @@ public class GameController extends Observable {
 	 * Registers a new player with the given nick name and token name if arguments
 	 * are unique and valid.
 	 * 
-	 * @param nickName
-	 *            Nick name of the player.
-	 * @param tokenName
-	 *            Name of the token.
+	 * @param nickName  Nick name of the player.
+	 * @param tokenName Name of the token.
 	 * 
 	 * @requires nickName is not null, tokenName is one of the image names of tokens
 	 * @modifies <b><tt>this</tt></b>, Token
@@ -609,23 +605,23 @@ public class GameController extends Observable {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
-	
+
 	public boolean repOK() {
-		if(board == null)
+		if (board == null)
 			return false;
-		if(cup == null)
+		if (cup == null)
 			return false;
-		if(consecutiveDoubles > 3)
+		if (consecutiveDoubles > 3)
 			return false;
-		if(players == null || players.size() < 2)
+		if (players == null || players.size() < 2)
 			return false;
-		if(chanceCardList == null || chanceCardList.size() != 2)
+		if (chanceCardList == null || chanceCardList.size() != 2)
 			return false;
-		if(communityChestCardList == null || communityChestCardList.size() != 3)
+		if (communityChestCardList == null || communityChestCardList.size() != 3)
 			return false;
-		if(rollThreeCardList == null || rollThreeCardList.size() != 24)
+		if (rollThreeCardList == null || rollThreeCardList.size() != 24)
 			return false;
-		if(poolMoney < 0)
+		if (poolMoney < 0)
 			return false;
 		return true;
 	}

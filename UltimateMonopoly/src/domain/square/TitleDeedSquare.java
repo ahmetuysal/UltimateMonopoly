@@ -2,12 +2,12 @@ package domain.square;
 
 import java.util.List;
 
-import domain.GameController;
 import domain.Player;
 
-
 /**
- * Deneme iki ��.
+ * @overview Represents the TitleDeedSquare concept on Ultimate Monopoly Game.
+ *           Responsible for calculating rent, buying buildings and handling
+ *           rent.
  * 
  * @author Team Pennybags
  *
@@ -70,36 +70,35 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 
 	/**
-	 * @param numHouses
-	 *            the numHouses to set
+	 * @param numHouses the numHouses to set
 	 */
 	public void setNumHouses(int numHouses) {
 		this.numHouses = numHouses;
 	}
 
 	/**
-	 * @param numHotels
-	 *            the numHotels to set
+	 * @param numHotels the numHotels to set
 	 */
 	public void setNumHotels(int numHotels) {
 		this.numHotels = numHotels;
 	}
 
 	/**
-	 * @param numSkyscrapers
-	 *            the numSkyscrapers to set
+	 * @param numSkyscrapers the numSkyscrapers to set
 	 */
 	public void setNumSkyscrapers(int numSkyscrapers) {
 		this.numSkyscrapers = numSkyscrapers;
 	}
 
 	/**
-	 *  TODO naaber ba
+	 * Performs required actions when player lands on <b><tt>this</tt></b>.
 	 * 
 	 * @requires nothing
-	 * @modifies owner, playerLanded
+	 * @modifies owner, playerLanded, GameController
 	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not
-	 *          the owner, playerLanded pays rent to the owner.
+	 *          the owner, playerLanded pays rent to the owner. Updates the
+	 *          GameController's field indicating current square's buyability
+	 *          according to <b><tt>this</tt></b>.
 	 * 
 	 */
 	@Override
@@ -185,7 +184,6 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
 			return false;
 		}
-		
 
 		this.owner.decreaseMoney(color.hotelPriceProperty());
 		this.numHouses = 0;
