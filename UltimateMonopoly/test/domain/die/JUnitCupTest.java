@@ -2,6 +2,7 @@ package domain.die;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ class JUnitCupTest {
 				assertNotEquals(v,DieValue.MRMONOPOLY);
 				assertNotEquals(v,DieValue.BUSICON);
 				assertNotEquals(v,DieValue.EMPTY);
+				assertNotNull(v);
 			}
 		}
 	}
