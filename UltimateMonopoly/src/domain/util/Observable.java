@@ -48,6 +48,7 @@ public abstract class Observable {
 	public void publishPropertyEvent(String propertyName, Object oldValue, Object newValue) {
 		initPropertyListeners();
 		PropertyEvent pEvent = new PropertyEvent(this, propertyName, oldValue, newValue);
+		System.out.println("Published: " + pEvent.toString());
 		for (PropertyListener listener : propertyListenersMap.get("all")) {
 			listener.onPropertyEvent(pEvent);
 		}

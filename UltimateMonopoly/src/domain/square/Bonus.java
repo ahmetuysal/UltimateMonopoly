@@ -17,8 +17,8 @@ public class Bonus extends Square implements Passable {
 
 	@Override
 	public void landOn(Player player) {
-		player.increaseMoney(300);
-		
+		super.landOn(player);
+		player.increaseMoney(300);		
 	}
 
 	

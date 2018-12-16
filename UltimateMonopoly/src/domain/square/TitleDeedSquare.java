@@ -2,6 +2,7 @@ package domain.square;
 
 import java.util.List;
 
+import domain.GameController;
 import domain.Player;
 
 
@@ -103,6 +104,7 @@ public class TitleDeedSquare extends OwnableSquare {
 	 */
 	@Override
 	public void landOn(Player player) {
+		super.landOn(player);
 		if (this.isOwned()) {
 			if (!this.owner.equals(player)) {
 				int rentAmount = this.calculateRent();

@@ -15,6 +15,7 @@ public class Go extends Square implements Passable {
 
 	@Override
 	public void landOn(Player player) {
+		super.landOn(player);
 		player.increaseMoney(200);
 	}
 

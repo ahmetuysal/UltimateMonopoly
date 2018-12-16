@@ -10,8 +10,8 @@ public class GoToJail extends Square{
 
 	@Override
 	public void landOn(Player player) {
-		
-		
+		super.landOn(player);
+		// TODO implement square specific logic
 	}
 
 }
