@@ -2,6 +2,14 @@ package domain.die;
 
 import java.io.Serializable;
 
+/**
+ * This class is used for rolling dices, getting the face values and getting the
+ * sum of them considering the rolling methods with different kinds of dices.
+ * It implements Serializable to be able to sent through object stream via network
+ * @author Pennybags
+ *
+ */
+
 public class Cup implements Serializable{
 
 	private RegularDie die1;
@@ -33,7 +41,7 @@ public class Cup implements Serializable{
 		faceValues[2] = speedDie.getFaceValue();
 	}
 	/**
-	 * @overview rolls 3 regular dices and sets the face value of speed die to empty
+	 * rolls 3 regular dices and sets the face value of speed die to empty
 	 * @requires regular dice and speed die are not null and the face value of regular dices are between 1 and 6
 	 * @modifies this, regular dice and speed die
 	 * @effects sets the face value of speed die to empty and rolls 3 regular dice and fills the faceValues array with the 
@@ -79,7 +87,7 @@ public class Cup implements Serializable{
 		return this.faceValues;
 	}
 	/**
-	 * @overview sets the elements of die value array to EMPTY
+	 * sets the elements of die value array to EMPTY
 	 * @modifies this
 	 * @effects sets the elements of faceValues array to empty
 	 */
@@ -97,7 +105,7 @@ public class Cup implements Serializable{
 		}
 	}
 	/**
-	 * @overview finds the summation of the face values of dices rolled
+	 * finds the summation of the face values of dices rolled
 	 * @requires two regular dice and a speedDie and their face values are not null
 	 * @return the total value of the cup which determines the movement amount of the token
 	 */
