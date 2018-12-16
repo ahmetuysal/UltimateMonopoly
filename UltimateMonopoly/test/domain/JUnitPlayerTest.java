@@ -31,12 +31,9 @@ public class JUnitPlayerTest {
 		Player player = GameController.getInstance().getPlayerList().get(0);
 		player.goToJail();
 		assertEquals(player.isInJail(), true);
+		assertTrue(player.repOK());
 	}
-
-	//////////////////////////////////////////////////////////////////////////
-
-	///////////////////////// Glass-Box Test///////////////////////////////////
-
+	
 	@Test
 	void testIncreaseMoney() {
 		int money = 100;
@@ -46,6 +43,10 @@ public class JUnitPlayerTest {
 		assertEquals(startMoney + money, player.getTotalMoney());
 		assertTrue(player.repOK());
 	}
+	//////////////////////////////////////////////////////////////////////////
+
+	///////////////////////// Glass-Box Test///////////////////////////////////
+
 
 	@Test
 	void testDecreaseMoney() {
@@ -71,6 +72,8 @@ public class JUnitPlayerTest {
 		assertEquals(player.getToken().getLocation(),
 				GameController.getInstance().getBoard().getSquareLocationFromName("Jail"));
 		assertEquals(player.getJailTime(), 3);
+		
+		assertTrue(player.repOK());
 
 	}
 
@@ -87,6 +90,8 @@ public class JUnitPlayerTest {
 		assertNotEquals(player.getCards(), null);
 		assertEquals(oldNum + 1, player.getCards().size());
 		assertEquals(player.getCards().contains(card), true);
+		
+		assertTrue(player.repOK());
 
 	}
 
