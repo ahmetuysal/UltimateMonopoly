@@ -47,7 +47,7 @@ public class Cup implements Serializable {
 	/**
 	 * Rolls 3 regular dices and sets the face value of speed die to empty
 	 * 
-	 * @requires regular dice and speed die are not null wnd the face value of
+	 * @requires regular dice and speed die are not null and the face value of
 	 *           regular dices are between 1 and 6
 	 * @modifies <b><tt>this</tt></b>, regular dice and speed die
 	 * @effects sets the face value of speed die to empty and rolls 3 regular dice
