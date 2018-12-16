@@ -5,12 +5,13 @@ import java.util.List;
 import domain.GameController;
 import domain.Player;
 
-
 /**
- * Deneme iki ьз.
+ * Represents the TitleDeedSquare concept on Ultimate Monopoly Game.
+ * 
+ * @overview Responsible for calculating rent, buying buildings and handling
+ *           rent.
  * 
  * @author Team Pennybags
- *
  */
 public class TitleDeedSquare extends OwnableSquare {
 
@@ -94,13 +95,14 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 
 	/**
-	 *  TODO naaber ba
-	 * 
-	 * @requires nothing
-	 * @modifies owner, playerLanded
-	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not
-	 *          the owner, playerLanded pays rent to the owner.
-	 * 
+	  * Performs required actions when player lands on <b><tt>this</tt></b>. 
+	 *  
+	 * @requires nothing 
+	 * @modifies owner, playerLanded, GameController 
+	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not 
+	 *          the owner, playerLanded pays rent to the owner. Updates the 
+	 *          GameController's field indicating current square's buyability 
+	 *          according to <b><tt>this</tt></b>. 
 	 */
 	@Override
 	public void landOn(Player player) {
