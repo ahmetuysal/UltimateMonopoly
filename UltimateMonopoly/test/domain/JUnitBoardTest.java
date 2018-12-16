@@ -1,7 +1,6 @@
 package domain;
 
 import domain.Player;
-import domain.die.Cup;
 import domain.square.*;
 
 import static org.junit.Assert.assertEquals;
