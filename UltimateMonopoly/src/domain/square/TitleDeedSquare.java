@@ -2,7 +2,6 @@ package domain.square;
 
 import java.util.List;
 
-import domain.GameController;
 import domain.Player;
 
 /**
@@ -95,14 +94,14 @@ public class TitleDeedSquare extends OwnableSquare {
 	}
 
 	/**
-	  * Performs required actions when player lands on <b><tt>this</tt></b>. 
-	 *  
-	 * @requires nothing 
-	 * @modifies owner, playerLanded, GameController 
-	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not 
-	 *          the owner, playerLanded pays rent to the owner. Updates the 
-	 *          GameController's field indicating current square's buyability 
-	 *          according to <b><tt>this</tt></b>. 
+	 * Performs required actions when player lands on <b><tt>this</tt></b>.
+	 * 
+	 * @requires nothing
+	 * @modifies owner, playerLanded, GameController
+	 * @effects If <b><tt>this</tt></b> has an owner and the landed player is not
+	 *          the owner, playerLanded pays rent to the owner. Updates the
+	 *          GameController's field indicating current square's buyability
+	 *          according to <b><tt>this</tt></b>.
 	 */
 	@Override
 	public void landOn(Player player) {

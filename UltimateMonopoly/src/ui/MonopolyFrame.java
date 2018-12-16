@@ -2,15 +2,10 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
 import domain.GameController;
-import domain.util.PropertyEvent;
-import domain.util.PropertyListener;
 
 public class MonopolyFrame extends JFrame {
 
