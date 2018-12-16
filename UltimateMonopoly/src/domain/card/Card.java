@@ -6,8 +6,8 @@ import domain.Player;
 
 public class Card implements Serializable{
 
-	private String name;
-	private String description;
+	protected String name;
+	protected String description;
 	
 	
 	public Card(String name, String description){
@@ -36,9 +36,18 @@ public class Card implements Serializable{
 	}
 
 
-
 	public void useCard(Player player, String s) {
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Card [name=" + name + ", description=" + description + "]";
+	}
 
+	
+	
+	
 }

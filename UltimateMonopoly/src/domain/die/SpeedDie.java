@@ -12,4 +12,14 @@ public class SpeedDie extends Die {
 	void setFaceValueEmpty() {
 		this.value = 6; // Value for empty
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SpeedDie [value=" + value + "]";
+	}
+	
+	
 }

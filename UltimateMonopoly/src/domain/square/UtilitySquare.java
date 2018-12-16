@@ -23,7 +23,14 @@ public class UtilitySquare extends OwnableSquare {
 		super.landOn(player);
 		// TODO implement square specific logic	}
 	}
-	
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "UtilitySquare [type=" + type + ", price=" + price + ", owner=" + owner + ", isOwned=" + isOwned
+				+ ", name=" + name + ", description=" + description + "]";
+	}
 
 }

@@ -53,9 +53,8 @@ public class RollThreeCard extends OwnableCard {
 	 */
 	@Override
 	public String toString() {
-		return "RollThreeCard [cardValuesAsInteger=" + Arrays.toString(cardValuesAsInteger) + "]";
+		return "RollThreeCard [cardValuesAsInteger=" + Arrays.toString(cardValuesAsInteger) + ", owner=" + owner
+				+ ", isOwned=" + isOwned + ", name=" + name + ", description=" + description + "]";
 	}
-	
-	
 
 }

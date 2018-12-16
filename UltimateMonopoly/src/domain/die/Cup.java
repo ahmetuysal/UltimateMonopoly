@@ -1,6 +1,7 @@
 package domain.die;
 
 import java.io.Serializable;
+import java.util.Arrays;
 
 /**
  * This class is used for rolling dices, getting the face values and getting the
@@ -138,5 +139,16 @@ public class Cup implements Serializable{
 		return true;
 		
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Cup [die1=" + die1 + ", die2=" + die2 + ", die3=" + die3 + ", speedDie=" + speedDie + ", faceValues="
+				+ Arrays.toString(faceValues) + "]";
+	}
+	
+	
 
 }

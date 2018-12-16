@@ -4,8 +4,8 @@ import domain.Player;
 
 public class OwnableCard extends Card {
 	
-	private Player owner;
-	private boolean isOwned;
+	protected Player owner;
+	protected boolean isOwned;
 
 	public OwnableCard(String name, String description) {
 		super(name, description);
@@ -38,5 +38,16 @@ public class OwnableCard extends Card {
 		isOwned = owner != null;
 		this.owner = owner;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "OwnableCard [owner=" + owner + ", isOwned=" + isOwned + ", name=" + name + ", description="
+				+ description + "]";
+	}
+	
+	
 	
 }
