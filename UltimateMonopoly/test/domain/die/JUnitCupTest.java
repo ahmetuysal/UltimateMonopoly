@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 
 class JUnitCupTest {
 
-	// Black-Box Testing
 	@Test
 	void testRollThreeRegularDices() {
 		Cup testCup = new Cup();
@@ -34,7 +33,7 @@ class JUnitCupTest {
 		for(int i = 0 ; i < 100 ; i++) {
 			testCup.rollDices();
 			sum = testCup.getTotal();
-			assertTrue(sum <= 18); 
+			assertTrue(sum <= 15); 
 			assertTrue(sum >= 2);
 		}
 		
@@ -75,11 +74,7 @@ class JUnitCupTest {
 		}
 	}
 	
-	
-	// End of Black-Box Testing
-	
-	
-	// Glass-Box Testing
+
 	
 	@Test
 	void testFaceValuesChanged() {
@@ -101,8 +96,6 @@ class JUnitCupTest {
 	
 	
 	
-	
-	// End of Glass-Box Testing
 	
 	@Test
 	void repOKTestRollThreeRegularDices() {
