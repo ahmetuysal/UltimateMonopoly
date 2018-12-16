@@ -7,7 +7,7 @@ import domain.Player;
 
 
 /**
- * Deneme iki ьз.
+ * Deneme iki пїЅпїЅ.
  * 
  * @author Team Pennybags
  *
@@ -169,7 +169,11 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
 		}
-		if (this.numHouses != 4) {
+		if (this.numHotels == 1 || this.numSkyscrapers > 0) {
+			System.out.println("You can't build more than one hotel on the same property!");
+			return false;
+		}
+		if (this.numHouses != 4 && this.numHotels == 0) {
 			System.out.println("You can't build an hotel without building 4 houses!");
 			return false;
 		}
@@ -181,10 +185,7 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
 			return false;
 		}
-		if (this.numHotels == 1 || this.numSkyscrapers > 0) {
-			System.out.println("You can't build more than one hotel on the same property!");
-			return false;
-		}
+		
 
 		this.owner.decreaseMoney(color.hotelPriceProperty());
 		this.numHouses = 0;
