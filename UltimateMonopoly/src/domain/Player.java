@@ -4,12 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.card.Card;
 import domain.card.OwnableCard;
 import domain.square.OwnableSquare;
 import domain.square.TitleDeedSquare;
 import domain.square.TitleDeedSquareColor;
 import domain.util.Observable;
+
+/**
+ * @overview Class that represents the real world players in the game. Contains
+ *           Player's needed information and properties. Responsible for money
+ *           transactions of player.
+ * 
+ * @author Team Pennybags
+ */
 
 public class Player extends Observable implements Serializable {
 
@@ -25,7 +32,8 @@ public class Player extends Observable implements Serializable {
 	private static final int START_MONEY = 3200;
 
 	/**
-	 * @param nickName   Nick name of the player.
+	 * @param nickName
+	 *            Nick name of the player.
 	 */
 	public Player(String nickName) {
 		this.nickName = nickName;
@@ -36,7 +44,7 @@ public class Player extends Observable implements Serializable {
 		this.cards = new ArrayList<>();
 		this.properties = new ArrayList<>();
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -57,7 +65,8 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param nickName The nick name of the player to set.
+	 * @param nickName
+	 *            The nick name of the player to set.
 	 */
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
@@ -71,7 +80,11 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param money The amount to be added to player's total money.
+	 * Increase this' totalMoney as the given amount money.
+	 * 
+	 * 
+	 * @param money
+	 *            The amount to be added to player's total money.
 	 * 
 	 * @modifies this
 	 * @effects changes the money amount of this
@@ -83,7 +96,11 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param money The amount to decrease from player's total money.
+	 * Decrease this' totalMoney as the given amount money if this' totalMoney is
+	 * enough.
+	 * 
+	 * @param money
+	 *            The amount to decrease from player's total money.
 	 *
 	 * @modifies this
 	 * @effects if this has enough money, this' money amount is decreased.
@@ -104,8 +121,10 @@ public class Player extends Observable implements Serializable {
 
 	/**
 	 * 
-	 * @param player The player who will get the money.
-	 * @param money  The amount to pay.
+	 * @param player
+	 *            The player who will get the money.
+	 * @param money
+	 *            The amount to pay.
 	 */
 	public void payMoney(Player player, int money) {
 		if (this.getTotalMoney() < money) {
@@ -125,8 +144,8 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param isReverseDirection Whether the player is moving in reverse direction
-	 *                           or not.
+	 * @param isReverseDirection
+	 *            Whether the player is moving in reverse direction or not.
 	 */
 	public void setReverseDirection(boolean isReverseDirection) {
 		this.isReverseDirection = isReverseDirection;
@@ -140,11 +159,15 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
+	 * Sets the inJail, jailTime attributes of this, changes the location of this'
+	 * token.
 	 * 
 	 * @requires player and player's attached token are not null
 	 * @modifies this, Token
-	 * @effects token's position, so that player, is set to the Jail position. player's jail time counter 
-	 * is set to the three. boolean field of player, inJail, for checking player is in jail or not is set to true. 
+	 * @effects token's position, so that player, is set to the Jail position.
+	 *          player's jail time counter is set to the three. boolean field of
+	 *          player, inJail, for checking player is in jail or not is set to
+	 *          true.
 	 *
 	 */
 	public void goToJail() {
@@ -168,12 +191,21 @@ public class Player extends Observable implements Serializable {
 		return cards;
 	}
 
+	public List<OwnableCard> setCards(List<OwnableCard> list) {
+		return this.cards = list;
+	}
+
 	/**
-	 * @param card The card to be added to player's list of cards.
+	 * Adds the given card to the this' cards if the cards is not null. cards is
+	 * created and the given card is added if the cards is null.
+	 * 
+	 * @param card
+	 *            The card to be added to player's list of cards.
 	 * 
 	 * @requires an OwnableCard type of card which is not null
 	 * @modifies this
-	 * @effects if this' cards are null, addCard creates a new list. addCard adds card to this list.
+	 * @effects if this' cards are null, addCard creates a new list. addCard adds
+	 *          card to this list.
 	 * 
 	 */
 	public void addCard(OwnableCard card) {
@@ -183,7 +215,8 @@ public class Player extends Observable implements Serializable {
 	}
 
 	/**
-	 * @param card The card to be removed from player's list of cards.
+	 * @param card
+	 *            The card to be removed from player's list of cards.
 	 * @return <tt>true</tt> if card is removed from player's list of cards,
 	 *         <tt>false</tt> if card was not in the list.
 	 */
@@ -234,7 +267,7 @@ public class Player extends Observable implements Serializable {
 		// TODO implement this
 		return false;
 	}
-	
+
 	public List<TitleDeedSquare> getTitleDeedsWithColor(TitleDeedSquareColor color) {
 		List<TitleDeedSquare> result = new ArrayList<>();
 		for (OwnableSquare ownable : this.properties) {
@@ -245,7 +278,7 @@ public class Player extends Observable implements Serializable {
 		}
 		return result;
 	}
-	
+
 	public int getNumTitleDeedsWithColor(TitleDeedSquareColor color) {
 		return getTitleDeedsWithColor(color).size();
 	}
@@ -266,11 +299,17 @@ public class Player extends Observable implements Serializable {
 	public List<OwnableSquare> getProperties() {
 		return properties;
 	}
-	
+
 	public boolean repOK() {
-		if (nickName == null)
+		if (nickName == null || nickName == "")
 			return false;
 		if (totalMoney < 0)
+			return false;
+		if (cards == null)
+			return false;
+		if (properties == null)
+			return false;
+		if (jailTime < 0 || jailTime > 3)
 			return false;
 		return true;
 	}
