@@ -13,9 +13,16 @@ import domain.square.RailRoad;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
-import domain.square.TitleDeedSquareColor;
 import domain.square.UtilitySquare;
 import domain.square.UtilitySquareType;
+
+/**
+ * This class is used for adding squares, adding tokens, getting squares from their names
+ *  moving player to another square,building hotel,house and skyscrapper.
+ * 
+ * @author Pennybags
+ *
+ */
 
 public class Board {
 
