@@ -20,9 +20,11 @@ import domain.square.Square;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 /**
- * Class responsible for delegation of responsibilities to domain classes. 
- * Created using Controller pattern
- * 
+ * @overview Class that controls main flow of the game. Takes requests from UI part 
+ * of the game and delegates responsibilities to corresponding classes, communicates 
+ * with other classes of domain.
+ * Created using Controller Pattern of GRASP Patterns.
+ * Plays a crucial role for Model-View separation.
  * 
  * @author Team Pennybags
  */
