@@ -4,6 +4,7 @@ import domain.Player;
 import domain.square.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -90,5 +91,18 @@ public class JUnitBoardTest {
 		testBoard.moveToNextUnownedProperty(player1);
 		assertTrue(testBoard.repOK());
 	}
-	
+	////////Glass-box test//////////////////
+	@Test
+	void testMoveToNextUnownedPropertyFail() {
+		Player player1 = new Player("p1");
+		Board testBoard = new Board();
+		Location oldLoc = testBoard.getSquareLocationFromName("Boardwalk");
+		player1.setToken(new Token(oldLoc, "Barrow.png"));
+		
+		testBoard.moveToNextUnownedProperty(player1);
+		Location newLoc = player1.getToken().getLocation();
+		
+		Location passableLoc = testBoard.getSquareLocationFromName("Go");
+		assertNotEquals(newLoc,passableLoc);
+	}
 }
