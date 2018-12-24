@@ -193,9 +193,14 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 	private void networkButton() {
 		networkButton = new JButton("Online");
-		networkButton.setBackground(Color.WHITE);
-		networkButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 50));
+//		networkButton.setBackground(Color.WHITE);
+		networkButton.setFont(new Font("Tahoma", Font.BOLD, menuPanelHeight / 50));
 		networkButton.setBackground(Color.GREEN);
+//		networkButton.setContentAreaFilled(true);
+//		networkButton.setForeground(Color.GREEN);
+		networkButton.setOpaque(true);
+		networkButton.setBorderPainted(false);
+		networkButton.setFocusPainted(false);
 		
 		int width = menuPanelWidth / 8;
 		int height =  menuPanelHeight / 15;
@@ -351,7 +356,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 		this.usernameInputTextField.setBounds(x, y, width, height);
 		this.usernameInputTextField.setSize(width, height);
-		this.usernameInputTextField.setFont(new Font("Sans", Font.CENTER_BASELINE, menuPanelHeight / 60));
+		this.usernameInputTextField.setFont(new Font("Tahoma", Font.CENTER_BASELINE, menuPanelHeight / 60));
 		this.usernameInputTextField.setVisible(true);
 
 		// this.usernameInputTextField.getSele

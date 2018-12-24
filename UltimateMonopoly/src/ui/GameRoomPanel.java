@@ -23,7 +23,7 @@ import domain.GameController;
 import domain.Token;
 import domain.square.Location;
 
-public class GameRoomPanel extends JPanel implements ActionListener, MouseListener, MouseMotionListener {
+public class GameRoomPanel extends JPanel implements ActionListener {
 
 	private GameController controller;
 
@@ -93,7 +93,10 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		//cardImageandButtons();
 		initCardButtons();
 		initBoard();
-		controller.initTurnOrder();
+		
+		if (controller.getCurrentPlayerIndex() < 0)
+			controller.initTurnOrder();
+		
 		// initButtons();
 
 		int pWidth = pbpWidth;
@@ -105,8 +108,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		playerPanel.setBackground(this.getBackground());
 		add(playerPanel);
 
-		addMouseListener(this);
-		addMouseMotionListener(this);
+		
 	}
 
 	private void initBoard() {
@@ -285,47 +287,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 		repaint();
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -345,5 +307,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, MouseListen
 			break;
 		}
 	}
+
+	
 
 }
