@@ -225,12 +225,21 @@ public class Board {
 		return null;
 	}
 
-	public void buildHouse(Player currentPlayer, int houseNum) {
+	/*public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buyHouse();
 		}
+	}*/
+	
+	public void buildHouse(Player currentPlayer) {
+	Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+	if (currentSquare instanceof TitleDeedSquare) {
+		((TitleDeedSquare) currentSquare).buyHouse();
+		}
 	}
+	
+	
 
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());

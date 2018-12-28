@@ -138,7 +138,7 @@ public class TitleDeedSquare extends OwnableSquare {
 			return false;
 		}
 		if (!this.ownerHasMajorityOwnership()) {
-			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
+			System.out.println("You need to have 'Majority Ownership' to buy a house!");
 			return false;
 		}
 		if (this.numHouses == 4 || this.numHotels > 0 || this.numSkyscrapers > 0) {
@@ -167,7 +167,7 @@ public class TitleDeedSquare extends OwnableSquare {
 	 */
 	public boolean buyHotel() {
 		if (!this.isOwned()) {
-			System.out.println("Can't build a house on an unowned property!");
+			System.out.println("Can't build a hotel on an unowned property!");
 			return false;
 		}
 		if (this.numHouses != 4) {

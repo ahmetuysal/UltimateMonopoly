@@ -424,8 +424,8 @@ public class GameController extends Observable {
 		return players;
 	}
 
-	public void buildHouse(int houseNum) {
-		board.buildHouse(currentPlayer, houseNum);
+	public void buildHouse() {
+		board.buildHouse(currentPlayer);
 	}
 
 	public void buildHotel() {

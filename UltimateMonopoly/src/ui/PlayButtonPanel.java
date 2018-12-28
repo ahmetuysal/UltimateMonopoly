@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import domain.GameController;
@@ -78,9 +79,9 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		controller.addPropertyListener("isTurnFinished", buyButton);
 		controller.addPropertyListener("currentLocationBuyable", buyButton);
 		
-		controller.addPropertyListener("buyBuilding", buyHouseButton);
-		controller.addPropertyListener("buyBuilding", buyHotelButton);
-		controller.addPropertyListener("buyBuilding", buySkyscraperButton);
+		controller.addPropertyListener("isTurnFinished", buyHouseButton);
+		controller.addPropertyListener("isTurnFinished", buyHotelButton);
+		controller.addPropertyListener("isTurnFinished", buySkyscraperButton);
 
 		
 		int width = panelWidth / 5;
@@ -169,6 +170,15 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		case "Buy":
 			System.out.println("buy that");
 			controller.buyProperty();
+			break;
+		case "Buy House":
+			controller.buildHouse();
+			break;
+		case "Buy Hotel":
+			controller.buildHotel();
+			break;
+		case "Buy Skyscraper":
+			controller.buildSkyscraper();
 			break;
 		}
 	}
