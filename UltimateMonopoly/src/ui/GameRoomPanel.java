@@ -276,14 +276,17 @@ public class GameRoomPanel extends JPanel implements ActionListener {
 			UITokens.add(uiToken);
 			setComponentZOrder(uiToken, 0);
 			add(uiToken);
-			TokenLocationChanged(uiToken, null, new Location(1, 0));
+			TokenLocationChanged(uiToken, new Location(1, 0), new Location(1, 0), 1);
 		}
 		repaint();
 	}
 
-	public void TokenLocationChanged(UIToken token, Location oldLocation, Location newLocation) {
+	public void TokenLocationChanged(UIToken token, Location oldLocation, Location newLocation, double completedRatio) {
 		// TODO change with animation
-		token.setLocation(getCoordinate(newLocation.getLayer(), newLocation.getIndex()));
+		Point oldCoord = getCoordinate(oldLocation.getLayer(), oldLocation.getIndex());
+		Point newCoord = getCoordinate(newLocation.getLayer(), newLocation.getIndex());
+		token.setLocation((int) (oldCoord.getX() + completedRatio * (newCoord.getX() - oldCoord.getX())),
+				(int)(oldCoord.getY() + completedRatio * (newCoord.getY() - oldCoord.getY())));
 		repaint();
 	}
 
