@@ -87,7 +87,29 @@ public class GameController extends Observable {
 		this.withNetwork = state.isWithNetwork();
 		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
+	
 	}
+	
+	public void applyGameState(GameState state) {
+		this.setBoard(state.getBoard());
+		this.setChanceCardList(state.getChanceCardList());
+		this.setCommunityChestCardList(state.getCommunityChestCardList());
+		this.setConsecutiveDoubles(state.getConsecutiveDoubles());
+		this.setCup(state.getCup());
+		this.setCurrentPlayer(state.getCurrentPlayer());
+		this.setDie1Value(state.getDie1Value());
+		this.setDie2Value(state.getDie2Value());
+		this.setDie3Value(state.getDie3Value());
+		this.setPause(state.isPaused());
+		this.setPlayers(state.getPlayers());
+		this.setPlayerSentToJailForDouble(state.isPlayerSentToJailForDouble());
+		this.setCurrentLocationBuyable(state.isCurrentLocationBuyable());
+		this.setCurrentPlayerIndex(state.getCurrentPlayerIndex());
+		this.setRollThreeCardList(state.getRollThreeCardList());
+		this.setWithNetwork(state.isWithNetwork());
+			
+	}
+	
 
 	public void playRollThree() {
 		HashMap<Player, RollThreeCard> playerCards = new HashMap<>();
@@ -441,7 +463,7 @@ public class GameController extends Observable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		//publishPropertyEvent("die3", die3Value, newValues[2]);
+		publishPropertyEvent("players", this.players, players);
 		this.players = players;
 	}
 
@@ -450,6 +472,7 @@ public class GameController extends Observable {
 	}
 
 	public void setCurrentPlayerIndex(int currentPlayerIndex) {
+		publishPropertyEvent("currentPlayerIndex",this.currentPlayerIndex,currentPlayerIndex);
 		this.currentPlayerIndex = currentPlayerIndex;
 	}
 
