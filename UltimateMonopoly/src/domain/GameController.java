@@ -441,6 +441,7 @@ public class GameController extends Observable {
 	}
 
 	public void setPlayers(List<Player> players) {
+		//publishPropertyEvent("die3", die3Value, newValues[2]);
 		this.players = players;
 	}
 
@@ -457,6 +458,7 @@ public class GameController extends Observable {
 	}
 
 	public void setConsecutiveDoubles(int consecutiveDoubles) {
+		publishPropertyEvent("consecutiveDoubles",this.consecutiveDoubles,consecutiveDoubles);
 		this.consecutiveDoubles = consecutiveDoubles;
 	}
 
@@ -465,10 +467,12 @@ public class GameController extends Observable {
 	}
 
 	public void setWithNetwork(boolean withNetwork) {
+		publishPropertyEvent("withNetwork",this.withNetwork,withNetwork);
 		this.withNetwork = withNetwork;
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {
+		publishPropertyEvent("currentPlayer",this.currentPlayer,currentPlayer);
 		this.currentPlayer = currentPlayer;
 	}
 
@@ -586,6 +590,95 @@ public class GameController extends Observable {
 		return state;
 	}
 
+	/**
+	 * @param board the board to set
+	 */
+	public void setBoard(Board board) {
+		publishPropertyEvent("board",this.board,board);
+		this.board = board;
+	}
+
+
+	/**
+	 * @param chanceCardList the chanceCardList to set
+	 */
+	public void setChanceCardList(LinkedList<Card> chanceCardList) {
+		publishPropertyEvent("chanceCardList",this.chanceCardList,chanceCardList);
+		this.chanceCardList = chanceCardList;
+	}
+
+
+	/**
+	 * @param communityChestCardList the communityChestCardList to set
+	 */
+	public void setCommunityChestCardList(LinkedList<Card> communityChestCardList) {
+		publishPropertyEvent("communityChestCardList",this.communityChestCardList,communityChestCardList);
+		this.communityChestCardList = communityChestCardList;
+	}
+
+
+	/**
+	 * @param rollThreeCardList the rollThreeCardList to set
+	 */
+	public void setRollThreeCardList(LinkedList<OwnableCard> rollThreeCardList) {
+		publishPropertyEvent("rollThreeCardList",this.rollThreeCardList,rollThreeCardList);
+		this.rollThreeCardList = rollThreeCardList;
+	}
+
+
+	/**
+	 * @param poolMoney the poolMoney to set
+	 */
+	public void setPoolMoney(int poolMoney) {
+		publishPropertyEvent("poolMoney",this.poolMoney,poolMoney);
+		this.poolMoney = poolMoney;
+	}
+
+
+	/**
+	 * @param die1Value the die1Value to set
+	 */
+	public void setDie1Value(DieValue die1Value) {
+		publishPropertyEvent("die1Value",this.die1Value,die1Value);
+		this.die1Value = die1Value;
+	}
+
+
+	/**
+	 * @param die2Value the die2Value to set
+	 */
+	public void setDie2Value(DieValue die2Value) {
+		publishPropertyEvent("die2Value",this.die2Value,die2Value);
+		this.die2Value = die2Value;
+	}
+
+
+	/**
+	 * @param die3Value the die3Value to set
+	 */
+	public void setDie3Value(DieValue die3Value) {
+		publishPropertyEvent("die3Value",this.die3Value,die3Value);
+		this.die3Value = die3Value;
+	}
+
+
+	/**
+	 * @param playerSentToJailForDouble the playerSentToJailForDouble to set
+	 */
+	public void setPlayerSentToJailForDouble(boolean playerSentToJailForDouble) {
+		publishPropertyEvent("PlayerSentToJailForDouble",this.playerSentToJailForDouble,playerSentToJailForDouble);
+		this.playerSentToJailForDouble = playerSentToJailForDouble;
+	}
+
+
+	/**
+	 * @param instance the instance to set
+	 */
+	public static void setInstance(GameController instance) {
+		GameController.instance = instance;
+	}
+
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -607,6 +700,7 @@ public class GameController extends Observable {
 	}
 
 	public void setPaused(boolean isPaused) {
+		publishPropertyEvent("isPaused", this.isPaused, isPaused);
 		this.isPaused = isPaused;
 	}
 	
