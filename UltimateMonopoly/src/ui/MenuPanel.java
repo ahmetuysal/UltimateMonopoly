@@ -49,7 +49,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private JButton selectGameButton;
 
 	private JList<String> savedGamesList;
-	
+
 	private JLabel ultimateMonopolyLogo;
 
 	private Choice numOfPlayerPossibleChoices;
@@ -152,7 +152,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 ;
+		int x = (menuPanelWidth - width) / 2;
 		int y = (menuPanelHeight - height) / 2 - 3 * height / 2;
 
 		newGameButton.setBounds(x, y, width, height);
@@ -160,34 +160,35 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		newGameButton.addActionListener(this);
 
 	}
-	
+
 	private void loadGameButton() {
 		loadGameButton = new JButton("Load Game");
 		loadGameButton.setBackground(Color.WHITE);
 		loadGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
-		
+
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
-		
-		int x = (menuPanelWidth - width)/ 2;
-		int y = (menuPanelHeight - height) / 2 ;
-		
+
+		int x = (menuPanelWidth - width) / 2;
+		int y = (menuPanelHeight - height) / 2;
+
 		loadGameButton.setBounds(x, y, width, height);
 		loadGameButton.setVisible(true);
-		loadGameButton.addActionListener(this);	
+		loadGameButton.addActionListener(this);
 	}
-	
+
 	private void selectGameButton(int y) {
 		selectGameButton = new JButton("Select Game");
 		selectGameButton.setBackground(Color.WHITE);
 		selectGameButton.setFont(new Font("Sans", Font.BOLD, menuPanelHeight / 60));
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
-		int x = (menuPanelWidth - width)/ 2;	
-		
+		int x = (menuPanelWidth - width) / 2;
+
 		selectGameButton.setBounds(x, y, width, height);
 		selectGameButton.setVisible(true);
-		selectGameButton.addActionListener(this);;
+		selectGameButton.addActionListener(this);
+		;
 
 	}
 
@@ -201,13 +202,13 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		networkButton.setOpaque(true);
 		networkButton.setBorderPainted(false);
 		networkButton.setFocusPainted(false);
-		
+
 		int width = menuPanelWidth / 8;
-		int height =  menuPanelHeight / 15;
-		
+		int height = menuPanelHeight / 15;
+
 		int x = (menuPanelWidth - width) / 2;
-		int y = (menuPanelHeight - 5*height) / 2;
-		
+		int y = (menuPanelHeight - 5 * height) / 2;
+
 		networkButton.setBounds(x, y, width, height);
 		networkButton.setVisible(true);
 		networkButton.setActionCommand("Network");
@@ -249,7 +250,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int width = menuPanelWidth / 10;
 		int height = menuPanelHeight / 15;
 
-		int x = (menuPanelWidth - width) / 2 ;
+		int x = (menuPanelWidth - width) / 2;
 		int y = (menuPanelHeight - height) / 2 + 3 * height / 2;
 
 		quitGameButton.setBounds(x, y, width, height);
@@ -280,7 +281,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		int height = menuPanelHeight / 20;
 
 		int x = (menuPanelWidth - width) / 2;
-		int y = (menuPanelHeight - height) / 2 + height / 2;
+		int y = (menuPanelHeight - height) / 2 + height;
 
 		continueButton.setBounds(x, y, width, height);
 		continueButton.setVisible(true);
@@ -291,27 +292,30 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		numOfPlayerPossibleChoices = new Choice();
 
 		int width = menuPanelWidth / 10;
-		int height = menuPanelHeight / 10;
+		int height = menuPanelHeight / 30;
 
 		int x = (menuPanelWidth - width) / 2;
-		int y = (menuPanelHeight - height) / 2;
+		int y = (menuPanelHeight - height * 4) / 2;
 
 		numOfPlayerPossibleChoices.setBounds(x, y, width, height);
-		numOfPlayerPossibleChoices.setSize(width, height);
+		numOfPlayerPossibleChoices.setBackground(Color.WHITE);
+		// numOfPlayerPossibleChoices.setSize(width, height);
 		numOfPlayerPossibleChoices.setFont(new Font("Sans", Font.CENTER_BASELINE, menuPanelHeight / 60));
+
 		for (int i = this.minPlayerNum; i <= this.maxPlayerNum; i++) {
 			numOfPlayerPossibleChoices.add("" + i);
 		}
+
 	}
 
 	public void possibleTokenChoices() {
 		this.possibleTokenChoices = new Choice();
 
 		int width = menuPanelWidth / 10;
-		int height = menuPanelHeight / 10;
+		int height = menuPanelHeight / 30;
 
 		int x = (menuPanelWidth - width) / 2;
-		int y = (int) (menuPanelHeight - height) / 2;
+		int y = (int) (menuPanelHeight - 5*height) / 2;
 
 		this.possibleTokenChoices.setBounds(x, y, width, height);
 		this.possibleTokenChoices.setSize(width, height);
@@ -323,7 +327,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		this.possibleTokenChoices.addItemListener(this);
 
 		this.selectedTokenImage = new JLabel();
-		selectedTokenImage.setBounds((menuPanelWidth - width) / 2 + width / 4, y + height / 4, width / 2, width / 2);
+		selectedTokenImage.setBounds((menuPanelWidth - width) / 2 + width / 4, y + 3 * height / 2 , width / 2, width / 2);
 		try {
 			Image tmp;
 			String osName = System.getProperty("os.name").toLowerCase();
@@ -361,38 +365,37 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 		// this.usernameInputTextField.getSele
 	}
-	
+
 	private void loadGame() {
 		GameStateJSONConverter jsonConverter = GameStateJSONConverter.getInstance();
 		List<String> savedGames = jsonConverter.getSavedStateNames();
 		if (savedGames.isEmpty()) {
-			JOptionPane.showMessageDialog(mainFrame, "You don't have any saved games.", "Load Game", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(mainFrame, "You don't have any saved games.", "Load Game",
+					JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+
 		savedGamesList = new JList(savedGames.toArray());
 		savedGamesList.setSelectedIndex(0);
 		savedGamesList.setFont(new Font("Courier New", Font.PLAIN, menuPanelHeight / 60));
-		
+
 		int width = menuPanelWidth / 3;
 		int height = menuPanelHeight / 3;
 		int x = (menuPanelWidth - width) / 2;
 		int y = (menuPanelHeight - height) / 2;
-		
-		
+
 		savedGamesList.setSize(width, height);
 		JScrollPane scrollPane = new JScrollPane(savedGamesList);
-		scrollPane.setBounds(x, y ,width, height);
-		
+		scrollPane.setBounds(x, y, width, height);
+
 		menuButton();
 		selectGameButton(y + height * 11 / 10);
 		removeAll();
-		
-		
+
 		add(scrollPane);
 		add(menuButton);
 		add(selectGameButton);
-		
+
 		scrollPane.validate();
 		repaint();
 	}
@@ -418,9 +421,9 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Continue":
 			numOfPlayers = Integer.parseInt(numOfPlayerPossibleChoices.getSelectedItem());
-			if(networkButton.getText().equals("Play with Network")){
+			if (networkButton.getText().equals("Play with Network")) {
 				controller.setWithNetwork(true);
-			}else{
+			} else {
 				controller.setWithNetwork(false);
 			}
 			registerUsers();
@@ -429,7 +432,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem());
 			break;
 		case "Select Game":
-			controller.loadGame(((String)savedGamesList.getSelectedValue()).split(" ")[0]);
+			controller.loadGame(((String) savedGamesList.getSelectedValue()).split(" ")[0]);
 			mainFrame.toGameRoomPanel();
 			break;
 		case "Start Game":
@@ -437,12 +440,12 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Network":
 			remove(numOfPlayerPossibleChoices);
-			if(networkButton.getText().equals("Online")){
+			if (networkButton.getText().equals("Online")) {
 				networkButton.setText("Offline");
 				networkButton.setBackground(Color.GRAY);
 				minPlayerNum = 2;
 				maxPlayerNum = 6;
-			}else{
+			} else {
 				networkButton.setText("Online");
 				networkButton.setBackground(Color.GREEN);
 				minPlayerNum = 1;
@@ -450,7 +453,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			}
 			this.numOfPlayerPossibleChoices();
 			add(numOfPlayerPossibleChoices);
-			//repaint();
+			// repaint();
 			break;
 		}
 	}
