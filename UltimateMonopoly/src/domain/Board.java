@@ -404,5 +404,17 @@ public class Board {
 		return true;
 
 	}
+	
+	public static boolean isCornerSquare(Location loc) {
+		if (loc.getLayer() == 0) {
+			return loc.getIndex()%6 == 0;
+		}
+		else if (loc.getLayer() == 1) {
+			return loc.getIndex() % 10 == 0;
+		}
+		else {
+			return loc.getIndex() % 14 == 0;
+		}
+	}
 
 }
