@@ -46,6 +46,7 @@ public class GameRoomPanel extends JPanel implements ActionListener {
 	private JButton pauseButton;
 	
 	private List<UIToken> UITokens = new ArrayList<>();
+	private GenericAnimator animator;
 	
 	private PlayButtonPanel playButtons;
 	private PlayerPanel playerPanel;
@@ -64,7 +65,10 @@ public class GameRoomPanel extends JPanel implements ActionListener {
 		setVisible(true);
 		setBackground(new Color(175, 231, 204));
 		setLayout(null);
-
+		// Add generic animator
+		animator = new GenericAnimator(this);
+		new Thread(animator).start();
+		
 		squareUnitSize = frameHeight / 17;
 		boardStartX = squareUnitSize/10;
 		tokenSize = squareUnitSize;
@@ -276,15 +280,19 @@ public class GameRoomPanel extends JPanel implements ActionListener {
 			UITokens.add(uiToken);
 			setComponentZOrder(uiToken, 0);
 			add(uiToken);
-			TokenLocationChanged(uiToken, null, new Location(1, 0));
+			animator.addAnimatable(uiToken);
+			TokenLocationChanged(uiToken, new Location(1, 0), new Location(1, 0), 1);
 		}
 		repaint();
 	}
 
-	public void TokenLocationChanged(UIToken token, Location oldLocation, Location newLocation) {
+	public void TokenLocationChanged(UIToken token, Location oldLocation, Location newLocation, double completedRatio) {
 		// TODO change with animation
-		token.setLocation(getCoordinate(newLocation.getLayer(), newLocation.getIndex()));
-		repaint();
+		Point oldCoord = getCoordinate(oldLocation.getLayer(), oldLocation.getIndex());
+		Point newCoord = getCoordinate(newLocation.getLayer(), newLocation.getIndex());
+		token.setLocation((int) (oldCoord.getX() + completedRatio * (newCoord.getX() - oldCoord.getX())),
+				(int)(oldCoord.getY() + completedRatio * (newCoord.getY() - oldCoord.getY())));
+		//repaint();
 	}
 
 	
