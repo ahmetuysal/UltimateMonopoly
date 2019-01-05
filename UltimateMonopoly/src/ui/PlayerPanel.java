@@ -87,8 +87,7 @@ public class PlayerPanel extends JPanel {
 		panel2.setLayout(new GridLayout(1,1));
 		panel2.add(properties);
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setLayout(null);
-	
+		
 		scrollPane.setViewportView(panel2);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		
