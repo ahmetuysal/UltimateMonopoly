@@ -330,9 +330,11 @@ public class GameController extends Observable {
 		
 		if(cup.isMrMonopoly()) {
 			actionQueue.add("mrmonopoly");
-		}else if(cup.isBusIcon()) {
+		}
+		if(cup.isBusIcon()) {
 			actionQueue.add("busicon");
-		}else if(cup.isDouble()) {
+		}
+		if(cup.isDouble()) {
 			consecutiveDoubles++;
 			if (consecutiveDoubles == 3) {
 				currentPlayer.goToJail();
