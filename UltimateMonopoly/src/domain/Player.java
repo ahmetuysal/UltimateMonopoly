@@ -230,13 +230,25 @@ public class Player extends Observable implements Serializable {
 	public void addProperty(OwnableSquare prop) {
 		if (this.properties == null)
 			properties = new ArrayList<>();
+		
+		List<OwnableSquare> oldVal = this.properties;
 		this.properties.add(prop);
+		publishPropertyEvent("properties", oldVal, this.properties);
 	}
 
 	public boolean removeProperty(OwnableSquare prop) {
 		if (this.properties == null)
 			properties = new ArrayList<>();
-		return this.properties.remove(prop);
+		
+		List<OwnableSquare> oldVal = this.properties;
+		
+		if(this.properties.remove(prop)) {
+			publishPropertyEvent("properties", oldVal, this.properties);
+			return true;
+		}
+		
+		return false;
+	
 	}
 
 	/**

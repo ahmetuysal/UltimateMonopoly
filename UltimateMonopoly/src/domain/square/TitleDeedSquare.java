@@ -291,4 +291,15 @@ public class TitleDeedSquare extends OwnableSquare {
 		return true;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.name +":\nRent Value: "+ rentValue + "\nnumHouses: " + numHouses + "\nnumHotels: " + numHotels
+				+ "\nnumSkyscrapers: " + numSkyscrapers + "\ncolor: " + color ;
+	}
+	
+	
+
 }
