@@ -8,8 +8,9 @@ import java.util.List;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-
+import javax.swing.ScrollPaneLayout;
 
 import domain.GameController;
 import domain.Player;
@@ -32,12 +33,15 @@ public class PlayerPanel extends JPanel {
 		
 		
 		setSize(width, height);
-		setLayout(null);		
+		setLayout(null);
+		
 		setVisible(true);
+		
 
 		initPlayerInfos();
 		
 	}
+	
 	
 	
 	private void initPlayerInfos() {
@@ -62,6 +66,7 @@ public class PlayerPanel extends JPanel {
 	}
 	
 	
+	
 	private JTabbedPane createPlayerTabbedPane(Player player) {
 		JTabbedPane pane = new JTabbedPane();
 		
@@ -81,12 +86,19 @@ public class PlayerPanel extends JPanel {
 		JPanel panel2 = new JPanel(false);
 		panel2.setLayout(new GridLayout(1,1));
 		panel2.add(properties);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setLayout(null);
+	
+		scrollPane.setViewportView(panel2);
+		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+		
 		
 		pane.addTab("Properties", panel2);
 		
 		player.addPropertyListener("money", playerInfo);
 		player.addPropertyListener("properties", properties);
 		
+		pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		pane.setVisible(true);
 		pane.setBackground(this.getBackground());
 		
