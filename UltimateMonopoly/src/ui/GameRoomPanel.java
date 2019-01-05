@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import domain.GameController;
 import domain.Token;
 import domain.square.Location;
+import ui.animation.GenericAnimator;
 
 public class GameRoomPanel extends JPanel implements ActionListener {
 

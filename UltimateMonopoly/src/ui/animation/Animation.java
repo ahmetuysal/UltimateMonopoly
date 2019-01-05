@@ -1,4 +1,4 @@
-package ui;
+package ui.animation;
 
 public interface Animation {
 

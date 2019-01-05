@@ -17,6 +17,9 @@ import domain.Token;
 import domain.square.Location;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
+import ui.animation.Animatable;
+import ui.animation.Animation;
+import ui.animation.TokenMoveAnimation;
 
 public class UIToken extends JLabel implements PropertyListener, Animatable {
 
@@ -61,7 +64,7 @@ public class UIToken extends JLabel implements PropertyListener, Animatable {
 		if (e.getPropertyName().equals("location")) {
 			this.location = (Location) e.getNewValue();
 			if (Board.isCornerSquare((Location) e.getNewValue()))
-				waitingAnimations.addLast(new TokenMoveAnimation(this, (Location) e.getOldValue(), (Location) e.getNewValue(), 0.05));
+				waitingAnimations.addLast(new TokenMoveAnimation(this, (Location) e.getOldValue(), (Location) e.getNewValue(), 0.075));
 			else
 				waitingAnimations.addLast(new TokenMoveAnimation(this, (Location) e.getOldValue(), (Location) e.getNewValue()));
 			// changeLocation((Location) e.getNewValue());
