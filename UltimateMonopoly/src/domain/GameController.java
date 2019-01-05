@@ -246,6 +246,10 @@ public class GameController extends Observable {
 	public void increasePoolMoney(int amount) {
 		poolMoney += amount;
 	}
+	
+	public void decreasePoolMoney(int amount) {
+		poolMoney -= amount;
+	}
 
 	/**
 	 * Registers a new player with the given nick name and token name if arguments
