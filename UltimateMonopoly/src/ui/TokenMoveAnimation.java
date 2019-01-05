@@ -12,7 +12,7 @@ public class TokenMoveAnimation implements Animation {
 	private double completedRate;
 
 	public TokenMoveAnimation(UIToken token, Location startingLocation, Location endingLocation) {
-		this(token, startingLocation, endingLocation, 0.1);
+		this(token, startingLocation, endingLocation, 0.15);
 	}
 	
 	public TokenMoveAnimation(UIToken token, Location startingLocation, Location endingLocation, double stepRate) {
