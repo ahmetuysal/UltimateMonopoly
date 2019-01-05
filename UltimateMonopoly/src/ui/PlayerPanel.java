@@ -70,7 +70,7 @@ public class PlayerPanel extends JPanel {
 	private JTabbedPane createPlayerTabbedPane(Player player) {
 		JTabbedPane pane = new JTabbedPane();
 		
-		ObserverLabel playerInfo = new ObserverLabel(40,100, player.getNickName(), "playerInfo");
+		ObserverLabel playerInfo = new ObserverLabel(40,100, player, "playerInfo");
 		playerInfo.setHorizontalAlignment(JLabel.LEFT);
 		
 		JPanel panel = new JPanel(false);
@@ -79,7 +79,7 @@ public class PlayerPanel extends JPanel {
 		
 		pane.addTab("Player Info", panel);
 		
-		ObserverLabel properties = new ObserverLabel(40,100, player.getNickName(), "properties");
+		ObserverLabel properties = new ObserverLabel(40,100, player, "properties");
 		properties.setHorizontalAlignment(JLabel.LEFT);
 		properties.setVerticalAlignment(JLabel.TOP);
 		

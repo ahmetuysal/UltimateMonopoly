@@ -13,6 +13,20 @@ public class GenericAnimator implements Runnable {
 	private boolean animatorStopped = false;
 	private JPanel animationPanel;
 
+	/**
+	 * @return the animatorStopped
+	 */
+	public boolean isAnimatorStopped() {
+		return animatorStopped;
+	}
+
+	/**
+	 * @param animatorStopped the animatorStopped to set
+	 */
+	public void setAnimatorStopped(boolean animatorStopped) {
+		this.animatorStopped = animatorStopped;
+	}
+
 	public GenericAnimator(JPanel animationPanel) {
 		this.animationPanel = animationPanel;
 		elementsToAnimate = new ArrayList<>();
