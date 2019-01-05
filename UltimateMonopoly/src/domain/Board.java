@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ import domain.square.UtilitySquareType;
  *
  */
 
-public class Board {
+public class Board implements Serializable{
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;

@@ -1,6 +1,8 @@
 package domain.square;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
 	
 	private int layer;
 	private int index;
