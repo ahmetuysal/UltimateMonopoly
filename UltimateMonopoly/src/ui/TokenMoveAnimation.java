@@ -2,65 +2,53 @@ package ui;
 
 import domain.square.Location;
 
-public class TokenMoveAnimation {
+public class TokenMoveAnimation implements Animation {
 
-	private static final double ANIMATION_STEP_RATE = 0.1;
-	
+	private double ANIMATION_STEP_RATE;
+
+	private UIToken tokenToAnimate;
 	private Location startingLocation;
 	private Location endingLocation;
 	private double completedRate;
+
+	public TokenMoveAnimation(UIToken token, Location startingLocation, Location endingLocation) {
+		this(token, startingLocation, endingLocation, 0.1);
+	}
 	
-	public TokenMoveAnimation(Location startingLocation, Location endingLocation) {
+	public TokenMoveAnimation(UIToken token, Location startingLocation, Location endingLocation, double stepRate) {
 		this.startingLocation = startingLocation;
 		this.endingLocation = endingLocation;
 		this.completedRate = 0;
+		tokenToAnimate = token;
+		ANIMATION_STEP_RATE = stepRate;
 	}
 
-	public double increaseCompletedRate() {
+	private void increaseCompletedRate() {
 		this.completedRate += ANIMATION_STEP_RATE;
 		if (this.completedRate > 1)
 			this.completedRate = 1;
-		return this.completedRate;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "TokenMoveAnimation [startingLocation=" + startingLocation + ", endingLocation=" + endingLocation + "]";
+		return "TokenMoveAnimation [Token=" + tokenToAnimate + ", startingLocation=" + startingLocation
+				+ ", endingLocation=" + endingLocation + ", completedRate=" + completedRate + "]";
 	}
 
-
-
-	/**
-	 * @return the startingLocation
-	 */
-	public Location getStartingLocation() {
-		return startingLocation;
+	@Override
+	public void animate() {
+		increaseCompletedRate();
+		tokenToAnimate.changeLocation(startingLocation, endingLocation, completedRate);
 	}
 
-	/**
-	 * @param startingLocation the startingLocation to set
-	 */
-	public void setStartingLocation(Location startingLocation) {
-		this.startingLocation = startingLocation;
+	@Override
+	public boolean isFinished() {
+		return this.completedRate >= 1;
 	}
-
-	/**
-	 * @return the endingLocation
-	 */
-	public Location getEndingLocation() {
-		return endingLocation;
-	}
-
-	/**
-	 * @param endingLocation the endingLocation to set
-	 */
-	public void setEndingLocation(Location endingLocation) {
-		this.endingLocation = endingLocation;
-	}
- 
-	
 
 }
