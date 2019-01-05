@@ -4,18 +4,18 @@ import domain.Player;
 
 public class UtilitySquare extends OwnableSquare {
 
-	private UtilitySquareType type;
+	private UtilitySquareType utilityType;
 
-	public UtilitySquare(String name, String description, int price, UtilitySquareType type) {
+	public UtilitySquare(String name, String description, int price, UtilitySquareType utilityType) {
 		super(name, description, price);
-		this.type = type;
+		this.utilityType = utilityType;
 	}
 
 	/**
 	 * @return the type
 	 */
 	public UtilitySquareType getType() {
-		return type;
+		return utilityType;
 	}
 
 	@Override
