@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 
 import domain.GameController;
 
+
+
 public class PlayButtonPanel extends JPanel implements ActionListener {
 
 	private ObserverButton rollDiceButton;
@@ -65,6 +67,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton = new ObserverButton("Roll Dice", false);
 		buyButton = new ObserverButton("Buy", true);
 		passTurnButton = new ObserverButton("Pass Turn",  true);
+		
+		controller.addPropertyListener("changeRoll",rollDiceButton);
+		controller.addPropertyListener("buyable",buyButton);
+		controller.addPropertyListener("pass", passTurnButton);
 		
 		controller.addPropertyListener("isTurnFinished", rollDiceButton);
 		controller.addPropertyListener("isTurnFinished", passTurnButton);

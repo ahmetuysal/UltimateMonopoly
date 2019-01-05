@@ -51,6 +51,8 @@ public class GameController extends Observable {
 	private boolean currentLocationBuyable;
 
 	private static GameController instance;
+	
+	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
 		if (instance == null) {
@@ -64,6 +66,7 @@ public class GameController extends Observable {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
+		actionQueue = new LinkedList<>();
 		initTokens();
 		initCards();
 	}
@@ -178,11 +181,14 @@ public class GameController extends Observable {
 	}
 
 	public void passTurn() {
-		if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
+		if(!actionQueue.isEmpty()) {
+			nextAction();
+		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
+			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 		}
 	}
@@ -308,6 +314,72 @@ public class GameController extends Observable {
 
 	public void playTurn() {
 		rollDice();
+		handleJail();
+		
+		if(currentPlayer.isInJail()) {
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}else if(cup.isTriple()) {
+			board.teleport(currentPlayer);
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
+		
+		
+		if(cup.isMrMonopoly()) {
+			actionQueue.add("mrmonopoly");
+		}else if(cup.isBusIcon()) {
+			actionQueue.add("busicon");
+		}else if(cup.isDouble()) {
+			consecutiveDoubles++;
+			if (consecutiveDoubles == 3) {
+				currentPlayer.goToJail();
+				playerSentToJailForDouble = true;
+				actionQueue.clear();
+				publishPropertyEvent("isTurnFinished", true, false);
+				return;
+			}
+			actionQueue.add("double");
+		}
+		
+		if(board.movePlayer(currentPlayer, cup.getTotal())) {
+			publishPropertyEvent("buyable",false,true);
+		}else {
+			publishPropertyEvent("buyable",false,false);
+		}
+		
+		publishPropertyEvent("changeRoll",true,false);
+		publishPropertyEvent("pass",false,true);
+	}
+	
+	public void handleJail() {
+		if (currentPlayer.isInJail()) {
+			if (cup.isDouble()) {
+				currentPlayer.getOutOfJail();
+			}
+			currentPlayer.decreaseJailTime();
+		}
+	}
+	
+	public void nextAction() {
+		String nextAction = actionQueue.removeFirst();
+		if(nextAction.equals("mrmonopoly")) {
+			board.moveToNextUnownedProperty(currentPlayer);
+			publishPropertyEvent("buyable",false,true);
+		}else if(nextAction.equals("busicon")) {
+			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
+			publishPropertyEvent("buyable",false,false);
+		//	publishPropertyEvent("pass",true, false);
+		}else if(nextAction.equals("double")) {
+			publishPropertyEvent("changeRoll", false, true);
+			publishPropertyEvent("pass",true, false);
+		}
+	}
+	
+	/*public void playTurn() {
+		rollDice();
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
@@ -334,6 +406,7 @@ public class GameController extends Observable {
 			consecutiveDoubles++;
 			if (consecutiveDoubles == 3) {
 				currentPlayer.goToJail();
+				actionQueue.clear();
 				playerSentToJailForDouble = true;
 				publishPropertyEvent("isTurnFinished", true, false);
 				return;
@@ -351,7 +424,7 @@ public class GameController extends Observable {
 			publishPropertyEvent("isTurnFinished", true, false);
 		}
 
-	}
+	}*/
 
 	private void setCurrentPlayer(int index) {
 		Player currentPlayer = players.get(index);

@@ -251,7 +251,7 @@ public class Board implements Serializable{
 		return tokens;
 	}
 
-	public void movePlayer(Player player, int distance) {
+	public boolean movePlayer(Player player, int distance) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
@@ -271,8 +271,14 @@ public class Board implements Serializable{
 				new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
+		
 		System.out.println("Token: " + token.toString());
+		if(sq instanceof OwnableSquare) {
+			if(!((OwnableSquare) sq).isOwned())
+				return true;
 
+		}
+		return false;
 	}
 
 	public void moveToNextOwnedProperty(Player player) {
@@ -294,7 +300,6 @@ public class Board implements Serializable{
 				((Passable) sq).passBy(player);
 			}
 		}
-
 	}
 
 	/**
@@ -383,6 +388,10 @@ public class Board implements Serializable{
 				((Passable) sq).passBy(player);
 			}
 		}
+	}
+	
+	public void teleport(Player player) {
+		
 	}
 
 	/**
