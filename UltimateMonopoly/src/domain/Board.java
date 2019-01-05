@@ -253,6 +253,7 @@ public class Board {
 	public void movePlayer(Player player, int distance) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;
+		if(player.isReverseDirection()) player.setReverseDirection(false);
 		int numSquaresInLayer = 0;
 		for (int i = 0; i < distance - 1; i++) {
 			Location oldLoc = token.getLocation();
