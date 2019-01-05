@@ -17,6 +17,9 @@ import domain.Token;
 import domain.square.Location;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
+import ui.animation.Animatable;
+import ui.animation.Animation;
+import ui.animation.TokenMoveAnimation;
 
 public class UIToken extends JLabel implements PropertyListener, Animatable {
 

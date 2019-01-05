@@ -1,6 +1,7 @@
-package ui;
+package ui.animation;
 
 import domain.square.Location;
+import ui.UIToken;
 
 public class TokenMoveAnimation implements Animation {
 
