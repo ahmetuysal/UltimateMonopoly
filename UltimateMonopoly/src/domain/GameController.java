@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import domain.card.Card;
@@ -19,6 +20,7 @@ import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
+import domain.util.PropertyListener;
 /**
  * Class that controls main flow of the game.
  * @overview Takes requests from UI part 
@@ -139,7 +141,9 @@ public class GameController extends Observable {
 	public void loadGame(String gameName) {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
+		System.out.println(savedState);
 		initializeWithGameState(savedState);
+		publishPropertyEvent("refresh", false, true);
 	}
 
 	public boolean saveGame(String gameName) {
@@ -305,7 +309,9 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
+
 		rollDice();
+				
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
@@ -628,5 +634,19 @@ public class GameController extends Observable {
 		if(poolMoney < 0)
 			return false;
 		return true;
+	}
+	
+	public void refreshPropertyListeners() {
+		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
+		List<PropertyListener> isPausedListeners = new ArrayList<>();
+		isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
+		newPropertyListeners.put("isPaused", new ArrayList<>());
+		propertyListenersMap = newPropertyListeners;
+		for(Token token : board.getTokens()) {
+			token.refreshPropertyListeners();
+		}
+		for (Player player : players) {
+			player.refreshPropertyListeners();
+		}
 	}
 }

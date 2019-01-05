@@ -182,7 +182,7 @@ public class Board {
 		squares[2].add(SquareFactory.getSquare("Chance"));
 		squares[2].add(SquareFactory.getSquare("Rodeo Drive"));
 
-		System.out.println(Arrays.toString(squares));
+		//System.out.println(Arrays.toString(squares));
 	}
 
 	public static int getLayerSize(int layer) {

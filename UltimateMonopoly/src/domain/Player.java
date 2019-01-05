@@ -363,4 +363,8 @@ public class Player extends Observable implements Serializable {
 		return true;
 	}
 
+	public void refreshPropertyListeners() {
+		propertyListenersMap = null;
+	}
+	
 }
