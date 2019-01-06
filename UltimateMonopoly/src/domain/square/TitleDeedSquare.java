@@ -139,7 +139,7 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
 		}
-		if(this.getOwner() == GameController.getInstance().getCurrentPlayer()) {
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
 			System.out.println("This is not your property!");
 			return false;
 		}
@@ -182,7 +182,7 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a hotel on an unowned property!");
 			return false;
 		}
-		if(this.getOwner() == GameController.getInstance().getCurrentPlayer()) {
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
 			System.out.println("This is not your property!");
 			return false;
 		}
@@ -216,7 +216,7 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
 		}
-		if(this.getOwner() == GameController.getInstance().getCurrentPlayer()) {
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
 			System.out.println("This is not your property!");
 			return false;
 		}

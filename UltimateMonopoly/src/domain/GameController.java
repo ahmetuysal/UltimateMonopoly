@@ -221,10 +221,10 @@ public class GameController extends Observable {
 			setCurrentPlayer(currentPlayerIndex);
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
-			publishPropertyEvent("buyHouse", true, false);
-			publishPropertyEvent("buyHotel", true, false);
-			publishPropertyEvent("buySkyscraper", true, false);
 		}
+		publishPropertyEvent("buyHouse", true, false);
+		publishPropertyEvent("buyHotel", true, false);
+		publishPropertyEvent("buySkyscraper", true, false);
 	}
 
 	public void buyProperty() {
