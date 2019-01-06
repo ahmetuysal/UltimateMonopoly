@@ -42,6 +42,8 @@ public abstract class Observable {
 		if (propertyListenersMap == null) {
 			propertyListenersMap = new HashMap<String, List<PropertyListener>>();
 			propertyListenersMap.put("all", new ArrayList<PropertyListener>());
+		}else if(!propertyListenersMap.containsKey("all")) {
+			propertyListenersMap.put("all", new ArrayList<PropertyListener>());
 		}
 	}
 

@@ -479,6 +479,7 @@ public class GameController extends Observable {
 		die2Value = newValues[1];
 		publishPropertyEvent("die3", die3Value, newValues[2]);
 		die3Value = newValues[2];
+		publishPropertyEvent("cup", 0, 1);
 	}
 
 	public void rollThree() {
