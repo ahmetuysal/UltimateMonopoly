@@ -147,7 +147,6 @@ public class GameController extends Observable {
 	public void loadGame(String gameName) {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
-		System.out.println(savedState);
 		initializeWithGameState(savedState);
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		assignTokensToBoardAfterLoadGame();
@@ -373,14 +372,14 @@ public class GameController extends Observable {
 			actionQueue.add("double");
 		}
 		
+		publishPropertyEvent("changeRoll",true,false);
+		publishPropertyEvent("pass",false,true);
+		
 		if(board.movePlayer(currentPlayer, cup.getTotal())) {
 			publishPropertyEvent("buyable",false,true);
 		}else {
 			publishPropertyEvent("buyable",false,false);
 		}
-		
-		publishPropertyEvent("changeRoll",true,false);
-		publishPropertyEvent("pass",false,true);
 		
 		if(currentPlayer.isInJail()) {
 			publishPropertyEvent("isTurnFinished", true, false);

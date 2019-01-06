@@ -22,6 +22,11 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 	private int panelWidth;
 	private int panelHeight;
 	
+	private boolean rollDiceBeforeStop = false;
+	private boolean buyBeforeStop = false;
+	private boolean passTurnBeforeStop = false;
+
+	
 	private GameController controller;
 		
 	public PlayButtonPanel(int width, int height, GameRoomPanel grpanel){
@@ -142,8 +147,22 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
+		System.out.println("Buradayim" + e);
 		// TODO Auto-generated method stub
-		this.setEnabled((boolean) e.getNewValue());
+		if ((boolean) e.getNewValue()) {
+			rollDiceBeforeStop = rollDiceButton.isEnabled();
+			rollDiceButton.setEnabled(false);
+			buyBeforeStop = buyButton.isEnabled();
+			buyButton.setEnabled(false);
+			passTurnBeforeStop = passTurnButton.isEnabled();
+			passTurnButton.setEnabled(false);
+		}
+		else {
+			rollDiceButton.setEnabled(rollDiceBeforeStop);
+			buyButton.setEnabled(buyBeforeStop);
+			passTurnButton.setEnabled(passTurnBeforeStop);
+		}
+		//this.setEnabled((boolean) e.getNewValue());
 	}
 
 }
