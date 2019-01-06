@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import domain.bot.BotPlayer;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.OwnableCard;
@@ -301,19 +302,28 @@ public class GameController extends Observable {
 	 * @return <tt>true</tt> if new player with nickName as its name and tokenName
 	 *         as its token is created, <tt>false</tt> otherwise.
 	 */
-	public boolean registerUser(String nickName, String tokenName) {
+	public boolean registerUser(String nickName, String tokenName, boolean isBot) {
 		if (Token.isTokenAvailable(tokenName) && !nickName.equals("")) {
 			for (int i = 0; i < players.size(); i++) {
 				if (players.get(i).getNickName().equals(nickName)) {
 					return false;
 				}
 			}
-
-			Player player = new Player(nickName);
-			Token token = new Token(Board.getStartLocation(), tokenName);
-			players.add(player);
-			player.setToken(token);
-			board.addToken(token);
+			
+			if(isBot) {
+				BotPlayer player = new BotPlayer(nickName);
+				Token token = new Token(Board.getStartLocation(), tokenName);
+				players.add(player);
+				player.setToken(token);
+				board.addToken(token);
+			}else {
+				Player player = new Player(nickName);
+				Token token = new Token(Board.getStartLocation(), tokenName);
+				players.add(player);
+				player.setToken(token);
+				board.addToken(token);
+			}
+			
 			return true;
 		} else {
 			return false;
