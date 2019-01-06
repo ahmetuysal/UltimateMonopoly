@@ -27,7 +27,7 @@ public class SqueezePlay extends Square {
 					p.decreaseMoney(50);
 				}
 			}
-			player.increaseMoney(50);
+			player.increaseMoney(50*(g.getPlayerList().size()-1));
 		}
 		else if(sumRolledValues == 3 || sumRolledValues == 4 || sumRolledValues == 10 || sumRolledValues == 11) {
 			for(Player p : g.getPlayerList()){
@@ -35,14 +35,14 @@ public class SqueezePlay extends Square {
 					p.decreaseMoney(100);
 				}
 			}
-			player.increaseMoney(100);
+			player.increaseMoney(100*(g.getPlayerList().size()-1));
 		}else if(sumRolledValues == 2 || sumRolledValues == 12) {
 			for(Player p : g.getPlayerList()){
 				if(g.getCurrentPlayer() != p) {
 					p.decreaseMoney(200);
 				}
 			}
-			player.increaseMoney(200);
+			player.increaseMoney(200*(g.getPlayerList().size()-1));
 		}
 	}
 
