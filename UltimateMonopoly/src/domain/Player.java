@@ -26,8 +26,8 @@ public class Player extends Observable implements Serializable {
 	private boolean isReverseDirection;
 	private boolean inJail;
 	private int jailTime;
-	private transient List<OwnableCard> cards;
-	private transient List<OwnableSquare> properties;
+	private List<OwnableCard> cards;
+	private List<OwnableSquare> properties;
 	private Token token;
 
 	private static final int START_MONEY = 3200;
@@ -311,6 +311,10 @@ public class Player extends Observable implements Serializable {
 
 	public List<OwnableSquare> getProperties() {
 		return properties;
+	}
+	
+	public void setProperties(List<OwnableSquare> newSq) {
+		this.properties = newSq;
 	}
 
 	public boolean repOK() {

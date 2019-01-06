@@ -14,10 +14,10 @@ import domain.Player;
  */
 public class TitleDeedSquare extends OwnableSquare {
 
-	private int rentValue;
-	private int[] rentWithHouses;
-	private int rentWithHotel;
-	private int rentWithSkyscrapers;
+	private transient int rentValue;
+	private transient int[] rentWithHouses;
+	private transient int rentWithHotel;
+	private transient int rentWithSkyscrapers;
 	private int numHouses;
 	private int numHotels;
 	private int numSkyscrapers;
