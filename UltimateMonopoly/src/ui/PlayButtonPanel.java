@@ -5,18 +5,31 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import domain.GameController;
+import domain.util.PropertyEvent;
+import domain.util.PropertyListener;
 
-public class PlayButtonPanel extends JPanel implements ActionListener {
+
+
+public class PlayButtonPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private ObserverButton rollDiceButton;
 	private ObserverButton buyButton;
 	private ObserverButton passTurnButton;
-	
+	private ObserverButton buyHouseButton;
+	private ObserverButton buyHotelButton;
+	private ObserverButton buySkyscraperButton;
+
 	private int panelWidth;
 	private int panelHeight;
+	
+	private boolean rollDiceBeforeStop = false;
+	private boolean buyBeforeStop = false;
+	private boolean passTurnBeforeStop = false;
+
 	
 	private GameController controller;
 		
@@ -29,6 +42,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		setLayout(null);
 		initDies();
 		initButtons();
+		
+		controller.addPropertyListener("drawCommunityChestCard",this);
+		controller.addPropertyListener("drawChanceCard",this);
+		controller.addPropertyListener("drawRollThreeCard",this);
 	}
 	
 	private void initDies() {
@@ -65,11 +82,24 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton = new ObserverButton("Roll Dice", false);
 		buyButton = new ObserverButton("Buy", true);
 		passTurnButton = new ObserverButton("Pass Turn",  true);
+		buyHouseButton = new ObserverButton("Buy House",  true);
+		buyHotelButton = new ObserverButton("Buy Hotel",  true);
+		buySkyscraperButton = new ObserverButton("Buy Skyscraper",  true);
+
+		
+		controller.addPropertyListener("changeRoll",rollDiceButton);
+		controller.addPropertyListener("buyable",buyButton);
+		controller.addPropertyListener("pass", passTurnButton);
 		
 		controller.addPropertyListener("isTurnFinished", rollDiceButton);
 		controller.addPropertyListener("isTurnFinished", passTurnButton);
 		controller.addPropertyListener("isTurnFinished", buyButton);
 		controller.addPropertyListener("currentLocationBuyable", buyButton);
+		
+		controller.addPropertyListener("buyHouse", buyHouseButton);
+		controller.addPropertyListener("buyHotel", buyHotelButton);
+		controller.addPropertyListener("buySkyscraper", buySkyscraperButton);
+
 		
 		int width = panelWidth / 5;
 		int height = panelHeight / 6;
@@ -79,10 +109,14 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		
 		int diff = panelHeight / 8 + height;
 		
-		rollDiceButton.setBounds(initx, inity, width, height);
-		buyButton.setBounds(initx + width / 4, inity + diff, width / 2, height);
-		passTurnButton.setBounds(initx, inity + 2*diff, width, height);
+		rollDiceButton.setBounds(initx - width / 2, inity, width, height);
+		buyButton.setBounds(initx - width / 4, inity + diff, width / 2, height);
+		passTurnButton.setBounds(initx - width / 2, inity + 2 * diff, width, height);
 		
+		buyHouseButton.setBounds(initx + 3 * width / 4 - diff, inity, width, height);
+		buyHotelButton.setBounds(initx + 3 * width / 4 - diff, inity + diff, width, height);
+		buySkyscraperButton.setBounds(initx + 3 * width / 4 - diff, inity + 2 * diff, width, height);
+
 		Font font = new Font("Sans", Font.BOLD, panelHeight / 7);
 		
 		
@@ -90,24 +124,53 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		buyButton.setFont(font);
 		passTurnButton.setFont(font);
 		
+		buyHouseButton.setFont(font);
+		buyHotelButton.setFont(font);
+		buySkyscraperButton.setFont(font);
+
+		
 		rollDiceButton.setBackground(Color.WHITE);
 		buyButton.setBackground(Color.WHITE);
 		passTurnButton.setBackground(Color.WHITE);
 		
+		buyHouseButton.setBackground(Color.WHITE);
+		buyHotelButton.setBackground(Color.WHITE);
+		buySkyscraperButton.setBackground(Color.WHITE);
+
+		
 		buyButton.setEnabled(false);
 		passTurnButton.setEnabled(false);
+		
+		buyHouseButton.setEnabled(false);
+		buyHotelButton.setEnabled(false);
+		buySkyscraperButton.setEnabled(false);
+
 		
 		rollDiceButton.setVisible(true);
 		buyButton.setVisible(true);
 		passTurnButton.setVisible(true);
 		
+		buyHouseButton.setVisible(true);
+		buyHotelButton.setVisible(true);
+		buySkyscraperButton.setVisible(true);
+
+		
 		rollDiceButton.addActionListener(this);
 		buyButton.addActionListener(this);
 		passTurnButton.addActionListener(this);
 		
+		buyHouseButton.addActionListener(this);
+		buyHotelButton.addActionListener(this);
+		buySkyscraperButton.addActionListener(this);
+
+		
 		add(rollDiceButton);
 		add(buyButton);
 		add(passTurnButton);
+		add(buyHouseButton);
+		add(buyHotelButton);
+		add(buySkyscraperButton);
+
 	}
 	
 	@Override
@@ -125,7 +188,36 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 			System.out.println("buy that");
 			controller.buyProperty();
 			break;
+		case "Buy House":
+			controller.buildHouse();
+			break;
+		case "Buy Hotel":
+			controller.buildHotel();
+			break;
+		case "Buy Skyscraper":
+			controller.buildSkyscraper();
+			break;
 		}
+	}
+
+	@Override
+	public void onPropertyEvent(PropertyEvent e) {
+		System.out.println("Buradayim" + e);
+		// TODO Auto-generated method stub
+		if ((boolean) e.getNewValue()) {
+			rollDiceBeforeStop = rollDiceButton.isEnabled();
+			rollDiceButton.setEnabled(false);
+			buyBeforeStop = buyButton.isEnabled();
+			buyButton.setEnabled(false);
+			passTurnBeforeStop = passTurnButton.isEnabled();
+			passTurnButton.setEnabled(false);
+		}
+		else {
+			rollDiceButton.setEnabled(rollDiceBeforeStop);
+			buyButton.setEnabled(buyBeforeStop);
+			passTurnButton.setEnabled(passTurnBeforeStop);
+		}
+		//this.setEnabled((boolean) e.getNewValue());
 	}
 
 }

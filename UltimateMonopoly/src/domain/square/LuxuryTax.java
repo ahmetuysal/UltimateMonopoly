@@ -14,9 +14,8 @@ public class LuxuryTax extends Square {
 	public void landOn(Player player) {
 		super.landOn(player);
 		// TODO implement square specific logic
-		int payment = 75;
-		player.decreaseMoney(payment);
-		GameController.getInstance().increasePoolMoney(payment);
+		player.decreaseMoney(75);
+		GameController.getInstance().increasePoolMoney(75);
 	}
 
 }

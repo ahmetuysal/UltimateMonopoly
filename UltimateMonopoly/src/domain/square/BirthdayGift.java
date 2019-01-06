@@ -12,8 +12,7 @@ public class BirthdayGift extends Square {
 	public void landOn(Player player) {
 		super.landOn(player);
 		// TODO implement square specific logic
-		int money = 100;
-		player.increaseMoney(money);
+		player.increaseMoney(100);
 	}
 
 }

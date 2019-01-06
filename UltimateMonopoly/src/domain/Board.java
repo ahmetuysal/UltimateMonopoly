@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ import domain.square.UtilitySquareType;
  *
  */
 
-public class Board {
+public class Board implements Serializable{
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
@@ -59,130 +60,128 @@ public class Board {
 	}
 
 	private void addSquares() {
-		squares[0].add(SquareFactory.getSquare("Squeeze Play"));
-		squares[0].add(SquareFactory.getSquare("The Embarcadero"));
-		squares[0].add(SquareFactory.getSquare("Fisherman's Wharf"));
-		squares[0].add(SquareFactory.getSquare("Telephone Company"));
-		squares[0].add(SquareFactory.getSquare("Community Chest"));
-		squares[0].add(SquareFactory.getSquare("Beacon Street"));
-		squares[0].add(SquareFactory.getSquare("Bonus"));
-		squares[0].add(SquareFactory.getSquare("Boylston Street"));
-		squares[0].add(SquareFactory.getSquare("Newbury Street"));
-		squares[0].add(SquareFactory.getSquare("Transit Station"));
-		squares[0].add(SquareFactory.getSquare("Fifth Avenue"));
-		squares[0].add(SquareFactory.getSquare("Madison Avenue"));
-		squares[0].add(SquareFactory.getSquare("Stock Exchange"));
-		squares[0].add(SquareFactory.getSquare("Wall Street"));
-		squares[0].add(SquareFactory.getSquare("Tax Refund"));
-		squares[0].add(SquareFactory.getSquare("Gas Company"));
-		squares[0].add(SquareFactory.getSquare("Chance"));
-		squares[0].add(SquareFactory.getSquare("Florida Avenue"));
-		squares[0].add(SquareFactory.getSquare("Holland Tunnel"));
-		squares[0].add(SquareFactory.getSquare("Miami Avenue"));
-		squares[0].add(SquareFactory.getSquare("Biscayne Avenue"));
-		squares[0].add(SquareFactory.getSquare("Transit Station"));
-		squares[0].add(SquareFactory.getSquare("Reverse Direction"));
-		squares[0].add(SquareFactory.getSquare("Lombard Street"));
+		squares[0].add(SquareFactory.getSquare("Squeeze Play").setLocation(new Location(0, 0)));
+		squares[0].add(SquareFactory.getSquare("The Embarcadero").setLocation(new Location(0, 1)));
+		squares[0].add(SquareFactory.getSquare("Fisherman's Wharf").setLocation(new Location(0, 2)));
+		squares[0].add(SquareFactory.getSquare("Telephone Company").setLocation(new Location(0, 3)));
+		squares[0].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(0, 4)));
+		squares[0].add(SquareFactory.getSquare("Beacon Street").setLocation(new Location(0, 5)));
+		squares[0].add(SquareFactory.getSquare("Bonus").setLocation(new Location(0, 6)));
+		squares[0].add(SquareFactory.getSquare("Boylston Street").setLocation(new Location(0, 7)));
+		squares[0].add(SquareFactory.getSquare("Newbury Street").setLocation(new Location(0, 8)));
+		squares[0].add(SquareFactory.getSquare("Transit Station").setLocation(new Location(0, 9)));
+		squares[0].add(SquareFactory.getSquare("Fifth Avenue").setLocation(new Location(0, 10)));
+		squares[0].add(SquareFactory.getSquare("Madison Avenue").setLocation(new Location(0, 11)));
+		squares[0].add(SquareFactory.getSquare("Stock Exchange").setLocation(new Location(0, 12)));
+		squares[0].add(SquareFactory.getSquare("Wall Street").setLocation(new Location(0, 13)));
+		squares[0].add(SquareFactory.getSquare("Tax Refund").setLocation(new Location(0, 14)));
+		squares[0].add(SquareFactory.getSquare("Gas Company").setLocation(new Location(0, 15)));
+		squares[0].add(SquareFactory.getSquare("Chance").setLocation(new Location(0, 16)));
+		squares[0].add(SquareFactory.getSquare("Florida Avenue").setLocation(new Location(0, 17)));
+		squares[0].add(SquareFactory.getSquare("Holland Tunnel").setLocation(new Location(0, 18)));
+		squares[0].add(SquareFactory.getSquare("Miami Avenue").setLocation(new Location(0, 19)));
+		squares[0].add(SquareFactory.getSquare("Biscayne Avenue").setLocation(new Location(0, 20)));
+		squares[0].add(SquareFactory.getSquare("Transit Station").setLocation(new Location(0, 21)));
+		squares[0].add(SquareFactory.getSquare("Reverse Direction").setLocation(new Location(0, 22)));
+		squares[0].add(SquareFactory.getSquare("Lombard Street").setLocation(new Location(0, 23)));
 
-		squares[1].add(SquareFactory.getSquare("Go"));
-		squares[1].add(SquareFactory.getSquare("Meditteranian Avenue"));
-		squares[1].add(SquareFactory.getSquare("Community Chest"));
-		squares[1].add(SquareFactory.getSquare("Baltic Avenue"));
-		squares[1].add(SquareFactory.getSquare("Income Tax"));
-		squares[1].add(SquareFactory.getSquare("Transit Station"));
-		squares[1].add(SquareFactory.getSquare("Oriental Avenue"));
-		squares[1].add(SquareFactory.getSquare("Chance"));
-		squares[1].add(SquareFactory.getSquare("Vermont Avenue"));
-		squares[1].add(SquareFactory.getSquare("Connecticut Avenue"));
-		squares[1].add(SquareFactory.getSquare("Jail"));
-		squares[1].add(SquareFactory.getSquare("St.Charles Place"));
-		squares[1].add(SquareFactory.getSquare("Electric Company"));
-		squares[1].add(SquareFactory.getSquare("States Avenue"));
-		squares[1].add(SquareFactory.getSquare("Virginia Avenue"));
-		squares[1].add(SquareFactory.getSquare("Pennsylvania Railroad"));
-		squares[1].add(SquareFactory.getSquare("St.James Place"));
-		squares[1].add(SquareFactory.getSquare("Community Chest"));
-		squares[1].add(SquareFactory.getSquare("Tennessee Avenue"));
-		squares[1].add(SquareFactory.getSquare("New York Avenue"));
-		squares[1].add(SquareFactory.getSquare("Free Parking"));
-		squares[1].add(SquareFactory.getSquare("Kentucky Avenue"));
-		squares[1].add(SquareFactory.getSquare("Chance"));
-		squares[1].add(SquareFactory.getSquare("Indiana Avenue"));
-		squares[1].add(SquareFactory.getSquare("Illinois Avenue"));
-		squares[1].add(SquareFactory.getSquare("Transit Station"));
-		squares[1].add(SquareFactory.getSquare("Atlantic Avenue"));
-		squares[1].add(SquareFactory.getSquare("Ventnor Avenue"));
-		squares[1].add(SquareFactory.getSquare("Water Works"));
-		squares[1].add(SquareFactory.getSquare("Marvin Gardens"));
-		squares[1].add(SquareFactory.getSquare("Roll Three"));
-		squares[1].add(SquareFactory.getSquare("Pacific Avenue"));
-		squares[1].add(SquareFactory.getSquare("North Carolina Avenue"));
-		squares[1].add(SquareFactory.getSquare("Community Chest"));
-		squares[1].add(SquareFactory.getSquare("Pennsylvania Avenue"));
-		squares[1].add(SquareFactory.getSquare("Short Line"));
-		squares[1].add(SquareFactory.getSquare("Chance"));
-		squares[1].add(SquareFactory.getSquare("Park Place"));
-		squares[1].add(SquareFactory.getSquare("Luxury Tax"));
-		squares[1].add(SquareFactory.getSquare("Boardwalk"));
+		squares[1].add(SquareFactory.getSquare("Go").setLocation(new Location(1, 0)));
+		squares[1].add(SquareFactory.getSquare("Meditteranian Avenue").setLocation(new Location(1, 1)));
+		squares[1].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(1, 2)));
+		squares[1].add(SquareFactory.getSquare("Baltic Avenue").setLocation(new Location(1, 3)));
+		squares[1].add(SquareFactory.getSquare("Income Tax").setLocation(new Location(1, 4)));
+		squares[1].add(SquareFactory.getSquare("Transit Station").setLocation(new Location(1, 5)));
+		squares[1].add(SquareFactory.getSquare("Oriental Avenue").setLocation(new Location(1, 6)));
+		squares[1].add(SquareFactory.getSquare("Chance").setLocation(new Location(1, 7)));
+		squares[1].add(SquareFactory.getSquare("Vermont Avenue").setLocation(new Location(1, 8)));
+		squares[1].add(SquareFactory.getSquare("Connecticut Avenue").setLocation(new Location(1, 9)));
+		squares[1].add(SquareFactory.getSquare("Jail").setLocation(new Location(1, 10)));
+		squares[1].add(SquareFactory.getSquare("St.Charles Place").setLocation(new Location(1, 11)));
+		squares[1].add(SquareFactory.getSquare("Electric Company").setLocation(new Location(1, 12)));
+		squares[1].add(SquareFactory.getSquare("States Avenue").setLocation(new Location(1, 13)));
+		squares[1].add(SquareFactory.getSquare("Virginia Avenue").setLocation(new Location(1, 14)));
+		squares[1].add(SquareFactory.getSquare("Pennsylvania Railroad").setLocation(new Location(1, 15)));
+		squares[1].add(SquareFactory.getSquare("St.James Place").setLocation(new Location(1, 16)));
+		squares[1].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(1, 17)));
+		squares[1].add(SquareFactory.getSquare("Tennessee Avenue").setLocation(new Location(1, 18)));
+		squares[1].add(SquareFactory.getSquare("New York Avenue").setLocation(new Location(1, 19)));
+		squares[1].add(SquareFactory.getSquare("Free Parking").setLocation(new Location(1, 20)));
+		squares[1].add(SquareFactory.getSquare("Kentucky Avenue").setLocation(new Location(1, 21)));
+		squares[1].add(SquareFactory.getSquare("Chance").setLocation(new Location(1, 22)));
+		squares[1].add(SquareFactory.getSquare("Indiana Avenue").setLocation(new Location(1, 23)));
+		squares[1].add(SquareFactory.getSquare("Illinois Avenue").setLocation(new Location(1, 24)));
+		squares[1].add(SquareFactory.getSquare("Transit Station").setLocation(new Location(1, 25)));
+		squares[1].add(SquareFactory.getSquare("Atlantic Avenue").setLocation(new Location(1, 26)));
+		squares[1].add(SquareFactory.getSquare("Ventnor Avenue").setLocation(new Location(1, 27)));
+		squares[1].add(SquareFactory.getSquare("Water Works").setLocation(new Location(1, 28)));
+		squares[1].add(SquareFactory.getSquare("Marvin Gardens").setLocation(new Location(1, 29)));
+		squares[1].add(SquareFactory.getSquare("Roll Three").setLocation(new Location(1, 30)));
+		squares[1].add(SquareFactory.getSquare("Pacific Avenue").setLocation(new Location(1, 31)));
+		squares[1].add(SquareFactory.getSquare("North Carolina Avenue").setLocation(new Location(1, 32)));
+		squares[1].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(1, 33)));
+		squares[1].add(SquareFactory.getSquare("Pennsylvania Avenue").setLocation(new Location(1, 34)));
+		squares[1].add(SquareFactory.getSquare("Short Line").setLocation(new Location(1, 35)));
+		squares[1].add(SquareFactory.getSquare("Chance").setLocation(new Location(1, 36)));
+		squares[1].add(SquareFactory.getSquare("Park Place").setLocation(new Location(1, 37)));
+		squares[1].add(SquareFactory.getSquare("Luxury Tax").setLocation(new Location(1, 38)));
+		squares[1].add(SquareFactory.getSquare("Boardwalk").setLocation(new Location(1, 39)));
 
-		squares[2].add(SquareFactory.getSquare("Subway"));
-		squares[2].add(SquareFactory.getSquare("Lake Street"));
-		squares[2].add(SquareFactory.getSquare("Community Chest"));
-		squares[2].add(SquareFactory.getSquare("Nicollet Avenue"));
-		squares[2].add(SquareFactory.getSquare("Hennepin Avenue"));
-		squares[2].add(SquareFactory.getSquare("Bus Ticket"));
-		squares[2].add(SquareFactory.getSquare("Checker Cab Co."));
-		squares[2].add(SquareFactory.getSquare("Reading Railroad"));
-		squares[2].add(SquareFactory.getSquare("Esplanade Avenue"));
-		squares[2].add(SquareFactory.getSquare("Canal Street"));
-		squares[2].add(SquareFactory.getSquare("Chance"));
-		squares[2].add(SquareFactory.getSquare("Cable Company"));
-		squares[2].add(SquareFactory.getSquare("Magazine Street"));
-		squares[2].add(SquareFactory.getSquare("Bourbon Street"));
-		squares[2].add(SquareFactory.getSquare("Holland Tunnel"));
-		squares[2].add(SquareFactory.getSquare("Auction"));
-		squares[2].add(SquareFactory.getSquare("Katy Freeway"));
-		squares[2].add(SquareFactory.getSquare("Westheimer Road"));
-		squares[2].add(SquareFactory.getSquare("Internet Service Provider"));
-		squares[2].add(SquareFactory.getSquare("Kirby Drive"));
-		squares[2].add(SquareFactory.getSquare("Cullen Boulevard"));
-		squares[2].add(SquareFactory.getSquare("Chance"));
-		squares[2].add(SquareFactory.getSquare("Black & White Cab Co."));
-		squares[2].add(SquareFactory.getSquare("Dekalb Avenue"));
-		squares[2].add(SquareFactory.getSquare("Community Chest"));
-		squares[2].add(SquareFactory.getSquare("Andrew Young Intl Boulevard"));
-		squares[2].add(SquareFactory.getSquare("Decatur Street"));
-		squares[2].add(SquareFactory.getSquare("Peachtree Street"));
-		squares[2].add(SquareFactory.getSquare("Pay Day"));
-		squares[2].add(SquareFactory.getSquare("Randolph Street"));
-		squares[2].add(SquareFactory.getSquare("Chance"));
-		squares[2].add(SquareFactory.getSquare("Lake Shore Drive"));
-		squares[2].add(SquareFactory.getSquare("Wacker Drive"));
-		squares[2].add(SquareFactory.getSquare("Michigan Avenue"));
-		squares[2].add(SquareFactory.getSquare("Yellow Cab Co."));
-		squares[2].add(SquareFactory.getSquare("B. & O. Railroad"));
-		squares[2].add(SquareFactory.getSquare("Community Chest"));
-		squares[2].add(SquareFactory.getSquare("South Temple"));
-		squares[2].add(SquareFactory.getSquare("West Temple"));
-		squares[2].add(SquareFactory.getSquare("Trash Collector"));
-		squares[2].add(SquareFactory.getSquare("North Temple"));
-		squares[2].add(SquareFactory.getSquare("Temple Square"));
-		squares[2].add(SquareFactory.getSquare("Go To Jail"));
-		squares[2].add(SquareFactory.getSquare("South Street"));
-		squares[2].add(SquareFactory.getSquare("Broad Street"));
-		squares[2].add(SquareFactory.getSquare("Walnut Street"));
-		squares[2].add(SquareFactory.getSquare("Community Chest"));
-		squares[2].add(SquareFactory.getSquare("Market Street"));
-		squares[2].add(SquareFactory.getSquare("Bus Ticket"));
-		squares[2].add(SquareFactory.getSquare("Sewage System"));
-		squares[2].add(SquareFactory.getSquare("Ute Cab Co."));
-		squares[2].add(SquareFactory.getSquare("Birthday Gift"));
-		squares[2].add(SquareFactory.getSquare("Mulholland Drive"));
-		squares[2].add(SquareFactory.getSquare("Ventura Boulevard"));
-		squares[2].add(SquareFactory.getSquare("Chance"));
-		squares[2].add(SquareFactory.getSquare("Rodeo Drive"));
-
-		System.out.println(Arrays.toString(squares));
+		squares[2].add(SquareFactory.getSquare("Subway").setLocation(new Location(2, 0)));
+		squares[2].add(SquareFactory.getSquare("Lake Street").setLocation(new Location(2, 1)));
+		squares[2].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(2, 2)));
+		squares[2].add(SquareFactory.getSquare("Nicollet Avenue").setLocation(new Location(2, 3)));
+		squares[2].add(SquareFactory.getSquare("Hennepin Avenue").setLocation(new Location(2, 4)));
+		squares[2].add(SquareFactory.getSquare("Bus Ticket").setLocation(new Location(2, 5)));
+		squares[2].add(SquareFactory.getSquare("Checker Cab Co.").setLocation(new Location(2, 6)));
+		squares[2].add(SquareFactory.getSquare("Reading Railroad").setLocation(new Location(2, 7)));
+		squares[2].add(SquareFactory.getSquare("Esplanade Avenue").setLocation(new Location(2, 8)));
+		squares[2].add(SquareFactory.getSquare("Canal Street").setLocation(new Location(2, 9)));
+		squares[2].add(SquareFactory.getSquare("Chance").setLocation(new Location(2, 10)));
+		squares[2].add(SquareFactory.getSquare("Cable Company").setLocation(new Location(2, 11)));
+		squares[2].add(SquareFactory.getSquare("Magazine Street").setLocation(new Location(2, 12)));
+		squares[2].add(SquareFactory.getSquare("Bourbon Street").setLocation(new Location(2, 13)));
+		squares[2].add(SquareFactory.getSquare("Holland Tunnel").setLocation(new Location(2, 14)));
+		squares[2].add(SquareFactory.getSquare("Auction").setLocation(new Location(2, 15)));
+		squares[2].add(SquareFactory.getSquare("Katy Freeway").setLocation(new Location(2, 16)));
+		squares[2].add(SquareFactory.getSquare("Westheimer Road").setLocation(new Location(2, 17)));
+		squares[2].add(SquareFactory.getSquare("Internet Service Provider").setLocation(new Location(2, 18)));
+		squares[2].add(SquareFactory.getSquare("Kirby Drive").setLocation(new Location(2, 19)));
+		squares[2].add(SquareFactory.getSquare("Cullen Boulevard").setLocation(new Location(2, 20)));
+		squares[2].add(SquareFactory.getSquare("Chance").setLocation(new Location(2, 21)));
+		squares[2].add(SquareFactory.getSquare("Black & White Cab Co.").setLocation(new Location(2, 22)));
+		squares[2].add(SquareFactory.getSquare("Dekalb Avenue").setLocation(new Location(2, 23)));
+		squares[2].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(2, 24)));
+		squares[2].add(SquareFactory.getSquare("Andrew Young Intl Boulevard").setLocation(new Location(2, 25)));
+		squares[2].add(SquareFactory.getSquare("Decatur Street").setLocation(new Location(2, 26)));
+		squares[2].add(SquareFactory.getSquare("Peachtree Street").setLocation(new Location(2, 27)));
+		squares[2].add(SquareFactory.getSquare("Pay Day").setLocation(new Location(2, 28)));
+		squares[2].add(SquareFactory.getSquare("Randolph Street").setLocation(new Location(2, 29)));
+		squares[2].add(SquareFactory.getSquare("Chance").setLocation(new Location(2, 30)));
+		squares[2].add(SquareFactory.getSquare("Lake Shore Drive").setLocation(new Location(2, 31)));
+		squares[2].add(SquareFactory.getSquare("Wacker Drive").setLocation(new Location(2, 32)));
+		squares[2].add(SquareFactory.getSquare("Michigan Avenue").setLocation(new Location(2, 33)));
+		squares[2].add(SquareFactory.getSquare("Yellow Cab Co.").setLocation(new Location(2, 34)));
+		squares[2].add(SquareFactory.getSquare("B. & O. Railroad").setLocation(new Location(2, 35)));
+		squares[2].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(2, 36)));
+		squares[2].add(SquareFactory.getSquare("South Temple").setLocation(new Location(2, 37)));
+		squares[2].add(SquareFactory.getSquare("West Temple").setLocation(new Location(2, 38)));
+		squares[2].add(SquareFactory.getSquare("Trash Collector").setLocation(new Location(2, 39)));
+		squares[2].add(SquareFactory.getSquare("North Temple").setLocation(new Location(2, 40)));
+		squares[2].add(SquareFactory.getSquare("Temple Square").setLocation(new Location(2, 41)));
+		squares[2].add(SquareFactory.getSquare("Go To Jail").setLocation(new Location(2, 42)));
+		squares[2].add(SquareFactory.getSquare("South Street").setLocation(new Location(2, 43)));
+		squares[2].add(SquareFactory.getSquare("Broad Street").setLocation(new Location(2, 44)));
+		squares[2].add(SquareFactory.getSquare("Walnut Street").setLocation(new Location(2, 45)));
+		squares[2].add(SquareFactory.getSquare("Community Chest").setLocation(new Location(2, 46)));
+		squares[2].add(SquareFactory.getSquare("Market Street").setLocation(new Location(2, 47)));
+		squares[2].add(SquareFactory.getSquare("Bus Ticket").setLocation(new Location(2, 48)));
+		squares[2].add(SquareFactory.getSquare("Sewage System").setLocation(new Location(2, 49)));
+		squares[2].add(SquareFactory.getSquare("Ute Cab Co.").setLocation(new Location(2, 50)));
+		squares[2].add(SquareFactory.getSquare("Birthday Gift").setLocation(new Location(2, 51)));
+		squares[2].add(SquareFactory.getSquare("Mulholland Drive").setLocation(new Location(2, 52)));
+		squares[2].add(SquareFactory.getSquare("Ventura Boulevard").setLocation(new Location(2, 53)));
+		squares[2].add(SquareFactory.getSquare("Chance").setLocation(new Location(2, 54)));
+		squares[2].add(SquareFactory.getSquare("Rodeo Drive").setLocation(new Location(2, 55)));
 	}
 
 	public static int getLayerSize(int layer) {
@@ -213,10 +212,8 @@ public class Board {
 	 */
 
 	public Location getSquareLocationFromName(String name) {
-		System.out.println(name);
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].size(); j++) {
-				System.out.println(i + " " + j);
 				if (squares[i].get(j).getName().equals(name)) {
 					return new Location(i, j);
 				}
@@ -225,18 +222,43 @@ public class Board {
 		return null;
 	}
 
-	public void buildHouse(Player currentPlayer, int houseNum) {
+	/*public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buyHouse();
 		}
+	}*/
+	
+	public void buildHouse(Player currentPlayer) {
+	Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+	if (currentSquare instanceof TitleDeedSquare) {
+		((TitleDeedSquare) currentSquare).buyHouse();
+		}
 	}
-
+	
+	public boolean houseCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).houseCheck())
+				return true;
+			}
+		return false;
+	}
+	
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buyHotel();
 		}
+	}
+	
+	public boolean hotelCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).hotelCheck())
+				return true;
+			}
+		return false;
 	}
 
 	public void buildSkyscraper(Player currentPlayer) {
@@ -245,12 +267,21 @@ public class Board {
 			((TitleDeedSquare) currentSquare).buySkyScraper();
 		}
 	}
+	
+	public boolean skyscraperCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).skyscraperCheck())
+				return true;		
+			}
+		return false;
+	}
 
 	public List<Token> getTokens() {
 		return tokens;
 	}
 
-	public void movePlayer(Player player, int distance) {
+	public boolean movePlayer(Player player, int distance) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;
 		if(player.isReverseDirection()) player.setReverseDirection(false);
@@ -271,8 +302,13 @@ public class Board {
 				new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
-		System.out.println("Token: " + token.toString());
+		
+		if(sq instanceof OwnableSquare) {
+			if(!((OwnableSquare) sq).isOwned())
+				return true;
 
+		}
+		return false;
 	}
 
 	public void moveToNextOwnedProperty(Player player) {
@@ -294,7 +330,6 @@ public class Board {
 				((Passable) sq).passBy(player);
 			}
 		}
-
 	}
 
 	/**
@@ -384,6 +419,10 @@ public class Board {
 			}
 		}
 	}
+	
+	public void teleport(Player player) {
+		
+	}
 
 	/**
 	 * @return the squares
@@ -404,6 +443,18 @@ public class Board {
 			return false;
 		return true;
 
+	}
+	
+	public static boolean isCornerSquare(Location loc) {
+		if (loc.getLayer() == 0) {
+			return loc.getIndex()%6 == 0;
+		}
+		else if (loc.getLayer() == 1) {
+			return loc.getIndex() % 10 == 0;
+		}
+		else {
+			return loc.getIndex() % 14 == 0;
+		}
 	}
 
 }

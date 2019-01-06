@@ -3,6 +3,7 @@ package ui;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -11,8 +12,10 @@ import javax.swing.JLabel;
 import domain.die.DieValue;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
+import ui.animation.Animatable;
+import ui.animation.Animation;
 
-public class UIDie extends JLabel implements PropertyListener {
+public class UIDie extends JLabel implements PropertyListener, Animatable {
 
 	private DieValue dieValue;
 	private static ImageIcon[] ICONS;
@@ -54,6 +57,11 @@ public class UIDie extends JLabel implements PropertyListener {
 		DieValue newVal = (DieValue) e.getNewValue(); 
 		this.dieValue = newVal;
 		this.setIcon(ICONS[newVal.getValue()]);
+	}
+
+	@Override
+	public LinkedList<Animation> getWaitingAnimations() {
+		return null;
 	}
 
 }
