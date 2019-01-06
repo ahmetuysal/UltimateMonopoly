@@ -90,16 +90,11 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 		case "Play Card":
 			controller.playCard();
 			this.setVisible(false);
-			grpanel.activatePlayButtons();
 			grpanel.repaint();
-			// Sorry for this dummy logic we had no time :(
-			if (keepCardButton.isEnabled()) {
-				controller.playRollThree();
-			}
 			break;
 		case "Keep Card":
+			controller.keepCard();
 			this.setVisible(false);
-			grpanel.activatePlayButtons();
 			grpanel.repaint();
 			break;
 		}

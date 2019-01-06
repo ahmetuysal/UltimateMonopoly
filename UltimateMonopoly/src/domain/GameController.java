@@ -50,6 +50,8 @@ public class GameController extends Observable {
 	private DieValue die1Value;
 	private DieValue die2Value;
 	private DieValue die3Value;
+	
+	private Card lastDrawnCard = null;
 
 	private boolean isPaused;
 	private boolean withNetwork;
@@ -251,9 +253,7 @@ public class GameController extends Observable {
 	public void drawChanceCard() {
 		Card card = chanceCardList.removeFirst();
 		publishPropertyEvent("cardNameChance", null, card.getName());
-		// assumed it will be used instanly for now
-		// will change it for ownable cards
-		card.useCard(currentPlayer, "");
+		lastDrawnCard = card;
 		chanceCardList.addLast(card);
 		publishPropertyEvent("drawChanceCard", true, false);
 	}
@@ -261,9 +261,7 @@ public class GameController extends Observable {
 	public void drawCommunityChestCard() {
 		Card card = communityChestCardList.removeFirst();
 		publishPropertyEvent("cardNameCommunityChest", null, card.getName());
-		// assumed it will be used instanly for now
-		// will change it for ownable cards
-		card.useCard(currentPlayer, "");
+		lastDrawnCard = card;
 		communityChestCardList.addLast(card);
 		publishPropertyEvent("drawCommunityChestCard", true, false);
 	}
@@ -271,7 +269,7 @@ public class GameController extends Observable {
 	public void drawRollThreeCard() {
 		OwnableCard card = rollThreeCardList.removeFirst();
 		publishPropertyEvent("cardNameRollThree", null, card.getName());
-		currentPlayer.addCard((OwnableCard) card);
+		lastDrawnCard = card;
 		rollThreeCardList.addLast(card);
 		publishPropertyEvent("drawRollThreeCard", true, false);
 	}
@@ -608,8 +606,25 @@ public class GameController extends Observable {
 	}
 
 	public void playCard() {
-		// TODO Auto-generated method stub
-
+		if (lastDrawnCard != null) {
+			if (lastDrawnCard instanceof RollThreeCard) {
+				currentPlayer.addCard((OwnableCard) lastDrawnCard);
+				playRollThree();
+			}
+			else
+				lastDrawnCard.useCard(currentPlayer, "");
+		}
+		lastDrawnCard = null;
+	}
+	
+	public void keepCard() {
+		if (lastDrawnCard != null) {
+			if (lastDrawnCard instanceof OwnableCard)
+				currentPlayer.addCard((OwnableCard) lastDrawnCard);
+			else
+				System.out.println("ERROR: You can only keep ownable cards.");
+		}
+		lastDrawnCard = null;
 	}
 
 	/**

@@ -288,9 +288,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		//repaint();
 	}
 	
-	public void activatePlayButtons() {
-		playButtons.setEnabled(true);
-	}
 
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);
