@@ -182,8 +182,6 @@ public class Board implements Serializable{
 		squares[2].add(SquareFactory.getSquare("Ventura Boulevard").setLocation(new Location(2, 53)));
 		squares[2].add(SquareFactory.getSquare("Chance").setLocation(new Location(2, 54)));
 		squares[2].add(SquareFactory.getSquare("Rodeo Drive").setLocation(new Location(2, 55)));
-
-		//System.out.println(Arrays.toString(squares));
 	}
 
 	public static int getLayerSize(int layer) {
@@ -214,10 +212,8 @@ public class Board implements Serializable{
 	 */
 
 	public Location getSquareLocationFromName(String name) {
-		System.out.println(name);
 		for (int i = 0; i < squares.length; i++) {
 			for (int j = 0; j < squares[i].size(); j++) {
-				System.out.println(i + " " + j);
 				if (squares[i].get(j).getName().equals(name)) {
 					return new Location(i, j);
 				}
@@ -272,7 +268,6 @@ public class Board implements Serializable{
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
 		
-		System.out.println("Token: " + token.toString());
 		if(sq instanceof OwnableSquare) {
 			if(!((OwnableSquare) sq).isOwned())
 				return true;
