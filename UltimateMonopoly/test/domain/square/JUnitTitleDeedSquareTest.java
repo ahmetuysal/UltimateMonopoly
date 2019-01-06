@@ -25,18 +25,18 @@ public class JUnitTitleDeedSquareTest {
 				TitleDeedSquareColor.DARK_BLUE);
 		boardWalk.buyProperty(owner);
 		// owner does not have majority ownership (has 1 out of 3)
-		assertFalse(boardWalk.buyHouse());
+		assertFalse(boardWalk.houseCheck());
 		(new TitleDeedSquare("MadeUpSquare", "dsc", 400, 0, 0, 0, 0, 0, 0, 0, TitleDeedSquareColor.DARK_BLUE)).buyProperty(owner);
 		// owner not has majority ownership (has 2 out of 3)
 		int playerMoneyBefore = owner.getTotalMoney();
-		assertTrue(boardWalk.buyHouse());
-		assertTrue(boardWalk.buyHouse());
-		assertTrue(boardWalk.buyHouse());
-		assertTrue(boardWalk.buyHouse());
-		assertFalse(boardWalk.buyHouse());
-		assertFalse(boardWalk.buyHouse());
-		assertFalse(boardWalk.buyHouse());
-		assertFalse(boardWalk.buyHouse());
+		assertTrue(boardWalk.houseCheck());
+		assertTrue(boardWalk.houseCheck());
+		assertTrue(boardWalk.houseCheck());
+		assertTrue(boardWalk.houseCheck());
+		assertFalse(boardWalk.houseCheck());
+		assertFalse(boardWalk.houseCheck());
+		assertFalse(boardWalk.houseCheck());
+		assertFalse(boardWalk.houseCheck());
 		int playerMoneyAfter = owner.getTotalMoney();
 		assertEquals(playerMoneyBefore, playerMoneyAfter + 4 *boardWalk.getColor().housePriceProperty());
 		assertEquals(boardWalk.getNumHouses(), 4);
@@ -51,19 +51,19 @@ public class JUnitTitleDeedSquareTest {
 				TitleDeedSquareColor.GREEN);
 		pacificAvenue.buyProperty(owner);
 		// owner does not have majority ownership (has 1 out of 3)
-		assertFalse(pacificAvenue.buyHotel());
+		assertFalse(pacificAvenue.hotelCheck());
 		(new TitleDeedSquare("MadeUpSquare", "dsc", 400, 0, 0, 0, 0, 0, 0, 0, TitleDeedSquareColor.GREEN)).buyProperty(owner);
 		// owner not has majority ownership (has 2 out of 3)
 		// property has 0 houses
-		assertFalse(pacificAvenue.buyHotel());
+		assertFalse(pacificAvenue.hotelCheck());
 		
 		pacificAvenue.setNumHouses(4);
 		int playerMoneyBefore = owner.getTotalMoney();
-		assertTrue(pacificAvenue.buyHotel());
-		assertFalse(pacificAvenue.buyHotel());
-		assertFalse(pacificAvenue.buyHotel());
-		assertFalse(pacificAvenue.buyHotel());
-		assertFalse(pacificAvenue.buyHotel());
+		assertTrue(pacificAvenue.hotelCheck());
+		assertFalse(pacificAvenue.hotelCheck());
+		assertFalse(pacificAvenue.hotelCheck());
+		assertFalse(pacificAvenue.hotelCheck());
+		assertFalse(pacificAvenue.hotelCheck());
 		int playerMoneyAfter = owner.getTotalMoney();
 		assertEquals(playerMoneyBefore, playerMoneyAfter +  pacificAvenue.getColor().hotelPriceProperty());
 		assertEquals(pacificAvenue.getNumHotels(), 1);

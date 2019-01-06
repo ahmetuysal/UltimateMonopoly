@@ -16,17 +16,35 @@ public class CommunicationFacade implements PropertyListener{
 	private static GameController gameController;
 	
 	static Connection connectionForSync = null; 
-	static Connection connectionForUpdate = null; 
+	//static Connection connectionForUpdate = null; 
     private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	
 	public CommunicationFacade() {
 		gameController = GameController.getInstance();
 		gameController.addPropertyListener(this);
 		connectToGameServerForSync();
-		periodicallyUpdateGameState();
-		connectToGameServerForUpdate();
+		sendYourStateToOtherConnecteds();
+		listenToTheServer();
+		//periodicallyUpdateGameState();
+		//connectToGameServerForUpdate();
 	}
 	
+	private void sendYourStateToOtherConnecteds() {
+		// TODO Auto-generated method stub
+		NetworkController.getInstance().getPlayerGameState().setPlayers(gameController.getPlayers());
+		connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
+	}
+
+	private void listenToTheServer() {
+		Thread t1 = new Thread(new Runnable() {
+		    @Override
+		    public void run() {
+		    	connectionForSync.listenForAChangeOnServer();
+		    }
+		});  
+		t1.start();
+	}
+
 	private static void connectToGameServerForSync() {
 
 		connectionForSync = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
@@ -36,8 +54,8 @@ public class CommunicationFacade implements PropertyListener{
 
 	private static void connectToGameServerForUpdate() {
 
-		connectionForUpdate = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
-		connectionForUpdate.Connect();
+		//connectionForUpdate = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
+		//connectionForUpdate.Connect();
 
 	}
 
@@ -63,14 +81,18 @@ public class CommunicationFacade implements PropertyListener{
 	}
 	
 	public void updateGameController(GameState gameState) {
+		/*
 		gameController.setConsecutiveDoubles(gameState.getConsecutiveDoubles());
 		gameController.setCurrentPlayer(gameState.getCurrentPlayer());
 		gameController.setCurrentPlayerIndex(gameState.getCurrentPlayerIndex());
 		gameController.setPlayers(gameState.getPlayers());
 		gameController.setCup(gameState.getCup());
+		*/
+		gameController.initializeWithGameState(gameState);
 	}
 	
 	public GameState getGameState() {
+		/*
 		GameState gameState = new GameState();
 		gameState.setConsecutiveDoubles(gameController.getConsecutiveDoubles());
 		gameState.setCup(gameController.getCup());
@@ -78,14 +100,21 @@ public class CommunicationFacade implements PropertyListener{
 		gameState.setPlayers(gameController.getPlayerList());
 		gameState.setCurrentPlayerIndex(gameController.getCurrentPlayerIndex());
 		return gameState;
+		*/
+		return gameController.toGameState();
 	}
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 	
-		NetworkController.getInstance().getPlayerGameState().setCup(gameController.getCup());
-		NetworkController.getInstance().getPlayerGameState().setType("update");
-        connectionForUpdate.updateGameState(NetworkController.getInstance().getPlayerGameState());
+		if(e.getPropertyName().equals("cup")) {
+			System.out.println("AAAAAAAAAAAAAAAAAAA");
+			NetworkController.getInstance().getPlayerGameState().setCup(gameController.getCup());
+			
+	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
+		}
+		
+		
 		
 	}
 	
