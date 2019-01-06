@@ -107,6 +107,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		playerPanel.setVisible(true);
 		playerPanel.setBackground(this.getBackground());
 		add(playerPanel);
+		repaint();
 	}
 
 	private void initializeCardPanel() {

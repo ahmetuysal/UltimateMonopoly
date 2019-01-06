@@ -157,11 +157,11 @@ public class GameController extends Observable {
 	
 	public void refreshWithGameState(GameState gs) {
 		this.setCup(gs.getCup());
-		this.setPlayers(gs.getPlayers());
 		// TODO add other fields
+		
+		this.setPlayers(gs.getPlayers());
 		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
-		assignTokensToBoardAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
 	}
 
