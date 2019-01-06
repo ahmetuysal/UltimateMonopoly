@@ -107,14 +107,9 @@ public class Cup implements Serializable {
 	}
 
 	public boolean isEven() {
-		if (faceValues[0].equals(0) || faceValues[0].equals(2) || faceValues[0].equals(4) || faceValues[0].equals(6)
-				|| faceValues[0].equals(0) || faceValues[0].equals(2) || faceValues[0].equals(4)
-				|| faceValues[0].equals(6)) {
-			return true;
-		} else {
-			return false;
-		}
+		return getTotal() % 2 == 0;
 	}
+
 
 	/**
 	 * finds the summation of the face values of dices rolled

@@ -7,7 +7,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import domain.die.Cup;
+import domain.die.Die;
 import domain.square.Location;
+import domain.square.Square;
+import domain.square.TransitStation;
 
 
 public class JUnitBoardTest {
@@ -104,4 +108,19 @@ public class JUnitBoardTest {
 		Location passableLoc = testBoard.getSquareLocationFromName("Go");
 		assertNotEquals(newLoc,passableLoc);
 	}
+	@Test
+	void testPassBy() {
+		Player player1 = new Player("p1");
+		//Board testBoard = new Board();
+		TransitStation transitStation= new TransitStation();
+		Location oldLoc =new Location(1,5); //testBoard.getSquareLocationFromName("Transit Station");
+		player1.setToken(new Token(oldLoc, "Barrow.png"));
+		Cup cup=new Cup();
+	
+		transitStation.passBy(player1);
+		Location newLoc = player1.getToken().getLocation();
+		
+		assertEquals(newLoc,new Location(2,5));
+	}
 }
+
