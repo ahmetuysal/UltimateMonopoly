@@ -108,19 +108,6 @@ public class JUnitBoardTest {
 		Location passableLoc = testBoard.getSquareLocationFromName("Go");
 		assertNotEquals(newLoc,passableLoc);
 	}
-	@Test
-	void testPassBy() {
-		Player player1 = new Player("p1");
-		//Board testBoard = new Board();
-		TransitStation transitStation= new TransitStation();
-		Location oldLoc =new Location(1,5); //testBoard.getSquareLocationFromName("Transit Station");
-		player1.setToken(new Token(oldLoc, "Barrow.png"));
-		Cup cup=new Cup();
 	
-		transitStation.passBy(player1);
-		Location newLoc = player1.getToken().getLocation();
-		
-		assertEquals(newLoc,new Location(2,5));
-	}
 }
 
