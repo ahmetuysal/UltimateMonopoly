@@ -351,11 +351,21 @@ public class GameController extends Observable {
 		publishPropertyEvent("changeRoll",true,false);
 		publishPropertyEvent("pass",false,true);
 		
+		handleBuilding();
+		
 		if(currentPlayer.isInJail()) {
 			publishPropertyEvent("isTurnFinished", true, false);
 			actionQueue.clear();
 			return;
 		}
+	}
+	public void handleBuilding() {
+		if(board.houseCheck(currentPlayer))
+			publishPropertyEvent("buyHouse", false, true);
+		if(board.hotelCheck(currentPlayer))
+			publishPropertyEvent("buyHotel", false, true);
+		if(board.skyscraperCheck(currentPlayer))
+			publishPropertyEvent("buySkyscraper", false, true);
 	}
 	
 	public void handleJail() {
@@ -457,14 +467,20 @@ public class GameController extends Observable {
 
 	public void buildHouse() {
 		board.buildHouse(currentPlayer);
+		if(!board.houseCheck(currentPlayer))
+			publishPropertyEvent("buyHouse", true, false);
 	}
 
 	public void buildHotel() {
 		board.buildHotel(currentPlayer);
+		if(!board.hotelCheck(currentPlayer))
+			publishPropertyEvent("buyHotel", true, false);
 	}
 
 	public void buildSkyscraper() {
 		board.buildSkyscraper(currentPlayer);
+		if(!board.skyscraperCheck(currentPlayer))
+			publishPropertyEvent("buySkyscraper", true, false);
 	}
 
 	public List<Player> getPlayers() {

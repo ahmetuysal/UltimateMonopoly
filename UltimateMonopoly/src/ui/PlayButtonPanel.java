@@ -91,9 +91,9 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 		controller.addPropertyListener("isTurnFinished", buyButton);
 		controller.addPropertyListener("currentLocationBuyable", buyButton);
 		
-		controller.addPropertyListener("isTurnFinished", buyHouseButton);
-		controller.addPropertyListener("isTurnFinished", buyHotelButton);
-		controller.addPropertyListener("isTurnFinished", buySkyscraperButton);
+		controller.addPropertyListener("buyHouse", buyHouseButton);
+		controller.addPropertyListener("buyHotel", buyHotelButton);
+		controller.addPropertyListener("buySkyscraper", buySkyscraperButton);
 
 		
 		int width = panelWidth / 5;
