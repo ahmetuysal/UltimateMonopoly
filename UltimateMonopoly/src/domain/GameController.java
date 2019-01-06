@@ -169,6 +169,8 @@ public class GameController extends Observable {
 		this.setCup(gs.getCup());
 		// TODO add other fields
 		this.setPlayers(gs.getPlayers());
+		this.setCurrentPlayerIndex(gs.getCurrentPlayerIndex());
+		setCurrentPlayer(currentPlayerIndex);
 		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
