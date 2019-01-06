@@ -21,7 +21,7 @@ public class CommunicationFacade implements PropertyListener{
 	
 	public CommunicationFacade() {
 		gameController = GameController.getInstance();
-		gameController.addPropertyListener(this);
+		gameController.addPropertyListener("cup", this);
 		connectToGameServerForSync();
 		sendYourStateToOtherConnecteds();
 		listenToTheServer();
