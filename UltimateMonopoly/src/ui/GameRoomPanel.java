@@ -180,27 +180,27 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		drawDarkGold = new TransparentButton();
 		drawSalmon = new TransparentButton();
 		drawClaret = new TransparentButton();
-		
-		controller.addPropertyListener("drawPurple", drawPurple);
-		controller.addPropertyListener("drawLightBlue", drawLightBlue);
-		controller.addPropertyListener("drawPink", drawPink);
-		controller.addPropertyListener("drawOrange", drawOrange);
-		controller.addPropertyListener("drawRed", drawRed);
-		controller.addPropertyListener("drawYellow", drawYellow);
-		controller.addPropertyListener("drawGreen", drawGreen);
-		controller.addPropertyListener("drawDarkBlue", drawDarkBlue);
-		controller.addPropertyListener("drawBrown", drawBrown);
-		controller.addPropertyListener("drawWhite", drawWhite);
-		controller.addPropertyListener("drawBlack", drawBlack);
-		controller.addPropertyListener("drawGray", drawGray);
-		controller.addPropertyListener("drawLightPink", drawLightPink);
-		controller.addPropertyListener("drawLightGreen", drawLightGreen);
-		controller.addPropertyListener("drawLightYellow", drawLightYellow);
-		controller.addPropertyListener("drawDarkCyan", drawDarkCyan);
-		controller.addPropertyListener("drawMaroon", drawMaroon);
-		controller.addPropertyListener("drawDarkGold", drawDarkGold);
-		controller.addPropertyListener("drawSalmon", drawSalmon);
-		controller.addPropertyListener("drawClaret", drawClaret);
+
+		controller.addPropertyListener("hurricaneSquares", drawPurple);
+		controller.addPropertyListener("hurricaneSquares", drawLightBlue);
+		controller.addPropertyListener("hurricaneSquares", drawPink);
+		controller.addPropertyListener("hurricaneSquares", drawOrange);
+		controller.addPropertyListener("hurricaneSquares", drawRed);
+		controller.addPropertyListener("hurricaneSquares", drawYellow);
+		controller.addPropertyListener("hurricaneSquares", drawGreen);
+		controller.addPropertyListener("hurricaneSquares", drawDarkBlue);
+		controller.addPropertyListener("hurricaneSquares", drawBrown);
+		controller.addPropertyListener("hurricaneSquares", drawWhite);
+		controller.addPropertyListener("hurricaneSquares", drawBlack);
+		controller.addPropertyListener("hurricaneSquares", drawGray);
+		controller.addPropertyListener("hurricaneSquares", drawLightPink);
+		controller.addPropertyListener("hurricaneSquares", drawLightGreen);
+		controller.addPropertyListener("hurricaneSquares", drawLightYellow);
+		controller.addPropertyListener("hurricaneSquares", drawDarkCyan);
+		controller.addPropertyListener("hurricaneSquares", drawMaroon);
+		controller.addPropertyListener("hurricaneSquares", drawDarkGold);
+		controller.addPropertyListener("hurricaneSquares", drawSalmon);
+		controller.addPropertyListener("hurricaneSquares", drawClaret);
 		
 		int width = 2*squareUnitSize;
 		int height = 5*squareUnitSize/4;

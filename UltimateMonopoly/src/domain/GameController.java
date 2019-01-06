@@ -249,7 +249,7 @@ public class GameController extends Observable {
 		currentLocationBuyable = isBuyable;
 	}
 	
-	private void findHurricaneSquares() {
+	public void findHurricaneSquares() {
 		Board board = this.getBoard();
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < board.getLayerSize(i); j++) {
@@ -265,10 +265,17 @@ public class GameController extends Observable {
 		}
 	}
 	
-	public void colorHurricaneSquares() {
+	/*public void colorHurricaneSquares() {
 		for(int i=0; i < hurricaneSelectedSquares.size(); i++) {
 			
 		}
+	}*/
+	
+	public TitleDeedSquareColor promptHurricaneSquares() {
+		publishPropertyEvent("hurricaneSquares", null, hurricaneSelectedSquares);
+		TitleDeedSquareColor color; //take from ui!
+		hurricaneSelectedSquares = null;
+		return color;
 	}
 
 	public void promptDrawChanceCard() {
