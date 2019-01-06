@@ -108,7 +108,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		initializeTurnOrder();
 		// initButtons();
 		initializePlayerPanel();
-		initColorButtons();
 		
 		controller.addPropertyListener("isPaused",this);
 		
@@ -159,155 +158,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		add(getMiddle());
 		repaint();
 	}
-
-	private void initColorButtons() {
-		drawPurple = new TransparentButton();
-		drawLightBlue = new TransparentButton();
-		drawPink = new TransparentButton();
-		drawOrange = new TransparentButton();
-		drawRed = new TransparentButton();
-		drawYellow = new TransparentButton();
-		drawGreen = new TransparentButton();
-		drawDarkBlue = new TransparentButton();
-		drawBrown = new TransparentButton();
-		drawWhite = new TransparentButton();
-		drawBlack = new TransparentButton();
-		drawGray = new TransparentButton();
-		drawLightPink = new TransparentButton();
-		drawLightGreen = new TransparentButton();
-		drawLightYellow = new TransparentButton();
-		drawDarkCyan = new TransparentButton();
-		drawMaroon = new TransparentButton();
-		drawDarkGold = new TransparentButton();
-		drawSalmon = new TransparentButton();
-		drawClaret = new TransparentButton();
-
-		controller.addPropertyListener("hurricaneSquares", drawPurple);
-		controller.addPropertyListener("hurricaneSquares", drawLightBlue);
-		controller.addPropertyListener("hurricaneSquares", drawPink);
-		controller.addPropertyListener("hurricaneSquares", drawOrange);
-		controller.addPropertyListener("hurricaneSquares", drawRed);
-		controller.addPropertyListener("hurricaneSquares", drawYellow);
-		controller.addPropertyListener("hurricaneSquares", drawGreen);
-		controller.addPropertyListener("hurricaneSquares", drawDarkBlue);
-		controller.addPropertyListener("hurricaneSquares", drawBrown);
-		controller.addPropertyListener("hurricaneSquares", drawWhite);
-		controller.addPropertyListener("hurricaneSquares", drawBlack);
-		controller.addPropertyListener("hurricaneSquares", drawGray);
-		controller.addPropertyListener("hurricaneSquares", drawLightPink);
-		controller.addPropertyListener("hurricaneSquares", drawLightGreen);
-		controller.addPropertyListener("hurricaneSquares", drawLightYellow);
-		controller.addPropertyListener("hurricaneSquares", drawDarkCyan);
-		controller.addPropertyListener("hurricaneSquares", drawMaroon);
-		controller.addPropertyListener("hurricaneSquares", drawDarkGold);
-		controller.addPropertyListener("hurricaneSquares", drawSalmon);
-		controller.addPropertyListener("hurricaneSquares", drawClaret);
-		
-		int width = 2*squareUnitSize;
-		int height = 5*squareUnitSize/4;
-		
-		drawPurple.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawPurple.addActionListener(this);
-		drawPurple.setActionCommand("drawPurple");
-		
-		drawLightBlue.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawLightBlue.addActionListener(this);
-		drawLightBlue.setActionCommand("drawLightBlue");
-		
-		drawPink.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawPink.addActionListener(this);
-		drawPink.setActionCommand("drawPink");
-		
-		drawOrange.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawOrange.addActionListener(this);
-		drawOrange.setActionCommand("drawOrange");
-		
-		drawRed.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawRed.addActionListener(this);
-		drawRed.setActionCommand("drawRed");
-		
-		drawYellow.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawYellow.addActionListener(this);
-		drawYellow.setActionCommand("drawYellow");
-		
-		drawGreen.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawGreen.addActionListener(this);
-		drawGreen.setActionCommand("drawGreen");
-		
-		drawDarkBlue.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawDarkBlue.addActionListener(this);
-		drawDarkBlue.setActionCommand("drawDarkBlue");
-		
-		drawBrown.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawBrown.addActionListener(this);
-		drawBrown.setActionCommand("drawBrown");
-		
-		drawWhite.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawWhite.addActionListener(this);
-		drawWhite.setActionCommand("drawWhite");
-		
-		drawBlack.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawBlack.addActionListener(this);
-		drawBlack.setActionCommand("drawBlack");
-		
-		drawGray.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawGray.addActionListener(this);
-		drawGray.setActionCommand("drawGray");
-		
-		drawLightPink.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawLightPink.addActionListener(this);
-		drawLightPink.setActionCommand("drawLightPink");
-		
-		drawLightYellow.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawLightYellow.addActionListener(this);
-		drawLightYellow.setActionCommand("drawLightYellow");
-		
-		drawLightGreen.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawLightGreen.addActionListener(this);
-		drawLightGreen.setActionCommand("drawLightGreen");
-		
-		drawDarkCyan.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawDarkCyan.addActionListener(this);
-		drawDarkCyan.setActionCommand("drawDarkCyan");
-		
-		drawMaroon.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawMaroon.addActionListener(this);
-		drawMaroon.setActionCommand("drawMaroon");
-		
-		drawDarkGold.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawDarkGold.addActionListener(this);
-		drawDarkGold.setActionCommand("drawDarkGold");
-		
-		drawSalmon.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawSalmon.addActionListener(this);
-		drawSalmon.setActionCommand("drawSalmon");
-		
-		drawClaret.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		drawClaret.addActionListener(this);
-		drawClaret.setActionCommand("drawPClaret");
-		
-		this.add(drawPurple);
-		this.add(drawLightBlue);
-		this.add(drawPink);
-		this.add(drawOrange);
-		this.add(drawRed);
-		this.add(drawYellow);
-		this.add(drawGreen);
-		this.add(drawDarkBlue);
-		this.add(drawBrown);
-		this.add(drawWhite);
-		this.add(drawBlack);
-		this.add(drawGray);
-		this.add(drawLightPink);
-		this.add(drawLightGreen);
-		this.add(drawLightYellow);
-		this.add(drawDarkCyan);
-		this.add(drawMaroon);
-		this.add(drawDarkGold);
-		this.add(drawSalmon);
-		this.add(drawClaret);		
-	}
-
+	
 	private void initCardButtons(){
 		rollThreeCard = new TransparentButton();
 		chanceCard = new TransparentButton();
@@ -492,8 +343,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		case "Pause Game":
 			controller.setPause(true);
 			break;
-		case "drawBrown":
-			controller.useHurricaneCard(TitleDeedSquareColor.BROWN, null);
 		}
 	}
 
@@ -505,52 +354,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 		}else if(e.getPropertyName().equals("isPaused")) {
 			animator.setAnimatorStopped((boolean) e.getNewValue());
-		}
-		else if(e.getPropertyName().equals("hurricaneSquare")) {
-			ArrayList<TitleDeedSquareColor> color = (ArrayList<TitleDeedSquareColor>) e.getNewValue();
-			for(int i=0; i<color.size(); i++) {
-				if(TitleDeedSquareColor.BLACK == color.get(i)) {
-					drawBlack.setVisible(true);
-				}else if(TitleDeedSquareColor.BROWN == color.get(i)) {
-					drawBrown.setVisible(true);
-				}else if(TitleDeedSquareColor.CLARET == color.get(i)) {
-					drawClaret.setVisible(true);
-				}else if(TitleDeedSquareColor.DARK_BLUE == color.get(i)) {
-					drawDarkBlue.setVisible(true);
-				}else if(TitleDeedSquareColor.DARK_CYAN == color.get(i)) {
-					drawDarkCyan.setVisible(true);
-				}else if(TitleDeedSquareColor.DARK_GOLD == color.get(i)) {
-					drawDarkGold.setVisible(true);
-				}else if(TitleDeedSquareColor.GRAY == color.get(i)) {
-					drawGray.setVisible(true);
-				}else if(TitleDeedSquareColor.GREEN == color.get(i)) {
-					drawGreen.setVisible(true);
-				}else if(TitleDeedSquareColor.LIGHT_BLUE == color.get(i)) {
-					drawLightBlue.setVisible(true);
-				}else if(TitleDeedSquareColor.LIGHT_GREEN == color.get(i)) {
-					drawLightGreen.setVisible(true);
-				}else if(TitleDeedSquareColor.LIGHT_PINK == color.get(i)) {
-					drawLightPink.setVisible(true);
-				}else if(TitleDeedSquareColor.LIGHT_YELLOW == color.get(i)) {
-					drawLightYellow.setVisible(true);
-				}else if(TitleDeedSquareColor.MAROON == color.get(i)) {
-					drawMaroon.setVisible(true);
-				}else if(TitleDeedSquareColor.ORANGE == color.get(i)) {
-					drawOrange.setVisible(true);
-				}else if(TitleDeedSquareColor.PINK == color.get(i)) {
-					drawPink.setVisible(true);
-				}else if(TitleDeedSquareColor.PURPLE == color.get(i)) {
-					drawPurple.setVisible(true);
-				}else if(TitleDeedSquareColor.RED == color.get(i)) {
-					drawRed.setVisible(true);
-				}else if(TitleDeedSquareColor.SALMON == color.get(i)) {
-					drawSalmon.setVisible(true);
-				}else if(TitleDeedSquareColor.WHITE == color.get(i)) {
-					drawWhite.setVisible(true);
-				}else if(TitleDeedSquareColor.YELLOW == color.get(i)) {
-					drawYellow.setVisible(true);
-				}
-			}
 		}
 	}
 

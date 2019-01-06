@@ -601,7 +601,7 @@ public class GameController extends Observable {
 		// chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
 		// chanceCardList.add(CardFactory.getCard("Get Rollin'"));
 		// chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+		// chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
 		// chanceCardList.add(CardFactory.getCard("Property Taxes"));
 		// chanceCardList.add(CardFactory.getCard("Ride the Subway"));
 		// chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
