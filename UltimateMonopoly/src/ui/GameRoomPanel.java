@@ -19,9 +19,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.Board;
 import domain.GameController;
 import domain.Token;
 import domain.square.Location;
+import domain.square.Square;
 import domain.square.TitleDeedSquareColor;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
@@ -42,26 +44,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private TransparentButton chanceCard;
 	private TransparentButton communityChestCard;
 	
-	private TransparentButton drawPurple;
-	private TransparentButton drawLightBlue;
-	private TransparentButton drawPink;
-	private TransparentButton drawOrange;
-	private TransparentButton drawRed;
-	private TransparentButton drawYellow;
-	private TransparentButton drawGreen;
-	private TransparentButton drawDarkBlue;
-	private TransparentButton drawBrown;
-	private TransparentButton drawWhite;
-	private TransparentButton drawBlack;
-	private TransparentButton drawGray;
-	private TransparentButton drawLightPink;
-	private TransparentButton drawLightGreen;
-	private TransparentButton drawLightYellow;
-	private TransparentButton drawDarkCyan;
-	private TransparentButton drawMaroon;
-	private TransparentButton drawDarkGold;
-	private TransparentButton drawSalmon;
-	private TransparentButton drawClaret;
+	private ArrayList<TransparentButton>[] squareButtons;
 	
 //	private UICard cardImage;
 //	private JButton playCardButton;
@@ -108,11 +91,24 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		initializeTurnOrder();
 		// initButtons();
 		initializePlayerPanel();
+		initializeSquareButtons();
 		
 		controller.addPropertyListener("isPaused",this);
 		
 	}
 
+	private void initializeSquareButtons() {
+		squareButtons = (ArrayList<TransparentButton>[]) new ArrayList[3];
+		
+		for(int i = 0; i < 3; i++) {
+			for (int j = 0; j < BOARD_SIZE[i]; j++) {
+				TransparentButton sqButton = new TransparentButton();
+				sqButton.setBounds( 8*squareUnitSize - squareUnitSize / 3 , 9*squareUnitSize + 11*squareUnitSize / 24, width, height);
+			}
+		}
+
+	}
+	
 	private void initializeTurnOrder() {
 		if (controller.getCurrentPlayerIndex() < 0)
 			controller.initTurnOrder();
