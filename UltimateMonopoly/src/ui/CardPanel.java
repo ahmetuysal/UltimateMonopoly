@@ -90,6 +90,7 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 		case "Play Card":
 			controller.playCard();
 			this.setVisible(false);
+			grpanel.activatePlayButtons();
 			grpanel.repaint();
 			// Sorry for this dummy logic we had no time :(
 			if (keepCardButton.isEnabled()) {
@@ -98,6 +99,7 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 			break;
 		case "Keep Card":
 			this.setVisible(false);
+			grpanel.activatePlayButtons();
 			grpanel.repaint();
 			break;
 		}

@@ -51,6 +51,8 @@ public class GameController extends Observable {
 	private boolean currentLocationBuyable;
 
 	private static GameController instance;
+	
+	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
 		if (instance == null) {
@@ -64,6 +66,7 @@ public class GameController extends Observable {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
+		actionQueue = new LinkedList<>();
 		initTokens();
 		initCards();
 	}
@@ -87,7 +90,9 @@ public class GameController extends Observable {
 		this.withNetwork = state.isWithNetwork();
 		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
+	
 	}
+
 
 	public void playRollThree() {
 		HashMap<Player, RollThreeCard> playerCards = new HashMap<>();
@@ -176,11 +181,14 @@ public class GameController extends Observable {
 	}
 
 	public void passTurn() {
-		if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
+		if(!actionQueue.isEmpty()) {
+			nextAction();
+		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
+			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 		}
 	}
@@ -306,49 +314,72 @@ public class GameController extends Observable {
 
 	public void playTurn() {
 		rollDice();
+		handleJail();
+		
+		if(cup.isTriple()) {
+			board.teleport(currentPlayer);
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
+		
+		
+		if(cup.isMrMonopoly()) {
+			actionQueue.add("mrmonopoly");
+		}else if(cup.isBusIcon()) {
+			actionQueue.add("busicon");
+		}
+		
+		if(cup.isDouble()) {
+			consecutiveDoubles++;
+			if (consecutiveDoubles == 3) {
+				currentPlayer.goToJail();
+				playerSentToJailForDouble = true;
+				actionQueue.clear();
+				publishPropertyEvent("isTurnFinished", true, false);
+				return;
+			}
+			actionQueue.add("double");
+		}
+		
+		if(board.movePlayer(currentPlayer, cup.getTotal())) {
+			publishPropertyEvent("buyable",false,true);
+		}else {
+			publishPropertyEvent("buyable",false,false);
+		}
+		
+		publishPropertyEvent("changeRoll",true,false);
+		publishPropertyEvent("pass",false,true);
+		
+		if(currentPlayer.isInJail()) {
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
+	}
+	
+	public void handleJail() {
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
 			currentPlayer.decreaseJailTime();
 		}
-
-		if (currentPlayer.isInJail()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isMrMonopoly()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			// TODO check if all properties are owned.
+	}
+	
+	public void nextAction() {
+		String nextAction = actionQueue.removeFirst();
+		if(nextAction.equals("mrmonopoly")) {
 			board.moveToNextUnownedProperty(currentPlayer);
-		} else if (cup.isBusIcon()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
+			publishPropertyEvent("buyable",false,true);
+		}else if(nextAction.equals("busicon")) {
 			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
-		} else if (cup.isTriple()) {
-			// TODO move user to wherever he wants
-			// do not move again
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isDouble()) {
-			consecutiveDoubles++;
-			if (consecutiveDoubles == 3) {
-				currentPlayer.goToJail();
-				playerSentToJailForDouble = true;
-				publishPropertyEvent("isTurnFinished", true, false);
-				return;
-			} else {
-				board.movePlayer(currentPlayer, cup.getTotal());
-				return;
-			}
-		} else {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
+			publishPropertyEvent("buyable",false,false);
+			publishPropertyEvent("pass",true, false);
+		}else if(nextAction.equals("double")) {
+			publishPropertyEvent("changeRoll", false, true);
+			publishPropertyEvent("pass",true, false);
 		}
-
-		if (!cup.isDouble()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-		}
-
 	}
 
 	private void setCurrentPlayer(int index) {
@@ -585,6 +616,86 @@ public class GameController extends Observable {
 		// TODO clientIndex, content, type with mgunay15
 		return state;
 	}
+
+	/**
+	 * @param board the board to set
+	 */
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+
+	/**
+	 * @param chanceCardList the chanceCardList to set
+	 */
+	public void setChanceCardList(LinkedList<Card> chanceCardList) {
+		this.chanceCardList = chanceCardList;
+	}
+
+
+	/**
+	 * @param communityChestCardList the communityChestCardList to set
+	 */
+	public void setCommunityChestCardList(LinkedList<Card> communityChestCardList) {
+		this.communityChestCardList = communityChestCardList;
+	}
+
+
+	/**
+	 * @param rollThreeCardList the rollThreeCardList to set
+	 */
+	public void setRollThreeCardList(LinkedList<OwnableCard> rollThreeCardList) {
+		this.rollThreeCardList = rollThreeCardList;
+	}
+
+
+	/**
+	 * @param poolMoney the poolMoney to set
+	 */
+	public void setPoolMoney(int poolMoney) {
+		this.poolMoney = poolMoney;
+	}
+
+
+	/**
+	 * @param die1Value the die1Value to set
+	 */
+	public void setDie1Value(DieValue die1Value) {
+		this.die1Value = die1Value;
+	}
+
+
+	/**
+	 * @param die2Value the die2Value to set
+	 */
+	public void setDie2Value(DieValue die2Value) {
+		this.die2Value = die2Value;
+	}
+
+
+	/**
+	 * @param die3Value the die3Value to set
+	 */
+	public void setDie3Value(DieValue die3Value) {
+		this.die3Value = die3Value;
+	}
+
+
+	/**
+	 * @param playerSentToJailForDouble the playerSentToJailForDouble to set
+	 */
+	public void setPlayerSentToJailForDouble(boolean playerSentToJailForDouble) {
+		this.playerSentToJailForDouble = playerSentToJailForDouble;
+	}
+
+
+	/**
+	 * @param instance the instance to set
+	 */
+	public static void setInstance(GameController instance) {
+		GameController.instance = instance;
+	}
+
 
 	/*
 	 * (non-Javadoc)
