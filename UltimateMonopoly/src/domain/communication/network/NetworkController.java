@@ -37,19 +37,20 @@ public class NetworkController {
 			//playerGameState.setConsecutiveDoubles(newGameState.getConsecutiveDoubles());
 			//playerGameState.setCurrentPlayer(newGameState.getCurrentPlayer());
 		if(newGameState != null && newGameState.getCup()!=null) {
-			playerGameState.setCup(newGameState.getCup());
-			GameController.getInstance().setCup(playerGameState.getCup());
+			// playerGameState.setCup(newGameState.getCup());
+			// GameController.getInstance().setCup(playerGameState.getCup());
 		}
 		
 			//TODO: other changes will be added later, currently just cup is synchronized
 		if(newGameState != null && newGameState.getPlayers() !=null && newGameState.getPlayers().size() != 0) {
-			playerGameState.setPlayers(newGameState.getPlayers());
+			//playerGameState.setPlayers(newGameState.getPlayers());
 			// TODO: ONEMLI !!!
 			// playerGameState.getPlayer daki playerlarla gamecontroldakileri topla ve 
 			// game controller dakilere esitle
-			GameController.getInstance().refreshPropertyListeners();
-			GameController.getInstance().setPlayers(playerGameState.getPlayers());
-			GameController.getInstance().publishPropertyEvent("refresh", false, true);
+			//GameController.getInstance().refreshPropertyListeners();
+			//GameController.getInstance().setPlayers(playerGameState.getPlayers());
+			//GameController.getInstance().publishPropertyEvent("refresh", false, true);
+			GameController.getInstance().refreshWithGameState(newGameState);
 		}
 		
 		

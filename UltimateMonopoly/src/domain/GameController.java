@@ -154,6 +154,15 @@ public class GameController extends Observable {
 		assignTokensToBoardAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
 	}
+	
+	public void refreshWithGameState(GameState gs) {
+		this.cup = gs.getCup();
+		this.players = gs.getPlayers();
+		// TODO add other fields
+		assignOwnableSquaresToOwnersAfterLoadGame();
+		assignTokensToBoardAfterLoadGame();
+		publishPropertyEvent("refresh", false, true);
+	}
 
 	private void assignTokensToBoardAfterLoadGame() {
 		for (Player player : players) {
@@ -815,8 +824,14 @@ public class GameController extends Observable {
 	public void refreshPropertyListeners() {
 		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
 		List<PropertyListener> isPausedListeners = new ArrayList<>();
-		isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
-		newPropertyListeners.put("isPaused", new ArrayList<>());
+		List<PropertyListener> refreshListeners = new ArrayList<>();
+		if (propertyListenersMap.containsKey("isPaused")) {
+			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
+		}
+		newPropertyListeners.put("isPaused", isPausedListeners);
+		if (propertyListenersMap.containsKey("refresh")) {
+			refreshListeners.addAll(propertyListenersMap.get("refresh"));
+		}
 		propertyListenersMap = newPropertyListeners;
 		for (Token token : board.getTokens()) {
 			token.refreshPropertyListeners();
