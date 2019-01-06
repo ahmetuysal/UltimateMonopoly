@@ -2,6 +2,8 @@ package domain.bot;
 
 import java.util.LinkedList;
 
+import javax.management.timer.Timer;
+
 import domain.GameController;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
@@ -17,13 +19,13 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		
 		double rand = Math.random();
 		
-		if(rand <= 0.33) {
-			moveStrategy = new RandomBotStrategy();
-		}else if(rand >= 0.67) {
-			moveStrategy = new StingyBotStrategy();
-		}else {
+//		if(rand <= 0.33) {
+//			moveStrategy = new RandomBotStrategy();
+//		}else if(rand >= 0.67) {
+//			moveStrategy = new StingyBotStrategy();
+//		}else {
 			moveStrategy = new GreedyBotStrategy();
-		}
+//		}
 		
 		isMyTurn = false;
 		
@@ -32,7 +34,8 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		controller.addPropertyListener("buyHotel",this);
 		controller.addPropertyListener("buySkyScraper",this);
 		controller.addPropertyListener("controller.currentPlayer",this);
-		controller.addPropertyListener("buyHouse",this);
+		controller.addPropertyListener("pass",this);
+		controller.addPropertyListener("changeRoll",this);
 	}
 
 	public void setMoveStrategy(IBotStrategy strategy) {
@@ -44,6 +47,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 	}
 	
 	public void playTurn(String action) {
+		
 		this.makeCommonAction(action);
 		moveStrategy.makeMove(action);
 	}
@@ -58,6 +62,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 	}
 	
 	public void makeCommonAction(String action) {
+		
 		if(action.equals("changeRoll"))
 			GameController.getInstance().playTurn();
 		else if(action.equals("pass"))
@@ -65,13 +70,17 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 	}
 
 	@Override
-	public void onPropertyEvent(PropertyEvent e) {
+	public void onPropertyEvent(PropertyEvent e) {		
 		if(e.getPropertyName().equals("controller.currentPlayer")) {
-			if(((domain.Player) e.getNewValue()).getNickName().equals(this.getNickName()))
+			if(((domain.Player) e.getNewValue()).getNickName().equals(this.getNickName())) {
 				this.setMyTurn(true);
-			else
+				System.out.println("Passed to bot player");
+				
+				GameController.getInstance().playTurn();
+			}else
 				this.setMyTurn(false);
 		}else if(isMyTurn && (boolean) e.getNewValue()) {
+			System.out.println("Bot is making a move");
 			this.playTurn(e.getPropertyName());
 		}		
 	}
