@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import domain.GameController;
 import domain.Token;
 import domain.square.Location;
+import domain.square.TitleDeedSquareColor;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 import ui.animation.GenericAnimator;
@@ -181,7 +182,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		drawSalmon = new TransparentButton();
 		drawClaret = new TransparentButton();
 
-		/*controller.addPropertyListener("hurricaneSquares", drawPurple);
+		controller.addPropertyListener("hurricaneSquares", drawPurple);
 		controller.addPropertyListener("hurricaneSquares", drawLightBlue);
 		controller.addPropertyListener("hurricaneSquares", drawPink);
 		controller.addPropertyListener("hurricaneSquares", drawOrange);
@@ -200,7 +201,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		controller.addPropertyListener("hurricaneSquares", drawMaroon);
 		controller.addPropertyListener("hurricaneSquares", drawDarkGold);
 		controller.addPropertyListener("hurricaneSquares", drawSalmon);
-		controller.addPropertyListener("hurricaneSquares", drawClaret);*/
+		controller.addPropertyListener("hurricaneSquares", drawClaret);
 		
 		int width = 2*squareUnitSize;
 		int height = 5*squareUnitSize/4;
@@ -491,6 +492,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		case "Pause Game":
 			controller.setPause(true);
 			break;
+		case "drawBrown":
+			controller.useHurricaneCard(TitleDeedSquareColor.BROWN, null);
 		}
 	}
 
@@ -502,6 +505,52 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 		}else if(e.getPropertyName().equals("isPaused")) {
 			animator.setAnimatorStopped((boolean) e.getNewValue());
+		}
+		else if(e.getPropertyName().equals("hurricaneSquare")) {
+			ArrayList<TitleDeedSquareColor> color = (ArrayList<TitleDeedSquareColor>) e.getNewValue();
+			for(int i=0; i<color.size(); i++) {
+				if(TitleDeedSquareColor.BLACK == color.get(i)) {
+					drawBlack.setVisible(true);
+				}else if(TitleDeedSquareColor.BROWN == color.get(i)) {
+					drawBrown.setVisible(true);
+				}else if(TitleDeedSquareColor.CLARET == color.get(i)) {
+					drawClaret.setVisible(true);
+				}else if(TitleDeedSquareColor.DARK_BLUE == color.get(i)) {
+					drawDarkBlue.setVisible(true);
+				}else if(TitleDeedSquareColor.DARK_CYAN == color.get(i)) {
+					drawDarkCyan.setVisible(true);
+				}else if(TitleDeedSquareColor.DARK_GOLD == color.get(i)) {
+					drawDarkGold.setVisible(true);
+				}else if(TitleDeedSquareColor.GRAY == color.get(i)) {
+					drawGray.setVisible(true);
+				}else if(TitleDeedSquareColor.GREEN == color.get(i)) {
+					drawGreen.setVisible(true);
+				}else if(TitleDeedSquareColor.LIGHT_BLUE == color.get(i)) {
+					drawLightBlue.setVisible(true);
+				}else if(TitleDeedSquareColor.LIGHT_GREEN == color.get(i)) {
+					drawLightGreen.setVisible(true);
+				}else if(TitleDeedSquareColor.LIGHT_PINK == color.get(i)) {
+					drawLightPink.setVisible(true);
+				}else if(TitleDeedSquareColor.LIGHT_YELLOW == color.get(i)) {
+					drawLightYellow.setVisible(true);
+				}else if(TitleDeedSquareColor.MAROON == color.get(i)) {
+					drawMaroon.setVisible(true);
+				}else if(TitleDeedSquareColor.ORANGE == color.get(i)) {
+					drawOrange.setVisible(true);
+				}else if(TitleDeedSquareColor.PINK == color.get(i)) {
+					drawPink.setVisible(true);
+				}else if(TitleDeedSquareColor.PURPLE == color.get(i)) {
+					drawPurple.setVisible(true);
+				}else if(TitleDeedSquareColor.RED == color.get(i)) {
+					drawRed.setVisible(true);
+				}else if(TitleDeedSquareColor.SALMON == color.get(i)) {
+					drawSalmon.setVisible(true);
+				}else if(TitleDeedSquareColor.WHITE == color.get(i)) {
+					drawWhite.setVisible(true);
+				}else if(TitleDeedSquareColor.YELLOW == color.get(i)) {
+					drawYellow.setVisible(true);
+				}
+			}
 		}
 	}
 

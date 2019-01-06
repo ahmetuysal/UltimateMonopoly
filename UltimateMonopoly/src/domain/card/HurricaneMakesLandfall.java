@@ -18,24 +18,6 @@ public class HurricaneMakesLandfall extends Card {
 	@Override
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-		GameController g = GameController.getInstance();
-		g.findHurricaneSquares();
-		TitleDeedSquareColor color = g.promptHurricaneSquares();
-		List<TitleDeedSquare> props = player.getTitleDeedsWithColor(color);
-		for(int i = 0; i < props.size(); i++) {
-			TitleDeedSquare propsI = props.get(i);
-			if(propsI.getNumHouses()!=0) {
-				propsI.setNumHouses(propsI.getNumHouses()-1);
-			}
-			else if(propsI.getNumHotels()!=0) {
-				propsI.setNumHotels(propsI.getNumHotels()-1);
-				propsI.setNumHouses(4);
-			}
-			else if(propsI.getNumSkyscrapers()!=0) {
-				propsI.setNumSkyscrapers(propsI.getNumSkyscrapers()-1);
-				propsI.setNumHotels(1);
-			}
-		}
 	}
 	
 

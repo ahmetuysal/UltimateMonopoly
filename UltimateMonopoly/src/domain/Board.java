@@ -14,6 +14,7 @@ import domain.square.RailRoad;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 import domain.square.UtilitySquare;
 import domain.square.UtilitySquareType;
 
@@ -454,6 +455,25 @@ public class Board implements Serializable{
 		else {
 			return loc.getIndex() % 14 == 0;
 		}
+	}
+	
+	public List<TitleDeedSquareColor> getAllColorsWithOwnedProperty(){
+		List<TitleDeedSquareColor> colors = new ArrayList<>();
+		
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < getLayerSize(i); j++) {
+				Square currentSq = getSquare(new Location(i,j));
+				if(currentSq instanceof TitleDeedSquare) {
+					TitleDeedSquare currentSquare = (TitleDeedSquare) currentSq;
+					if(currentSquare.getNumHotels() > 0 || currentSquare.getNumHouses() > 0 || currentSquare.getNumSkyscrapers() > 0) {
+						if(!colors.contains(currentSquare.getColor()))
+							colors.add(currentSquare.getColor());
+					}
+				}
+			}
+		}
+		
+		return colors;
 	}
 
 }

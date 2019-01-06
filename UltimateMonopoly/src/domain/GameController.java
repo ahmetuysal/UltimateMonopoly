@@ -61,9 +61,7 @@ public class GameController extends Observable {
 	private boolean currentLocationBuyable;
 
 	private static GameController instance;
-	
-	private ArrayList<TitleDeedSquareColor> hurricaneSelectedSquares = new ArrayList<TitleDeedSquareColor>();
-	
+		
 	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
@@ -101,14 +99,7 @@ public class GameController extends Observable {
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
 	
 	}
-	
-	public ArrayList<TitleDeedSquareColor> getHurricaneList(){
-		return hurricaneSelectedSquares;
-	}
-	
-	public void setHurricaneList(TitleDeedSquareColor color) {
-		hurricaneSelectedSquares.add(color);
-	}
+
 
 	public void playRollThree() {
 		HashMap<Player, RollThreeCard> playerCards = new HashMap<>();
@@ -249,27 +240,26 @@ public class GameController extends Observable {
 		currentLocationBuyable = isBuyable;
 	}
 	
-	public void findHurricaneSquares() {
-		Board board = this.getBoard();
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < board.getLayerSize(i); j++) {
-				Square currentSq = board.getSquare(new Location(i,j));
-				if(currentSq instanceof TitleDeedSquare) {
-					TitleDeedSquare currentSquare = (TitleDeedSquare) currentSq;
-					if(currentSquare.getNumHotels() > 0 || currentSquare.getNumHouses() > 0 || currentSquare.getNumSkyscrapers() > 0) {
-						if(!getHurricaneList().contains(currentSquare.getColor()))
-							setHurricaneList(currentSquare.getColor());
-					}
-				}
-			}
-		}
+	public void promptHurricaneSquares() {
+		publishPropertyEvent("hurricaneSquares", null, board.getAllColorsWithOwnedProperty());
 	}
 	
-	public TitleDeedSquareColor promptHurricaneSquares() {
-		publishPropertyEvent("hurricaneSquares", null, hurricaneSelectedSquares);
-		TitleDeedSquareColor color = null; //take from ui!
-		hurricaneSelectedSquares = null;
-		return color;
+	public void useHurricaneCard(TitleDeedSquareColor color, Player player) {
+		List<TitleDeedSquare> props = player.getTitleDeedsWithColor(color);
+		for(int i = 0; i < props.size(); i++) {
+			TitleDeedSquare propsI = props.get(i);
+			if(propsI.getNumHouses()!=0) {
+				propsI.setNumHouses(propsI.getNumHouses()-1);
+			}
+			else if(propsI.getNumHotels()!=0) {
+				propsI.setNumHotels(propsI.getNumHotels()-1);
+				propsI.setNumHouses(4);
+			}
+			else if(propsI.getNumSkyscrapers()!=0) {
+				propsI.setNumSkyscrapers(propsI.getNumSkyscrapers()-1);
+				propsI.setNumHotels(1);
+			}
+		}
 	}
 
 	public void promptDrawChanceCard() {
@@ -611,7 +601,7 @@ public class GameController extends Observable {
 		// chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
 		// chanceCardList.add(CardFactory.getCard("Get Rollin'"));
 		// chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		// chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
 		// chanceCardList.add(CardFactory.getCard("Property Taxes"));
 		// chanceCardList.add(CardFactory.getCard("Ride the Subway"));
 		// chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
