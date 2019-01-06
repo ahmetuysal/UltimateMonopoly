@@ -79,7 +79,7 @@ public class GameController extends Observable {
 
 	public void initializeWithGameState(GameState state) {
 		this.cup = state.getCup();
-		this.players = state.getPlayers();
+		this.setPlayers(state.getPlayers());
 		this.currentPlayerIndex = state.getCurrentPlayerIndex();
 		this.currentPlayer = state.getCurrentPlayer();
 		this.consecutiveDoubles = state.getConsecutiveDoubles();
@@ -546,6 +546,7 @@ public class GameController extends Observable {
 				int index = this.players.indexOf(player);
 				if (index < 0) {
 					this.players.add(player);
+					board.addToken(player.getToken());
 				}
 				else {
 					Player playerInList = this.players.get(index);
