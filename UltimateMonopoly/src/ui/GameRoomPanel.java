@@ -286,6 +286,10 @@ public class GameRoomPanel extends JPanel implements ActionListener {
 		token.setLocation(getCoordinate(newLocation.getLayer(), newLocation.getIndex()));
 		repaint();
 	}
+	
+	public void activatePlayButtons() {
+		playButtons.setEnabled(true);
+	}
 
 	
 

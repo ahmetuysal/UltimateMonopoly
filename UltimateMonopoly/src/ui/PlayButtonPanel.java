@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import domain.GameController;
+import domain.util.PropertyEvent;
+import domain.util.PropertyListener;
 
 
 
-public class PlayButtonPanel extends JPanel implements ActionListener {
+public class PlayButtonPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private ObserverButton rollDiceButton;
 	private ObserverButton buyButton;
@@ -31,6 +33,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		setLayout(null);
 		initDies();
 		initButtons();
+		
+		controller.addPropertyListener("drawCommunityChestCard",this);
+		controller.addPropertyListener("drawChanceCard",this);
+		controller.addPropertyListener("drawRollThreeCard",this);
 	}
 	
 	private void initDies() {
@@ -132,6 +138,12 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 			controller.buyProperty();
 			break;
 		}
+	}
+
+	@Override
+	public void onPropertyEvent(PropertyEvent e) {
+		// TODO Auto-generated method stub
+		this.setEnabled((boolean) e.getNewValue());
 	}
 
 }

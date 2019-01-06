@@ -316,11 +316,7 @@ public class GameController extends Observable {
 		rollDice();
 		handleJail();
 		
-		if(currentPlayer.isInJail()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-			actionQueue.clear();
-			return;
-		}else if(cup.isTriple()) {
+		if(cup.isTriple()) {
 			board.teleport(currentPlayer);
 			publishPropertyEvent("isTurnFinished", true, false);
 			actionQueue.clear();
@@ -330,10 +326,10 @@ public class GameController extends Observable {
 		
 		if(cup.isMrMonopoly()) {
 			actionQueue.add("mrmonopoly");
-		}
-		if(cup.isBusIcon()) {
+		}else if(cup.isBusIcon()) {
 			actionQueue.add("busicon");
 		}
+		
 		if(cup.isDouble()) {
 			consecutiveDoubles++;
 			if (consecutiveDoubles == 3) {
@@ -354,6 +350,12 @@ public class GameController extends Observable {
 		
 		publishPropertyEvent("changeRoll",true,false);
 		publishPropertyEvent("pass",false,true);
+		
+		if(currentPlayer.isInJail()) {
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
 	}
 	
 	public void handleJail() {
@@ -373,60 +375,12 @@ public class GameController extends Observable {
 		}else if(nextAction.equals("busicon")) {
 			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
 			publishPropertyEvent("buyable",false,false);
-		//	publishPropertyEvent("pass",true, false);
+			publishPropertyEvent("pass",true, false);
 		}else if(nextAction.equals("double")) {
 			publishPropertyEvent("changeRoll", false, true);
 			publishPropertyEvent("pass",true, false);
 		}
 	}
-	
-	/*public void playTurn() {
-		rollDice();
-		if (currentPlayer.isInJail()) {
-			if (cup.isDouble()) {
-				currentPlayer.getOutOfJail();
-			}
-			currentPlayer.decreaseJailTime();
-		}
-
-		if (currentPlayer.isInJail()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isMrMonopoly()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			// TODO check if all properties are owned.
-			board.moveToNextUnownedProperty(currentPlayer);
-		} else if (cup.isBusIcon()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
-		} else if (cup.isTriple()) {
-			// TODO move user to wherever he wants
-			// do not move again
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isDouble()) {
-			consecutiveDoubles++;
-			if (consecutiveDoubles == 3) {
-				currentPlayer.goToJail();
-				actionQueue.clear();
-				playerSentToJailForDouble = true;
-				publishPropertyEvent("isTurnFinished", true, false);
-				return;
-			} else {
-				board.movePlayer(currentPlayer, cup.getTotal());
-				return;
-			}
-		} else {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		}
-
-		if (!cup.isDouble()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-		}
-
-	}*/
 
 	private void setCurrentPlayer(int index) {
 		Player currentPlayer = players.get(index);
