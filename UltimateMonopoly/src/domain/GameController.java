@@ -18,15 +18,19 @@ import domain.die.DieValue;
 import domain.gamestate.GameState;
 import domain.square.OwnableSquare;
 import domain.square.Square;
+import domain.square.TitleDeedSquare;
+import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 import domain.util.PropertyListener;
+
 /**
  * Class that controls main flow of the game.
- * @overview Takes requests from UI part 
- * of the game and delegates responsibilities to corresponding classes, communicates 
- * with other classes of domain.
- * Created using Controller Pattern of GRASP Patterns.
+ * 
+ * @overview Takes requests from UI part of the game and delegates
+ *           responsibilities to corresponding classes, communicates with other
+ *           classes of domain. Created using Controller Pattern of GRASP
+ *           Patterns.
  * 
  * @author Team Pennybags
  */
@@ -61,7 +65,6 @@ public class GameController extends Observable {
 		return instance;
 	}
 
-
 	private GameController() {
 		board = new Board();
 		cup = new Cup();
@@ -70,9 +73,7 @@ public class GameController extends Observable {
 		initCards();
 	}
 
-
 	public void initializeWithGameState(GameState state) {
-		this.board = state.getBoard();
 		this.cup = state.getCup();
 		this.players = state.getPlayers();
 		this.currentPlayerIndex = state.getCurrentPlayerIndex();
@@ -143,7 +144,32 @@ public class GameController extends Observable {
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
 		System.out.println(savedState);
 		initializeWithGameState(savedState);
+		assignOwnableSquaresToOwnersAfterLoadGame();
+		assignTokensToBoardAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
+	}
+
+	private void assignTokensToBoardAfterLoadGame() {
+		for (Player player : players) {
+			board.addToken(player.getToken());
+		}
+	}
+	
+	private void assignOwnableSquaresToOwnersAfterLoadGame() {
+		for (Player player : players) {
+			List<OwnableSquare> newProps = new ArrayList<>();
+			for (OwnableSquare ownedSquare : player.getProperties()) {
+				OwnableSquare boardSq = (OwnableSquare) board.getSquare(ownedSquare.getLocation());
+				boardSq.setOwner(player);
+				if (ownedSquare instanceof TitleDeedSquare) {
+					((TitleDeedSquare)boardSq).setNumHouses(((TitleDeedSquare) ownedSquare).getNumHouses());
+					((TitleDeedSquare)boardSq).setNumHotels(((TitleDeedSquare) ownedSquare).getNumHotels());
+					((TitleDeedSquare)boardSq).setNumSkyscrapers(((TitleDeedSquare) ownedSquare).getNumSkyscrapers());
+				}
+				newProps.add(boardSq);
+			}
+			player.setProperties(newProps);
+		}
 	}
 
 	public boolean saveGame(String gameName) {
@@ -311,7 +337,7 @@ public class GameController extends Observable {
 	public void playTurn() {
 
 		rollDice();
-				
+
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
@@ -568,7 +594,6 @@ public class GameController extends Observable {
 	 */
 	public GameState toGameState() {
 		GameState state = new GameState();
-		state.setBoard(board);
 		state.setCup(cup);
 		state.setPlayers(players);
 		state.setCurrentPlayerIndex(currentPlayerIndex);
@@ -615,34 +640,34 @@ public class GameController extends Observable {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
-	
+
 	public boolean repOK() {
-		if(board == null)
+		if (board == null)
 			return false;
-		if(cup == null)
+		if (cup == null)
 			return false;
-		if(consecutiveDoubles > 3)
+		if (consecutiveDoubles > 3)
 			return false;
-		if(players == null || players.size() < 2)
+		if (players == null || players.size() < 2)
 			return false;
-		if(chanceCardList == null || chanceCardList.size() != 2)
+		if (chanceCardList == null || chanceCardList.size() != 2)
 			return false;
-		if(communityChestCardList == null || communityChestCardList.size() != 3)
+		if (communityChestCardList == null || communityChestCardList.size() != 3)
 			return false;
-		if(rollThreeCardList == null || rollThreeCardList.size() != 24)
+		if (rollThreeCardList == null || rollThreeCardList.size() != 24)
 			return false;
-		if(poolMoney < 0)
+		if (poolMoney < 0)
 			return false;
 		return true;
 	}
-	
+
 	public void refreshPropertyListeners() {
 		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
 		List<PropertyListener> isPausedListeners = new ArrayList<>();
 		isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
 		newPropertyListeners.put("isPaused", new ArrayList<>());
 		propertyListenersMap = newPropertyListeners;
-		for(Token token : board.getTokens()) {
+		for (Token token : board.getTokens()) {
 			token.refreshPropertyListeners();
 		}
 		for (Player player : players) {
