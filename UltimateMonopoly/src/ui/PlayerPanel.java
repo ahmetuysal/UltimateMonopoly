@@ -1,6 +1,8 @@
 package ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
@@ -86,17 +88,16 @@ public class PlayerPanel extends JPanel {
 		JPanel panel2 = new JPanel(false);
 		panel2.setLayout(new GridLayout(1,1));
 		panel2.add(properties);
-		JScrollPane scrollPane = new JScrollPane();
 		
+		JScrollPane scrollPane = new JScrollPane(panel2);
 		scrollPane.setViewportView(panel2);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-		
-		
-		pane.addTab("Properties", panel2);
 		
 		player.addPropertyListener("money", playerInfo);
 		player.addPropertyListener("properties", properties);
 		
+		pane.addTab("Properties", scrollPane);
+
 		pane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 		pane.setVisible(true);
 		pane.setBackground(this.getBackground());
