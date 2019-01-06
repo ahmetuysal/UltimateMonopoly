@@ -1,34 +1,26 @@
 package domain.square;
 
-import java.util.HashSet;
-
-import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
-
 import domain.GameController;
 import domain.Player;
-import domain.util.GsonUtils;
 
-public class Square {
+public abstract class Square {
 
 	protected String name;
 	protected String description;
-	protected String type = getClass().getName(); 
-
-
-	private static final RuntimeTypeAdapterFactory<Square> adapter = RuntimeTypeAdapterFactory
-			.of(Square.class);
-
-	private static final HashSet<Class<?>> registeredClasses = new HashSet<Class<?>>();
-
-	static {
-		GsonUtils.registerType(adapter);
+	protected Location location;
+	/**
+	 * @return the location
+	 */
+	public Location getLocation() {
+		return location;
 	}
 
-	private synchronized void registerClass() {
-		if (!registeredClasses.contains(this.getClass())) {
-			registeredClasses.add(this.getClass());
-			adapter.registerSubtype(this.getClass());
-		}
+	/**
+	 * @param location the location to set
+	 */
+	public Square setLocation(Location location) {
+		this.location = location;
+		return this;
 	}
 
 	public String getName() {
@@ -48,7 +40,6 @@ public class Square {
 	}
 
 	public Square(String name, String description) {
-		registerClass();
 		this.name = name;
 		this.description = description;
 	}
