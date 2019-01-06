@@ -12,7 +12,6 @@ public class NetworkController {
 
 	private NetworkController() {
 		playerGameState = new GameState();
-		playerGameState.setClientIndex(0);
 		playerGameState.setCurrentPlayerIndex(1);
 		playerGameState.setCup(new Cup());
 
@@ -41,9 +40,11 @@ public class NetworkController {
 			// GameController.getInstance().setCup(playerGameState.getCup());
 			// GameController.getInstance().refreshWithGameState(newGameState);
 		}
-		
+		System.out.println("currentPlayer:"+ GameController.getInstance().getCurrentPlayerIndex());
 			//TODO: other changes will be added later, currently just cup is synchronized
-		if(newGameState != null && newGameState.getPlayers() !=null && newGameState.getPlayers().size() != 0) {
+		if(newGameState != null && newGameState.getPlayers() !=null 
+				&& newGameState.getPlayers().size() != 0 && !newGameState.getLocalIp().equals(GameController.getInstance().getLocalIp())) {
+			
 			//playerGameState.setPlayers(newGameState.getPlayers());
 			// TODO: ONEMLI !!!
 			// playerGameState.getPlayer daki playerlarla gamecontroldakileri topla ve 
@@ -51,6 +52,7 @@ public class NetworkController {
 			//GameController.getInstance().refreshPropertyListeners();
 			//GameController.getInstance().setPlayers(playerGameState.getPlayers());
 			//GameController.getInstance().publishPropertyEvent("refresh", false, true);
+			
 			GameController.getInstance().refreshWithGameState(newGameState);
 		}
 		

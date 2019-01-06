@@ -1,6 +1,8 @@
 package domain.gamestate;
 
 import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,9 +37,22 @@ public class GameState implements Serializable {
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
 	
-	private int clientIndex = 0;// arbitrary
-	private String content;
+	private String localIp;
 	private String type;
+
+	/**
+	 * @return the localIp
+	 */
+	public String getLocalIp() {
+		return localIp;
+	}
+
+	/**
+	 * @param localIp the localIp to set
+	 */
+	public void setLocalIp(String localIp) {
+		this.localIp = localIp;
+	}
 
 	/**
 	 * @return the chanceCardList
@@ -182,6 +197,12 @@ public class GameState implements Serializable {
 	public GameState() {
 		currentPlayerIndex = 0;
 		consecutiveDoubles = 0;
+		try {
+			localIp = Inet4Address.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		players = new ArrayList<>();
 	}
 
@@ -192,14 +213,6 @@ public class GameState implements Serializable {
 
 	public String getType() {
 		return type;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
 	}
 
 	public void setType(String type) {
@@ -242,13 +255,6 @@ public class GameState implements Serializable {
 		this.consecutiveDoubles = consecutiveDoubles;
 	}
 
-	public int getClientIndex() {
-		return clientIndex;
-	}
-
-	public void setClientIndex(int clientIndex) {
-		this.clientIndex = clientIndex;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -263,7 +269,7 @@ public class GameState implements Serializable {
 				+ ", rollThreeCardList=" + rollThreeCardList + ", poolMoney=" + poolMoney + ", die1Value=" + die1Value
 				+ ", die2Value=" + die2Value + ", die3Value=" + die3Value + ", withNetwork=" + withNetwork
 				+ ", playerSentToJailForDouble=" + playerSentToJailForDouble + ", currentLocationBuyable="
-				+ currentLocationBuyable + ", clientIndex=" + clientIndex + ", content=" + content + ", type=" + type
+				+ currentLocationBuyable + ", type=" + type
 				+ "]";
 	}
 

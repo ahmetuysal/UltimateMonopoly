@@ -709,6 +709,21 @@ public class GameController extends Observable {
 		}
 		lastDrawnCard = null;
 	}
+	
+
+	/**
+	 * @return the localIp
+	 */
+	public String getLocalIp() {
+		return localIp;
+	}
+
+	/**
+	 * @param localIp the localIp to set
+	 */
+	public void setLocalIp(String localIp) {
+		this.localIp = localIp;
+	}
 
 	/**
 	 * Creates and returns a GameState object that contains all information needed
@@ -730,7 +745,7 @@ public class GameController extends Observable {
 		state.setCommunityChestCardList(communityChestCardList);
 		state.setRollThreeCardList(rollThreeCardList);
 		state.setPoolMoney(poolMoney);
-
+		state.setLocalIp(this.localIp);
 		state.setDie1Value(die1Value);
 		state.setDie2Value(die2Value);
 		state.setDie3Value(die3Value);
