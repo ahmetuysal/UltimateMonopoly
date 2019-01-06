@@ -1,5 +1,7 @@
 package domain;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -57,6 +59,7 @@ public class GameController extends Observable {
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
+	private String localIp;
 
 	private static GameController instance;
 	
@@ -76,6 +79,12 @@ public class GameController extends Observable {
 		actionQueue = new LinkedList<>();
 		initTokens();
 		initCards();
+		try {
+			localIp = Inet4Address.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void initializeWithGameState(GameState state) {
@@ -231,6 +240,11 @@ public class GameController extends Observable {
 			setCurrentPlayer(currentPlayerIndex);
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
+			if(!currentPlayer.getLocalIp().equals(this.localIp)) {
+				publishPropertyEvent("blockButtons",false,true);
+			}else {
+				publishPropertyEvent("blockButtons",true,false);
+			}
 		}
 		publishPropertyEvent("updateNetwork", false, true);
 	}

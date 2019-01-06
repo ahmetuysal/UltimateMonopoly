@@ -46,6 +46,7 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 		controller.addPropertyListener("drawCommunityChestCard",this);
 		controller.addPropertyListener("drawChanceCard",this);
 		controller.addPropertyListener("drawRollThreeCard",this);
+		controller.addPropertyListener("blockButtons",this);
 	}
 	
 	private void initDies() {
@@ -203,7 +204,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
-		if ((boolean) e.getNewValue()) {
+		if(e.getPropertyName().equals("blockButtons")) {
+			this.setEnabled((boolean)e.getOldValue());
+		}
+		else if ((boolean) e.getNewValue()) {
 			rollDiceBeforeStop = rollDiceButton.isEnabled();
 			rollDiceButton.setEnabled(false);
 			buyBeforeStop = buyButton.isEnabled();
