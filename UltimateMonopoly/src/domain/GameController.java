@@ -467,14 +467,21 @@ public class GameController extends Observable {
 
 	public void buildHouse() {
 		board.buildHouse(currentPlayer);
-		if(!board.houseCheck(currentPlayer))
+		if(!board.houseCheck(currentPlayer)) {
 			publishPropertyEvent("buyHouse", true, false);
+			if(board.hotelCheck(currentPlayer))
+				publishPropertyEvent("buyHotel", false, true);
+		}
+			
 	}
 
 	public void buildHotel() {
 		board.buildHotel(currentPlayer);
-		if(!board.hotelCheck(currentPlayer))
+		if(!board.hotelCheck(currentPlayer)) {
 			publishPropertyEvent("buyHotel", true, false);
+			if(board.skyscraperCheck(currentPlayer))
+				publishPropertyEvent("buySkyscraper", false, true);
+		}
 	}
 
 	public void buildSkyscraper() {
