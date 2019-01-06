@@ -19,7 +19,6 @@ import domain.gamestate.GameState;
 import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.square.TitleDeedSquare;
-import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 import domain.util.PropertyListener;
@@ -95,7 +94,6 @@ public class GameController extends Observable {
 		this.withNetwork = state.isWithNetwork();
 		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
-	
 	}
 
 
@@ -150,15 +148,18 @@ public class GameController extends Observable {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
 		initializeWithGameState(savedState);
+		refreshPropertyListeners();
+
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		assignTokensToBoardAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
 	}
 	
 	public void refreshWithGameState(GameState gs) {
-		this.cup = gs.getCup();
-		this.players = gs.getPlayers();
+		this.setCup(gs.getCup());
+		this.setPlayers(gs.getPlayers());
 		// TODO add other fields
+		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		assignTokensToBoardAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
@@ -536,7 +537,28 @@ public class GameController extends Observable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		this.players = players;
+		if (this.players == null)
+			this.players = players;
+		else {
+			for (Player player : players) {
+				int index = this.players.indexOf(player);
+				if (index < 0) {
+					this.players.add(player);
+				}
+				else {
+					Player playerInList = this.players.get(index);
+					playerInList.setTotalMoney(player.getTotalMoney());
+					playerInList.setReverseDirection(player.isReverseDirection());
+					if (player.isInJail()) {
+						playerInList.goToJail();
+					}
+					playerInList.setJailTime(player.getJailTime());
+					playerInList.setProperties(player.getProperties());
+					playerInList.setCards(player.getCards());
+					playerInList.getToken().setLocation(player.getToken().getLocation());
+				}
+			}
+		}
 	}
 
 	public int getCurrentPlayerIndex() {
@@ -828,6 +850,8 @@ public class GameController extends Observable {
 		List<PropertyListener> die1Listeners = new ArrayList<>();
 		List<PropertyListener> die2Listeners = new ArrayList<>();
 		List<PropertyListener> die3Listeners = new ArrayList<>();
+		List<PropertyListener> cupListeners = new ArrayList<>();
+
 		if (propertyListenersMap.containsKey("isPaused")) {
 			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
 		}
@@ -851,6 +875,11 @@ public class GameController extends Observable {
 			die3Listeners.addAll(propertyListenersMap.get("die3"));
 		}
 		newPropertyListeners.put("die3", die3Listeners);
+		
+		if (propertyListenersMap.containsKey("cup")) {
+			cupListeners.addAll(propertyListenersMap.get("cup"));
+		}
+		newPropertyListeners.put("cup", cupListeners);
 		
 		propertyListenersMap = newPropertyListeners;
 		for (Token token : board.getTokens()) {

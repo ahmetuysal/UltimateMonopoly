@@ -293,7 +293,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);
-		controller.refreshPropertyListeners();
+//		controller.refreshPropertyListeners();
 		removeAll();
 		initializePlayButtonsPanel();		
 		initializePauseButton();

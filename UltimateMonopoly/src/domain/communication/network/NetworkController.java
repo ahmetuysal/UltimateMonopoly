@@ -39,7 +39,7 @@ public class NetworkController {
 		if(newGameState != null && newGameState.getCup()!=null) {
 			// playerGameState.setCup(newGameState.getCup());
 			// GameController.getInstance().setCup(playerGameState.getCup());
-			GameController.getInstance().refreshWithGameState(newGameState);
+			// GameController.getInstance().refreshWithGameState(newGameState);
 		}
 		
 			//TODO: other changes will be added later, currently just cup is synchronized

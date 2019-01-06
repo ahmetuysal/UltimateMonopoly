@@ -45,6 +45,8 @@ public class Player extends Observable implements Serializable {
 		this.cards = new ArrayList<>();
 		this.properties = new ArrayList<>();
 	}
+	
+
 
 	/*
 	 * (non-Javadoc)
@@ -345,6 +347,13 @@ public class Player extends Observable implements Serializable {
 		if (!(obj instanceof Player))
 			return false;
 		Player other = (Player) obj;
+		if (nickName.equals(other.getNickName()))
+			return true;
+	
+		//
+		// NOT IMPORTANT 
+		//
+		
 		if (inJail != other.inJail)
 			return false;
 		if (isReverseDirection != other.isReverseDirection)
