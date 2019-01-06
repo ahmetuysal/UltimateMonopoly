@@ -509,7 +509,6 @@ public class GameController extends Observable {
 		publishPropertyEvent("die3", die3Value, newValues[2]);
 		die3Value = newValues[2];
 		publishPropertyEvent("updateNetwork",true,false);
-		System.out.println("Cup'i dinleyenler: " + propertyListenersMap.get("cup"));
 	}
 
 	public void rollThree() {
