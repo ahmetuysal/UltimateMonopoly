@@ -21,7 +21,7 @@ public class CommunicationFacade implements PropertyListener{
 	
 	public CommunicationFacade() {
 		gameController = GameController.getInstance();
-		gameController.addPropertyListener("cup", this);
+		gameController.addPropertyListener("updateNetworkListeners", this);
 		connectToGameServerForSync();
 		sendYourStateToOtherConnecteds();
 		listenToTheServer();
@@ -107,10 +107,11 @@ public class CommunicationFacade implements PropertyListener{
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 	
-		if(e.getPropertyName().equals("cup")) {
+		if(e.getPropertyName().equals("updateNetworkListeners")) {
 			System.out.println("AAAAAAAAAAAAAAAAAAA");
-			NetworkController.getInstance().getPlayerGameState().setCup(gameController.getCup());
-			NetworkController.getInstance().getPlayerGameState().setPlayers(gameController.getPlayers());
+			NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
+//			NetworkController.getInstance().getPlayerGameState().setCup(gameController.getCup());
+//			NetworkController.getInstance().getPlayerGameState().setPlayers(gameController.getPlayers());
 	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
 		}
 		

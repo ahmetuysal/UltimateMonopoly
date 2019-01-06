@@ -158,7 +158,6 @@ public class GameController extends Observable {
 	public void refreshWithGameState(GameState gs) {
 		this.setCup(gs.getCup());
 		// TODO add other fields
-		
 		this.setPlayers(gs.getPlayers());
 		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
@@ -232,6 +231,7 @@ public class GameController extends Observable {
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 		}
+		publishPropertyEvent("updateNetwork", false, true);
 	}
 
 	public void buyProperty() {
@@ -389,6 +389,7 @@ public class GameController extends Observable {
 			publishPropertyEvent("buyable",false,false);
 		}
 		
+		publishPropertyEvent("updateNetwork", false, true);
 		publishPropertyEvent("changeRoll",true,false);
 		publishPropertyEvent("pass",false,true);
 		
@@ -490,7 +491,6 @@ public class GameController extends Observable {
 		die2Value = newValues[1];
 		publishPropertyEvent("die3", die3Value, newValues[2]);
 		die3Value = newValues[2];
-		publishPropertyEvent("cup", 0, 1);
 		System.out.println("Cup'i dinleyenler: " + propertyListenersMap.get("cup"));
 	}
 
@@ -544,6 +544,7 @@ public class GameController extends Observable {
 		else {
 			for (Player player : players) {
 				int index = this.players.indexOf(player);
+				System.out.println(player.getToken());
 				if (index < 0) {
 					this.players.add(player);
 					board.addToken(player.getToken());
@@ -853,7 +854,7 @@ public class GameController extends Observable {
 		List<PropertyListener> die1Listeners = new ArrayList<>();
 		List<PropertyListener> die2Listeners = new ArrayList<>();
 		List<PropertyListener> die3Listeners = new ArrayList<>();
-		List<PropertyListener> cupListeners = new ArrayList<>();
+		List<PropertyListener> updateNetworkListeners = new ArrayList<>();
 
 		if (propertyListenersMap.containsKey("isPaused")) {
 			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
@@ -879,11 +880,10 @@ public class GameController extends Observable {
 		}
 		newPropertyListeners.put("die3", die3Listeners);
 		
-		
-		if (propertyListenersMap.containsKey("cup")) {
-			cupListeners.addAll(propertyListenersMap.get("cup"));
+		if (propertyListenersMap.containsKey("updateNetwork")) {
+			updateNetworkListeners.addAll(propertyListenersMap.get("updateNetwork"));
 		}
-		newPropertyListeners.put("cup", cupListeners);
+		newPropertyListeners.put("updateNetwork", updateNetworkListeners);
 		
 		propertyListenersMap = newPropertyListeners;
 		for (Token token : board.getTokens()) {
