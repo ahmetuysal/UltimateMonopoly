@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import domain.GameController;
+
 public class GenericAnimator implements Runnable {
 
 	private List<Animatable> elementsToAnimate;
@@ -38,9 +40,11 @@ public class GenericAnimator implements Runnable {
 			try {
 				synchronized (this) {
 					if (animatorStopped == true) {
-						wait();
-					}
+						Thread.sleep(sleepTime);
+						continue;
+						}
 				}
+				
 				if (animatorStopped != true)
 					Thread.sleep(sleepTime);
 			} catch (InterruptedException e) {

@@ -87,6 +87,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		// initButtons();
 		initializePlayerPanel();
 		
+		controller.addPropertyListener("isPaused",this);
+		
 	}
 
 	private void initializeTurnOrder() {
@@ -329,6 +331,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			if ((boolean) e.getNewValue()) {
 				resetEverthingUsingGameController();
 			}
+		}else if(e.getPropertyName().equals("isPaused")) {
+			animator.setAnimatorStopped((boolean) e.getNewValue());
 		}
 	}
 

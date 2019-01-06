@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -30,7 +31,7 @@ public class PausedPanel extends JPanel implements PropertyListener, ActionListe
 		this.pausedPanelWidth = pausedPanelWidth;
 		this.pausedPanelHeight = pausedPanelHeight;
 		this.setSize(pausedPanelWidth, pausedPanelHeight);
-		this.setBackground(new Color(0, 0, 0, 150));
+		this.setBackground(mainFrame.getBackground());
 		this.setLayout(null);
 		this.setVisible(false);
 		addMouseListener(this);
@@ -94,41 +95,16 @@ public class PausedPanel extends JPanel implements PropertyListener, ActionListe
 	public void onPropertyEvent(PropertyEvent e) {
 		if (e.getPropertyName().equals("isPaused")) {
 			System.out.println("Paused panel visibility :" + e.getNewValue().toString());
+			
+			
+			mainFrame.validate();
 			this.setVisible((boolean) e.getNewValue());
-			mainFrame.repaint();
+			
 		}
 
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -141,6 +117,36 @@ public class PausedPanel extends JPanel implements PropertyListener, ActionListe
 			break;
 		}
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
