@@ -37,6 +37,15 @@ public class ObserverButton extends JButton implements PropertyListener {
 		else if (e.getPropertyName().equals("currentLocationBuyable")) {
 			this.setEnabled((boolean) e.getNewValue());
 		}
+		else if(e.getPropertyName().equals("buyHouse")) {
+			this.setEnabled((boolean) e.getNewValue());
+		}
+		else if(e.getPropertyName().equals("buyHotel")) {
+			this.setEnabled((boolean) e.getNewValue());
+		}
+		else if(e.getPropertyName().equals("buySkyscraper")) {
+			this.setEnabled((boolean) e.getNewValue());
+		}
 	}
 
 }

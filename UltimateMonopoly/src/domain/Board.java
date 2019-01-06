@@ -222,18 +222,43 @@ public class Board implements Serializable{
 		return null;
 	}
 
-	public void buildHouse(Player currentPlayer, int houseNum) {
+	/*public void buildHouse(Player currentPlayer, int houseNum) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buyHouse();
 		}
+	}*/
+	
+	public void buildHouse(Player currentPlayer) {
+	Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+	if (currentSquare instanceof TitleDeedSquare) {
+		((TitleDeedSquare) currentSquare).buyHouse();
+		}
 	}
-
+	
+	public boolean houseCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).houseCheck())
+				return true;
+			}
+		return false;
+	}
+	
 	public void buildHotel(Player currentPlayer) {
 		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buyHotel();
 		}
+	}
+	
+	public boolean hotelCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).hotelCheck())
+				return true;
+			}
+		return false;
 	}
 
 	public void buildSkyscraper(Player currentPlayer) {
@@ -241,6 +266,15 @@ public class Board implements Serializable{
 		if (currentSquare instanceof TitleDeedSquare) {
 			((TitleDeedSquare) currentSquare).buySkyScraper();
 		}
+	}
+	
+	public boolean skyscraperCheck(Player currentPlayer) {
+		Square currentSquare = this.getSquare(currentPlayer.getToken().getLocation());
+		if (currentSquare instanceof TitleDeedSquare) {
+			if(((TitleDeedSquare) currentSquare).skyscraperCheck())
+				return true;		
+			}
+		return false;
 	}
 
 	public List<Token> getTokens() {
