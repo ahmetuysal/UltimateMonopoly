@@ -97,6 +97,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void initializePlayerPanel() {
+		if (playerPanel != null) {
+			remove(playerPanel);
+		}
 		int pWidth = frameWidth - 17*squareUnitSize - boardStartX;;
 		int pHeight = (int) (frameHeight * 7 / 8.);
 		playerPanel = new PlayerPanel(pWidth, pHeight);
@@ -269,6 +272,10 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void initializeTokens() {
+		if (UITokens != null)
+			for (UIToken uiToken : UITokens)
+				remove(uiToken);
+		
 		UITokens = new ArrayList<>();
 		for (Token token : controller.getBoard().getTokens()) {
 			UIToken uiToken = new UIToken(token, tokenSize);
@@ -294,14 +301,14 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);
 //		controller.refreshPropertyListeners();
-		removeAll();
+//		removeAll();
 		
-		initializePlayButtonsPanel();		
-		initializePauseButton();
-		initializeCardPanel();
+//		initializePlayButtonsPanel();		
+//		initializePauseButton();
+//		initializeCardPanel();
 		initializeTokens();
-		initCardButtons();
-		initBoard();
+//		initCardButtons();
+//		initBoard();
 		initializeTurnOrder();
 		initializePlayerPanel();
 		animator.setAnimatorStopped(false);

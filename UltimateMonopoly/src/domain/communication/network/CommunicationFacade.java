@@ -110,7 +110,7 @@ public class CommunicationFacade implements PropertyListener{
 		if(e.getPropertyName().equals("cup")) {
 			System.out.println("AAAAAAAAAAAAAAAAAAA");
 			NetworkController.getInstance().getPlayerGameState().setCup(gameController.getCup());
-			
+			NetworkController.getInstance().getPlayerGameState().setPlayers(gameController.getPlayers());
 	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
 		}
 		

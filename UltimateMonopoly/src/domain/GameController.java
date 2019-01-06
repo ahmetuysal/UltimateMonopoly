@@ -849,9 +849,9 @@ public class GameController extends Observable {
 		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
 		List<PropertyListener> isPausedListeners = new ArrayList<>();
 		List<PropertyListener> refreshListeners = new ArrayList<>();
-//		List<PropertyListener> die1Listeners = new ArrayList<>();
-//		List<PropertyListener> die2Listeners = new ArrayList<>();
-//		List<PropertyListener> die3Listeners = new ArrayList<>();
+		List<PropertyListener> die1Listeners = new ArrayList<>();
+		List<PropertyListener> die2Listeners = new ArrayList<>();
+		List<PropertyListener> die3Listeners = new ArrayList<>();
 		List<PropertyListener> cupListeners = new ArrayList<>();
 
 		if (propertyListenersMap.containsKey("isPaused")) {
@@ -863,22 +863,21 @@ public class GameController extends Observable {
 		}
 		newPropertyListeners.put("refresh", refreshListeners);
 		
-//		if (propertyListenersMap.containsKey("die1")) {
-//			die1Listeners.addAll(propertyListenersMap.get("die1"));
-//		}
-//		newPropertyListeners.put("die1", die1Listeners);
-//		
-//		if (propertyListenersMap.containsKey("die2")) {
-//			die2Listeners.addAll(propertyListenersMap.get("die2"));
-//		}
-//		newPropertyListeners.put("die2", die2Listeners);
-//		
-//		if (propertyListenersMap.containsKey("die3")) {
-//			die3Listeners.addAll(propertyListenersMap.get("die3"));
-//		}
-//		newPropertyListeners.put("die3", die3Listeners);
+		if (propertyListenersMap.containsKey("die1")) {
+			die1Listeners.addAll(propertyListenersMap.get("die1"));
+		}
+		newPropertyListeners.put("die1", die1Listeners);
 		
-		System.out.println("Koparmadan once cup :" + propertyListenersMap.get("cup"));
+		if (propertyListenersMap.containsKey("die2")) {
+			die2Listeners.addAll(propertyListenersMap.get("die2"));
+		}
+		newPropertyListeners.put("die2", die2Listeners);
+		
+		if (propertyListenersMap.containsKey("die3")) {
+			die3Listeners.addAll(propertyListenersMap.get("die3"));
+		}
+		newPropertyListeners.put("die3", die3Listeners);
+		
 		
 		if (propertyListenersMap.containsKey("cup")) {
 			cupListeners.addAll(propertyListenersMap.get("cup"));
@@ -893,7 +892,6 @@ public class GameController extends Observable {
 			player.refreshPropertyListeners();
 		}
 		
-		System.out.println("Kopardiktan sonra cup :" + propertyListenersMap.get("cup"));
 
 	}
 }
