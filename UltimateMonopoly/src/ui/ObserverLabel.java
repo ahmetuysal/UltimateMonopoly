@@ -1,27 +1,51 @@
 package ui;
 
+import java.util.ArrayList;
+
 import javax.swing.JLabel;
 
+import domain.Player;
+import domain.square.OwnableSquare;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 
 public class ObserverLabel extends JLabel implements PropertyListener {
 
-	private String playerName;
-	
-	public ObserverLabel(int width, int height, String playerName){
+	private Player player;
+	private String infoType;
+
+	public ObserverLabel(int width, int height, Player player, String type) {
 		super();
-		this.playerName = playerName;
+		this.infoType = type;
+		this.player = player;
 		this.setVisible(true);
-		this.setSize(width,height);
-		this.setText("Player: "+playerName+ "Money: $"+3200);
+		// this.setSize(width,height);
+		if(type.equals("playerInfo"))
+			onPropertyEvent(new PropertyEvent(this, "playerInfo", player.getTotalMoney(), player.getTotalMoney()));
+		else
+			onPropertyEvent(new PropertyEvent(this, "properties", player.getTotalMoney(), player.getProperties()));		
+		
 	}
-	
+
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getNewValue());
-		this.setText("Player: " +  playerName + " Money: $" + e.getNewValue());
+		if (infoType.equals("playerInfo")) {
+			this.setText("<html>Player: " + player.getNickName() + "<br>Money: $" + e.getNewValue()+"</html>");
+		} else if (infoType.equals("properties")) {
+			String text = "<html>";
+			ArrayList list = (ArrayList) e.getNewValue();
+			if (list == null) {
+				text += "No properties!";
+			}
+			else{
+				for (int i = 0; i < list.size(); i++) {
+					text += list.get(i).toString().replaceAll("\n", "<br>") + "<br><br>";
+				}
+			}
+			text += "</html>";
+			this.setText(text);
+		}
 	}
 
 }

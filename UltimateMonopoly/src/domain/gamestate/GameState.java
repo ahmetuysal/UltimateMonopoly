@@ -16,7 +16,6 @@ import domain.square.Square;
 
 public class GameState implements Serializable {
 
-	private Board board;
 	private Cup cup;
 	private List<Player> players;
 	private int currentPlayerIndex;
@@ -36,25 +35,9 @@ public class GameState implements Serializable {
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
 	
-	private transient boolean isOwnedItemsInit = false;
-
 	private int clientIndex = 0;// arbitrary
 	private String content;
 	private String type;
-
-	/**
-	 * @return the board
-	 */
-	public Board getBoard() {
-		return board;
-	}
-
-	/**
-	 * @param board the board to set
-	 */
-	public void setBoard(Board board) {
-		this.board = board;
-	}
 
 	/**
 	 * @return the chanceCardList
@@ -203,55 +186,7 @@ public class GameState implements Serializable {
 	}
 
 	public List<Player> getPlayers() {
-		if (!isOwnedItemsInit) {
-			assignOwnedItemsToPlayer();		
-			isOwnedItemsInit = true;
-		}
 		return players;
-	}
-
-	private void assignOwnedItemsToPlayer() {
-		List<Square>[] squares = board.getSquares();
-		for (int i = 0; i < squares.length; i++) {
-			List<Square> layer = squares[i];
-			for (Square sq : layer) {
-				if (sq instanceof OwnableSquare) {
-					for (Player player : players) {
-						if (player.equals(((OwnableSquare) sq).getOwner())) {
-							player.addProperty((OwnableSquare) sq);
-						}
-					}
-				}
-			}
-		}
-
-		for (Card card : chanceCardList) {
-			if (card instanceof OwnableCard) {
-				for (Player player : players) {
-					if (player.equals(((OwnableCard) card).getOwner())) {
-						player.addCard((OwnableCard) card);
-					}
-				}
-			}
-		}
-
-		for (Card card : communityChestCardList) {
-			if (card instanceof OwnableCard) {
-				for (Player player : players) {
-					if (player.equals(((OwnableCard) card).getOwner())) {
-						player.addCard((OwnableCard) card);
-					}
-				}
-			}
-		}
-
-		for (OwnableCard card : rollThreeCardList) {
-			for (Player player : players) {
-				if (player.equals((card).getOwner())) {
-					player.addCard(card);
-				}
-			}
-		}
 	}
 
 
@@ -322,7 +257,7 @@ public class GameState implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "GameState [board=" + board + ", cup=" + cup + ", players=" + players + ", currentPlayerIndex="
+		return "GameState [cup=" + cup + ", players=" + players + ", currentPlayerIndex="
 				+ currentPlayerIndex + ", currentPlayer=" + currentPlayer + ", consecutiveDoubles=" + consecutiveDoubles
 				+ ", chanceCardList=" + chanceCardList + ", communityChestCardList=" + communityChestCardList
 				+ ", rollThreeCardList=" + rollThreeCardList + ", poolMoney=" + poolMoney + ", die1Value=" + die1Value
@@ -347,8 +282,6 @@ public class GameState implements Serializable {
 	}
 
 	public boolean repOK() {
-		if(board == null)
-			return false;
 		if(cup == null)
 			return false;
 		if(consecutiveDoubles > 3)

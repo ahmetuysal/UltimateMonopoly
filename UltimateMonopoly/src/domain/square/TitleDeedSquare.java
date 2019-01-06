@@ -14,10 +14,10 @@ import domain.Player;
  */
 public class TitleDeedSquare extends OwnableSquare {
 
-	private int rentValue;
-	private int[] rentWithHouses;
-	private int rentWithHotel;
-	private int rentWithSkyscrapers;
+	private transient int rentValue;
+	private transient int[] rentWithHouses;
+	private transient int rentWithHotel;
+	private transient int rentWithSkyscrapers;
 	private int numHouses;
 	private int numHotels;
 	private int numSkyscrapers;
@@ -128,7 +128,12 @@ public class TitleDeedSquare extends OwnableSquare {
 	 * 
 	 * @return <tt>true</tt> if a house is bought, <tt>false</tt> otherwise.
 	 */
-	public boolean buyHouse() {
+	public void buyHouse() {
+		this.owner.decreaseMoney(color.housePriceProperty());
+		this.numHouses++;
+	}
+	
+	public boolean houseCheck() {
 		if (!this.isOwned()) {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
@@ -138,19 +143,15 @@ public class TitleDeedSquare extends OwnableSquare {
 			return false;
 		}
 		if (!this.ownerHasMajorityOwnership()) {
-			System.out.println("You need to have 'Majority Ownership' to buy a hotel!");
+			System.out.println("You need to have 'Majority Ownership' to buy a house!");
 			return false;
 		}
 		if (this.numHouses == 4 || this.numHotels > 0 || this.numSkyscrapers > 0) {
 			System.out.println("You can't build more than 4 houses on the same property!");
 			return false;
 		}
-
-		this.owner.decreaseMoney(color.housePriceProperty());
-		this.numHouses++;
 		return true;
 	}
-
 	/**
 	 * Increases the number of hotels of <b><tt>this</tt></b> if
 	 * <b><tt>this</tt></b> and owner satisfies required conditions.
@@ -165,9 +166,15 @@ public class TitleDeedSquare extends OwnableSquare {
 	 * 
 	 * @return <tt>true</tt> if a hotel is bought, <tt>false</tt> otherwise.
 	 */
-	public boolean buyHotel() {
+	public void buyHotel() {
+		this.owner.decreaseMoney(color.hotelPriceProperty());
+		this.numHouses = 0;
+		this.numHotels++;
+	}
+	
+	public boolean hotelCheck() {
 		if (!this.isOwned()) {
-			System.out.println("Can't build a house on an unowned property!");
+			System.out.println("Can't build a hotel on an unowned property!");
 			return false;
 		}
 		if (this.numHouses != 4) {
@@ -186,14 +193,16 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("You can't build more than one hotel on the same property!");
 			return false;
 		}
-
-		this.owner.decreaseMoney(color.hotelPriceProperty());
-		this.numHouses = 0;
-		this.numHotels++;
 		return true;
 	}
 
-	public boolean buySkyScraper() {
+	public void buySkyScraper() {
+		this.owner.decreaseMoney(this.color.skyScraperPriceProperty());
+		this.numHotels = 0;
+		this.numSkyscrapers++;
+	}
+	
+	public boolean skyscraperCheck() {
 		if (!this.isOwned()) {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
@@ -224,10 +233,6 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("You have already built a skyscraper. You can't build more!");
 			return false;
 		}
-
-		this.owner.decreaseMoney(this.color.skyScraperPriceProperty());
-		this.numHotels = 0;
-		this.numSkyscrapers++;
 		return true;
 	}
 
@@ -290,5 +295,16 @@ public class TitleDeedSquare extends OwnableSquare {
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.name +":\nRent Value: "+ rentValue + "\nnumHouses: " + numHouses + "\nnumHotels: " + numHotels
+				+ "\nnumSkyscrapers: " + numSkyscrapers + "\ncolor: " + color ;
+	}
+	
+	
 
 }

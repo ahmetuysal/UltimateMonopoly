@@ -26,8 +26,8 @@ public class Player extends Observable implements Serializable {
 	private boolean isReverseDirection;
 	private boolean inJail;
 	private int jailTime;
-	private transient List<OwnableCard> cards;
-	private transient List<OwnableSquare> properties;
+	private List<OwnableCard> cards;
+	private List<OwnableSquare> properties;
 	private Token token;
 
 	private static final int START_MONEY = 3200;
@@ -230,13 +230,25 @@ public class Player extends Observable implements Serializable {
 	public void addProperty(OwnableSquare prop) {
 		if (this.properties == null)
 			properties = new ArrayList<>();
+		
+		List<OwnableSquare> oldVal = this.properties;
 		this.properties.add(prop);
+		publishPropertyEvent("properties", oldVal, this.properties);
 	}
 
 	public boolean removeProperty(OwnableSquare prop) {
 		if (this.properties == null)
 			properties = new ArrayList<>();
-		return this.properties.remove(prop);
+		
+		List<OwnableSquare> oldVal = this.properties;
+		
+		if(this.properties.remove(prop)) {
+			publishPropertyEvent("properties", oldVal, this.properties);
+			return true;
+		}
+		
+		return false;
+	
 	}
 
 	/**
@@ -300,6 +312,10 @@ public class Player extends Observable implements Serializable {
 	public List<OwnableSquare> getProperties() {
 		return properties;
 	}
+	
+	public void setProperties(List<OwnableSquare> newSq) {
+		this.properties = newSq;
+	}
 
 	public boolean repOK() {
 		if (nickName == null || nickName == "")
@@ -351,4 +367,8 @@ public class Player extends Observable implements Serializable {
 		return true;
 	}
 
+	public void refreshPropertyListeners() {
+		propertyListenersMap = null;
+	}
+	
 }

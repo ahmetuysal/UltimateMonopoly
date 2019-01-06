@@ -103,6 +103,9 @@ public class Token extends Observable implements Serializable{
 		return true;
 	}
 	
+	public void refreshPropertyListeners() {
+		propertyListenersMap = null;
+	}
 
 }
 

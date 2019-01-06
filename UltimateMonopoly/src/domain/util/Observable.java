@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public abstract class Observable {
 
-	private transient Map<String, List<PropertyListener>> propertyListenersMap;
+	protected transient Map<String, List<PropertyListener>> propertyListenersMap;
 
 	public Observable() {
 		initPropertyListeners();

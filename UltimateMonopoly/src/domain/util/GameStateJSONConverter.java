@@ -37,7 +37,7 @@ public class GameStateJSONConverter {
 		}
 		
 		try (FileWriter writer = new FileWriter(path)) {
-		    Gson gson = new GsonBuilder().create();
+		    Gson gson = GsonUtils.getGson();
 		    gson.toJson(state, writer);
 		    
 		    writer.flush();
@@ -59,7 +59,7 @@ public class GameStateJSONConverter {
 		}
 		
 		try (FileReader reader = new FileReader(path)) {
-		    Gson gson = new GsonBuilder().create();
+		    Gson gson = GsonUtils.getGson();
 		    return gson.fromJson(reader, GameState.class);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
