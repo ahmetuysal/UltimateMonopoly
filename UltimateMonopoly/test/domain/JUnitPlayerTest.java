@@ -28,7 +28,7 @@ public class JUnitPlayerTest {
 	/////////////////////////// Black-Box Test/////////////////////////////////
 	@Test
 	void testGoToJail() {
-		GameController.getInstance().registerUser("Eralp", "Boot.png");
+//		GameController.getInstance().registerUser("Eralp", "Boot.png");
 		Player player = GameController.getInstance().getPlayerList().get(0);
 		player.goToJail();
 		assertEquals(player.isInJail(), true);
@@ -66,7 +66,7 @@ public class JUnitPlayerTest {
 
 	@Test
 	void testGoToJailGlassBox() {
-		GameController.getInstance().registerUser("Eralp", "Boot.png");
+//		GameController.getInstance().registerUser("Eralp", "Boot.png");
 		Player player = GameController.getInstance().getPlayerList().get(0);
 		player.goToJail();
 		assertEquals(player.isInJail(), true);
