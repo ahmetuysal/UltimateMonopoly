@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import domain.card.Card;
@@ -17,14 +18,19 @@ import domain.die.DieValue;
 import domain.gamestate.GameState;
 import domain.square.OwnableSquare;
 import domain.square.Square;
+import domain.square.TitleDeedSquare;
+import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
+import domain.util.PropertyListener;
+
 /**
  * Class that controls main flow of the game.
- * @overview Takes requests from UI part 
- * of the game and delegates responsibilities to corresponding classes, communicates 
- * with other classes of domain.
- * Created using Controller Pattern of GRASP Patterns.
+ * 
+ * @overview Takes requests from UI part of the game and delegates
+ *           responsibilities to corresponding classes, communicates with other
+ *           classes of domain. Created using Controller Pattern of GRASP
+ *           Patterns.
  * 
  * @author Team Pennybags
  */
@@ -44,6 +50,8 @@ public class GameController extends Observable {
 	private DieValue die1Value;
 	private DieValue die2Value;
 	private DieValue die3Value;
+	
+	private Card lastDrawnCard = null;
 
 	private boolean isPaused;
 	private boolean withNetwork;
@@ -51,6 +59,8 @@ public class GameController extends Observable {
 	private boolean currentLocationBuyable;
 
 	private static GameController instance;
+	
+	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
 		if (instance == null) {
@@ -59,18 +69,16 @@ public class GameController extends Observable {
 		return instance;
 	}
 
-
 	private GameController() {
 		board = new Board();
 		cup = new Cup();
 		players = new ArrayList<>();
+		actionQueue = new LinkedList<>();
 		initTokens();
 		initCards();
 	}
 
-
 	public void initializeWithGameState(GameState state) {
-		this.board = state.getBoard();
 		this.cup = state.getCup();
 		this.players = state.getPlayers();
 		this.currentPlayerIndex = state.getCurrentPlayerIndex();
@@ -142,6 +150,32 @@ public class GameController extends Observable {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
 		initializeWithGameState(savedState);
+		assignOwnableSquaresToOwnersAfterLoadGame();
+		assignTokensToBoardAfterLoadGame();
+		publishPropertyEvent("refresh", false, true);
+	}
+
+	private void assignTokensToBoardAfterLoadGame() {
+		for (Player player : players) {
+			board.addToken(player.getToken());
+		}
+	}
+	
+	private void assignOwnableSquaresToOwnersAfterLoadGame() {
+		for (Player player : players) {
+			List<OwnableSquare> newProps = new ArrayList<>();
+			for (OwnableSquare ownedSquare : player.getProperties()) {
+				OwnableSquare boardSq = (OwnableSquare) board.getSquare(ownedSquare.getLocation());
+				boardSq.setOwner(player);
+				if (ownedSquare instanceof TitleDeedSquare) {
+					((TitleDeedSquare)boardSq).setNumHouses(((TitleDeedSquare) ownedSquare).getNumHouses());
+					((TitleDeedSquare)boardSq).setNumHotels(((TitleDeedSquare) ownedSquare).getNumHotels());
+					((TitleDeedSquare)boardSq).setNumSkyscrapers(((TitleDeedSquare) ownedSquare).getNumSkyscrapers());
+				}
+				newProps.add(boardSq);
+			}
+			player.setProperties(newProps);
+		}
 	}
 
 	public boolean saveGame(String gameName) {
@@ -178,11 +212,14 @@ public class GameController extends Observable {
 	}
 
 	public void passTurn() {
-		if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
+		if(!actionQueue.isEmpty()) {
+			nextAction();
+		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
 			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 			setCurrentPlayer(currentPlayerIndex);
+			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 		}
 	}
@@ -216,9 +253,7 @@ public class GameController extends Observable {
 	public void drawChanceCard() {
 		Card card = chanceCardList.removeFirst();
 		publishPropertyEvent("cardNameChance", null, card.getName());
-		// assumed it will be used instanly for now
-		// will change it for ownable cards
-		card.useCard(currentPlayer, "");
+		lastDrawnCard = card;
 		chanceCardList.addLast(card);
 		publishPropertyEvent("drawChanceCard", true, false);
 	}
@@ -226,9 +261,7 @@ public class GameController extends Observable {
 	public void drawCommunityChestCard() {
 		Card card = communityChestCardList.removeFirst();
 		publishPropertyEvent("cardNameCommunityChest", null, card.getName());
-		// assumed it will be used instanly for now
-		// will change it for ownable cards
-		card.useCard(currentPlayer, "");
+		lastDrawnCard = card;
 		communityChestCardList.addLast(card);
 		publishPropertyEvent("drawCommunityChestCard", true, false);
 	}
@@ -236,7 +269,7 @@ public class GameController extends Observable {
 	public void drawRollThreeCard() {
 		OwnableCard card = rollThreeCardList.removeFirst();
 		publishPropertyEvent("cardNameRollThree", null, card.getName());
-		currentPlayer.addCard((OwnableCard) card);
+		lastDrawnCard = card;
 		rollThreeCardList.addLast(card);
 		publishPropertyEvent("drawRollThreeCard", true, false);
 	}
@@ -307,50 +340,74 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
+
 		rollDice();
+		handleJail();
+		
+		if(cup.isTriple()) {
+			board.teleport(currentPlayer);
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
+		
+		
+		if(cup.isMrMonopoly()) {
+			actionQueue.add("mrmonopoly");
+		}else if(cup.isBusIcon()) {
+			actionQueue.add("busicon");
+		}
+		
+		if(cup.isDouble()) {
+			consecutiveDoubles++;
+			if (consecutiveDoubles == 3) {
+				currentPlayer.goToJail();
+				playerSentToJailForDouble = true;
+				actionQueue.clear();
+				publishPropertyEvent("isTurnFinished", true, false);
+				return;
+			}
+			actionQueue.add("double");
+		}
+		
+		publishPropertyEvent("changeRoll",true,false);
+		publishPropertyEvent("pass",false,true);
+		
+		if(board.movePlayer(currentPlayer, cup.getTotal())) {
+			publishPropertyEvent("buyable",false,true);
+		}else {
+			publishPropertyEvent("buyable",false,false);
+		}
+		
+		if(currentPlayer.isInJail()) {
+			publishPropertyEvent("isTurnFinished", true, false);
+			actionQueue.clear();
+			return;
+		}
+	}
+	
+	public void handleJail() {
 		if (currentPlayer.isInJail()) {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
 			currentPlayer.decreaseJailTime();
 		}
-
-		if (currentPlayer.isInJail()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isMrMonopoly()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			// TODO check if all properties are owned.
+	}
+	
+	public void nextAction() {
+		String nextAction = actionQueue.removeFirst();
+		if(nextAction.equals("mrmonopoly")) {
 			board.moveToNextUnownedProperty(currentPlayer);
-		} else if (cup.isBusIcon()) {
-			board.movePlayer(currentPlayer, cup.getTotal());
+			publishPropertyEvent("buyable",false,true);
+		}else if(nextAction.equals("busicon")) {
 			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
-		} else if (cup.isTriple()) {
-			// TODO move user to wherever he wants
-			// do not move again
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
-		} else if (cup.isDouble()) {
-			consecutiveDoubles++;
-			if (consecutiveDoubles == 3) {
-				currentPlayer.goToJail();
-				playerSentToJailForDouble = true;
-				publishPropertyEvent("isTurnFinished", true, false);
-				return;
-			} else {
-				board.movePlayer(currentPlayer, cup.getTotal());
-				return;
-			}
-		} else {
-			board.movePlayer(currentPlayer, cup.getTotal());
-			publishPropertyEvent("isTurnFinished", true, false);
-			return;
+			publishPropertyEvent("buyable",false,false);
+			publishPropertyEvent("pass",true, false);
+		}else if(nextAction.equals("double")) {
+			publishPropertyEvent("changeRoll", false, true);
+			publishPropertyEvent("pass",true, false);
 		}
-
-		if (!cup.isDouble()) {
-			publishPropertyEvent("isTurnFinished", true, false);
-		}
-
 	}
 
 	private void setCurrentPlayer(int index) {
@@ -549,8 +606,25 @@ public class GameController extends Observable {
 	}
 
 	public void playCard() {
-		// TODO Auto-generated method stub
-
+		if (lastDrawnCard != null) {
+			if (lastDrawnCard instanceof RollThreeCard) {
+				currentPlayer.addCard((OwnableCard) lastDrawnCard);
+				playRollThree();
+			}
+			else
+				lastDrawnCard.useCard(currentPlayer, "");
+		}
+		lastDrawnCard = null;
+	}
+	
+	public void keepCard() {
+		if (lastDrawnCard != null) {
+			if (lastDrawnCard instanceof OwnableCard)
+				currentPlayer.addCard((OwnableCard) lastDrawnCard);
+			else
+				System.out.println("ERROR: You can only keep ownable cards.");
+		}
+		lastDrawnCard = null;
 	}
 
 	/**
@@ -564,7 +638,6 @@ public class GameController extends Observable {
 	 */
 	public GameState toGameState() {
 		GameState state = new GameState();
-		state.setBoard(board);
 		state.setCup(cup);
 		state.setPlayers(players);
 		state.setCurrentPlayerIndex(currentPlayerIndex);
@@ -691,24 +764,38 @@ public class GameController extends Observable {
 	public void setPaused(boolean isPaused) {
 		this.isPaused = isPaused;
 	}
-	
+
 	public boolean repOK() {
-		if(board == null)
+		if (board == null)
 			return false;
-		if(cup == null)
+		if (cup == null)
 			return false;
-		if(consecutiveDoubles > 3)
+		if (consecutiveDoubles > 3)
 			return false;
-		if(players == null || players.size() < 2)
+		if (players == null || players.size() < 2)
 			return false;
-		if(chanceCardList == null || chanceCardList.size() != 2)
+		if (chanceCardList == null || chanceCardList.size() != 2)
 			return false;
-		if(communityChestCardList == null || communityChestCardList.size() != 3)
+		if (communityChestCardList == null || communityChestCardList.size() != 3)
 			return false;
-		if(rollThreeCardList == null || rollThreeCardList.size() != 24)
+		if (rollThreeCardList == null || rollThreeCardList.size() != 24)
 			return false;
-		if(poolMoney < 0)
+		if (poolMoney < 0)
 			return false;
 		return true;
+	}
+
+	public void refreshPropertyListeners() {
+		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
+		List<PropertyListener> isPausedListeners = new ArrayList<>();
+		isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
+		newPropertyListeners.put("isPaused", new ArrayList<>());
+		propertyListenersMap = newPropertyListeners;
+		for (Token token : board.getTokens()) {
+			token.refreshPropertyListeners();
+		}
+		for (Player player : players) {
+			player.refreshPropertyListeners();
+		}
 	}
 }

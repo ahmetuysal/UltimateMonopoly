@@ -8,8 +8,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import domain.GameController;
+import domain.util.PropertyEvent;
+import domain.util.PropertyListener;
 
-public class PlayButtonPanel extends JPanel implements ActionListener {
+
+
+public class PlayButtonPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private ObserverButton rollDiceButton;
 	private ObserverButton buyButton;
@@ -17,6 +21,11 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 	
 	private int panelWidth;
 	private int panelHeight;
+	
+	private boolean rollDiceBeforeStop = false;
+	private boolean buyBeforeStop = false;
+	private boolean passTurnBeforeStop = false;
+
 	
 	private GameController controller;
 		
@@ -29,6 +38,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		setLayout(null);
 		initDies();
 		initButtons();
+		
+		controller.addPropertyListener("drawCommunityChestCard",this);
+		controller.addPropertyListener("drawChanceCard",this);
+		controller.addPropertyListener("drawRollThreeCard",this);
 	}
 	
 	private void initDies() {
@@ -65,6 +78,10 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		rollDiceButton = new ObserverButton("Roll Dice", false);
 		buyButton = new ObserverButton("Buy", true);
 		passTurnButton = new ObserverButton("Pass Turn",  true);
+		
+		controller.addPropertyListener("changeRoll",rollDiceButton);
+		controller.addPropertyListener("buyable",buyButton);
+		controller.addPropertyListener("pass", passTurnButton);
 		
 		controller.addPropertyListener("isTurnFinished", rollDiceButton);
 		controller.addPropertyListener("isTurnFinished", passTurnButton);
@@ -126,6 +143,26 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 			controller.buyProperty();
 			break;
 		}
+	}
+
+	@Override
+	public void onPropertyEvent(PropertyEvent e) {
+		System.out.println("Buradayim" + e);
+		// TODO Auto-generated method stub
+		if ((boolean) e.getNewValue()) {
+			rollDiceBeforeStop = rollDiceButton.isEnabled();
+			rollDiceButton.setEnabled(false);
+			buyBeforeStop = buyButton.isEnabled();
+			buyButton.setEnabled(false);
+			passTurnBeforeStop = passTurnButton.isEnabled();
+			passTurnButton.setEnabled(false);
+		}
+		else {
+			rollDiceButton.setEnabled(rollDiceBeforeStop);
+			buyButton.setEnabled(buyBeforeStop);
+			passTurnButton.setEnabled(passTurnBeforeStop);
+		}
+		//this.setEnabled((boolean) e.getNewValue());
 	}
 
 }

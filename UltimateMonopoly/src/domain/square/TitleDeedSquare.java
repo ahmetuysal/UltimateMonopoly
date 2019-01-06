@@ -14,10 +14,10 @@ import domain.Player;
  */
 public class TitleDeedSquare extends OwnableSquare {
 
-	private int rentValue;
-	private int[] rentWithHouses;
-	private int rentWithHotel;
-	private int rentWithSkyscrapers;
+	private transient int rentValue;
+	private transient int[] rentWithHouses;
+	private transient int rentWithHotel;
+	private transient int rentWithSkyscrapers;
 	private int numHouses;
 	private int numHotels;
 	private int numSkyscrapers;
@@ -290,5 +290,16 @@ public class TitleDeedSquare extends OwnableSquare {
 			return false;
 		return true;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return this.name +":\nRent Value: "+ rentValue + "\nnumHouses: " + numHouses + "\nnumHotels: " + numHotels
+				+ "\nnumSkyscrapers: " + numSkyscrapers + "\ncolor: " + color ;
+	}
+	
+	
 
 }

@@ -1,18 +1,43 @@
 package domain.square;
 
+import java.util.HashSet;
+
+import com.google.gson.typeadapters.RuntimeTypeAdapterFactory;
+
 import domain.GameController;
 import domain.Player;
+import domain.util.GsonUtils;
 
 public abstract class OwnableSquare extends Square {
 
 	protected int price;
-	protected Player owner;
+	protected transient Player owner;
 	protected boolean isOwned;
+	//protected String type = getClass().getName(); 
+
+
+	private static final RuntimeTypeAdapterFactory<OwnableSquare> adapter = RuntimeTypeAdapterFactory
+			.of(OwnableSquare.class);
+
+	private static final HashSet<Class<?>> registeredClasses = new HashSet<Class<?>>();
+
+	static {
+		GsonUtils.registerType(adapter);
+	}
+
+	private synchronized void registerClass() {
+		if (!registeredClasses.contains(this.getClass())) {
+			registeredClasses.add(this.getClass());
+			adapter.registerSubtype(this.getClass());
+		}
+	}
+
 
 	public OwnableSquare(String name, String description, int price) {
 		super(name, description);
 		this.price = price;
 		this.owner = null;
+		registerClass();
 		// TODO Auto-generated constructor stub
 	}
 
