@@ -16,9 +16,11 @@ import domain.card.RollThreeCard;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.gamestate.GameState;
+import domain.square.Location;
 import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
@@ -60,6 +62,8 @@ public class GameController extends Observable {
 
 	private static GameController instance;
 	
+	private ArrayList<TitleDeedSquareColor> hurricaneSelectedSquares = new ArrayList<TitleDeedSquareColor>();
+	
 	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
@@ -97,7 +101,14 @@ public class GameController extends Observable {
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
 	
 	}
-
+	
+	public ArrayList<TitleDeedSquareColor> getHurricaneList(){
+		return hurricaneSelectedSquares;
+	}
+	
+	public void setHurricaneList(TitleDeedSquareColor color) {
+		hurricaneSelectedSquares.add(color);
+	}
 
 	public void playRollThree() {
 		HashMap<Player, RollThreeCard> playerCards = new HashMap<>();
@@ -236,6 +247,28 @@ public class GameController extends Observable {
 		System.out.println("Is buyable: " + isBuyable);
 		publishPropertyEvent("currentLocationBuyable", currentLocationBuyable, isBuyable);
 		currentLocationBuyable = isBuyable;
+	}
+	
+	private void findHurricaneSquares() {
+		Board board = this.getBoard();
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < board.getLayerSize(i); j++) {
+				Square currentSq = board.getSquare(new Location(i,j));
+				if(currentSq instanceof TitleDeedSquare) {
+					TitleDeedSquare currentSquare = (TitleDeedSquare) currentSq;
+					if(currentSquare.getNumHotels() > 0 || currentSquare.getNumHouses() > 0 || currentSquare.getNumSkyscrapers() > 0) {
+						if(!getHurricaneList().contains(currentSquare.getColor()))
+							setHurricaneList(currentSquare.getColor());
+					}
+				}
+			}
+		}
+	}
+	
+	public void colorHurricaneSquares() {
+		for(int i=0; i < hurricaneSelectedSquares.size(); i++) {
+			
+		}
 	}
 
 	public void promptDrawChanceCard() {

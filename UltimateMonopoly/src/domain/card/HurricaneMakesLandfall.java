@@ -12,7 +12,8 @@ public class HurricaneMakesLandfall extends Card {
 	@Override
 	public void useCard(Player player, String s) {
 		// TODO Auto-generated method stub
-
+		
 	}
+	
 
 }

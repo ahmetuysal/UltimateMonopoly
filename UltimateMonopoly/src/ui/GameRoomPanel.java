@@ -41,6 +41,27 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private TransparentButton chanceCard;
 	private TransparentButton communityChestCard;
 	
+	private TransparentButton drawPurple;
+	private TransparentButton drawLightBlue;
+	private TransparentButton drawPink;
+	private TransparentButton drawOrange;
+	private TransparentButton drawRed;
+	private TransparentButton drawYellow;
+	private TransparentButton drawGreen;
+	private TransparentButton drawDarkBlue;
+	private TransparentButton drawBrown;
+	private TransparentButton drawWhite;
+	private TransparentButton drawBlack;
+	private TransparentButton drawGray;
+	private TransparentButton drawLightPink;
+	private TransparentButton drawLightGreen;
+	private TransparentButton drawLightYellow;
+	private TransparentButton drawDarkCyan;
+	private TransparentButton drawMaroon;
+	private TransparentButton drawDarkGold;
+	private TransparentButton drawSalmon;
+	private TransparentButton drawClaret;
+	
 //	private UICard cardImage;
 //	private JButton playCardButton;
 //	private JButton keepCardButton;
@@ -86,6 +107,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		initializeTurnOrder();
 		// initButtons();
 		initializePlayerPanel();
+		initColorButtons();
 		
 		controller.addPropertyListener("isPaused",this);
 		
@@ -137,7 +159,154 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		repaint();
 	}
 
-	
+	private void initColorButtons() {
+		drawPurple = new TransparentButton();
+		drawLightBlue = new TransparentButton();
+		drawPink = new TransparentButton();
+		drawOrange = new TransparentButton();
+		drawRed = new TransparentButton();
+		drawYellow = new TransparentButton();
+		drawGreen = new TransparentButton();
+		drawDarkBlue = new TransparentButton();
+		drawBrown = new TransparentButton();
+		drawWhite = new TransparentButton();
+		drawBlack = new TransparentButton();
+		drawGray = new TransparentButton();
+		drawLightPink = new TransparentButton();
+		drawLightGreen = new TransparentButton();
+		drawLightYellow = new TransparentButton();
+		drawDarkCyan = new TransparentButton();
+		drawMaroon = new TransparentButton();
+		drawDarkGold = new TransparentButton();
+		drawSalmon = new TransparentButton();
+		drawClaret = new TransparentButton();
+		
+		controller.addPropertyListener("drawPurple", drawPurple);
+		controller.addPropertyListener("drawLightBlue", drawLightBlue);
+		controller.addPropertyListener("drawPink", drawPink);
+		controller.addPropertyListener("drawOrange", drawOrange);
+		controller.addPropertyListener("drawRed", drawRed);
+		controller.addPropertyListener("drawYellow", drawYellow);
+		controller.addPropertyListener("drawGreen", drawGreen);
+		controller.addPropertyListener("drawDarkBlue", drawDarkBlue);
+		controller.addPropertyListener("drawBrown", drawBrown);
+		controller.addPropertyListener("drawWhite", drawWhite);
+		controller.addPropertyListener("drawBlack", drawBlack);
+		controller.addPropertyListener("drawGray", drawGray);
+		controller.addPropertyListener("drawLightPink", drawLightPink);
+		controller.addPropertyListener("drawLightGreen", drawLightGreen);
+		controller.addPropertyListener("drawLightYellow", drawLightYellow);
+		controller.addPropertyListener("drawDarkCyan", drawDarkCyan);
+		controller.addPropertyListener("drawMaroon", drawMaroon);
+		controller.addPropertyListener("drawDarkGold", drawDarkGold);
+		controller.addPropertyListener("drawSalmon", drawSalmon);
+		controller.addPropertyListener("drawClaret", drawClaret);
+		
+		int width = 2*squareUnitSize;
+		int height = 5*squareUnitSize/4;
+		
+		drawPurple.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawPurple.addActionListener(this);
+		drawPurple.setActionCommand("drawPurple");
+		
+		drawLightBlue.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawLightBlue.addActionListener(this);
+		drawLightBlue.setActionCommand("drawLightBlue");
+		
+		drawPink.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawPink.addActionListener(this);
+		drawPink.setActionCommand("drawPink");
+		
+		drawOrange.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawOrange.addActionListener(this);
+		drawOrange.setActionCommand("drawOrange");
+		
+		drawRed.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawRed.addActionListener(this);
+		drawRed.setActionCommand("drawRed");
+		
+		drawYellow.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawYellow.addActionListener(this);
+		drawYellow.setActionCommand("drawYellow");
+		
+		drawGreen.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawGreen.addActionListener(this);
+		drawGreen.setActionCommand("drawGreen");
+		
+		drawDarkBlue.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawDarkBlue.addActionListener(this);
+		drawDarkBlue.setActionCommand("drawDarkBlue");
+		
+		drawBrown.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawBrown.addActionListener(this);
+		drawBrown.setActionCommand("drawBrown");
+		
+		drawWhite.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawWhite.addActionListener(this);
+		drawWhite.setActionCommand("drawWhite");
+		
+		drawBlack.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawBlack.addActionListener(this);
+		drawBlack.setActionCommand("drawBlack");
+		
+		drawGray.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawGray.addActionListener(this);
+		drawGray.setActionCommand("drawGray");
+		
+		drawLightPink.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawLightPink.addActionListener(this);
+		drawLightPink.setActionCommand("drawLightPink");
+		
+		drawLightYellow.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawLightYellow.addActionListener(this);
+		drawLightYellow.setActionCommand("drawLightYellow");
+		
+		drawLightGreen.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawLightGreen.addActionListener(this);
+		drawLightGreen.setActionCommand("drawLightGreen");
+		
+		drawDarkCyan.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawDarkCyan.addActionListener(this);
+		drawDarkCyan.setActionCommand("drawDarkCyan");
+		
+		drawMaroon.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawMaroon.addActionListener(this);
+		drawMaroon.setActionCommand("drawMaroon");
+		
+		drawDarkGold.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawDarkGold.addActionListener(this);
+		drawDarkGold.setActionCommand("drawDarkGold");
+		
+		drawSalmon.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawSalmon.addActionListener(this);
+		drawSalmon.setActionCommand("drawSalmon");
+		
+		drawClaret.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
+		drawClaret.addActionListener(this);
+		drawClaret.setActionCommand("drawPClaret");
+		
+		this.add(drawPurple);
+		this.add(drawLightBlue);
+		this.add(drawPink);
+		this.add(drawOrange);
+		this.add(drawRed);
+		this.add(drawYellow);
+		this.add(drawGreen);
+		this.add(drawDarkBlue);
+		this.add(drawBrown);
+		this.add(drawWhite);
+		this.add(drawBlack);
+		this.add(drawGray);
+		this.add(drawLightPink);
+		this.add(drawLightGreen);
+		this.add(drawLightYellow);
+		this.add(drawDarkCyan);
+		this.add(drawMaroon);
+		this.add(drawDarkGold);
+		this.add(drawSalmon);
+		this.add(drawClaret);		
+	}
+
 	private void initCardButtons(){
 		rollThreeCard = new TransparentButton();
 		chanceCard = new TransparentButton();
