@@ -212,6 +212,9 @@ public class GameController extends Observable {
 	}
 
 	public void passTurn() {
+		publishPropertyEvent("buyHouse", true, false);
+		publishPropertyEvent("buyHotel", true, false);
+		publishPropertyEvent("buySkyscraper", true, false);
 		if(!actionQueue.isEmpty()) {
 			nextAction();
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {

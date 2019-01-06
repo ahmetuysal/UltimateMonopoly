@@ -2,6 +2,7 @@ package domain.square;
 
 import java.util.List;
 
+import domain.GameController;
 import domain.Player;
 
 /**
@@ -138,6 +139,10 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a house on an unowned property!");
 			return false;
 		}
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
+			System.out.println("This is not your property!");
+			return false;
+		}
 		if (this.owner.getTotalMoney() < this.color.housePriceProperty()) {
 			System.out.println("You don't have enough money to build a house!");
 			return false;
@@ -177,6 +182,10 @@ public class TitleDeedSquare extends OwnableSquare {
 			System.out.println("Can't build a hotel on an unowned property!");
 			return false;
 		}
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
+			System.out.println("This is not your property!");
+			return false;
+		}
 		if (this.numHouses != 4) {
 			System.out.println("You can't build an hotel without building 4 houses!");
 			return false;
@@ -205,6 +214,10 @@ public class TitleDeedSquare extends OwnableSquare {
 	public boolean skyscraperCheck() {
 		if (!this.isOwned()) {
 			System.out.println("Can't build a house on an unowned property!");
+			return false;
+		}
+		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
+			System.out.println("This is not your property!");
 			return false;
 		}
 		if (this.owner.getTotalMoney() < this.color.skyScraperPriceProperty()) {
