@@ -27,7 +27,7 @@ public class UIDie extends JLabel implements PropertyListener, Animatable {
 			return;
 		ICONS = new ImageIcon[9];
 		Image tmp = null;
-		for (int i = 1; i < 9; i++) {
+		for (int i = 0; i < 9; i++) {
 			try {
 				String osName = System.getProperty("os.name").toLowerCase();
 		        if(osName.contains("mac")){
