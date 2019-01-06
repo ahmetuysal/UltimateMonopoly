@@ -13,6 +13,7 @@ public class IncomeTax extends Square {
 	public void landOn(Player player) {
 		super.landOn(player);
 		// TODO implement square specific logic
+		player.decreaseMoney(200);
 	}
 
 }
