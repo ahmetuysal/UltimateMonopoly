@@ -35,6 +35,9 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 
 		initCardImage();
 		initButtons();
+		
+		controller.addPropertyListener("cardIsUsed", this);
+		controller.addPropertyListener("cardIsKept",this);
 	}
 
 	private void initButtons() {
@@ -89,13 +92,9 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 		switch (e.getActionCommand()) {
 		case "Play Card":
 			controller.playCard();
-			this.setVisible(false);
-			grpanel.repaint();
 			break;
 		case "Keep Card":
 			controller.keepCard();
-			this.setVisible(false);
-			grpanel.repaint();
 			break;
 		}
 	}
@@ -108,6 +107,12 @@ public class CardPanel extends JPanel implements ActionListener, PropertyListene
 			keepCardButton.setEnabled(false);
 		} else if (e.getPropertyName().equals("cardNameCommunityChest")) {
 			keepCardButton.setEnabled(false);
+		}else if(e.getPropertyName().equals("cardIsUsed")) {
+			this.setVisible((boolean) e.getNewValue());
+			grpanel.repaint();
+		}else if(e.getPropertyName().equals("cardIsKept")) {
+			this.setVisible((boolean) e.getNewValue());
+			grpanel.repaint();
 		}
 	}
 }

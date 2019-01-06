@@ -36,6 +36,11 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		controller.addPropertyListener("controller.currentPlayer", this);
 		controller.addPropertyListener("pass", this);
 		controller.addPropertyListener("changeRoll", this);
+		controller.addPropertyListener("cardNameRollThree", this);
+		controller.addPropertyListener("cardNameChance", this);
+		controller.addPropertyListener("cardNameCommunityChest", this);
+		//controller.addPropertyListener("drawChanceCard",this);
+		//controller.addPropertyListener("drawCommunityChestCard",this);
 	}
 
 	public void setMoveStrategy(IBotStrategy strategy) {
@@ -69,9 +74,14 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 
 	public void makeCommonAction(String action) {
 		if (action.equals("changeRoll"))
-			GameController.getInstance().playTurn();
+			controller.playTurn();
 		else if (action.equals("pass"))
-			GameController.getInstance().passTurn();
+			controller.passTurn();
+		else if(action.contains("cardNameTrue"))
+			controller.playCard();
+		//else if(action.contains("cardName"))
+			//if(action.equals("cardName"))
+			
 	}
 
 	@Override
@@ -85,6 +95,10 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 				this.setMyTurn(false);
 		} else if (isMyTurn && (boolean) e.getNewValue()) {
 			System.out.println("Bot is making a move");
+			if(e.getPropertyName().contains("cardName")) {
+				if((boolean) e.getOldValue())
+					e.getPropertyName().replaceAll("cardName", "cardNameTrue");
+			}
 			this.playTurn(e.getPropertyName());
 		}
 	}

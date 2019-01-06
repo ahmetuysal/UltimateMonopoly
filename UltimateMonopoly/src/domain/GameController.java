@@ -651,6 +651,7 @@ public class GameController extends Observable {
 				lastDrawnCard.useCard(currentPlayer, "");
 		}
 		lastDrawnCard = null;
+		publishPropertyEvent("cardIsUsed", true, false);
 	}
 	
 	public void keepCard() {
@@ -661,6 +662,7 @@ public class GameController extends Observable {
 				System.out.println("ERROR: You can only keep ownable cards.");
 		}
 		lastDrawnCard = null;
+		publishPropertyEvent("cardIsKept", true, false);
 	}
 
 	/**
