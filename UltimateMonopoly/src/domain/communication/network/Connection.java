@@ -9,7 +9,7 @@ import domain.gamestate.GameState;
 
 public class Connection {
 
-	public static final String DEFAULT_SERVER_ADDRESS = "localhost";
+	public static final String DEFAULT_SERVER_ADDRESS = "172.20.132.173";
 	public static final int DEFAULT_SERVER_PORT = 4477;
 
 	private Socket socket;
