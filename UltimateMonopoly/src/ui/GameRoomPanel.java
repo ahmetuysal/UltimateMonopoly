@@ -287,6 +287,10 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 				(int)(oldCoord.getY() + completedRatio * (newCoord.getY() - oldCoord.getY())));
 		//repaint();
 	}
+	
+	public void activatePlayButtons() {
+		playButtons.setEnabled(true);
+	}
 
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);

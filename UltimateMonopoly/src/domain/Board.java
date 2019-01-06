@@ -1,5 +1,6 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,7 +28,7 @@ import domain.square.UtilitySquareType;
  *
  */
 
-public class Board {
+public class Board implements Serializable{
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
@@ -250,7 +251,7 @@ public class Board {
 		return tokens;
 	}
 
-	public void movePlayer(Player player, int distance) {
+	public boolean movePlayer(Player player, int distance) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;
 		int numSquaresInLayer = 0;
@@ -270,8 +271,14 @@ public class Board {
 				new Location(oldLoc.getLayer(), (oldLoc.getIndex() + dx + numSquaresInLayer) % numSquaresInLayer));
 		Square sq = getSquare(token.getLocation());
 		sq.landOn(player);
+		
 		System.out.println("Token: " + token.toString());
+		if(sq instanceof OwnableSquare) {
+			if(!((OwnableSquare) sq).isOwned())
+				return true;
 
+		}
+		return false;
 	}
 
 	public void moveToNextOwnedProperty(Player player) {
@@ -293,7 +300,6 @@ public class Board {
 				((Passable) sq).passBy(player);
 			}
 		}
-
 	}
 
 	/**
@@ -382,6 +388,10 @@ public class Board {
 				((Passable) sq).passBy(player);
 			}
 		}
+	}
+	
+	public void teleport(Player player) {
+		
 	}
 
 	/**
