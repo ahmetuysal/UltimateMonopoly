@@ -265,15 +265,9 @@ public class GameController extends Observable {
 		}
 	}
 	
-	/*public void colorHurricaneSquares() {
-		for(int i=0; i < hurricaneSelectedSquares.size(); i++) {
-			
-		}
-	}*/
-	
 	public TitleDeedSquareColor promptHurricaneSquares() {
 		publishPropertyEvent("hurricaneSquares", null, hurricaneSelectedSquares);
-		TitleDeedSquareColor color; //take from ui!
+		TitleDeedSquareColor color = null; //take from ui!
 		hurricaneSelectedSquares = null;
 		return color;
 	}

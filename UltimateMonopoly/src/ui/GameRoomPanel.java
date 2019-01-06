@@ -181,7 +181,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		drawSalmon = new TransparentButton();
 		drawClaret = new TransparentButton();
 
-		controller.addPropertyListener("hurricaneSquares", drawPurple);
+		/*controller.addPropertyListener("hurricaneSquares", drawPurple);
 		controller.addPropertyListener("hurricaneSquares", drawLightBlue);
 		controller.addPropertyListener("hurricaneSquares", drawPink);
 		controller.addPropertyListener("hurricaneSquares", drawOrange);
@@ -200,7 +200,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		controller.addPropertyListener("hurricaneSquares", drawMaroon);
 		controller.addPropertyListener("hurricaneSquares", drawDarkGold);
 		controller.addPropertyListener("hurricaneSquares", drawSalmon);
-		controller.addPropertyListener("hurricaneSquares", drawClaret);
+		controller.addPropertyListener("hurricaneSquares", drawClaret);*/
 		
 		int width = 2*squareUnitSize;
 		int height = 5*squareUnitSize/4;
