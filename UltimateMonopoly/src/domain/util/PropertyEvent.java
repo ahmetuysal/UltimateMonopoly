@@ -17,7 +17,7 @@ public class PropertyEvent {
 	@Override
 	public String toString() {
 		return "PropertyEvent [propertyName=" + propertyName + ", oldValue=" + oldValue
-				+ ", newValue=" + newValue + " source=" + source + "]";
+				+ ", newValue=" + newValue + " source=" + source.getClass().getName() + "]";
 	}
 
 	public PropertyEvent(Object source, String propertyName, Object oldValue, Object newValue) {
