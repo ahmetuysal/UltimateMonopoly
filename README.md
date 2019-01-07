@@ -1,1 +1,44 @@
-302_2018_project_pennybags
+# Comp 302 - Software Engineering - Term Project
+
+![Game Splash Screen](./cover.png)
+
+This is the term project for Koç University Software Engineering course of Fall 2018. 
+
+## Team PennyBags
+* Ahmet Uysal [@ahmetuysal](https://github.com/ahmetuysal)
+* Merve Karakaş [@mervekarakas](https://github.com/mervekarakas)
+* Halil Eralp Koçaş [@EralpKocas](https://github.com/EralpKocas)
+* Mediha Meltem Günay [@mgunay15](https://github.com/mgunay15)
+* Umay Bozkurt [@ubozkurt](https://github.com/)
+
+## Instructions For The Demo
+
+### Starting The Server
+
+
+
+## Game Assets and Rules
+
+* [Game Rules](./rules.pdf)
+
+## Credits
+
+This project is inspired by [Monopoly Board Game](https://en.wikipedia.org/wiki/Monopoly_(game)) and [Jon Moore](https://www.deviantart.com/jonizaak)'s variant [Ultimate Monopoly](
+https://www.deviantart.com/jonizaak/art/Ultimate-Monopoly-356859388). 
+
+## Notice
+This project is developed for educational purposes only.
+
+**Koç University students who are currently taking this course, see [Code of Conduct](https://vpaa.ku.edu.tr/academic/student-code-of-conduct).**
+
+## License
+MIT License
+
+Copyright (c) 2019 Team Pennybags
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
