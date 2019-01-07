@@ -74,7 +74,7 @@ public class PlayerPanel extends JPanel {
 		JTabbedPane pane = new JTabbedPane();
 		
 		ObserverLabel playerInfo = new ObserverLabel(40,100, player, "playerInfo");
-		playerInfo.setHorizontalAlignment(JLabel.LEFT);
+		playerInfo.setHorizontalAlignment(JLabel.CENTER);
 		
 		JPanel panel = new JPanel(false);
 		panel.setLayout(new GridLayout(2,1));
