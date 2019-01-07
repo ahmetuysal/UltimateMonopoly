@@ -32,6 +32,7 @@ import ui.animation.GenericAnimator;
 public class GameRoomPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private GameController controller;
+	private MonopolyFrame frame;
 
 	private int frameWidth;
 	private int frameHeight;
@@ -66,7 +67,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
-	public GameRoomPanel(int width, int height) {
+	public GameRoomPanel(int width, int height, MonopolyFrame frame) {
+		this.frame = frame;
 		controller = GameController.getInstance();
 		frameWidth = width;
 		frameHeight = height;
@@ -379,6 +381,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 		}
 	}
+	
 
 	private void setAllSquareButtonsVisibility(boolean flag) {
 		for (ArrayList<TransparentButton> list : squareButtons) {

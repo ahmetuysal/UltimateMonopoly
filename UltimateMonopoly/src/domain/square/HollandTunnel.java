@@ -16,6 +16,14 @@ public class HollandTunnel extends Square{
 	public void landOn(Player player) {
 		super.landOn(player);
 		// TODO implement square specific logic
+		Location currentLoc = player.getToken().getLocation();
+		if(currentLoc.getLayer() == 0) {
+			player.getToken().setLocation(new Location(2, 14));
+		}
+		else if(currentLoc.getLayer() == 2) {
+			player.getToken().setLocation(new Location(0, 18));
+		}
+		
 	}
 
 }
