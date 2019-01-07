@@ -5,11 +5,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import domain.GameController;
 import domain.gamestate.GameState;
 
 public class Connection {
 
-	public static final String DEFAULT_SERVER_ADDRESS = "172.20.132.173";
+	public static final String DEFAULT_SERVER_ADDRESS = "localhost";
 	public static final int DEFAULT_SERVER_PORT = 4477;
 
 	private Socket socket;
@@ -55,36 +56,41 @@ public class Connection {
 
 
 	public void listenForAChangeOnServer() {
-
-		while(true) {
-			GameState incomingGameState = null;
-			try {
-				
-
-				Object object = null;
+/////
+		try {
+			while(is.available()>0) {
+				GameState incomingGameState = null;
 				try {
-					object = is.readObject();
-				} catch (ClassNotFoundException e) {
+					
+
+					Object object = null;
+					try {
+						object = is.readObject();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					incomingGameState = ((GameState) object);
+					
+					System.out.println("---RECEIVE-START-------->>-----------");
+					System.out.println("Client received:");
+					System.out.println(incomingGameState);
+					System.out.println("----RECEIVE-OVER-------<<----------");
+
+
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				incomingGameState = ((GameState) object);
-				
-				System.out.println("---RECEIVE-START-------->>-----------");
-				System.out.println("Client received:");
-				System.out.println(incomingGameState);
-				System.out.println("----RECEIVE-OVER-------<<----------");
-
-
-			} catch (IOException e) {
-				e.printStackTrace();
+				setPlayerGameState(incomingGameState);
 			}
-			setPlayerGameState(incomingGameState);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
 	public void sendChangesToTheServer(GameState outgoingGameState) {
-		
-		GameState incomingGameState = null;
+		////////////////burdaaa
+		 outgoingGameState = GameController.getInstance().toGameState();
 		try {
 			
 			System.out.println("---SEND-START-------->>-----------");
