@@ -253,11 +253,7 @@ public class GameController extends Observable {
 			
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
-			if(!currentPlayer.getLocalIp().equals(this.localIp)) {
-				publishPropertyEvent("blockButtons",false,true);
-			}else {
-				publishPropertyEvent("blockButtons",true,false);
-			}
+			
 		}
 		publishPropertyEvent("updateNetwork", false, true);
 	}
@@ -408,8 +404,9 @@ public class GameController extends Observable {
 		// TODO
 		currentPlayerIndex = 0;
 		currentPlayer = players.isEmpty() ? null : players.get(currentPlayerIndex);
-		if(currentPlayer instanceof BotPlayer)
-			publishPropertyEvent("controller.currentPlayer", null, currentPlayer);
+		if(players.get(0) instanceof BotPlayer) {
+			publishPropertyEvent("controller.currentPlayer",null, players.get(0));
+		}
 	}
 
 	public void initRollThreeCards() {
@@ -655,6 +652,10 @@ public class GameController extends Observable {
 				return o1.getNickName().compareTo(o2.getNickName());
 			}
 		});
+		
+		if(players.get(0) instanceof BotPlayer) {
+			publishPropertyEvent("controller.currentPlayer",null, players.get(0));
+		}
 	}
 
 	public int getCurrentPlayerIndex() {

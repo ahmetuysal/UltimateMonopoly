@@ -17,6 +17,8 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		super(nickName);
 
 		double rand = Math.random();
+		
+		isMyTurn = false;
 
 		if(rand <= 0.33) {
 		 moveStrategy = new RandomBotStrategy();
@@ -26,7 +28,6 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		moveStrategy = new GreedyBotStrategy();
 		 }
 
-		isMyTurn = false;
 
 		controller.addPropertyListener("buyable", this);
 		controller.addPropertyListener("buyHouse", this);
@@ -57,7 +58,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		new Timer().schedule(new TimerTask() {
 			public void run() {
 				BotPlayer.this.makeCommonAction(action);
-				moveStrategy.makeMove(action);
+//				moveStrategy.makeMove(action);
 				System.out.println("Hello after " + (System.currentTimeMillis() - i) + " ms later with " + action);
 			}
 		}, 500);
@@ -126,7 +127,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 				if((boolean) e.getNewValue()) {
 					System.out.println("gonna buy it");
 					moveStrategy.makeMove("buyable");
-					controller.passTurn();
+//					controller.passTurn();
 				}	
 			}
 			else {
