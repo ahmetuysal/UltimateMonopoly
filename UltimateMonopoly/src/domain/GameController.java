@@ -340,6 +340,8 @@ public class GameController extends Observable {
 		// TODO
 		currentPlayerIndex = 0;
 		currentPlayer = players.isEmpty() ? null : players.get(currentPlayerIndex);
+		if(currentPlayer instanceof BotPlayer)
+			publishPropertyEvent("controller.currentPlayer", null, currentPlayer);
 	}
 
 	public void initRollThreeCards() {
