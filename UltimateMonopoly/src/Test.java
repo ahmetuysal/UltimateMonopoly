@@ -4,9 +4,9 @@ import ui.MonopolyFrame;
 public class Test {
 
 	public static void main(String[] args) {
-		GameController.getInstance();
+	//	GameController.getInstance();
 		new MonopolyFrame();
-		new CommunicationFacade();
+		//new CommunicationFacade();
 	}
 
 }
