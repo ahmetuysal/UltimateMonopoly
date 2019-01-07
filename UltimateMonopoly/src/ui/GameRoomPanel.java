@@ -307,7 +307,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private void initializeTokens() {
 		if (UITokens != null)
 			for (UIToken uiToken : UITokens) {
-				animator.removeAnimatable(uiToken);
+				GenericAnimator.getInstance(null).removeAnimatable(uiToken);
 				remove(uiToken);
 			}
 		
@@ -334,7 +334,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void resetEverthingUsingGameController() {
-		animator.setAnimatorStopped(true);
+		GenericAnimator.getInstance(null).setAnimatorStopped(true);
 //		controller.refreshPropertyListeners();
 //		removeAll();
 		
@@ -346,7 +346,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 //		initBoard();
 		initializeTurnOrder();
 		initializePlayerPanel();
-		animator.setAnimatorStopped(false);
+		GenericAnimator.getInstance(null).setAnimatorStopped(false);
 	}
 
 	@Override
@@ -395,7 +395,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 				resetEverthingUsingGameController();
 			}
 		} else if (e.getPropertyName().equals("isPaused")) {
-			animator.setAnimatorStopped((boolean) e.getNewValue());
+			GenericAnimator.getInstance(null).setAnimatorStopped((boolean) e.getNewValue());
 		} else if (e.getPropertyName().equals("hurricaneSquares")) {
 			List<Location> locations = (List<Location>) e.getNewValue();
 			System.out.println();
