@@ -1,6 +1,12 @@
 package domain.card;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import domain.GameController;
 import domain.Player;
+import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 
 public class HurricaneMakesLandfall extends Card {
 
@@ -11,8 +17,8 @@ public class HurricaneMakesLandfall extends Card {
 
 	@Override
 	public void useCard(Player player, String s) {
-		// TODO Auto-generated method stub
-
+		GameController.getInstance().promptHurricaneSquares();
 	}
+	
 
 }

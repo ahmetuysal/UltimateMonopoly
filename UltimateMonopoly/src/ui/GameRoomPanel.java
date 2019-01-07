@@ -19,9 +19,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import domain.Board;
 import domain.GameController;
 import domain.Token;
 import domain.square.Location;
+import domain.square.Square;
+import domain.square.TitleDeedSquareColor;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 import ui.animation.GenericAnimator;
@@ -40,20 +43,22 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private TransparentButton rollThreeCard;
 	private TransparentButton chanceCard;
 	private TransparentButton communityChestCard;
-	
-//	private UICard cardImage;
-//	private JButton playCardButton;
-//	private JButton keepCardButton;
+
+	private ArrayList<TransparentButton>[] squareButtons;
+
+	// private UICard cardImage;
+	// private JButton playCardButton;
+	// private JButton keepCardButton;
 	private CardPanel cardPanel;
-	
+
 	private JButton pauseButton;
-	
+
 	private List<UIToken> UITokens;
 	private GenericAnimator animator;
-	
+
 	private PlayButtonPanel playButtons;
 	private PlayerPanel playerPanel;
-	
+
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
@@ -71,24 +76,47 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		// Add generic animator
 		animator = new GenericAnimator(this);
 		new Thread(animator).start();
-		
+
 		squareUnitSize = frameHeight / 17;
-		boardStartX = squareUnitSize/10;
+		boardStartX = squareUnitSize / 10;
 		tokenSize = squareUnitSize;
-		
-		initializePlayButtonsPanel();		
+
+		initializePlayButtonsPanel();
 		initializePauseButton();
 		initializeCardPanel();
 		initializeTokens();
-		//cardImageandButtons();
+		// cardImageandButtons();
 		initCardButtons();
+		initializeSquareButtons();		
 		initBoard();
 		initializeTurnOrder();
 		// initButtons();
 		initializePlayerPanel();
-		
-		controller.addPropertyListener("isPaused",this);
-		
+
+		controller.addPropertyListener("isPaused", this);
+
+	}
+
+	private void initializeSquareButtons() {
+		controller.addPropertyListener("hurricaneSquares", this);
+		squareButtons = (ArrayList<TransparentButton>[]) new ArrayList[3];
+
+		squareButtons[0] = new ArrayList<TransparentButton>();
+		squareButtons[1] = new ArrayList<TransparentButton>();
+		squareButtons[2] = new ArrayList<TransparentButton>();
+
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < BOARD_SIZE[i]; j++) {
+				TransparentButton sqButton = new TransparentButton();
+				sqButton.setLocation(getCoordinate(i, j));
+				sqButton.setSize(getSquareWidth(i, j), getSquareHeight(i, j));
+				squareButtons[i].add(sqButton);
+				sqButton.addActionListener(this);
+				sqButton.setActionCommand(i + " " + j);
+				add(sqButton);
+			}
+		}
+
 	}
 
 	private void initializeTurnOrder() {
@@ -97,7 +125,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void initializePlayerPanel() {
-		int pWidth = frameWidth - 17*squareUnitSize - boardStartX;;
+		int pWidth = frameWidth - 17 * squareUnitSize - boardStartX;
+		;
 		int pHeight = (int) (frameHeight * 7 / 8.);
 		playerPanel = new PlayerPanel(pWidth, pHeight);
 		playerPanel.setBounds(frameWidth - pWidth, squareUnitSize, pWidth, pHeight);
@@ -107,20 +136,20 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void initializeCardPanel() {
-		int cpWidth = 5*squareUnitSize;
+		int cpWidth = 5 * squareUnitSize;
 		int cpHeight = cpWidth;
 		cardPanel = new CardPanel(cpWidth, cpHeight, this);
-		cardPanel.setBounds(6*squareUnitSize,6*squareUnitSize, cpWidth, cpHeight);
+		cardPanel.setBounds(6 * squareUnitSize, 6 * squareUnitSize, cpWidth, cpHeight);
 		cardPanel.setVisible(false);
 		cardPanel.setBackground(this.getBackground());
 		add(cardPanel);
 	}
 
 	private void initializePlayButtonsPanel() {
-		int pbpWidth = frameWidth - 17*squareUnitSize - boardStartX;
+		int pbpWidth = frameWidth - 17 * squareUnitSize - boardStartX;
 		int pbpHeight = frameHeight / 8;
-		playButtons = new PlayButtonPanel(pbpWidth, pbpHeight,this);
-		playButtons.setBounds(frameWidth - pbpWidth, frameHeight - pbpHeight , pbpWidth, pbpHeight);
+		playButtons = new PlayButtonPanel(pbpWidth, pbpHeight, this);
+		playButtons.setBounds(frameWidth - pbpWidth, frameHeight - pbpHeight, pbpWidth, pbpHeight);
 		playButtons.setVisible(true);
 		playButtons.setBackground(this.getBackground());
 		add(playButtons);
@@ -132,56 +161,57 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 				add(getSquare(i, j));
 			}
 		}
-		
+
 		add(getMiddle());
 		repaint();
 	}
 
-	
-	private void initCardButtons(){
+	private void initCardButtons() {
 		rollThreeCard = new TransparentButton();
 		chanceCard = new TransparentButton();
 		communityChestCard = new TransparentButton();
-		
+
 		controller.addPropertyListener("drawRollThreeCard", rollThreeCard);
 		controller.addPropertyListener("drawChanceCard", chanceCard);
-		controller.addPropertyListener("drawCommunityChestCard", communityChestCard);
-		
-		int width = 2*squareUnitSize;
-		int height = 5*squareUnitSize/4;
-		
-		rollThreeCard.setBounds( 8*squareUnitSize - squareUnitSize / 3 , 9*squareUnitSize + 11*squareUnitSize / 24, width, height);
+		controller.addPropertyListener("drawCommunityChestCard", communityChestCard);	
+
+		int width = 2 * squareUnitSize;
+		int height = 5 * squareUnitSize / 4;
+
+		rollThreeCard.setBounds(8 * squareUnitSize - squareUnitSize / 3, 9 * squareUnitSize + 11 * squareUnitSize / 24,
+				width, height);
 		rollThreeCard.addActionListener(this);
-		//rollThreeCard.setVisible(true);
+		// rollThreeCard.setVisible(true);
 		rollThreeCard.setActionCommand("RollThreeCard");
-		
-		communityChestCard.setBounds( 6*squareUnitSize + 2*squareUnitSize / 5 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		//communityChestCard.setVisible(true);
+
+		communityChestCard.setBounds(6 * squareUnitSize + 2 * squareUnitSize / 5,
+				6 * squareUnitSize + squareUnitSize / 4, width, height);
+		// communityChestCard.setVisible(true);
 		communityChestCard.addActionListener(this);
 		communityChestCard.setActionCommand("CommunityChestCard");
-		
-		chanceCard.setBounds( 9*squareUnitSize - squareUnitSize / 4 , 6*squareUnitSize + squareUnitSize / 4, width, height);
-		//chanceCard.setVisible(true);
+
+		chanceCard.setBounds(9 * squareUnitSize - squareUnitSize / 4, 6 * squareUnitSize + squareUnitSize / 4, width,
+				height);
+		// chanceCard.setVisible(true);
 		chanceCard.addActionListener(this);
 		chanceCard.setActionCommand("ChanceCard");
-		
-		
+
 		this.add(rollThreeCard);
 		this.add(communityChestCard);
 		this.add(chanceCard);
 	}
 
 	private void initializePauseButton() {
-		int pbtWidth = frameWidth - 30*squareUnitSize - boardStartX;
+		int pbtWidth = frameWidth - 30 * squareUnitSize - boardStartX;
 		int pbtHeight = frameHeight / 32;
 		pauseButton = new ObserverButton("Pause Game", true);
-		pauseButton.setBounds(frameWidth - pbtWidth, boardStartX, pbtWidth- boardStartX, pbtHeight);
+		pauseButton.setBounds(frameWidth - pbtWidth, boardStartX, pbtWidth - boardStartX, pbtHeight);
 		pauseButton.setVisible(true);
 		pauseButton.setBackground(Color.WHITE);
 		pauseButton.addActionListener(this);
 		add(pauseButton);
 	}
-	
+
 	private JLabel getMiddle() {
 		Image tmp = null;
 		try {
@@ -229,22 +259,33 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		return new Point(boardStartX + x * squareUnitSize, y * squareUnitSize);
 	}
 
-	private JLabel getSquare(int layer, int index) {
-		int width = 0;
-		int height = 0;
-
+	private int getSquareWidth(int layer, int index) {
 		if ((layer == 0 && index % 6 == 0) || (layer == 1 && index % 10 == 0) || (layer == 2 && index % 14 == 0)) {
-			height = 2 * squareUnitSize;
-			width = 2 * squareUnitSize;
+			return 2 * squareUnitSize;
 		} else if ((layer == 0 && (index < 7 || (index > 11 && index < 19)))
 				|| (layer == 1 && (index < 11 || (index > 19 && index < 31)))
 				|| (layer == 2 && (index < 15 || (index > 27 && index < 43)))) {
-			height = 2 * squareUnitSize;
-			width = squareUnitSize;
+			return squareUnitSize;
 		} else {
-			height = squareUnitSize;
-			width = 2 * squareUnitSize;
+			return 2 * squareUnitSize;
 		}
+	}
+
+	private int getSquareHeight(int layer, int index) {
+		if ((layer == 0 && index % 6 == 0) || (layer == 1 && index % 10 == 0) || (layer == 2 && index % 14 == 0)) {
+			return 2 * squareUnitSize;
+		} else if ((layer == 0 && (index < 7 || (index > 11 && index < 19)))
+				|| (layer == 1 && (index < 11 || (index > 19 && index < 31)))
+				|| (layer == 2 && (index < 15 || (index > 27 && index < 43)))) {
+			return 2 * squareUnitSize;
+		} else {
+			return squareUnitSize;
+		}
+	}
+
+	private JLabel getSquare(int layer, int index) {
+		int width = getSquareWidth(layer, index);
+		int height = getSquareHeight(layer, index);
 
 		Image tmp = null;
 		try {
@@ -286,16 +327,15 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		Point oldCoord = getCoordinate(oldLocation.getLayer(), oldLocation.getIndex());
 		Point newCoord = getCoordinate(newLocation.getLayer(), newLocation.getIndex());
 		token.setLocation((int) (oldCoord.getX() + completedRatio * (newCoord.getX() - oldCoord.getX())),
-				(int)(oldCoord.getY() + completedRatio * (newCoord.getY() - oldCoord.getY())));
-		//repaint();
+				(int) (oldCoord.getY() + completedRatio * (newCoord.getY() - oldCoord.getY())));
+		// repaint();
 	}
-	
 
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);
 		controller.refreshPropertyListeners();
 		removeAll();
-		initializePlayButtonsPanel();		
+		initializePlayButtonsPanel();
 		initializePauseButton();
 		initializeCardPanel();
 		initializeTokens();
@@ -308,8 +348,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		switch(e.getActionCommand()){
+		// TODO Auto-generated method stubß
+		switch (e.getActionCommand()) {
 		case "RollThreeCard":
 			controller.drawRollThreeCard();
 			break;
@@ -322,17 +362,40 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		case "Pause Game":
 			controller.setPause(true);
 			break;
+		default:
+			String[] indices = e.getActionCommand().split(" ");
+			if (indices.length == 2) {
+				hideAllSquareButtons();
+				controller.useHurricaneCard(new Location(Integer.parseInt(indices[0]), Integer.parseInt(indices[1])));
+			}
+		}
+	}
+
+	private void hideAllSquareButtons() {
+		for (ArrayList<TransparentButton> list : squareButtons) {
+			for (TransparentButton btn : list)
+				btn.setVisible(false);
 		}
 	}
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
-		if(e.getPropertyName().equals("refresh")) {
+		if (e.getPropertyName().equals("refresh")) {
 			if ((boolean) e.getNewValue()) {
 				resetEverthingUsingGameController();
 			}
-		}else if(e.getPropertyName().equals("isPaused")) {
+		} else if (e.getPropertyName().equals("isPaused")) {
 			animator.setAnimatorStopped((boolean) e.getNewValue());
+		} else if (e.getPropertyName().equals("hurricaneSquares")) {
+			List<Location> locations = (List<Location>) e.getNewValue();
+			System.out.println();
+			if (locations.isEmpty()) {
+				System.out.println("Not usable, gg wp yani hocam!");
+			} else {
+				for (Location loc : locations) {
+					squareButtons[loc.getLayer()].get(loc.getIndex()).setVisible(true);
+				}
+			}
 		}
 	}
 

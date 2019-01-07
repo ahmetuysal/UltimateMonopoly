@@ -16,9 +16,11 @@ import domain.card.RollThreeCard;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.gamestate.GameState;
+import domain.square.Location;
 import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.square.TitleDeedSquare;
+import domain.square.TitleDeedSquareColor;
 import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
@@ -59,7 +61,7 @@ public class GameController extends Observable {
 	private boolean currentLocationBuyable;
 
 	private static GameController instance;
-	
+		
 	private LinkedList<String> actionQueue;
 
 	public static synchronized GameController getInstance() {
@@ -239,6 +241,33 @@ public class GameController extends Observable {
 		System.out.println("Is buyable: " + isBuyable);
 		publishPropertyEvent("currentLocationBuyable", currentLocationBuyable, isBuyable);
 		currentLocationBuyable = isBuyable;
+	}
+	
+	public void promptHurricaneSquares() {
+		publishPropertyEvent("hurricaneSquares", null, board.getAllOwnedTitleDeedLocations());
+	}
+	
+	public void useHurricaneCard(Location selectedLocation) {
+		TitleDeedSquare sq = (TitleDeedSquare) board.getSquare(selectedLocation);
+		Player player = sq.getOwner();
+		System.out.println("Hurricane is used in controller.");
+		System.out.println("Player: " + player);
+		System.out.println("Square: " + sq);
+		List<TitleDeedSquare> props = player.getTitleDeedsWithColor(sq.getColor());
+		for(int i = 0; i < props.size(); i++) {
+			TitleDeedSquare propsI = props.get(i);
+			if(propsI.getNumHouses()!=0) {
+				propsI.setNumHouses(propsI.getNumHouses()-1);
+			}
+			else if(propsI.getNumHotels()!=0) {
+				propsI.setNumHotels(propsI.getNumHotels()-1);
+				propsI.setNumHouses(4);
+			}
+			else if(propsI.getNumSkyscrapers()!=0) {
+				propsI.setNumSkyscrapers(propsI.getNumSkyscrapers()-1);
+				propsI.setNumHotels(1);
+			}
+		}
 	}
 
 	public void promptDrawChanceCard() {
@@ -572,15 +601,15 @@ public class GameController extends Observable {
 		// chanceCardList.add(CardFactory.getCard("Make General Repairs to all your
 		// properties."));
 		// chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
-		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
+		// + chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
+		// + chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
 		// chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
 		// chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
 		// chanceCardList.add(CardFactory.getCard("See You In Court!"));
 		// chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
 		// chanceCardList.add(CardFactory.getCard("Get Rollin'"));
 		// chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		// chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
 		// chanceCardList.add(CardFactory.getCard("Property Taxes"));
 		// chanceCardList.add(CardFactory.getCard("Ride the Subway"));
 		// chanceCardList.add(CardFactory.getCard("Social Media Fail!"));
