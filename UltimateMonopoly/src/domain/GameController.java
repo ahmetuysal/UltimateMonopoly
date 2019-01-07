@@ -468,8 +468,8 @@ public class GameController extends Observable {
 		
 		publishPropertyEvent("updateNetwork", false, true);
 		publishPropertyEvent("changeRoll",true,false);
-	//	publishPropertyEvent("pass",false,true);
-		
+		//publishPropertyEvent("pass",false,true);	
+
 		handleBuilding();
 		
 		if(currentPlayer.isInJail()) {
