@@ -1,5 +1,6 @@
 package domain.communication.network;
 
+import domain.GameController;
 import domain.die.Cup;
 import domain.gamestate.GameState;
 
@@ -11,8 +12,6 @@ public class NetworkController {
 
 	private NetworkController() {
 		playerGameState = new GameState();
-		playerGameState.setClientIndex(0);
-		playerGameState.setCurrentPlayerIndex(1);
 		playerGameState.setCup(new Cup());
 
 	}
@@ -30,26 +29,22 @@ public class NetworkController {
 
 	public void setPlayerGameState(GameState newGameState) {
 
-		//if(!newGameState.getContent().equals(playerGameState.getContent())) {
-			//playerGameState.setContent(newGameState.getContent()+"aa");
-			//playerGameState.setCurrentPlayerIndex(newGameState.getCurrentPlayerIndex());
-			//playerGameState.setConsecutiveDoubles(newGameState.getConsecutiveDoubles());
-			//playerGameState.setCurrentPlayer(newGameState.getCurrentPlayer());
 		if(newGameState != null && newGameState.getCup()!=null) {
+			System.out.println("SADECE CUP! eskisi"+GameController.getInstance().getCup());
 			playerGameState.setCup(newGameState.getCup());
-		}
-			//TODO: other changes will be added later, currently just cup is synchronized
-		
-		
-		
-		
-			//playerGameState.setPlayers(newGameState.getPlayers());
-			System.out.println("Client has changed its playerGameState");
+			GameController.getInstance().setCup(playerGameState.getCup());
+			System.out.println("SADECE CUP! yenisi"+GameController.getInstance().getCup());
 			
-		//}
+		}
+		if(newGameState != null && newGameState.getPlayers() !=null 
+				&& newGameState.getPlayers().size() != 0) {// && !newGameState.getLocalIp().equals(GameController.getInstance().getLocalIp())) {
+
+			System.out.println("Client has changed its playerGameState");
+			playerGameState = newGameState;
+			GameController.getInstance().refreshWithGameState(newGameState);
+		}
 		
-		
-		
+			
 
 	}
 

@@ -1,8 +1,11 @@
 package domain;
 
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +61,7 @@ public class GameController extends Observable {
 	private boolean withNetwork;
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
+	private String localIp;
 
 	private static GameController instance;
 		
@@ -77,11 +81,17 @@ public class GameController extends Observable {
 		actionQueue = new LinkedList<>();
 		initTokens();
 		initCards();
+		try {
+			localIp = Inet4Address.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void initializeWithGameState(GameState state) {
 		this.cup = state.getCup();
-		this.players = state.getPlayers();
+		this.setPlayers(state.getPlayers());
 		this.currentPlayerIndex = state.getCurrentPlayerIndex();
 		this.currentPlayer = state.getCurrentPlayer();
 		this.consecutiveDoubles = state.getConsecutiveDoubles();
@@ -96,7 +106,6 @@ public class GameController extends Observable {
 		this.withNetwork = state.isWithNetwork();
 		this.playerSentToJailForDouble = state.isPlayerSentToJailForDouble();
 		this.currentLocationBuyable = state.isCurrentLocationBuyable();
-	
 	}
 
 
@@ -151,8 +160,21 @@ public class GameController extends Observable {
 		GameStateJSONConverter converter = GameStateJSONConverter.getInstance();
 		GameState savedState = converter.readGameStateFromJSONFile(gameName);
 		initializeWithGameState(savedState);
+		refreshPropertyListeners();
+
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		assignTokensToBoardAfterLoadGame();
+		publishPropertyEvent("refresh", false, true);
+	}
+	
+	public void refreshWithGameState(GameState gs) {
+		this.setCup(gs.getCup());
+		// TODO add other fields
+		this.setPlayers(gs.getPlayers());
+		this.setCurrentPlayerIndex(gs.getCurrentPlayerIndex());
+		setCurrentPlayer(currentPlayerIndex);
+		refreshPropertyListeners();
+		assignOwnableSquaresToOwnersAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
 	}
 
@@ -222,11 +244,17 @@ public class GameController extends Observable {
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
+		//	this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		//	setCurrentPlayer(currentPlayerIndex);
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
+			if(!currentPlayer.getLocalIp().equals(this.localIp)) {
+				publishPropertyEvent("blockButtons",false,true);
+			}else {
+				publishPropertyEvent("blockButtons",true,false);
+			}
 		}
+		publishPropertyEvent("updateNetwork", false, true);
 	}
 
 	public void buyProperty() {
@@ -396,13 +424,15 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
-
+		this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+		setCurrentPlayer(currentPlayerIndex);
 		rollDice();
 		handleJail();
 		
 		if(cup.isTriple()) {
 			promptTeleport();
 			actionQueue.clear();
+			publishPropertyEvent("updateNetwork", false, true);
 			return;
 		}
 		
@@ -420,6 +450,7 @@ public class GameController extends Observable {
 				playerSentToJailForDouble = true;
 				actionQueue.clear();
 				publishPropertyEvent("isTurnFinished", true, false);
+				publishPropertyEvent("updateNetwork", false, true);
 				return;
 			}
 			actionQueue.add("double");
@@ -434,6 +465,9 @@ public class GameController extends Observable {
 			publishPropertyEvent("buyable",false,false);
 		}
 		
+		publishPropertyEvent("updateNetwork", false, true);
+		publishPropertyEvent("changeRoll",true,false);
+		publishPropertyEvent("pass",false,true);
 		
 		handleBuilding();
 		
@@ -521,6 +555,7 @@ public class GameController extends Observable {
 	}
 
 	public void rollDice() {
+		System.out.println(propertyListenersMap);
 		if (currentPlayer.isInJail()) {
 			cup.rollTwoRegularDices();
 		} else {
@@ -534,6 +569,7 @@ public class GameController extends Observable {
 		die2Value = newValues[1];
 		publishPropertyEvent("die3", die3Value, newValues[2]);
 		die3Value = newValues[2];
+		publishPropertyEvent("updateNetwork",true,false);
 	}
 
 	public void rollThree() {
@@ -581,7 +617,36 @@ public class GameController extends Observable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		this.players = players;
+		if (this.players == null)
+			this.players = players;
+		else {
+			for (Player player : players) {
+				int index = this.players.indexOf(player);
+				System.out.println(player.getToken());
+				if (index < 0) {
+					this.players.add(player);
+					board.addToken(player.getToken());
+				}
+				else {
+					Player playerInList = this.players.get(index);
+					playerInList.setTotalMoney(player.getTotalMoney());
+					playerInList.setReverseDirection(player.isReverseDirection());
+					if (player.isInJail()) {
+						playerInList.goToJail();
+					}
+					playerInList.setJailTime(player.getJailTime());
+					playerInList.setProperties(player.getProperties());
+					playerInList.setCards(player.getCards());
+					playerInList.getToken().setLocation(player.getToken().getLocation());
+				}
+			}
+		}
+		this.players.sort(new Comparator<Player>() {
+			@Override
+			public int compare(Player o1, Player o2) {
+				return o1.getNickName().compareTo(o2.getNickName());
+			}
+		});
 	}
 
 	public int getCurrentPlayerIndex() {
@@ -716,6 +781,21 @@ public class GameController extends Observable {
 		lastDrawnCard = null;
 		publishPropertyEvent("cardIsKept", true, false);
 	}
+	
+
+	/**
+	 * @return the localIp
+	 */
+	public String getLocalIp() {
+		return localIp;
+	}
+
+	/**
+	 * @param localIp the localIp to set
+	 */
+	public void setLocalIp(String localIp) {
+		this.localIp = localIp;
+	}
 
 	/**
 	 * Creates and returns a GameState object that contains all information needed
@@ -737,7 +817,7 @@ public class GameController extends Observable {
 		state.setCommunityChestCardList(communityChestCardList);
 		state.setRollThreeCardList(rollThreeCardList);
 		state.setPoolMoney(poolMoney);
-
+		state.setLocalIp(this.localIp);
 		state.setDie1Value(die1Value);
 		state.setDie2Value(die2Value);
 		state.setDie3Value(die3Value);
@@ -878,8 +958,41 @@ public class GameController extends Observable {
 	public void refreshPropertyListeners() {
 		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
 		List<PropertyListener> isPausedListeners = new ArrayList<>();
-		isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
-		newPropertyListeners.put("isPaused", new ArrayList<>());
+		List<PropertyListener> refreshListeners = new ArrayList<>();
+		List<PropertyListener> die1Listeners = new ArrayList<>();
+		List<PropertyListener> die2Listeners = new ArrayList<>();
+		List<PropertyListener> die3Listeners = new ArrayList<>();
+		List<PropertyListener> updateNetworkListeners = new ArrayList<>();
+
+		if (propertyListenersMap.containsKey("isPaused")) {
+			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
+		}
+		newPropertyListeners.put("isPaused", isPausedListeners);
+		if (propertyListenersMap.containsKey("refresh")) {
+			refreshListeners.addAll(propertyListenersMap.get("refresh"));
+		}
+		newPropertyListeners.put("refresh", refreshListeners);
+		
+		if (propertyListenersMap.containsKey("die1")) {
+			die1Listeners.addAll(propertyListenersMap.get("die1"));
+		}
+		newPropertyListeners.put("die1", die1Listeners);
+		
+		if (propertyListenersMap.containsKey("die2")) {
+			die2Listeners.addAll(propertyListenersMap.get("die2"));
+		}
+		newPropertyListeners.put("die2", die2Listeners);
+		
+		if (propertyListenersMap.containsKey("die3")) {
+			die3Listeners.addAll(propertyListenersMap.get("die3"));
+		}
+		newPropertyListeners.put("die3", die3Listeners);
+		
+		if (propertyListenersMap.containsKey("updateNetwork")) {
+			updateNetworkListeners.addAll(propertyListenersMap.get("updateNetwork"));
+		}
+		newPropertyListeners.put("updateNetwork", updateNetworkListeners);
+		
 		propertyListenersMap = newPropertyListeners;
 		for (Token token : board.getTokens()) {
 			token.refreshPropertyListeners();
@@ -887,5 +1000,7 @@ public class GameController extends Observable {
 		for (Player player : players) {
 			player.refreshPropertyListeners();
 		}
+		
+
 	}
 }

@@ -1,6 +1,8 @@
 package domain;
 
 import java.io.Serializable;
+import java.net.Inet4Address;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class Player extends Observable implements Serializable {
 	private List<OwnableCard> cards;
 	private List<OwnableSquare> properties;
 	private Token token;
+	private String localIp;
 
 	private static final int START_MONEY = 3200;
 
@@ -44,7 +47,33 @@ public class Player extends Observable implements Serializable {
 		this.jailTime = 0;
 		this.cards = new ArrayList<>();
 		this.properties = new ArrayList<>();
+		try {
+			this.localIp = Inet4Address.getLocalHost().toString();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
+	
+
+
+	/**
+	 * @return the localIp
+	 */
+	public String getLocalIp() {
+		return localIp;
+	}
+
+
+
+	/**
+	 * @param localIp the localIp to set
+	 */
+	public void setLocalIp(String localIp) {
+		this.localIp = localIp;
+	}
+
+
 
 	/*
 	 * (non-Javadoc)
@@ -345,6 +374,13 @@ public class Player extends Observable implements Serializable {
 		if (!(obj instanceof Player))
 			return false;
 		Player other = (Player) obj;
+		if (nickName.equals(other.getNickName()))
+			return true;
+	
+		//
+		// NOT IMPORTANT 
+		//
+		
 		if (inJail != other.inJail)
 			return false;
 		if (isReverseDirection != other.isReverseDirection)

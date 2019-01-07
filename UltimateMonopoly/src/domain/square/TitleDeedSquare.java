@@ -136,7 +136,7 @@ public class TitleDeedSquare extends OwnableSquare {
 	
 	public boolean houseCheck() {
 		if (!this.isOwned()) {
-			System.out.println("Can't build a house on an unowned property!");
+//			System.out.println("Can't build a house on an unowned property!");
 			return false;
 		}
 		if(this.getOwner() != GameController.getInstance().getCurrentPlayer()) {
@@ -144,15 +144,15 @@ public class TitleDeedSquare extends OwnableSquare {
 			return false;
 		}
 		if (this.owner.getTotalMoney() < this.color.housePriceProperty()) {
-			System.out.println("You don't have enough money to build a house!");
+//			System.out.println("You don't have enough money to build a house!");
 			return false;
 		}
 		if (!this.ownerHasMajorityOwnership()) {
-			System.out.println("You need to have 'Majority Ownership' to buy a house!");
+//			System.out.println("You need to have 'Majority Ownership' to buy a house!");
 			return false;
 		}
 		if (this.numHouses == 4 || this.numHotels > 0 || this.numSkyscrapers > 0) {
-			System.out.println("You can't build more than 4 houses on the same property!");
+//			System.out.println("You can't build more than 4 houses on the same property!");
 			return false;
 		}
 		return true;

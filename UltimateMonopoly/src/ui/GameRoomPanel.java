@@ -132,6 +132,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		playerPanel.setVisible(true);
 		playerPanel.setBackground(this.getBackground());
 		add(playerPanel);
+		repaint();
 	}
 
 	private void initializeCardPanel() {
@@ -309,12 +310,18 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	}
 
 	private void initializeTokens() {
+		if (UITokens != null)
+			for (UIToken uiToken : UITokens) {
+				animator.removeAnimatable(uiToken);
+				remove(uiToken);
+			}
+		
 		UITokens = new ArrayList<>();
 		for (Token token : controller.getBoard().getTokens()) {
 			UIToken uiToken = new UIToken(token, tokenSize);
 			UITokens.add(uiToken);
-			setComponentZOrder(uiToken, 0);
 			add(uiToken);
+			setComponentZOrder(uiToken, 0);
 			animator.addAnimatable(uiToken);
 			TokenLocationChanged(uiToken, token.getLocation(), token.getLocation(), 1);
 		}
@@ -332,14 +339,15 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	private void resetEverthingUsingGameController() {
 		animator.setAnimatorStopped(true);
-		controller.refreshPropertyListeners();
-		removeAll();
-		initializePlayButtonsPanel();
-		initializePauseButton();
-		initializeCardPanel();
+//		controller.refreshPropertyListeners();
+//		removeAll();
+		
+//		initializePlayButtonsPanel();		
+//		initializePauseButton();
+//		initializeCardPanel();
 		initializeTokens();
-		initCardButtons();
-		initBoard();
+//		initCardButtons();
+//		initBoard();
 		initializeTurnOrder();
 		initializePlayerPanel();
 		animator.setAnimatorStopped(false);
