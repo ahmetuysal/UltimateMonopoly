@@ -1,9 +1,11 @@
 package domain.square;
 
+import java.io.Serializable;
+
 import domain.GameController;
 import domain.Player;
 
-public abstract class Square {
+public abstract class Square implements Serializable{
 
 	protected String name;
 	protected String description;

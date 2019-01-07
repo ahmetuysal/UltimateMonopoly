@@ -1,6 +1,7 @@
 package domain;
 
 import java.net.Inet4Address;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -180,6 +181,13 @@ public class GameController extends Observable {
 		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
+		if(gs.getPlayers()!=null && gs.getCurrentPlayerIndex() < gs.getPlayers().size())
+			try {
+				publishPropertyEvent("disablePlayButtons", true, gs.getPlayers().get(gs.getCurrentPlayerIndex()).getLocalIp().equals(InetAddress.getLocalHost().getHostAddress()));
+			} catch (UnknownHostException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 	private void assignTokensToBoardAfterLoadGame() {
