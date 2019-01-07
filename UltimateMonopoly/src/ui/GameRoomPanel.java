@@ -123,13 +123,16 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	private void initializePlayerPanel() {
 		int pWidth = frameWidth - 17 * squareUnitSize - boardStartX;
-		;
 		int pHeight = (int) (frameHeight * 7 / 8.);
+		if (playerPanel != null)
+			remove(playerPanel);
+		
 		playerPanel = new PlayerPanel(pWidth, pHeight);
 		playerPanel.setBounds(frameWidth - pWidth, squareUnitSize, pWidth, pHeight);
 		playerPanel.setVisible(true);
 		playerPanel.setBackground(this.getBackground());
 		add(playerPanel);
+		System.out.println("removed and updated new PLAYER PANEL");
 		repaint();
 	}
 
@@ -316,12 +319,12 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		for (Token token : controller.getBoard().getTokens()) {
 			UIToken uiToken = new UIToken(token, tokenSize);
 			UITokens.add(uiToken);
-			add(uiToken);
 			setComponentZOrder(uiToken, 0);
 			add(uiToken);
 			GenericAnimator.getInstance(getParent()).addAnimatable(uiToken);
-			TokenLocationChanged(uiToken, new Location(1, 0), new Location(1, 0), 1);
+			TokenLocationChanged(uiToken, token.getLocation(), token.getLocation(), 1);
 		}
+		System.out.println("Tokens are updated YEAAAYYYYYY");
 		repaint();
 	}
 
