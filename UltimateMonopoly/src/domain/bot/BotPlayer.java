@@ -84,12 +84,18 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 			controller.drawCommunityChestCard();
 		else if (action.equals("drawRollThreeCard"))
 			controller.drawRollThreeCard();
-		else if (action.equals("drawNotChanceCard"))
+		else if (action.equals("drawNotChanceCard")) {
 			controller.playCard();
-		else if (action.equals("drawNotCommunityChestCard"))
+			controller.passTurn();
+		}
+		else if (action.equals("drawNotCommunityChestCard")) {
 			controller.playCard();
-		else if (action.equals("drawNotRollThreeCard"))
+			controller.passTurn();
+		}
+		else if (action.equals("drawNotRollThreeCard")) {
 			controller.keepCard();
+			controller.passTurn();
+		}
 
 		// else if(action.contains("cardName"))
 		// if(action.equals("cardName"))
@@ -116,10 +122,11 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 				else {
 					this.playTurn(e.getPropertyName());
 				}
-			} else if(e.getPropertyName().equals("buyable")) {
+			} else if(e.getPropertyName().contains("buy")) {
 				if((boolean) e.getNewValue()) {
 					System.out.println("gonna buy it");
 					moveStrategy.makeMove("buyable");
+					controller.passTurn();
 				}	
 			}
 			else {

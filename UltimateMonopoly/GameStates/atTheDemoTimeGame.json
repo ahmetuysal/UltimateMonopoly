@@ -1,0 +1,1247 @@
+{
+  "cup": {
+    "die1": {
+      "value": 0
+    },
+    "die2": {
+      "value": 0
+    },
+    "die3": {
+      "value": 0
+    },
+    "speedDie": {
+      "value": 0
+    },
+    "faceValues": [
+      "ONE",
+      "ONE",
+      "ONE"
+    ]
+  },
+  "players": [
+    {
+      "nickName": "mnbvhgc",
+      "totalMoney": 2071,
+      "isReverseDirection": false,
+      "inJail": false,
+      "jailTime": 0,
+      "cards": [
+        {
+          "cardValuesAsInteger": [
+            1,
+            3,
+            4
+          ],
+          "isOwned": false,
+          "name": "134",
+          "description": ""
+        }
+      ],
+      "properties": [
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_YELLOW",
+          "price": 180,
+          "isOwned": true,
+          "name": "Cullen Boulevard",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 20
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "CAB_COMPANY",
+          "price": 300,
+          "isOwned": true,
+          "name": "Yellow Cab Co.",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 34
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_GOLD",
+          "price": 330,
+          "isOwned": true,
+          "name": "West Temple",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 38
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "UTILITY",
+          "price": 150,
+          "isOwned": true,
+          "name": "Trash Collector",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 39
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "CLARET",
+          "price": 480,
+          "isOwned": true,
+          "name": "Ventura Boulevard",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 53
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_PINK",
+          "price": 60,
+          "isOwned": true,
+          "name": "Hennepin Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 4
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "RED",
+          "price": 220,
+          "isOwned": true,
+          "name": "Kentucky Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 21
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 1,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "CLARET",
+          "price": 510,
+          "isOwned": true,
+          "name": "Rodeo Drive",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 55
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "UTILITY",
+          "price": 150,
+          "isOwned": true,
+          "name": "Internet Service Provider",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 18
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "MAROON",
+          "price": 270,
+          "isOwned": true,
+          "name": "Peachtree Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 29
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "CAB_COMPANY",
+          "price": 300,
+          "isOwned": true,
+          "name": "Checker Cab Co.",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 6
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_GREEN",
+          "price": 120,
+          "isOwned": true,
+          "name": "Bourbon Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 13
+          }
+        },
+        {
+          "type": "RailRoad",
+          "price": 200,
+          "isOwned": true,
+          "name": "B. \u0026 O. Railroad",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 35
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "SALMON",
+          "price": 390,
+          "isOwned": true,
+          "name": "South Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 43
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "SALMON",
+          "price": 420,
+          "isOwned": true,
+          "name": "Walnut Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 45
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 4,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_PINK",
+          "price": 30,
+          "isOwned": true,
+          "name": "Lake Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 1
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_GREEN",
+          "price": 90,
+          "isOwned": true,
+          "name": "Esplanade Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 8
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "BROWN",
+          "price": 130,
+          "isOwned": true,
+          "name": "Miami Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 0,
+            "index": 19
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_BLUE",
+          "price": 400,
+          "isOwned": true,
+          "name": "Boardwalk",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 39
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "ORANGE",
+          "price": 200,
+          "isOwned": true,
+          "name": "New York Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 19
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "UTILITY",
+          "price": 150,
+          "isOwned": true,
+          "name": "Electric Company",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 12
+          }
+        }
+      ],
+      "token": {
+        "location": {
+          "layer": 2,
+          "index": 52
+        },
+        "tokenImageName": "Dog.png"
+      },
+      "localIp": "MacBook-Pro-2.local/172.20.120.173"
+    },
+    {
+      "nickName": "mhg",
+      "totalMoney": 2129,
+      "isReverseDirection": false,
+      "inJail": false,
+      "jailTime": 0,
+      "cards": [
+        {
+          "cardValuesAsInteger": [
+            3,
+            4,
+            6
+          ],
+          "isOwned": false,
+          "name": "346",
+          "description": ""
+        }
+      ],
+      "properties": [
+        {
+          "type": "UtilitySquare",
+          "utilityType": "UTILITY",
+          "price": 150,
+          "isOwned": true,
+          "name": "Cable Company",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 11
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 1,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_YELLOW",
+          "price": 150,
+          "isOwned": true,
+          "name": "Katy Freeway",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 16
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_YELLOW",
+          "price": 150,
+          "isOwned": true,
+          "name": "Westheimer Road",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 17
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 4,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_GOLD",
+          "price": 330,
+          "isOwned": true,
+          "name": "South Temple",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 37
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_PINK",
+          "price": 30,
+          "isOwned": true,
+          "name": "Nicollet Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 3
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_GREEN",
+          "price": 120,
+          "isOwned": true,
+          "name": "Magazine Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 12
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "PINK",
+          "price": 140,
+          "isOwned": true,
+          "name": "St.Charles Place",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 11
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "ORANGE",
+          "price": 180,
+          "isOwned": true,
+          "name": "Tennessee Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 18
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "PURPLE",
+          "price": 60,
+          "isOwned": true,
+          "name": "Meditteranian Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 1
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_BLUE",
+          "price": 120,
+          "isOwned": true,
+          "name": "Connecticut Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 9
+          }
+        },
+        {
+          "type": "UtilitySquare",
+          "utilityType": "UTILITY",
+          "price": 150,
+          "isOwned": true,
+          "name": "Water Works",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 28
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "SALMON",
+          "price": 390,
+          "isOwned": true,
+          "name": "Broad Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 44
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "LIGHT_YELLOW",
+          "price": 180,
+          "isOwned": true,
+          "name": "Kirby Drive",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 19
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_CYAN",
+          "price": 240,
+          "isOwned": true,
+          "name": "Decatur Street",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 26
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_GOLD",
+          "price": 360,
+          "isOwned": true,
+          "name": "North Temple",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 40
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "CLARET",
+          "price": 450,
+          "isOwned": true,
+          "name": "Mulholland Drive",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 52
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "DARK_GOLD",
+          "price": 360,
+          "isOwned": true,
+          "name": "Temple Square",
+          "description": "dsc",
+          "location": {
+            "layer": 2,
+            "index": 41
+          }
+        },
+        {
+          "type": "TitleDeedSquare",
+          "numHouses": 0,
+          "numHotels": 0,
+          "numSkyscrapers": 0,
+          "color": "PURPLE",
+          "price": 60,
+          "isOwned": true,
+          "name": "Baltic Avenue",
+          "description": "dsc",
+          "location": {
+            "layer": 1,
+            "index": 3
+          }
+        }
+      ],
+      "token": {
+        "location": {
+          "layer": 2,
+          "index": 10
+        },
+        "tokenImageName": "Thimble.png"
+      },
+      "localIp": "MacBook-Pro-2.local/172.20.120.173"
+    }
+  ],
+  "currentPlayerIndex": 0,
+  "currentPlayer": {
+    "nickName": "mnbvhgc",
+    "totalMoney": 2071,
+    "isReverseDirection": false,
+    "inJail": false,
+    "jailTime": 0,
+    "cards": [
+      {
+        "cardValuesAsInteger": [
+          1,
+          3,
+          4
+        ],
+        "isOwned": false,
+        "name": "134",
+        "description": ""
+      }
+    ],
+    "properties": [
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "LIGHT_YELLOW",
+        "price": 180,
+        "isOwned": true,
+        "name": "Cullen Boulevard",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 20
+        }
+      },
+      {
+        "type": "UtilitySquare",
+        "utilityType": "CAB_COMPANY",
+        "price": 300,
+        "isOwned": true,
+        "name": "Yellow Cab Co.",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 34
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "DARK_GOLD",
+        "price": 330,
+        "isOwned": true,
+        "name": "West Temple",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 38
+        }
+      },
+      {
+        "type": "UtilitySquare",
+        "utilityType": "UTILITY",
+        "price": 150,
+        "isOwned": true,
+        "name": "Trash Collector",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 39
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "CLARET",
+        "price": 480,
+        "isOwned": true,
+        "name": "Ventura Boulevard",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 53
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "LIGHT_PINK",
+        "price": 60,
+        "isOwned": true,
+        "name": "Hennepin Avenue",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 4
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "RED",
+        "price": 220,
+        "isOwned": true,
+        "name": "Kentucky Avenue",
+        "description": "dsc",
+        "location": {
+          "layer": 1,
+          "index": 21
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 1,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "CLARET",
+        "price": 510,
+        "isOwned": true,
+        "name": "Rodeo Drive",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 55
+        }
+      },
+      {
+        "type": "UtilitySquare",
+        "utilityType": "UTILITY",
+        "price": 150,
+        "isOwned": true,
+        "name": "Internet Service Provider",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 18
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "MAROON",
+        "price": 270,
+        "isOwned": true,
+        "name": "Peachtree Street",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 29
+        }
+      },
+      {
+        "type": "UtilitySquare",
+        "utilityType": "CAB_COMPANY",
+        "price": 300,
+        "isOwned": true,
+        "name": "Checker Cab Co.",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 6
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "LIGHT_GREEN",
+        "price": 120,
+        "isOwned": true,
+        "name": "Bourbon Street",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 13
+        }
+      },
+      {
+        "type": "RailRoad",
+        "price": 200,
+        "isOwned": true,
+        "name": "B. \u0026 O. Railroad",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 35
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "SALMON",
+        "price": 390,
+        "isOwned": true,
+        "name": "South Street",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 43
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "SALMON",
+        "price": 420,
+        "isOwned": true,
+        "name": "Walnut Street",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 45
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 4,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "LIGHT_PINK",
+        "price": 30,
+        "isOwned": true,
+        "name": "Lake Street",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 1
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "LIGHT_GREEN",
+        "price": 90,
+        "isOwned": true,
+        "name": "Esplanade Avenue",
+        "description": "dsc",
+        "location": {
+          "layer": 2,
+          "index": 8
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "BROWN",
+        "price": 130,
+        "isOwned": true,
+        "name": "Miami Avenue",
+        "description": "dsc",
+        "location": {
+          "layer": 0,
+          "index": 19
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "DARK_BLUE",
+        "price": 400,
+        "isOwned": true,
+        "name": "Boardwalk",
+        "description": "dsc",
+        "location": {
+          "layer": 1,
+          "index": 39
+        }
+      },
+      {
+        "type": "TitleDeedSquare",
+        "numHouses": 0,
+        "numHotels": 0,
+        "numSkyscrapers": 0,
+        "color": "ORANGE",
+        "price": 200,
+        "isOwned": true,
+        "name": "New York Avenue",
+        "description": "dsc",
+        "location": {
+          "layer": 1,
+          "index": 19
+        }
+      },
+      {
+        "type": "UtilitySquare",
+        "utilityType": "UTILITY",
+        "price": 150,
+        "isOwned": true,
+        "name": "Electric Company",
+        "description": "dsc",
+        "location": {
+          "layer": 1,
+          "index": 12
+        }
+      }
+    ],
+    "token": {
+      "location": {
+        "layer": 2,
+        "index": 52
+      },
+      "tokenImageName": "Dog.png"
+    },
+    "localIp": "MacBook-Pro-2.local/172.20.120.173"
+  },
+  "consecutiveDoubles": 0,
+  "chanceCardList": [
+    {
+      "name": "Holiday Bonus!",
+      "description": ""
+    },
+    {
+      "name": "Advance to the Saint Charles Place",
+      "description": ""
+    },
+    {
+      "name": "Hurricane makes landfall!",
+      "description": ""
+    }
+  ],
+  "communityChestCardList": [
+    {
+      "name": "Pay Hospital Bills",
+      "description": ""
+    },
+    {
+      "name": "A Moving Experience",
+      "description": ""
+    },
+    {
+      "name": "The Insider\u0027s Edge",
+      "description": ""
+    }
+  ],
+  "rollThreeCardList": [
+    {
+      "cardValuesAsInteger": [
+        4,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "456",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        4,
+        6
+      ],
+      "isOwned": false,
+      "name": "346",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "356",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        4,
+        6
+      ],
+      "isOwned": false,
+      "name": "246",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        2,
+        4
+      ],
+      "isOwned": false,
+      "name": "124",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        3,
+        6
+      ],
+      "isOwned": false,
+      "name": "136",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        4,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "456",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        4,
+        5
+      ],
+      "isOwned": false,
+      "name": "345",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        3,
+        4
+      ],
+      "isOwned": false,
+      "name": "234",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        2,
+        6
+      ],
+      "isOwned": false,
+      "name": "126",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "156",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        4,
+        6
+      ],
+      "isOwned": false,
+      "name": "146",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        2,
+        5
+      ],
+      "isOwned": false,
+      "name": "125",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        4,
+        5
+      ],
+      "isOwned": false,
+      "name": "245",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        3,
+        5
+      ],
+      "isOwned": false,
+      "name": "135",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        4,
+        5
+      ],
+      "isOwned": false,
+      "name": "345",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        4,
+        5
+      ],
+      "isOwned": false,
+      "name": "145",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        2,
+        3
+      ],
+      "isOwned": false,
+      "name": "123",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        4,
+        6
+      ],
+      "isOwned": false,
+      "name": "246",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "256",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "356",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        2,
+        5,
+        6
+      ],
+      "isOwned": false,
+      "name": "256",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        1,
+        3,
+        4
+      ],
+      "isOwned": false,
+      "name": "134",
+      "description": ""
+    },
+    {
+      "cardValuesAsInteger": [
+        3,
+        4,
+        6
+      ],
+      "isOwned": false,
+      "name": "346",
+      "description": ""
+    }
+  ],
+  "poolMoney": 900,
+  "die1Value": "ONE",
+  "die2Value": "ONE",
+  "die3Value": "ONE",
+  "isPaused": true,
+  "withNetwork": false,
+  "playerSentToJailForDouble": false,
+  "currentLocationBuyable": true,
+  "localIp": "MacBook-Pro-2.local/172.20.120.173"
+}

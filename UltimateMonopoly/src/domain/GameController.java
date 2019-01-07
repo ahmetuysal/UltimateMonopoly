@@ -244,8 +244,8 @@ public class GameController extends Observable {
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
-		//	this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-		//	setCurrentPlayer(currentPlayerIndex);
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 			if(!currentPlayer.getLocalIp().equals(this.localIp)) {
@@ -300,6 +300,7 @@ public class GameController extends Observable {
 
 	public void promptDrawChanceCard() {
 		publishPropertyEvent("drawChanceCard", false, true);
+		
 	}
 
 	public void promptDrawCommunityChestCard() {
@@ -424,8 +425,8 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
-		this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-		setCurrentPlayer(currentPlayerIndex);
+//		this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+//		setCurrentPlayer(currentPlayerIndex);
 		rollDice();
 		handleJail();
 		
@@ -467,8 +468,8 @@ public class GameController extends Observable {
 		
 		publishPropertyEvent("updateNetwork", false, true);
 		publishPropertyEvent("changeRoll",true,false);
-		publishPropertyEvent("pass",false,true);
-		
+		//publishPropertyEvent("pass",false,true);	
+
 		handleBuilding();
 		
 		if(currentPlayer.isInJail()) {
