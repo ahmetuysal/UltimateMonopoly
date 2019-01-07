@@ -9,12 +9,15 @@ This is the term project for Koç University Software Engineering course of Fall
 * Merve Karakaş [@mervekarakas](https://github.com/mervekarakas)
 * Halil Eralp Koçaş [@EralpKocas](https://github.com/EralpKocas)
 * Mediha Meltem Günay [@mgunay15](https://github.com/mgunay15)
-* Umay Bozkurt [@ubozkurt](https://github.com/)
+* Umay Bozkurt [@UmayBengisuBozkurt](https://github.com/UmayBengisuBozkurt)
 
 ## Instructions For The Demo
 
 ### Starting The Server
-In our implementation game server is a stand alone project and none of the players take the responsibility of being a server. The name of the game server is 302_2018_project_pennybags_network_finalVersion, you can ignore the other repositories in GitLab which has similar names. Before running the game the server should run and the local IP of the server will be seen in the console. Then copy this IP address and paste it to the SERVER_ADDRESS field of the Connection class. All the players from different computers must do the same process in order to connect to the game. When the game starts, as default it starts with the network connection. In order to run the game without network the button named "Online" should be clicked and the network will be disabled.
+
+You can find the server project [here](https://git.ku.edu.tr/pennybags/302_2018_project_pennybags_network).
+
+In our implementation game server is a stand alone project and none of the players take the responsibility of being a server. Before running the game the server should run and the local IP of the server will be seen in the console. Then copy this IP address and paste it to the SERVER_ADDRESS field of the Connection class. All the players from different computers must do the same process in order to connect to the game. When the game starts, as default it starts with the network connection. In order to run the game without network the button named "Online" should be clicked and the network will be disabled.
 
 
 ## Game Assets and Rules
