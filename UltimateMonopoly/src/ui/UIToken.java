@@ -56,6 +56,7 @@ public class UIToken extends JLabel implements PropertyListener, Animatable {
 		if (parent != null)
 			((GameRoomPanel) getParent()).TokenLocationChanged(this, oldLoc, newLoc, completedRatio);
 	}
+	
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {

@@ -47,10 +47,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private CardPanel cardPanel;
 
 	private JButton pauseButton;
-
-	private List<UIToken> UITokens;
-	private GenericAnimator animator;
-
+	
+	private List<UIToken> UITokens = new ArrayList<>();
+	
 	private PlayButtonPanel playButtons;
 	private PlayerPanel playerPanel;
 	
@@ -72,9 +71,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		setBackground(new Color(175, 231, 204));
 		setLayout(null);
 		// Add generic animator
-		animator = new GenericAnimator(this);
-		new Thread(animator).start();
-
+		
 		squareUnitSize = frameHeight / 17;
 		boardStartX = squareUnitSize / 10;
 		tokenSize = squareUnitSize;
@@ -223,7 +220,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		tmp = tmp.getScaledInstance(5 * squareUnitSize, 5 * squareUnitSize, Image.SCALE_SMOOTH);
@@ -297,7 +293,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		tmp = tmp.getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -322,8 +317,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			UITokens.add(uiToken);
 			add(uiToken);
 			setComponentZOrder(uiToken, 0);
-			animator.addAnimatable(uiToken);
-			TokenLocationChanged(uiToken, token.getLocation(), token.getLocation(), 1);
+			add(uiToken);
+			GenericAnimator.getInstance(getParent()).addAnimatable(uiToken);
+			TokenLocationChanged(uiToken, new Location(1, 0), new Location(1, 0), 1);
 		}
 		repaint();
 	}

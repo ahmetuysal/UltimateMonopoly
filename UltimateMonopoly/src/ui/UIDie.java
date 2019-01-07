@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 import ui.animation.Animatable;
 import ui.animation.Animation;
+import ui.animation.DieRotateAnimation;
 
 public class UIDie extends JLabel implements PropertyListener, Animatable {
 
@@ -21,6 +24,11 @@ public class UIDie extends JLabel implements PropertyListener, Animatable {
 	private static ImageIcon[] ICONS;
 	private static int DIE_SIZE = 50;
 	
+	
+	private double angle = 0;
+	private LinkedList<Animation> waitingAnimations;
+
+
 	public static void initializeDieIcons(int size) {
 		DIE_SIZE = size;
 		if (ICONS != null)
@@ -50,18 +58,33 @@ public class UIDie extends JLabel implements PropertyListener, Animatable {
 		this.setSize(DIE_SIZE, DIE_SIZE);
 		// TODO Auto-generated constructor stub
 		this.setIcon(ICONS[0]);
+		waitingAnimations = new LinkedList<>();
 	}
+	
+	@Override 
+	protected void paintComponent(Graphics g) {
+		Graphics2D gx = (Graphics2D) g;
+		if (getIcon() != null)
+			gx.rotate(Math.toRadians(this.angle), getIcon().getIconWidth()/2,getIcon().getIconHeight()/2);
+		super.paintComponent(g);
+	}
+	
+	public void setAngle(double angle) {
+		this.angle = angle;
+	}
+
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		DieValue newVal = (DieValue) e.getNewValue(); 
 		this.dieValue = newVal;
 		this.setIcon(ICONS[newVal.getValue()]);
+		waitingAnimations.add(new DieRotateAnimation(this));
 	}
 
 	@Override
 	public LinkedList<Animation> getWaitingAnimations() {
-		return null;
+		return waitingAnimations;
 	}
 
 }
