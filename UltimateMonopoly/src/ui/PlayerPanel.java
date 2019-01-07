@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -73,22 +74,25 @@ public class PlayerPanel extends JPanel {
 		JTabbedPane pane = new JTabbedPane();
 		
 		ObserverLabel playerInfo = new ObserverLabel(40,100, player, "playerInfo");
-		playerInfo.setHorizontalAlignment(JLabel.LEFT);
+		playerInfo.setHorizontalAlignment(JLabel.CENTER);
 		
 		JPanel panel = new JPanel(false);
-		panel.setLayout(new GridLayout(1,1));
+		panel.setLayout(new GridLayout(2,1));
+		UIToken token = new UIToken(player.getToken(), 100); 
+		ImageIcon tokenImage = token.getIconFromFileName(player.getToken().getTokenImageName(), 100);
+		panel.add(new JLabel(tokenImage));
 		panel.add(playerInfo);
+		
 		
 		pane.addTab("Player Info", panel);
 		
 		ObserverLabel properties = new ObserverLabel(40,100, player, "properties");
-		properties.setHorizontalAlignment(JLabel.LEFT);
+		properties.setHorizontalAlignment(JLabel.CENTER);
 		properties.setVerticalAlignment(JLabel.TOP);
 		
 		JPanel panel2 = new JPanel(false);
 		panel2.setLayout(new GridLayout(1,1));
 		panel2.add(properties);
-		
 		JScrollPane scrollPane = new JScrollPane(panel2);
 		scrollPane.setViewportView(panel2);
 		scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
