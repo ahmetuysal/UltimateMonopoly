@@ -1,19 +1,31 @@
 package ui.animation;
 
+import java.awt.Container;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JPanel;
 
+import domain.GameController;
+
 public class GenericAnimator implements Runnable {
 
 	private List<Animatable> elementsToAnimate;
 	private long sleepTime = 50;
 	private boolean animatorStopped = false;
-	private JPanel animationPanel;
+	private Container animationPanel;
 
-	public GenericAnimator(JPanel animationPanel) {
+	private static GenericAnimator instance;
+
+	public static synchronized GenericAnimator getInstance(Container animationPanel) {
+		if (instance == null) {
+			instance = new GenericAnimator(animationPanel);
+		}
+		return instance;
+	}
+
+	private GenericAnimator(Container animationPanel) {
 		this.animationPanel = animationPanel;
 		elementsToAnimate = new ArrayList<>();
 	}
@@ -46,15 +58,13 @@ public class GenericAnimator implements Runnable {
 			animationPanel.repaint();
 		}
 	}
-	
+
 	public void addAnimatable(Animatable animatable) {
 		elementsToAnimate.add(animatable);
 	}
-	
+
 	public boolean removeAnimatable(Animatable animatable) {
 		return elementsToAnimate.remove(animatable);
 	}
-	
-	
 
 }

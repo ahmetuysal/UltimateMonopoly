@@ -5,7 +5,6 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.List;
 
 
 import javax.imageio.ImageIO;
@@ -58,6 +57,7 @@ public class UIToken extends JLabel implements PropertyListener, Animatable {
 		if (parent != null)
 			((GameRoomPanel) getParent()).TokenLocationChanged(this, oldLoc, newLoc, completedRatio);
 	}
+	
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {

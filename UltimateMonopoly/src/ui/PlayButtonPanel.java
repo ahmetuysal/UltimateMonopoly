@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import domain.GameController;
+import ui.animation.GenericAnimator;
 
 public class PlayButtonPanel extends JPanel implements ActionListener {
 
@@ -37,11 +38,17 @@ public class PlayButtonPanel extends JPanel implements ActionListener {
 		
 	    UIDie.initializeDieIcons(width);
 		UIDie die1 = new UIDie();
+
 		controller.addPropertyListener("die1", die1);
 		UIDie die2 = new UIDie();
 		controller.addPropertyListener("die2", die2);
 		UIDie die3 = new UIDie();
 		controller.addPropertyListener("die3", die3);
+		
+		GenericAnimator.getInstance(this).addAnimatable(die1);
+		GenericAnimator.getInstance(this).addAnimatable(die2);
+		GenericAnimator.getInstance(this).addAnimatable(die3);
+
 		
 		int diff = width / 4;
 		int initx = panelWidth / 3 + 3 * panelWidth / 20;

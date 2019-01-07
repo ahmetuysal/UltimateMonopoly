@@ -6,11 +6,15 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 
 import domain.GameController;
+import ui.animation.GenericAnimator;
 
 public class MonopolyFrame extends JFrame {
 
 	public MonopolyFrame() {
 
+		// Start the animator
+		new Thread(GenericAnimator.getInstance(this)).start();
+		
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setTitle("Ultimate Monopoly");
 
