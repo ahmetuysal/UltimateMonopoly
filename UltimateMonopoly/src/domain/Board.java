@@ -420,8 +420,9 @@ public class Board implements Serializable{
 		}
 	}
 	
-	public void teleport(Player player) {
-		
+	public void teleport(Player player, Location location) {
+		player.getToken().setLocation(location);
+		getSquare(location).landOn(player);
 	}
 
 	/**

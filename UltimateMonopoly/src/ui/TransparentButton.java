@@ -13,7 +13,7 @@ public class TransparentButton extends JButton implements PropertyListener {
 	//private boolean isActive;
 	public TransparentButton(){
 		super();
-		this.setBorder(new LineBorder(Color.BLUE, 4));
+		this.setBorder(new LineBorder(Color.YELLOW, 3));
 		this.setContentAreaFilled(false);
 		this.setOpaque(false);
 		this.setVisible(false);
