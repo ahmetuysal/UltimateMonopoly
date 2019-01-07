@@ -183,6 +183,7 @@ public class GameController extends Observable {
 		publishPropertyEvent("refresh", false, true);
 		if(gs.getPlayers()!=null && gs.getCurrentPlayerIndex() < gs.getPlayers().size())
 			try {
+				System.out.println("LAN CALIS");
 				publishPropertyEvent("disablePlayButtons", true, gs.getPlayers().get(gs.getCurrentPlayerIndex()).getLocalIp().equals(InetAddress.getLocalHost().getHostAddress()));
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block

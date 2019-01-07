@@ -26,6 +26,8 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 	private int panelWidth;
 	private int panelHeight;
 	
+	private boolean closed;
+	
 	private boolean rollDiceBeforeStop = false;
 	private boolean buyBeforeStop = false;
 	private boolean passTurnBeforeStop = false;
@@ -210,21 +212,20 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getPropertyName().equals("disablePlayButtons")) {
-			this.setEnabled((boolean) e.getNewValue());
-		}
-		else if ((boolean) e.getNewValue()) {
+		if ((boolean) e.getNewValue() && !closed) {
 			rollDiceBeforeStop = rollDiceButton.isEnabled();
 			rollDiceButton.setEnabled(false);
 			buyBeforeStop = buyButton.isEnabled();
 			buyButton.setEnabled(false);
 			passTurnBeforeStop = passTurnButton.isEnabled();
 			passTurnButton.setEnabled(false);
+			closed = true;
 		}
 		else {
 			rollDiceButton.setEnabled(rollDiceBeforeStop);
 			buyButton.setEnabled(buyBeforeStop);
 			passTurnButton.setEnabled(passTurnBeforeStop);
+			closed = false;
 		}
 		//this.setEnabled((boolean) e.getNewValue());
 	}
