@@ -313,6 +313,10 @@ public class GameController extends Observable {
 	public void increasePoolMoney(int amount) {
 		poolMoney += amount;
 	}
+	
+	public void decreasePoolMoney(int amount) {
+		poolMoney -= amount;
+	}
 
 	/**
 	 * Registers a new player with the given nick name and token name if arguments
@@ -370,6 +374,15 @@ public class GameController extends Observable {
 			rollThreeCardList.addLast(card);
 		}
 	}
+	
+	private void promptTeleport() {
+		publishPropertyEvent("teleport", false, true);
+	}
+	
+	public void teleport(Location location) {
+		board.teleport(currentPlayer, location);
+		publishPropertyEvent("isTurnFinished", true, false);
+	}
 
 	public void playTurn() {
 
@@ -377,8 +390,7 @@ public class GameController extends Observable {
 		handleJail();
 		
 		if(cup.isTriple()) {
-			board.teleport(currentPlayer);
-			publishPropertyEvent("isTurnFinished", true, false);
+			promptTeleport();
 			actionQueue.clear();
 			return;
 		}

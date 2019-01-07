@@ -285,6 +285,7 @@ public class Board implements Serializable{
 	public boolean movePlayer(Player player, int distance) {
 		Token token = player.getToken();
 		int dx = player.isReverseDirection() ? -1 : 1;
+		if(player.isReverseDirection()) player.setReverseDirection(false);
 		int numSquaresInLayer = 0;
 		for (int i = 0; i < distance - 1; i++) {
 			Location oldLoc = token.getLocation();
@@ -420,8 +421,9 @@ public class Board implements Serializable{
 		}
 	}
 	
-	public void teleport(Player player) {
-		
+	public void teleport(Player player, Location location) {
+		player.getToken().setLocation(location);
+		getSquare(location).landOn(player);
 	}
 
 	/**

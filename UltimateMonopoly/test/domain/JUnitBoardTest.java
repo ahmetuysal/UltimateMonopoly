@@ -7,7 +7,11 @@ import static org.junit.Assert.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import domain.die.Cup;
+import domain.die.Die;
 import domain.square.Location;
+import domain.square.Square;
+import domain.square.TransitStation;
 
 
 public class JUnitBoardTest {
@@ -104,4 +108,6 @@ public class JUnitBoardTest {
 		Location passableLoc = testBoard.getSquareLocationFromName("Go");
 		assertNotEquals(newLoc,passableLoc);
 	}
+	
 }
+

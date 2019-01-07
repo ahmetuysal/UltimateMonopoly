@@ -32,6 +32,7 @@ import ui.animation.GenericAnimator;
 public class GameRoomPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private GameController controller;
+	private MonopolyFrame frame;
 
 	private int frameWidth;
 	private int frameHeight;
@@ -58,13 +59,16 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	private PlayButtonPanel playButtons;
 	private PlayerPanel playerPanel;
+	
+	private boolean isSelectionForTeleport = false;
 
 	private static final int FIRST_LAYER = 24;
 	private static final int SECOND_LAYER = 40;
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
-	public GameRoomPanel(int width, int height) {
+	public GameRoomPanel(int width, int height, MonopolyFrame frame) {
+		this.frame = frame;
 		controller = GameController.getInstance();
 		frameWidth = width;
 		frameHeight = height;
@@ -99,6 +103,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	private void initializeSquareButtons() {
 		controller.addPropertyListener("hurricaneSquares", this);
+		controller.addPropertyListener("teleport", this);
 		squareButtons = (ArrayList<TransparentButton>[]) new ArrayList[3];
 
 		squareButtons[0] = new ArrayList<TransparentButton>();
@@ -348,7 +353,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stubﬂ
 		switch (e.getActionCommand()) {
 		case "RollThreeCard":
 			controller.drawRollThreeCard();
@@ -365,16 +369,24 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		default:
 			String[] indices = e.getActionCommand().split(" ");
 			if (indices.length == 2) {
-				hideAllSquareButtons();
-				controller.useHurricaneCard(new Location(Integer.parseInt(indices[0]), Integer.parseInt(indices[1])));
+				setAllSquareButtonsVisibility(false);
+				Location loc = new Location(Integer.parseInt(indices[0]), Integer.parseInt(indices[1]));
+				if (isSelectionForTeleport) {
+					controller.teleport(loc);
+					isSelectionForTeleport = false;
+				}
+				else {
+					controller.useHurricaneCard(loc);
+				}
 			}
 		}
 	}
+	
 
-	private void hideAllSquareButtons() {
+	private void setAllSquareButtonsVisibility(boolean flag) {
 		for (ArrayList<TransparentButton> list : squareButtons) {
 			for (TransparentButton btn : list)
-				btn.setVisible(false);
+				btn.setVisible(flag);
 		}
 	}
 
@@ -396,6 +408,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 					squareButtons[loc.getLayer()].get(loc.getIndex()).setVisible(true);
 				}
 			}
+		} else if (e.getPropertyName().equals("teleport")) {
+			isSelectionForTeleport = true;
+			setAllSquareButtonsVisibility(true);
 		}
 	}
 

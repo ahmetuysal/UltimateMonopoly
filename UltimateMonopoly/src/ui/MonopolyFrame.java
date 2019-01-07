@@ -43,7 +43,7 @@ public class MonopolyFrame extends JFrame {
 		PausedPanel pausedPanel = new PausedPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
 		GameController.getInstance().addPropertyListener("isPaused", pausedPanel);
 		getContentPane().add(pausedPanel);
-		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(), getContentPane().getHeight());
+		GameRoomPanel grPanel = new GameRoomPanel(getContentPane().getWidth(), getContentPane().getHeight(), this);
 		GameController.getInstance().addPropertyListener("refresh", grPanel);
 		getContentPane().add(grPanel);
 		repaint();
