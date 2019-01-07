@@ -35,7 +35,7 @@ public class UIToken extends JLabel implements PropertyListener, Animatable {
 		token.addPropertyListener("location", this);
 	}
 
-	private static ImageIcon getIconFromFileName(String fileName, int tokenSize) {
+	public static ImageIcon getIconFromFileName(String fileName, int tokenSize) {
 		Image tmp = null;
 		try {
 			String osName = System.getProperty("os.name").toLowerCase();
