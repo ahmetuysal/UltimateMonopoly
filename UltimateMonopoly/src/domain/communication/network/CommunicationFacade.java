@@ -7,6 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 
 import domain.GameController;
+import domain.die.Cup;
+import domain.die.DieValue;
 import domain.gamestate.GameState;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
@@ -108,6 +110,9 @@ public class CommunicationFacade implements PropertyListener{
 	
 		if(e.getPropertyName().equals("updateNetwork")) {
 			NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
+			
+			NetworkController.getInstance().getPlayerGameState().setCup(new Cup());
+			NetworkController.getInstance().getPlayerGameState().setDie3Value(DieValue.FIVE);
 	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
 		}
 		
