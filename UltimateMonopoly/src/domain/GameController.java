@@ -508,6 +508,7 @@ public class GameController extends Observable {
 		if(nextAction.equals("mrmonopoly")) {
 			board.moveToNextUnownedProperty(currentPlayer);
 			publishPropertyEvent("buyable",false,true);
+			publishPropertyEvent("mrMonopoly", false, true);
 		}else if(nextAction.equals("busicon")) {
 			board.moveToNextChanceOrCommunityChestSquare(currentPlayer);
 			publishPropertyEvent("buyable",false,false);

@@ -17,17 +17,16 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		super(nickName);
 
 		double rand = Math.random();
-		
+
 		isMyTurn = false;
 
-		if(rand <= 0.33) {
-		 moveStrategy = new RandomBotStrategy();
-		 }else if(rand >= 0.67) {
-		 moveStrategy = new StingyBotStrategy();
-		 }else {
-		moveStrategy = new GreedyBotStrategy();
-		 }
-
+		if (rand <= 0.33) {
+			moveStrategy = new RandomBotStrategy();
+		} else if (rand >= 0.67) {
+			moveStrategy = new StingyBotStrategy();
+		} else {
+			moveStrategy = new GreedyBotStrategy();
+		}
 
 		controller.addPropertyListener("buyable", this);
 		controller.addPropertyListener("buyHouse", this);
@@ -36,6 +35,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		controller.addPropertyListener("controller.currentPlayer", this);
 		controller.addPropertyListener("pass", this);
 		controller.addPropertyListener("changeRoll", this);
+		controller.addPropertyListener("mrMonopoly", this);
 		// controller.addPropertyListener("cardNameRollThree", this);
 		// controller.addPropertyListener("cardNameChance", this);
 		// controller.addPropertyListener("cardNameCommunityChest", this);
@@ -58,12 +58,10 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		new Timer().schedule(new TimerTask() {
 			public void run() {
 				BotPlayer.this.makeCommonAction(action);
-//				moveStrategy.makeMove(action);
+				moveStrategy.makeMove(action);
 				System.out.println("Hello after " + (System.currentTimeMillis() - i) + " ms later with " + action);
 			}
 		}, 500);
-//		BotPlayer.this.makeCommonAction(action);
-//		moveStrategy.makeMove(action);
 	}
 
 	public boolean isMyTurn() {
@@ -88,18 +86,13 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		else if (action.equals("drawNotChanceCard")) {
 			controller.playCard();
 			controller.passTurn();
-		}
-		else if (action.equals("drawNotCommunityChestCard")) {
+		} else if (action.equals("drawNotCommunityChestCard")) {
 			controller.playCard();
 			controller.passTurn();
-		}
-		else if (action.equals("drawNotRollThreeCard")) {
+		} else if (action.equals("drawNotRollThreeCard")) {
 			controller.keepCard();
 			controller.passTurn();
 		}
-
-		// else if(action.contains("cardName"))
-		// if(action.equals("cardName"))
 
 	}
 
@@ -114,28 +107,30 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 			} else {
 				this.setMyTurn(false);
 			}
-		}
-		else if (isMyTurn) {
+		} else if (isMyTurn) {
 			if (e.getPropertyName().contains("draw")) {
 				if (!(boolean) e.getNewValue()) {
 					this.playTurn(e.getPropertyName().replaceAll("draw", "drawNot"));
-				}
-				else {
+				} else {
 					this.playTurn(e.getPropertyName());
 				}
-			} else if(e.getPropertyName().contains("buy")) {
-				if((boolean) e.getNewValue()) {
+			} else if (e.getPropertyName().equals("mrMonopoly")) {
+//				this.moveStrategy.makeMove("buyable");
+				this.playTurn("buyable");
+				this.playTurn("pass");
+
+			} else if (e.getPropertyName().contains("buy")) {
+				if ((boolean) e.getNewValue()) {
 					System.out.println("gonna buy it");
-					moveStrategy.makeMove("buyable");
-//					controller.passTurn();
-				}	
-			}
-			else {
+					this.playTurn(e.getPropertyName());
+//					moveStrategy.makeMove(e.getPropertyName());
+				}
+			} else {
 				if ((boolean) e.getNewValue()) {
 					System.out.println("Bot is making a move");
 					this.playTurn(e.getPropertyName());
 				}
-			}	
+			}
 		}
 	}
 }
