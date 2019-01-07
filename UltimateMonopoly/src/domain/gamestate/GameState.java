@@ -5,14 +5,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import domain.Board;
 import domain.Player;
 import domain.card.Card;
 import domain.card.OwnableCard;
 import domain.die.Cup;
 import domain.die.DieValue;
-import domain.square.OwnableSquare;
-import domain.square.Square;
 
 public class GameState implements Serializable {
 

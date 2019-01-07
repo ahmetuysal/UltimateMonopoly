@@ -20,8 +20,6 @@ import domain.square.Location;
 import domain.square.OwnableSquare;
 import domain.square.Square;
 import domain.square.TitleDeedSquare;
-import domain.square.TitleDeedSquareColor;
-import domain.square.UtilitySquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
 import domain.util.PropertyListener;
@@ -613,8 +611,8 @@ public class GameController extends Observable {
 		// chanceCardList.add(CardFactory.getCard("Make General Repairs to all your
 		// properties."));
 		// chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
-		// + chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
-		// + chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
+		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
+		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
 		// chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
 		// chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
 		// chanceCardList.add(CardFactory.getCard("See You In Court!"));

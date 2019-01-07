@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import domain.GameController;
-
 public class GenericAnimator implements Runnable {
 
 	private List<Animatable> elementsToAnimate;

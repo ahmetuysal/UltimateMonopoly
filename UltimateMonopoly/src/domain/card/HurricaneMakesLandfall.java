@@ -1,12 +1,7 @@
 package domain.card;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import domain.GameController;
 import domain.Player;
-import domain.square.TitleDeedSquare;
-import domain.square.TitleDeedSquareColor;
 
 public class HurricaneMakesLandfall extends Card {
 

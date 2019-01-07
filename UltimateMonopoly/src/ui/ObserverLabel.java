@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 
 import domain.Player;
-import domain.square.OwnableSquare;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
 

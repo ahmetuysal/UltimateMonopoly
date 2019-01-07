@@ -14,7 +14,6 @@ import domain.square.RailRoad;
 import domain.square.Square;
 import domain.square.SquareFactory;
 import domain.square.TitleDeedSquare;
-import domain.square.TitleDeedSquareColor;
 import domain.square.UtilitySquare;
 import domain.square.UtilitySquareType;
 
