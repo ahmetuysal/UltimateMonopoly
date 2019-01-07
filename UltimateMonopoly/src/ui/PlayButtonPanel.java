@@ -205,7 +205,7 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 	public void onPropertyEvent(PropertyEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getPropertyName().equals("blockButtons")) {
-			this.setEnabled((boolean)e.getOldValue());
+			//this.setEnabled((boolean)e.getOldValue());
 		}
 		else if ((boolean) e.getNewValue()) {
 			rollDiceBeforeStop = rollDiceButton.isEnabled();
