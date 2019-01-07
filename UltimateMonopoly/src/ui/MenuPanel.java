@@ -372,11 +372,13 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 		botPlayerCheck = new JCheckBox("Bot Player", false);
 		botPlayerCheck.setFont(new Font("Tahoma", Font.CENTER_BASELINE, menuPanelHeight / 60));
 		
-		int x = 0;
-		int y = menuPanelHeight / 2;
+		int width = menuPanelWidth / 8;
+		int height = menuPanelHeight / 35;
 		
-		int width = menuPanelWidth / 8;;
-		int height = menuPanelHeight / 35;;
+		int x = (menuPanelWidth - width) / 2;
+		int y = (int) ((menuPanelHeight - 14 * height)/ 2);
+		
+		//botPlayerCheck.setBackground(new Color(0,0,0,255));
 		
 		botPlayerCheck.setBounds(x, y, width, height);
 		botPlayerCheck.setVisible(true);
