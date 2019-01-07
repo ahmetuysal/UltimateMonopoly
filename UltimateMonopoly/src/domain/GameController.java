@@ -679,8 +679,15 @@ public class GameController extends Observable {
 				currentPlayer.addCard((OwnableCard) lastDrawnCard);
 				playRollThree();
 			}
-			else
+			else {
+				Square sq = board.getSquare(currentPlayer.getToken().getLocation());
 				lastDrawnCard.useCard(currentPlayer, "");
+				Square newSq = board.getSquare(currentPlayer.getToken().getLocation());
+				if(newSq instanceof OwnableSquare) {
+					if(!newSq.equals(sq))
+						publishPropertyEvent("buyable", false, true);
+				}
+			}	
 		}
 		lastDrawnCard = null;
 	}
