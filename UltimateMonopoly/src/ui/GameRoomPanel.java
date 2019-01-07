@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -88,7 +89,6 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		initializePlayerPanel();
 		
 		controller.addPropertyListener("isPaused",this);
-		
 	}
 
 	private void initializeTurnOrder() {
@@ -311,7 +311,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		// TODO Auto-generated method stub
 		switch(e.getActionCommand()){
 		case "RollThreeCard":
-			controller.drawRollThreeCard();
+			controller.drawRollThreeCard(); 
 			break;
 		case "ChanceCard":
 			controller.drawChanceCard();
@@ -325,6 +325,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		}
 	}
 
+	
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
 		if(e.getPropertyName().equals("refresh")) {

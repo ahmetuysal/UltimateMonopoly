@@ -6,14 +6,18 @@ public class GreedyBotStrategy implements IBotStrategy {
 	private GameController  controller = GameController.getInstance();
 	@Override
 	public void makeMove(String action) {
-		if(action.equals("buyable"))
+		if(action.equals("buyable")) {
 			controller.buyProperty();
-		else if(action.equals("buyHouse"))
+			System.out.println("tried to buy property");
+		}else if(action.equals("buyHouse")) {
 			controller.buildHouse();
-		else if(action.equals("buyHotel"))
+			System.out.println("tried to buy house");
+		}else if(action.equals("buyHotel")) {
 			controller.buildHotel();
-		else if(action.equals("buySkyScraper"))
+			System.out.println("tried to buy hotel");
+		}else if(action.equals("buySkyScraper")) {
 			controller.buildSkyscraper();
+			System.out.println("tried to buy skyscraper");
+		}
 	}
-
 }

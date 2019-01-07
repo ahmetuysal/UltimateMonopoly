@@ -214,6 +214,7 @@ public class GameController extends Observable {
 
 	public void passTurn() {
 		if(!actionQueue.isEmpty()) {
+			System.out.println(actionQueue.toString());
 			nextAction();
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;

@@ -47,6 +47,7 @@ public class MonopolyFrame extends JFrame {
 		GameController.getInstance().addPropertyListener("refresh", grPanel);
 		getContentPane().add(grPanel);
 		repaint();
+		System.out.println(grPanel.getParent());
 	}
 
 }

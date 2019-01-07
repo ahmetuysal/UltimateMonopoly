@@ -36,9 +36,9 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		controller.addPropertyListener("controller.currentPlayer", this);
 		controller.addPropertyListener("pass", this);
 		controller.addPropertyListener("changeRoll", this);
-		controller.addPropertyListener("cardNameRollThree", this);
-		controller.addPropertyListener("cardNameChance", this);
-		controller.addPropertyListener("cardNameCommunityChest", this);
+//		controller.addPropertyListener("cardNameRollThree", this);
+//		controller.addPropertyListener("cardNameChance", this);
+//		controller.addPropertyListener("cardNameCommunityChest", this);
 		controller.addPropertyListener("drawChanceCard",this);
 		controller.addPropertyListener("drawCommunityChestCard",this);
 		controller.addPropertyListener("drawRollThreeCard", this);
@@ -84,8 +84,13 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 			controller.drawCommunityChestCard();
 		else if(action.equals("drawRollThreeCard"))
 			controller.drawRollThreeCard();
-		else if(action.contains("cardNameTrue"))
+		else if(action.equals("drawNotChanceCard"))
 			controller.playCard();
+		else if(action.equals("drawNotCommunityChestCard"))
+			controller.playCard();
+		else if(action.equals("drawNotRollThreeCard"))
+			controller.keepCard();
+		
 		//else if(action.contains("cardName"))
 			//if(action.equals("cardName"))
 			
@@ -93,6 +98,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
+		System.out.println(e.getPropertyName());
 		if (e.getPropertyName().equals("controller.currentPlayer")) {
 			if (((domain.Player) e.getNewValue()).getNickName().equals(this.getNickName())) {
 				this.setMyTurn(true);
@@ -101,15 +107,22 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 			} else {
 				this.setMyTurn(false);
 			}
-		}else if(isMyTurn && e.getPropertyName().contains("draw")){
-			this.playTurn(e.getPropertyName());
-		} else if (isMyTurn && (boolean) e.getNewValue()) {
-			System.out.println("Bot is making a move");
-			if(e.getPropertyName().contains("cardName")) {
-				if((boolean) e.getOldValue())
-					e.getPropertyName().replaceAll("cardName", "cardNameTrue");
-			}
-			this.playTurn(e.getPropertyName());
 		}
+		
+		else if(isMyTurn) {
+			if(e.getPropertyName().contains("draw")){
+				
+			}
+		}
+		
+//		else if(isMyTurn && e.getPropertyName().contains("draw")){
+//			if(!(boolean) e.getNewValue())
+//				e.getPropertyName().replaceAll("draw", "drawNot");
+//			this.playTurn(e.getPropertyName());
+//			
+//		} else if (isMyTurn && (boolean) e.getNewValue()) {
+//			System.out.println("Bot is making a move");
+//			this.playTurn(e.getPropertyName());
+//		}
 	}
 }
