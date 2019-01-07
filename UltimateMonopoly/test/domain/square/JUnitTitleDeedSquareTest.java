@@ -17,7 +17,7 @@ import domain.Player;
  */
 public class JUnitTitleDeedSquareTest {
 
-	
+	/*
 	@Test
 	void testBuyHouse() {
 		Player owner = new Player("Merve");
@@ -127,5 +127,5 @@ public class JUnitTitleDeedSquareTest {
 		assertTrue(pacificAvenue.repOK());
 
 	}
-
+*/
 }

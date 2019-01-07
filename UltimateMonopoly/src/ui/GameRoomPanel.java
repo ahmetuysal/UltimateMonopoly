@@ -29,6 +29,7 @@ import ui.animation.GenericAnimator;
 public class GameRoomPanel extends JPanel implements ActionListener, PropertyListener {
 
 	private GameController controller;
+	private MonopolyFrame frame;
 
 	private int frameWidth;
 	private int frameHeight;
@@ -59,7 +60,8 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	private static final int THIRD_LAYER = 56;
 	private static final int[] BOARD_SIZE = { FIRST_LAYER, SECOND_LAYER, THIRD_LAYER };
 
-	public GameRoomPanel(int width, int height) {
+	public GameRoomPanel(int width, int height, MonopolyFrame frame) {
+		this.frame = frame;
 		controller = GameController.getInstance();
 		frameWidth = width;
 		frameHeight = height;
@@ -324,6 +326,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			break;
 		}
 	}
+	
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
@@ -333,6 +336,14 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 			}
 		}else if(e.getPropertyName().equals("isPaused")) {
 			animator.setAnimatorStopped((boolean) e.getNewValue());
+			frame.repaint();
+			PausedPanel pp=new PausedPanel(1500, 1500, frame);
+			//frame.repaint();
+			pp.setVisible(true);
+			frame.revalidate();
+			repaint();
+			
+			
 		}
 	}
 
