@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import domain.die.DieValue;
 import domain.gamestate.GameState;
 
 public class Connection {
@@ -20,22 +21,23 @@ public class Connection {
 
 	/**
 	 * Constructor
-	 * @param address IP address of the server
-	 * @param port port number of the server
+	 * 
+	 * @param address
+	 *            IP address of the server
+	 * @param port
+	 *            port number of the server
 	 */
-	public Connection(String address, int port)
-	{
+	public Connection(String address, int port) {
 		serverAddress = address;
-		serverPort    = port;
+		serverPort = port;
 	}
 
 	/**
-	 * Establishes a socket connection to the server that is identified by the serverAddress and the serverPort
+	 * Establishes a socket connection to the server that is identified by the
+	 * serverAddress and the serverPort
 	 */
-	public void Connect()
-	{
-		try
-		{
+	public void Connect() {
+		try {
 			socket = new Socket(serverAddress, serverPort);
 
 			os = new ObjectOutputStream(socket.getOutputStream());
@@ -45,48 +47,52 @@ public class Connection {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println("Successfully connected to " + serverAddress + " on command and data port " + serverPort);
-		}
-		catch (IOException e)
-		{
+			System.out
+					.println("Successfully connected to " + serverAddress + " on command and data port " + serverPort);
+		} catch (IOException e) {
 			System.err.println("Error: no server has been found on " + serverAddress + "/" + serverPort);
 		}
 	}
 
-
 	public void listenForAChangeOnServer() {
 
-		while(true) {
+		while (true) {
 			GameState incomingGameState = null;
 			try {
-				
 
 				Object object = null;
+
+				System.out.println("---RECEIVE-START-------->>-----------");
 				try {
 					object = is.readObject();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 				incomingGameState = ((GameState) object);
-				
-				System.out.println("---RECEIVE-START-------->>-----------");
+
 				System.out.println("Client received:");
 				System.out.println(incomingGameState);
 				System.out.println("----RECEIVE-OVER-------<<----------");
 
-
 			} catch (IOException e) {
+
 				e.printStackTrace();
+
+				try {
+					Thread.sleep(20000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			setPlayerGameState(incomingGameState);
 		}
 	}
-	
+
 	public void sendChangesToTheServer(GameState outgoingGameState) {
-		
-		GameState incomingGameState = null;
+
 		try {
-			
+
 			System.out.println("---SEND-START-------->>-----------");
 			System.out.println("Client is sending:");
 			System.out.println(outgoingGameState);
@@ -94,20 +100,29 @@ public class Connection {
 			os.writeObject(outgoingGameState);
 			os.flush();
 			os.reset();
-			
 
 			System.out.println("----SEND-OVER-------<<----------");
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
+
+			try {
+				Thread.sleep(20000);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
-		
+		GameState incomingGameState = null;
+
 	}
 
 	/**
 	 * Update the game state
-	 * @param outgoingGameState the outgoing game state
+	 * 
+	 * @param outgoingGameState
+	 *            the outgoing game state
 	 * @return new incoming game state
 	 */
 
@@ -127,7 +142,6 @@ public class Connection {
 			}
 			incomingGameState = ((GameState) object);
 
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -139,24 +153,20 @@ public class Connection {
 	// when e change comes from the server, this method is triggered.
 	public static void setPlayerGameState(GameState newGameState) {
 		NetworkController.getInstance().setPlayerGameState(newGameState);
-		//System.out.println("Player has changed its playerGameState");
+		// System.out.println("Player has changed its playerGameState");
 	}
 
 	/**
 	 * Disconnects the socket and closes the buffers
 	 */
-	public void Disconnect()
-	{
-		try
-		{
+	public void Disconnect() {
+		try {
 			is.close();
 			os.close();
 			socket.close();
 
 			System.out.println("Connection Closed");
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

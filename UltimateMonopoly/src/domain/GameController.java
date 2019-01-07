@@ -375,6 +375,7 @@ public class GameController extends Observable {
 			board.teleport(currentPlayer);
 			publishPropertyEvent("isTurnFinished", true, false);
 			actionQueue.clear();
+			publishPropertyEvent("updateNetwork", false, true);
 			return;
 		}
 		
@@ -392,6 +393,7 @@ public class GameController extends Observable {
 				playerSentToJailForDouble = true;
 				actionQueue.clear();
 				publishPropertyEvent("isTurnFinished", true, false);
+				publishPropertyEvent("updateNetwork", false, true);
 				return;
 			}
 			actionQueue.add("double");
