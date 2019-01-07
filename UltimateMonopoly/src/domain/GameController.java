@@ -241,11 +241,16 @@ public class GameController extends Observable {
 	}
 	
 	public void promptHurricaneSquares() {
-		publishPropertyEvent("hurricaneSquares", null, board.getAllColorsWithOwnedProperty());
+		publishPropertyEvent("hurricaneSquares", null, board.getAllOwnedTitleDeedLocations());
 	}
 	
-	public void useHurricaneCard(TitleDeedSquareColor color, Player player) {
-		List<TitleDeedSquare> props = player.getTitleDeedsWithColor(color);
+	public void useHurricaneCard(Location selectedLocation) {
+		TitleDeedSquare sq = (TitleDeedSquare) board.getSquare(selectedLocation);
+		Player player = sq.getOwner();
+		System.out.println("Hurricane is used in controller.");
+		System.out.println("Player: " + player);
+		System.out.println("Square: " + sq);
+		List<TitleDeedSquare> props = player.getTitleDeedsWithColor(sq.getColor());
 		for(int i = 0; i < props.size(); i++) {
 			TitleDeedSquare propsI = props.get(i);
 			if(propsI.getNumHouses()!=0) {
@@ -593,15 +598,15 @@ public class GameController extends Observable {
 		// chanceCardList.add(CardFactory.getCard("Make General Repairs to all your
 		// properties."));
 		// chanceCardList.add(CardFactory.getCard("Get Out of Jail Free!"));
-		chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
-		chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
+		// + chanceCardList.add(CardFactory.getCard("Advance to the Saint Charles Place"));
+		// + chanceCardList.add(CardFactory.getCard("Holiday Bonus!"));
 		// chanceCardList.add(CardFactory.getCard("Just Say 'NO'!"));
 		// chanceCardList.add(CardFactory.getCard("Buyer's Market!"));
 		// chanceCardList.add(CardFactory.getCard("See You In Court!"));
 		// chanceCardList.add(CardFactory.getCard("Foreclosed Property Sale!"));
 		// chanceCardList.add(CardFactory.getCard("Get Rollin'"));
 		// chanceCardList.add(CardFactory.getCard("Forward Thinker"));
-		// chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
+		chanceCardList.add(CardFactory.getCard("Hurricane makes landfall!"));
 		// chanceCardList.add(CardFactory.getCard("Property Taxes"));
 		// chanceCardList.add(CardFactory.getCard("Ride the Subway"));
 		// chanceCardList.add(CardFactory.getCard("Social Media Fail!"));

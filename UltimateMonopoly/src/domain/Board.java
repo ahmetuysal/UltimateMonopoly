@@ -457,23 +457,21 @@ public class Board implements Serializable{
 		}
 	}
 	
-	public List<TitleDeedSquareColor> getAllColorsWithOwnedProperty(){
-		List<TitleDeedSquareColor> colors = new ArrayList<>();
+	public List<Location> getAllOwnedTitleDeedLocations(){
+		List<Location> locations = new ArrayList<>();
 		
 		for(int i = 0; i < 3; i++) {
 			for(int j = 0; j < getLayerSize(i); j++) {
 				Square currentSq = getSquare(new Location(i,j));
 				if(currentSq instanceof TitleDeedSquare) {
-					TitleDeedSquare currentSquare = (TitleDeedSquare) currentSq;
-					if(currentSquare.getNumHotels() > 0 || currentSquare.getNumHouses() > 0 || currentSquare.getNumSkyscrapers() > 0) {
-						if(!colors.contains(currentSquare.getColor()))
-							colors.add(currentSquare.getColor());
+					if (((TitleDeedSquare) currentSq).isOwned()) {
+						locations.add(currentSq.getLocation());
 					}
+					
 				}
 			}
 		}
-		
-		return colors;
+		return locations;
 	}
 
 }
