@@ -1,6 +1,5 @@
 package domain.bot;
 
-import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,13 +18,13 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 
 		double rand = Math.random();
 
-		// if(rand <= 0.33) {
-		// moveStrategy = new RandomBotStrategy();
-		// }else if(rand >= 0.67) {
-		// moveStrategy = new StingyBotStrategy();
-		// }else {
+		if(rand <= 0.33) {
+		 moveStrategy = new RandomBotStrategy();
+		 }else if(rand >= 0.67) {
+		 moveStrategy = new StingyBotStrategy();
+		 }else {
 		moveStrategy = new GreedyBotStrategy();
-		// }
+		 }
 
 		isMyTurn = false;
 
