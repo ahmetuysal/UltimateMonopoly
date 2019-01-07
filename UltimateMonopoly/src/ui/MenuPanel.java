@@ -457,6 +457,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();
+			controller.publishPropertyEvent("networkUpdate", false, true);
 			break;
 		case "Network":
 			remove(numOfPlayerPossibleChoices);
