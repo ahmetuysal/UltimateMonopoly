@@ -59,7 +59,10 @@ public class GenericAnimator implements Runnable {
 					}
 				}
 			}
-			animationPanel.repaint();
+			if(animationPanel.getParent() == null)
+				animationPanel.repaint();
+			else
+				animationPanel.getParent().repaint();
 		}
 	}
 	

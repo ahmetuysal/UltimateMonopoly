@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -349,7 +350,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 	public void actionPerformed(ActionEvent e) {
 		switch (e.getActionCommand()) {
 		case "RollThreeCard":
-			controller.drawRollThreeCard();
+			controller.drawRollThreeCard(); 
 			break;
 		case "ChanceCard":
 			controller.drawChanceCard();

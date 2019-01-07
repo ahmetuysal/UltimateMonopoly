@@ -30,7 +30,7 @@ public class PausedPanel extends JPanel implements PropertyListener, ActionListe
 		this.pausedPanelWidth = pausedPanelWidth;
 		this.pausedPanelHeight = pausedPanelHeight;
 		this.setSize(pausedPanelWidth, pausedPanelHeight);
-		this.setBackground(mainFrame.getBackground());
+		this.setBackground(new Color(0,0,0,150));
 		this.setLayout(null);
 		this.setVisible(false);
 		addMouseListener(this);
@@ -95,9 +95,9 @@ public class PausedPanel extends JPanel implements PropertyListener, ActionListe
 		if (e.getPropertyName().equals("isPaused")) {
 			System.out.println("Paused panel visibility :" + e.getNewValue().toString());
 			
-			
-			mainFrame.validate();
 			this.setVisible((boolean) e.getNewValue());
+			mainFrame.repaint();
+			this.repaint();
 			
 		}
 

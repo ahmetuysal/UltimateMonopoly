@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -47,6 +48,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	private JButton continueButton;
 	private JButton networkButton;
 	private JButton selectGameButton;
+	private JCheckBox botPlayerCheck;
 
 	private JList<String> savedGamesList;
 
@@ -365,6 +367,24 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 
 		// this.usernameInputTextField.getSele
 	}
+	
+	private void botCheckButton() {
+		botPlayerCheck = new JCheckBox("Bot Player", false);
+		botPlayerCheck.setFont(new Font("Tahoma", Font.CENTER_BASELINE, menuPanelHeight / 60));
+		
+		int width = menuPanelWidth / 8;
+		int height = menuPanelHeight / 35;
+		
+		int x = (menuPanelWidth - width) / 2;
+		int y = (int) ((menuPanelHeight - 14 * height)/ 2);
+		
+		//botPlayerCheck.setBackground(new Color(0,0,0,255));
+		
+		botPlayerCheck.setBounds(x, y, width, height);
+		botPlayerCheck.setVisible(true);
+		
+		this.add(botPlayerCheck);
+	}
 
 	private void loadGame() {
 		GameStateJSONConverter jsonConverter = GameStateJSONConverter.getInstance();
@@ -459,10 +479,11 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 	}
 
 	private void registerUser(String nickname, String tokenName) {
-		if (controller.registerUser(nickname, tokenName)) {
+		if (controller.registerUser(nickname, tokenName, botPlayerCheck.isSelected())) {
 			inputtedPlayerNum++;
 			possibleTokenChoices.remove(possibleTokenChoices.getSelectedItem());
 			usernameInputTextField.setText("");
+			botPlayerCheck.setSelected(false);
 			updateTokenImage();
 		}
 		if (inputtedPlayerNum == numOfPlayers) {
@@ -471,13 +492,16 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			this.remove(usernameInputTextField);
 			this.remove(possibleTokenChoices);
 			this.remove(selectedTokenImage);
+			this.remove(botPlayerCheck);
 			repaint();
 		}
 	}
+	
 
 	private void registerUsers() {
 		removeAll();
 		nameInputField();
+		botCheckButton();	
 		possibleTokenChoices();
 
 		this.add(menuButton);

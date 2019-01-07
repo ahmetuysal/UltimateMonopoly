@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import domain.bot.BotPlayer;
 import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.OwnableCard;
@@ -216,6 +217,7 @@ public class GameController extends Observable {
 		publishPropertyEvent("buyHotel", true, false);
 		publishPropertyEvent("buySkyscraper", true, false);
 		if(!actionQueue.isEmpty()) {
+			System.out.println(actionQueue.toString());
 			nextAction();
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
@@ -335,19 +337,28 @@ public class GameController extends Observable {
 	 * @return <tt>true</tt> if new player with nickName as its name and tokenName
 	 *         as its token is created, <tt>false</tt> otherwise.
 	 */
-	public boolean registerUser(String nickName, String tokenName) {
+	public boolean registerUser(String nickName, String tokenName, boolean isBot) {
 		if (Token.isTokenAvailable(tokenName) && !nickName.equals("")) {
 			for (int i = 0; i < players.size(); i++) {
 				if (players.get(i).getNickName().equals(nickName)) {
 					return false;
 				}
 			}
-
-			Player player = new Player(nickName);
-			Token token = new Token(Board.getStartLocation(), tokenName);
-			players.add(player);
-			player.setToken(token);
-			board.addToken(token);
+			
+			if(isBot) {
+				BotPlayer player = new BotPlayer(nickName);
+				Token token = new Token(Board.getStartLocation(), tokenName);
+				players.add(player);
+				player.setToken(token);
+				board.addToken(token);
+			}else {
+				Player player = new Player(nickName);
+				Token token = new Token(Board.getStartLocation(), tokenName);
+				players.add(player);
+				player.setToken(token);
+				board.addToken(token);
+			}
+			
 			return true;
 		} else {
 			return false;
@@ -421,8 +432,6 @@ public class GameController extends Observable {
 			publishPropertyEvent("buyable",false,false);
 		}
 		
-		publishPropertyEvent("changeRoll",true,false);
-		publishPropertyEvent("pass",false,true);
 		
 		handleBuilding();
 		
@@ -432,6 +441,7 @@ public class GameController extends Observable {
 			return;
 		}
 	}
+	
 	public void handleBuilding() {
 		if(board.houseCheck(currentPlayer))
 			publishPropertyEvent("buyHouse", false, true);
@@ -446,7 +456,9 @@ public class GameController extends Observable {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
-			currentPlayer.decreaseJailTime();
+			else {
+				currentPlayer.decreaseJailTime();
+			}
 		}
 	}
 	
@@ -513,7 +525,6 @@ public class GameController extends Observable {
 			cup.rollDices();
 		}
 
-		System.out.println("Rolled dice in controller.");
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
@@ -690,6 +701,7 @@ public class GameController extends Observable {
 			}	
 		}
 		lastDrawnCard = null;
+		publishPropertyEvent("cardIsUsed", true, false);
 	}
 	
 	public void keepCard() {
@@ -700,6 +712,7 @@ public class GameController extends Observable {
 				System.out.println("ERROR: You can only keep ownable cards.");
 		}
 		lastDrawnCard = null;
+		publishPropertyEvent("cardIsKept", true, false);
 	}
 
 	/**

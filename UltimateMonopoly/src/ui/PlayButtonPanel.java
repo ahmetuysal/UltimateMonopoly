@@ -201,8 +201,6 @@ public class PlayButtonPanel extends JPanel implements ActionListener, PropertyL
 
 	@Override
 	public void onPropertyEvent(PropertyEvent e) {
-		System.out.println("Buradayim" + e);
-		// TODO Auto-generated method stub
 		if ((boolean) e.getNewValue()) {
 			rollDiceBeforeStop = rollDiceButton.isEnabled();
 			rollDiceButton.setEnabled(false);
