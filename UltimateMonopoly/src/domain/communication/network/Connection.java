@@ -56,8 +56,8 @@ public class Connection {
 
 	public void listenForAChangeOnServer() {
 /////
-		try {
-			while(is.available()>0) {
+		
+			while(true) {
 				GameState incomingGameState = null;
 				try {
 					
@@ -81,15 +81,10 @@ public class Connection {
 				}
 				setPlayerGameState(incomingGameState);
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 
 	}
 
 	public void sendChangesToTheServer(GameState outgoingGameState) {
-		////////////////burdaaa
-		 outgoingGameState = GameController.getInstance().toGameState();
 		try {
 
 			System.out.println("---SEND-START-------->>-----------");
@@ -152,7 +147,6 @@ public class Connection {
 	// when e change comes from the server, this method is triggered.
 	public static void setPlayerGameState(GameState newGameState) {
 		NetworkController.getInstance().setPlayerGameState(newGameState);
-		// System.out.println("Player has changed its playerGameState");
 	}
 
 	/**

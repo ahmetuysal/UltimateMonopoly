@@ -18,8 +18,6 @@ public class CommunicationFacade implements PropertyListener{
 	private static GameController gameController;
 	
 	static Connection connectionForSync = null; 
-	//static Connection connectionForUpdate = null; 
-    private final static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 	
 	public CommunicationFacade() {
 		gameController = GameController.getInstance();
@@ -27,8 +25,6 @@ public class CommunicationFacade implements PropertyListener{
 		connectToGameServerForSync();
 		//sendYourStateToOtherConnecteds();
 		listenToTheServer();
-		//periodicallyUpdateGameState();
-		//connectToGameServerForUpdate();
 	}
 	
 	private void sendYourStateToOtherConnecteds() {
@@ -54,65 +50,13 @@ public class CommunicationFacade implements PropertyListener{
 
 	}
 
-	private static void connectToGameServerForUpdate() {
-
-		//connectionForUpdate = new Connection(Connection.DEFAULT_SERVER_ADDRESS, Connection.DEFAULT_SERVER_PORT);
-		//connectionForUpdate.Connect();
-
-	}
-
-	/**
-	 * updates game state periodically
-	 */
-	public static void periodicallyUpdateGameState() {
-
-		final Runnable updatePeriodically = new Runnable() {
-			public void run() {
-				NetworkController.getInstance().getPlayerGameState().setType("sync");
-				connectionForSync.updateGameState(NetworkController.getInstance().getPlayerGameState());
-				gameController.setCup(NetworkController.getInstance().getPlayerGameState().getCup());
-				System.out.println("----------->>-----------");
-				System.out.println("Client received:");
-				System.out.println(NetworkController.getInstance().getPlayerGameState());
-				System.out.println("-----------<<----------");
-			}
-		};
-
-		final ScheduledFuture<?> checkHandle = scheduler.scheduleAtFixedRate(updatePeriodically, 15, 2, SECONDS);
-
-	}
-	
-	public void updateGameController(GameState gameState) {
-		/*
-		gameController.setConsecutiveDoubles(gameState.getConsecutiveDoubles());
-		gameController.setCurrentPlayer(gameState.getCurrentPlayer());
-		gameController.setCurrentPlayerIndex(gameState.getCurrentPlayerIndex());
-		gameController.setPlayers(gameState.getPlayers());
-		gameController.setCup(gameState.getCup());
-		*/
-		gameController.initializeWithGameState(gameState);
-	}
-	
-	public GameState getGameState() {
-		/*
-		GameState gameState = new GameState();
-		gameState.setConsecutiveDoubles(gameController.getConsecutiveDoubles());
-		gameState.setCup(gameController.getCup());
-		gameState.setCurrentPlayer(gameController.getCurrentPlayer());
-		gameState.setPlayers(gameController.getPlayerList());
-		gameState.setCurrentPlayerIndex(gameController.getCurrentPlayerIndex());
-		return gameState;
-		*/
-		return gameController.toGameState();
-	}
-
 	public void onPropertyEvent(PropertyEvent e) {
 	
 		if(e.getPropertyName().equals("updateNetwork")) {
 			NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
 			
-			NetworkController.getInstance().getPlayerGameState().setCup(new Cup());
-			NetworkController.getInstance().getPlayerGameState().setDie3Value(DieValue.FIVE);
+			//NetworkController.getInstance().getPlayerGameState().setCup(new Cup());
+			//NetworkController.getInstance().getPlayerGameState().setDie3Value(DieValue.FIVE);
 	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
 		}
 		
