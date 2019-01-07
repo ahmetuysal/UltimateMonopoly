@@ -248,15 +248,16 @@ public class GameController extends Observable {
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
-			if(!withNetwork) {
+			//if(!withNetwork) {
 				this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
 				setCurrentPlayer(currentPlayerIndex);
-			}
+			//}
 			
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 			
 		}
+		
 		publishPropertyEvent("updateNetwork", false, true);
 	}
 
@@ -429,10 +430,7 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
-		if(withNetwork) {
-			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-			setCurrentPlayer(currentPlayerIndex);
-		}
+		
 		rollDice();
 		handleJail();
 		
@@ -441,7 +439,7 @@ public class GameController extends Observable {
 			if(currentPlayer instanceof BotPlayer)
 				publishPropertyEvent("tripleCase", false, true);
 			actionQueue.clear();
-			publishPropertyEvent("updateNetwork", false, true);
+			//publishPropertyEvent("updateNetwork", false, true);
 			return;
 		}
 		
@@ -459,7 +457,7 @@ public class GameController extends Observable {
 				playerSentToJailForDouble = true;
 				actionQueue.clear();
 				publishPropertyEvent("isTurnFinished", true, false);
-				publishPropertyEvent("updateNetwork", false, true);
+				//publishPropertyEvent("updateNetwork", false, true);
 				return;
 			}
 			actionQueue.add("double");
@@ -474,7 +472,7 @@ public class GameController extends Observable {
 			publishPropertyEvent("buyable",false,false);
 		}
 		
-		publishPropertyEvent("updateNetwork", false, true);
+		//publishPropertyEvent("updateNetwork", false, true);
 		publishPropertyEvent("changeRoll",true,false);
 		//publishPropertyEvent("pass",false,true);	
 
