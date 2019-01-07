@@ -89,6 +89,7 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		initializePlayerPanel();
 
 		controller.addPropertyListener("isPaused", this);
+		controller.addPropertyListener("botHasChosen",this);
 
 	}
 
@@ -409,6 +410,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		} else if (e.getPropertyName().equals("teleport")) {
 			isSelectionForTeleport = true;
 			setAllSquareButtonsVisibility(true);
+		} else if(e.getPropertyName().equals("botHasChosen")) {
+			setAllSquareButtonsVisibility(false);
+			isSelectionForTeleport = false;
 		}
 	}
 

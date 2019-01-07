@@ -436,6 +436,8 @@ public class GameController extends Observable {
 		
 		if(cup.isTriple()) {
 			promptTeleport();
+			if(currentPlayer instanceof BotPlayer)
+				publishPropertyEvent("tripleCase", false, true);
 			actionQueue.clear();
 			publishPropertyEvent("updateNetwork", false, true);
 			return;
@@ -481,6 +483,12 @@ public class GameController extends Observable {
 			actionQueue.clear();
 			return;
 		}
+	}
+	
+	public void handleTripleForBot() {
+		board.teleport(currentPlayer, new Location(1,0));
+		publishPropertyEvent("botHasChosen",false,true);
+		publishPropertyEvent("isTurnFinished", true, false);
 	}
 	
 	public void handleBuilding() {

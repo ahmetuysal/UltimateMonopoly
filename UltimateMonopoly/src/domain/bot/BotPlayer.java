@@ -42,6 +42,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 		controller.addPropertyListener("drawChanceCard", this);
 		controller.addPropertyListener("drawCommunityChestCard", this);
 		controller.addPropertyListener("drawRollThreeCard", this);
+		controller.addPropertyListener("tripleCase", this);
 	}
 
 	public void setMoveStrategy(IBotStrategy strategy) {
@@ -77,7 +78,10 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 			controller.playTurn();
 		else if (action.equals("pass"))
 			controller.passTurn();
-		else if (action.equals("drawChanceCard"))
+		else if(action.equals("tripleCase")) {
+			controller.handleTripleForBot();
+			controller.passTurn();
+		}else if (action.equals("drawChanceCard"))
 			controller.drawChanceCard();
 		else if (action.equals("drawCommunityChestCard"))
 			controller.drawCommunityChestCard();
@@ -115,8 +119,7 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 					this.playTurn(e.getPropertyName());
 				}
 			} else if (e.getPropertyName().equals("mrMonopoly")) {
-//				this.moveStrategy.makeMove("buyable");
-				this.playTurn("buyable");
+				this.moveStrategy.makeMove("buyable");
 				this.playTurn("pass");
 
 			} else if (e.getPropertyName().contains("buy")) {
