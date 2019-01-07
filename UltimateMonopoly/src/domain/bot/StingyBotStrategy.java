@@ -1,7 +1,5 @@
 package domain.bot;
 
-import domain.GameController;
-
 public class StingyBotStrategy implements IBotStrategy {
 
 	@Override

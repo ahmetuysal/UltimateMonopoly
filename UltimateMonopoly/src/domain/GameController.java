@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import domain.bot.BotPlayer;
@@ -27,7 +26,6 @@ import domain.square.Square;
 import domain.square.TitleDeedSquare;
 import domain.util.GameStateJSONConverter;
 import domain.util.Observable;
-import domain.util.PropertyListener;
 
 /**
  * Class that controls main flow of the game.
@@ -170,6 +168,10 @@ public class GameController extends Observable {
 	}
 	
 	public void refreshWithGameState(GameState gs) {
+		System.out.println(gs.toString());
+		
+		System.out.println("AHMET SAKİN OL");
+		
 		this.setCup(gs.getCup());
 		// TODO add other fields
 		this.setPlayers(gs.getPlayers());
@@ -551,7 +553,7 @@ public class GameController extends Observable {
 
 	public void setCup(Cup cup) {
 		this.cup = cup;
-		DieValue[] newValues = cup.getFaceValues();
+		DieValue[] newValues = this.cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
 		publishPropertyEvent("die2", die2Value, newValues[1]);
@@ -631,12 +633,11 @@ public class GameController extends Observable {
 	}
 
 	public void setPlayers(List<Player> players) {
-		if (this.players == null)
+		if (this.players == null || this.players.isEmpty())
 			this.players = players;
 		else {
 			for (Player player : players) {
 				int index = this.players.indexOf(player);
-				System.out.println(player.getToken());
 				if (index < 0) {
 					this.players.add(player);
 					board.addToken(player.getToken());
@@ -977,44 +978,44 @@ public class GameController extends Observable {
 	}
 
 	public void refreshPropertyListeners() {
-		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
-		List<PropertyListener> isPausedListeners = new ArrayList<>();
-		List<PropertyListener> refreshListeners = new ArrayList<>();
-		List<PropertyListener> die1Listeners = new ArrayList<>();
-		List<PropertyListener> die2Listeners = new ArrayList<>();
-		List<PropertyListener> die3Listeners = new ArrayList<>();
-		List<PropertyListener> updateNetworkListeners = new ArrayList<>();
-
-		if (propertyListenersMap.containsKey("isPaused")) {
-			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
-		}
-		newPropertyListeners.put("isPaused", isPausedListeners);
-		if (propertyListenersMap.containsKey("refresh")) {
-			refreshListeners.addAll(propertyListenersMap.get("refresh"));
-		}
-		newPropertyListeners.put("refresh", refreshListeners);
-		
-		if (propertyListenersMap.containsKey("die1")) {
-			die1Listeners.addAll(propertyListenersMap.get("die1"));
-		}
-		newPropertyListeners.put("die1", die1Listeners);
-		
-		if (propertyListenersMap.containsKey("die2")) {
-			die2Listeners.addAll(propertyListenersMap.get("die2"));
-		}
-		newPropertyListeners.put("die2", die2Listeners);
-		
-		if (propertyListenersMap.containsKey("die3")) {
-			die3Listeners.addAll(propertyListenersMap.get("die3"));
-		}
-		newPropertyListeners.put("die3", die3Listeners);
-		
-		if (propertyListenersMap.containsKey("updateNetwork")) {
-			updateNetworkListeners.addAll(propertyListenersMap.get("updateNetwork"));
-		}
-		newPropertyListeners.put("updateNetwork", updateNetworkListeners);
-		
-		propertyListenersMap = newPropertyListeners;
+//		Map<String, List<PropertyListener>> newPropertyListeners = new HashMap<>();
+//		List<PropertyListener> isPausedListeners = new ArrayList<>();
+//		List<PropertyListener> refreshListeners = new ArrayList<>();
+//		List<PropertyListener> die1Listeners = new ArrayList<>();
+//		List<PropertyListener> die2Listeners = new ArrayList<>();
+//		List<PropertyListener> die3Listeners = new ArrayList<>();
+//		List<PropertyListener> updateNetworkListeners = new ArrayList<>();
+//
+//		if (propertyListenersMap.containsKey("isPaused")) {
+//			isPausedListeners.addAll(propertyListenersMap.get("isPaused"));
+//		}
+//		newPropertyListeners.put("isPaused", isPausedListeners);
+//		if (propertyListenersMap.containsKey("refresh")) {
+//			refreshListeners.addAll(propertyListenersMap.get("refresh"));
+//		}
+//		newPropertyListeners.put("refresh", refreshListeners);
+//		
+//		if (propertyListenersMap.containsKey("die1")) {
+//			die1Listeners.addAll(propertyListenersMap.get("die1"));
+//		}
+//		newPropertyListeners.put("die1", die1Listeners);
+//		
+//		if (propertyListenersMap.containsKey("die2")) {
+//			die2Listeners.addAll(propertyListenersMap.get("die2"));
+//		}
+//		newPropertyListeners.put("die2", die2Listeners);
+//		
+//		if (propertyListenersMap.containsKey("die3")) {
+//			die3Listeners.addAll(propertyListenersMap.get("die3"));
+//		}
+//		newPropertyListeners.put("die3", die3Listeners);
+//		
+//		if (propertyListenersMap.containsKey("updateNetwork")) {
+//			updateNetworkListeners.addAll(propertyListenersMap.get("updateNetwork"));
+//		}
+//		newPropertyListeners.put("updateNetwork", updateNetworkListeners);
+//		
+//		propertyListenersMap = newPropertyListeners;
 		for (Token token : board.getTokens()) {
 			token.refreshPropertyListeners();
 		}

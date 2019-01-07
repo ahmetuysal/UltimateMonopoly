@@ -5,7 +5,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import domain.GameController;
 import domain.gamestate.GameState;
 
 public class Connection {

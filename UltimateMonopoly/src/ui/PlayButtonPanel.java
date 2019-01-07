@@ -8,9 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import domain.GameController;
-import ui.animation.GenericAnimator;
 import domain.util.PropertyEvent;
 import domain.util.PropertyListener;
+import ui.animation.GenericAnimator;
 
 
 
