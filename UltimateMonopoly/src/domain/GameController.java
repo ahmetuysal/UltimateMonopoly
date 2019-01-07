@@ -16,6 +16,7 @@ import domain.card.Card;
 import domain.card.CardFactory;
 import domain.card.OwnableCard;
 import domain.card.RollThreeCard;
+import domain.communication.network.CommunicationFacade;
 import domain.die.Cup;
 import domain.die.DieValue;
 import domain.gamestate.GameState;
@@ -77,6 +78,7 @@ public class GameController extends Observable {
 		cup = new Cup();
 		players = new ArrayList<>();
 		actionQueue = new LinkedList<>();
+		withNetwork = false;
 		initTokens();
 		initCards();
 		try {
@@ -238,8 +240,11 @@ public class GameController extends Observable {
 		}else if (playerSentToJailForDouble || !cup.isDouble() || cup.isTriple()) {
 			playerSentToJailForDouble = false;
 			consecutiveDoubles = 0;
-		//	this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-		//	setCurrentPlayer(currentPlayerIndex);
+			if(!withNetwork) {
+				this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+				setCurrentPlayer(currentPlayerIndex);
+			}
+			
 			actionQueue.clear();
 			publishPropertyEvent("isTurnFinished", false, true);
 			if(!currentPlayer.getLocalIp().equals(this.localIp)) {
@@ -367,8 +372,10 @@ public class GameController extends Observable {
 	}
 
 	public void playTurn() {
-		this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
-		setCurrentPlayer(currentPlayerIndex);
+		if(withNetwork) {
+			this.currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+			setCurrentPlayer(currentPlayerIndex);
+		}
 		rollDice();
 		handleJail();
 		
@@ -613,6 +620,9 @@ public class GameController extends Observable {
 
 	public void setWithNetwork(boolean withNetwork) {
 		this.withNetwork = withNetwork;
+		if(withNetwork) {
+			new CommunicationFacade();
+		}
 	}
 
 	public void setCurrentPlayer(Player currentPlayer) {
