@@ -441,7 +441,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Continue":
 			numOfPlayers = Integer.parseInt(numOfPlayerPossibleChoices.getSelectedItem());
-			if (networkButton.getText().equals("Play with Network")) {
+			if (networkButton.getText().equals("Online")) {
 				controller.setWithNetwork(true);
 			} else {
 				controller.setWithNetwork(false);
