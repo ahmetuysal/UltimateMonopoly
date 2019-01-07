@@ -62,6 +62,7 @@ public class GameController extends Observable {
 	private boolean playerSentToJailForDouble;
 	private boolean currentLocationBuyable;
 	private String localIp;
+	private boolean isFirstTurn;
 
 	private static GameController instance;
 		
@@ -80,6 +81,7 @@ public class GameController extends Observable {
 		players = new ArrayList<>();
 		actionQueue = new LinkedList<>();
 		withNetwork = false;
+		isFirstTurn = true;
 		initTokens();
 		initCards();
 		try {
@@ -181,9 +183,9 @@ public class GameController extends Observable {
 		refreshPropertyListeners();
 		assignOwnableSquaresToOwnersAfterLoadGame();
 		publishPropertyEvent("refresh", false, true);
-		if(gs.getPlayers()!=null && gs.getCurrentPlayerIndex() < gs.getPlayers().size())
+		if(gs.getPlayers()!=null && gs.getCurrentPlayerIndex() < gs.getPlayers().size() && !isFirstTurn)
 			try {
-				System.out.println("LAN CALIS");
+				
 				publishPropertyEvent("disablePlayButtons", true, gs.getPlayers().get(gs.getCurrentPlayerIndex()).getLocalIp().equals(InetAddress.getLocalHost().getHostAddress()));
 			} catch (UnknownHostException e) {
 				// TODO Auto-generated catch block
@@ -263,6 +265,7 @@ public class GameController extends Observable {
 			//}
 			
 			actionQueue.clear();
+			isFirstTurn = false;
 			publishPropertyEvent("isTurnFinished", false, true);
 			
 		}
