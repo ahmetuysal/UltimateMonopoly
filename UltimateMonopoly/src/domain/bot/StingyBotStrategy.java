@@ -9,6 +9,7 @@ public class StingyBotStrategy implements IBotStrategy {
 		if(action.contains("buy"))
 			System.out.println("cannot spend money");	
 		
+		
 	}
 
 }

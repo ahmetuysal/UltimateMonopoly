@@ -122,10 +122,11 @@ public class BotPlayer extends domain.Player implements PropertyListener {
 				else {
 					this.playTurn(e.getPropertyName());
 				}
-			} else if(e.getPropertyName().equals("buyable")) {
+			} else if(e.getPropertyName().contains("buy")) {
 				if((boolean) e.getNewValue()) {
 					System.out.println("gonna buy it");
 					moveStrategy.makeMove("buyable");
+					controller.passTurn();
 				}	
 			}
 			else {
