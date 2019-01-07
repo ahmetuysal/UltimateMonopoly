@@ -319,8 +319,9 @@ public class GameRoomPanel extends JPanel implements ActionListener, PropertyLis
 		for (Token token : controller.getBoard().getTokens()) {
 			UIToken uiToken = new UIToken(token, tokenSize);
 			UITokens.add(uiToken);
-			setComponentZOrder(uiToken, 0);
 			add(uiToken);
+			setComponentZOrder(uiToken, 0);
+			
 			GenericAnimator.getInstance(getParent()).addAnimatable(uiToken);
 			TokenLocationChanged(uiToken, token.getLocation(), token.getLocation(), 1);
 		}
