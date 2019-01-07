@@ -29,13 +29,13 @@ public class NetworkController {
 
 	public void setPlayerGameState(GameState newGameState) {
 
-		if(newGameState != null && newGameState.getCup()!=null) {
+		/*if(newGameState != null && newGameState.getCup()!=null) {
 			System.out.println("SADECE CUP! eskisi"+GameController.getInstance().getCup());
 			playerGameState.setCup(newGameState.getCup());
 			GameController.getInstance().setCup(playerGameState.getCup());
 			System.out.println("SADECE CUP! yenisi"+GameController.getInstance().getCup());
 			
-		}
+		}*/
 		if(newGameState != null && newGameState.getPlayers() !=null 
 				&& newGameState.getPlayers().size() != 0) {// && !newGameState.getLocalIp().equals(GameController.getInstance().getLocalIp())) {
 

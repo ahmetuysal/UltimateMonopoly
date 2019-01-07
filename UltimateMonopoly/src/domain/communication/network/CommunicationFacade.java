@@ -53,11 +53,11 @@ public class CommunicationFacade implements PropertyListener{
 	public void onPropertyEvent(PropertyEvent e) {
 	
 		if(e.getPropertyName().equals("updateNetwork")) {
-			NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
-			
+			//NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
+			System.out.println();
 			//NetworkController.getInstance().getPlayerGameState().setCup(new Cup());
 			//NetworkController.getInstance().getPlayerGameState().setDie3Value(DieValue.FIVE);
-	        connectionForSync.sendChangesToTheServer(NetworkController.getInstance().getPlayerGameState());
+	        connectionForSync.sendChangesToTheServer(GameController.getInstance().toGameState());
 		}
 		
 		
