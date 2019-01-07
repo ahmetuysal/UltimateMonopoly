@@ -447,6 +447,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 				controller.setWithNetwork(false);
 			}
 			registerUsers();
+			//controller.publishPropertyEvent("updateNetwork", false, true);
 			break;
 		case "registerUser":
 			registerUser(this.usernameInputTextField.getText(), possibleTokenChoices.getSelectedItem());
@@ -457,7 +458,7 @@ public class MenuPanel extends JPanel implements ActionListener, ItemListener {
 			break;
 		case "Start Game":
 			mainFrame.toGameRoomPanel();
-			controller.publishPropertyEvent("networkUpdate", false, true);
+			controller.publishPropertyEvent("updateNetwork", false, true);
 			break;
 		case "Network":
 			remove(numOfPlayerPossibleChoices);

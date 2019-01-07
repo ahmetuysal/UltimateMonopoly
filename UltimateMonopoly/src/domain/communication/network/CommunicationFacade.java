@@ -45,7 +45,8 @@ public class CommunicationFacade implements PropertyListener{
 	
 		if(e.getPropertyName().equals("updateNetwork")) {
 			//NetworkController.getInstance().setPlayerGameState(gameController.toGameState());
-			System.out.println();
+			System.out.println("haha");
+			System.out.println((boolean) e.getNewValue());
 			//NetworkController.getInstance().getPlayerGameState().setCup(new Cup());
 			//NetworkController.getInstance().getPlayerGameState().setDie3Value(DieValue.FIVE);
 	        connectionForSync.sendChangesToTheServer(GameController.getInstance().toGameState());
