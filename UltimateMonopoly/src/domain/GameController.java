@@ -414,7 +414,9 @@ public class GameController extends Observable {
 			if (cup.isDouble()) {
 				currentPlayer.getOutOfJail();
 			}
-			currentPlayer.decreaseJailTime();
+			else {
+				currentPlayer.decreaseJailTime();
+			}
 		}
 	}
 	
@@ -481,7 +483,6 @@ public class GameController extends Observable {
 			cup.rollDices();
 		}
 
-		System.out.println("Rolled dice in controller.");
 		DieValue[] newValues = cup.getFaceValues();
 		publishPropertyEvent("die1", die1Value, newValues[0]);
 		die1Value = newValues[0];
