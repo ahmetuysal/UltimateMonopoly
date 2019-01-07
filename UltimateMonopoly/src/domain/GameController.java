@@ -390,8 +390,6 @@ public class GameController extends Observable {
 			publishPropertyEvent("buyable",false,false);
 		}
 		
-		publishPropertyEvent("changeRoll",true,false);
-		publishPropertyEvent("pass",false,true);
 		
 		handleBuilding();
 		
@@ -401,6 +399,7 @@ public class GameController extends Observable {
 			return;
 		}
 	}
+	
 	public void handleBuilding() {
 		if(board.houseCheck(currentPlayer))
 			publishPropertyEvent("buyHouse", false, true);
